@@ -12,7 +12,8 @@ namespace DominosPizza.Models
         public double ProductWeight { get; set; }
         public double ProductPrice { get; set; }
         public string ProductDescription { get; set; }
-        public int ProductType { get; set; }
+        public int ProductType { get; set; } // 1-пицца
+        public string ImageLink { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
 
