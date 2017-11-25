@@ -13,6 +13,10 @@ namespace DominosPizza.Models
         private string CustomerPatronymic { get; set; }
         private DateTime CustomerBirthDate { get; set; }
         private Boolean CustomerSex { get; set; }
+        private string CustomerPhone{get;set;}
+        private string CustomerEmail { get; set; }
+
+
         private ICollection<Contacts> ContactsId { get; set; }
 
         //public void NewCustomer(string Name, string PatronymicName, string SurName, DateTime BirthDate)
