@@ -9,7 +9,9 @@ namespace DominosPizza.Models
     {
         public int UserRolesId { get; set; }
         // Названия ролей 1 - менеджер, 2 - повар, 3 - курьер (можно добавить в dbSetInitialize для тестов)
-        public int RoleId { get; set; }
         public string RoleName { get; set; }
+
+        public ICollection<Users> User { get; set; }
+
     }
 }

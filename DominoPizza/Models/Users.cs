@@ -7,22 +7,25 @@ namespace DominosPizza.Models
 {
     public class Users
     {
-        public int UsersId { get; set; }
-        private string userName;
-        public string UserName { get; set; }
-        private string userPatronymicName;
-        private string userSurName;
+        public int usersId { get; set; }
+        private string userFirstName;
+        public string userLastName { get; set; }
+        private string userPatronymicName { get; set; }
+        private Boolean userSex { get; set; }
         private DateTime userBirthDate;
-        private DateTime userCreateDate;
-        public int UserRoleId {get; set;}
 
-        public void NewUser(string Name, string PatronymicName, string SurName, DateTime BirthDate)
+        public int UserRoleId { get; set; }
+        public UserRoles UserRoles { get; set; }
+
+
+        public void NewUser(string Name, string PatronymicName, string LastName, DateTime BirthDate, Boolean uSex)
         {
-            userName = Name;
+            userFirstName = Name;
             userPatronymicName = PatronymicName;
-            userSurName = SurName;
+            userLastName= LastName;
             userBirthDate = BirthDate;
-            userCreateDate = DateTime.Now;
+            userSex = uSex;
+            
         }
 
 
