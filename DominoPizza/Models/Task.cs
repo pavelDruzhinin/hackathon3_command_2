@@ -22,6 +22,8 @@ namespace DominosPizza.Models
 
         public ICollection<User> Users { get; set; }
 
+        public ICollection<TaskRow> TaskRows { get; set; }
+
 
     }
 

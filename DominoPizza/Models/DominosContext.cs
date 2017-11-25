@@ -23,7 +23,7 @@ namespace DominosPizza.Models
         public DbSet<Product> Products{ get; set; }
         public DbSet<Customer> Customers{ get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        
+        public DbSet<TaskRow> TaskRows { get; set; }
     }
 
   /*  protected override void OnModelCreating(DbModelBuilder modelBuilder)
