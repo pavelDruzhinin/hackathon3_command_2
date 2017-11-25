@@ -1,0 +1,16 @@
+﻿@using DominosPizza.Models
+@model IQueryable<TaskComments>
+
+        @foreach (var tableRow in Model)
+        {
+            <div class="well">
+                <div class="comment-header"><span>@tableRow.UserName</span><span>@tableRow.GetCommentTime()</span></div>
+                <div class="comment-message">@tableRow.CommentText</div>
+                <br />
+            </div>
+        }
+
+<br />
+
+
+

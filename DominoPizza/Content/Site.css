@@ -1,0 +1,330 @@
+﻿body {
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+#topImage {
+    position: relative;
+
+}
+#topImage img{
+    width: 100%;
+}
+#logo {
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -5%;
+    margin-left: -5%;
+    width: 10%;
+}
+#customnavbar {
+    width: 100%;
+
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+}
+ 
+    
+.menuitems {
+
+    display:block;
+}
+    .menuitems a {
+        display: block;
+        color: #e41843;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-decoration: none;
+        line-height: 55px;
+        padding: 3px 20px 0 20px;
+        white-space: nowrap;
+        margin-left: -5px;
+    }
+.menuitems a:hover {
+            text-decoration: none;
+            background-color: #e41843;
+            color: #ffffff;
+    }
+
+#cartindicator {
+        background-color: #7ab920;
+        display: block;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-decoration: none;
+        line-height: 55px;
+        padding: 3px 20px 0 20px;
+        white-space: nowrap;
+        margin-left: -5px;
+    }
+#myCart {
+    background-color: #83ca1e; 
+    color: #ffffff;
+}
+#myCart a {
+    color: #ffffff;
+}
+
+
+.hrcustom {
+    background-color: #e41843;
+    height: 2px;
+    margin-top: -2px;
+    width: 100%;
+}
+.pizzasize-passive {
+    background-color: #ffffff;
+    color: #ed7673;
+    width: 32%;
+    text-align: center;
+}
+.pizzasize-active {
+    background-color: #e41843;
+    color: #ffffff;
+    width: 35%;
+    text-align: center;
+}
+.pizzasize {
+    display: flex;
+    justify-content: space-between;
+    line-height: 28px;
+    margin: 0 0 0 10px;
+    border: 1px solid #e41843;
+    height: 30px;
+    width: 210px;
+}
+.pizzacontent {
+    color: #e41843;
+    margin: 10px 10px;
+    text-align: justify;
+}
+.pizzaname-text {
+    color: #fff;
+    font-weight: bold;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.pizzaname {
+    height: 40px;
+    margin-top: 20px;
+    margin-left: -20px;
+    width: 270px;
+    background-color: #e41843;
+    text-align: left;
+    padding-left: 30px;
+}
+.content {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: none;
+    display: flex;
+
+    flex-wrap: wrap;
+}
+.kitchen {
+    justify-content: flex-start;
+}
+.kitchen .well{
+    justify-content: flex-start;
+    margin-right: 5px;
+}
+.pizzacard {
+
+    width: 270px; 
+    background-color: #fff; 
+    border-radius: 0;
+}
+.doughselect {
+    margin: 10px 10px;
+}
+.doughselect-active {
+    color: #e41843;
+    font-weight: bold;
+}
+.doughselect-passive {
+    color: #ed7673;
+}
+.pizzaimg{
+    width: 215px; 
+    margin: 15px 0 0 15px;
+}
+.pizzaorder {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 10px;
+    line-height: 28px;
+    height: 30px;
+    width: 210px;
+}
+.successFadeOut {
+    display: flex;
+    justify-content: space-between;
+    line-height: 28px;
+    margin: 0 0 0 0;
+    background-color: #7ab920;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 210px;
+}
+.pizzaorder-price {
+    color: #e41843;
+    font-size: 1.8em;
+}
+.pizzaorder-tocart {
+    background-color: #83ca1e;
+    color: #fff;
+    padding: 0 20px;
+}
+.pizzaorder-tocart:hover {
+    cursor: pointer;
+    background-color: #7ab920;
+    color: #fff;
+    padding: 0 20px;
+}
+
+.plus, .mins, .dels {
+    font-size: .7em;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.plus, .mins,
+.plus:focus, .mins:focus {
+    background-color: #7ab920;
+    border-color: #7ab920;
+}
+    .plus:hover, .mins:hover {
+        background-color: #83ca1e;
+        border-color: #83ca1e;
+    }
+
+.managerOrderList tr {
+    border: 0;
+}
+.managerOrderList tr td{
+    border: 1px solid #cecece;
+    padding: 6px 12px;
+}
+.thead{
+    border: 1px solid #cecece;
+    padding: 6px 12px;
+    background-color: #efefef;
+}
+.tdblank {
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    background-color: #ffffff;
+}
+.collapse-task-content {
+    width: 270px; 
+    margin: -20px 0 -20px -20px;
+    padding: 10px 0 10px 0;
+    height: 90px;
+    background-color: white;
+    border: 1px solid #cecece;
+}
+.collapse-task-content p{
+    text-align: left;
+    margin-top: 5px;
+    padding-left: 20px;
+
+}
+.well {
+    box-shadow: unset;
+}
+
+.comments-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -150px;
+    display: none;
+    background-color: rgba(147, 147, 147, 0.70);
+    width: 300px;
+    height: 500px;
+
+}
+.commentsTop {
+    padding-right: 10px;
+    margin: 10px;
+    margin-right: 0px;
+    width: 30px;
+    height: 350px;
+    border-bottom: 1px solid white;
+}
+.comments-window {
+    padding-right: 10px;
+    margin: 10px;
+    margin-right: 0px;
+    width: 290px;
+    height: 350px;
+    overflow: auto;
+}
+.comment-header{
+    display: flex;
+    justify-content: space-between;
+}
+.comment-header span{
+    color: white;
+    padding: 3px 10px;
+    background-color: #7ab920;
+    font-size: .6em;
+}
+.comment-message {
+    line-height: .9em;
+    font-size: .8em;
+    padding: 10px 0px;
+}
+
+#NewCommentInput {
+    height: 100px;
+    min-height: 100px;
+    width: 280px;
+    max-width: 280px;
+    min-width: 280px;
+    margin: 10px;
+    border: none;
+    padding: 10px;
+    font-size: .9em;
+}
+.commentUser{
+    display: flex;
+    justify-content:space-between;
+    margin: 5px 15px 10px 15px;
+    color: white;
+}
+#closeComments{
+    font-size: .7em;
+    padding: 5px 8px;
+    margin-right: -5px;
+    margin-bottom: 6px;
+}

@@ -1,0 +1,161 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutStaffOnly.cshtml";
+    ViewBag.Title = "Index";
+}
+<!--KITCHEN-->
+<div class="row">
+    <div class="col-sm-10">
+        <h2>Повар</h2>
+    </div> 
+    <div class="col-sm-2">
+        <br />
+        <label for="OptionName">Имя пользователя</label><br />
+        <select class="form-control" name="userId">
+        @foreach (var user in ViewBag.users)
+        {
+            <option value="@user.UsersId">@user.UserName</option>
+        }
+        </select>
+     </div>
+</div>
+<br />
+
+
+<div class="well content kitchen">
+
+    @foreach (var task in ViewBag.tasks)
+    {
+        if (task.TaskStatusId == 1) { 
+        <div class="well pizzacard" >
+            
+                <p>Номер заказа: @task.TasksId</p>
+                <p><strong> @task.TaskDeliveryDateTime</strong></p>
+            
+            <div >
+                <br />
+                @{var list = task.taskList;
+                }
+
+                <table style="width: 100%;">
+                    <tbody class="managerOrderList">
+                        <tr class="thead"><td style="width: 100%;"> Наименование</td><td>шт.</td></tr>
+                        @foreach (KeyValuePair<int, int> keyValue in list)
+                        {
+                            var temp = ViewBag.prod;
+                            <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <form method="post" enctype="multipart/form-data" action="/Kitchen/KitchenReadyTask">
+                    <input type="hidden" name="TasksId" value="@task.TasksId" />
+                    <input type="hidden" name="TaskStatusId" value="2" />
+                    <input type="hidden" name="userId" value="2" />
+                    <div style="display: flex; justify-content: space-between;">
+                    <input class="btn btn-danger" type="submit" value="приготовлен" /><button id="commentsShow-@task.TasksId" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></div>
+                </form>
+            </div>
+            </div>
+        }
+     }
+</div>
+
+
+<!--место для загрузки Partial View c комментариями-->
+<div id="comments-modal" class="comments-modal">
+    
+    <div class="comments-window">
+ 
+        <div id="comment-PartialView"> </div>
+
+    </div>
+    <div class="addNewComment">
+        
+        <textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>
+        <div class="commentUser">
+            <div><button id="comments-Add-" class="btn btn-default" title="отправить"><span class="glyphicon glyphicon-user"></span> ПётрПовар</button></div>
+            <button id="closeComments" class="btn btn-danger" onclick="hideComments()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<!---->
+
+
+
+<!--AJAX загрузка комментов-->
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    var taskId = 0;
+    $("button").click(function (event) {
+
+        if (this.id.slice(0, 13) == "commentsShow-") {
+            event.preventDefault();
+            $("#comments-modal").css({
+                "display": "block", "overflow": "hidden", "flex-direction":"column", "display": "flex","justify-content": "center", "vertical-align": "top"});
+            taskId = parseInt(this.id.slice(13));
+            $.ajax({
+                url: "/Manager/TaskCommentsShow",
+                dataType: "html",
+                data: {
+                    taskId: taskId,
+                },
+                type: "POST",
+                success: function (data) {
+                    $("#comment-PartialView").html(data);
+                }
+            });
+        }
+
+
+        if (this.id.slice(0, 13) == "comments-Add-") {
+            event.preventDefault();
+            $("#comments-modal").css({
+                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            });
+//            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
+            var userID = 2; //!!! пока так, но позже пользователя над будет определять по логину
+            var newCommentText = $("#NewCommentInput").val();
+            console.log(taskId);
+            console.log(userID);
+            console.log(newCommentText);
+            $.ajax({
+                url: "/Manager/AddNewComment",
+                dataType: "html",
+                data: {
+                    TasksId: taskId,
+                    userId: userID,
+                    CommentText: newCommentText
+                },
+                type: "POST",
+                success: function (data) {
+                    $("#comment-PartialView").html(data);
+                    console.log(taskId);
+                }
+            });
+        }
+    });
+
+
+
+</script>
+
+   <!--$("#par1").hover(function(){ }, 
+                    function(){     }
+      
+      
+                    );-->
+
+
+<!--int TasksId, int userId, string CommentText-->
+
+
+<!--закрытие окна с комментариями-->
+<script>
+    function hideComments() {
+        $("#comments-modal").css({ "display": "none" });
+    }
+</script>
+<!---->

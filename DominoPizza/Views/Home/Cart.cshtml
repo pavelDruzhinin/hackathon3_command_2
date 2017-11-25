@@ -1,0 +1,151 @@
+﻿@using DominosPizza.Models
+@model List<OrderTable>
+@{
+    ViewBag.Title = "Cart";
+    
+}
+
+<h2>Ваш заказ </h2>
+<div class="row">
+    <div class="col-sm-6">
+        <br>
+
+        <div class="well content kitchen">
+
+                        @{var list = ViewBag.cartList;}
+
+                        <br />
+ <!--                   <form method="post" enctype="multipart/form-data" action="/Delivery/DeliveryReadyTask">
+                        <input class="btn btn-danger" type="submit" value="пересчитать" />    
+                        </form>-->
+            <div>@{ Html.RenderPartial("_OrderTablePartial", Model); }</div>
+                    </div>
+
+<!--ПЛЮС и МИНУС----->
+<script type="text/javascript">
+            function plus(id) {
+                var uid = parseInt(id.slice(5));
+                var tdam = document.getElementById("tdamount-" + uid);
+                var am = document.getElementById("amount-" + uid);
+                var preSum = document.getElementById("preSum-" + uid);
+                var preSumValue = document.getElementById("preSumValue-" + uid);
+                var price = document.getElementById("price-" + uid);
+                var itogValue = document.getElementById("itogValue");
+                var itogVisible = document.getElementById("itogVisible");
+                var itog = parseInt(itogValue.value, 10); 
+                am.value = parseInt(am.value, 10) + 1;
+                tdam.innerHTML = am.value;
+                var preSumNum = parseInt(preSumValue.value, 10) + parseInt(price.value, 10);
+                preSum.innerHTML = preSumNum;
+                preSumValue.value = preSumNum;
+                itog = itog + parseInt(price.value, 10);
+                itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
+                itogValue.value = itog;
+            }
+            function minus(id) {
+                var uid = parseInt(id.slice(5));
+                var tdam = document.getElementById("tdamount-" + uid);
+                var am = document.getElementById("amount-" + uid);
+                var preSum = document.getElementById("preSum-" + uid);
+                var preSumValue = document.getElementById("preSumValue-" + uid);
+                var price = document.getElementById("price-" + uid);
+                var itogValue = document.getElementById("itogValue");
+                var itogVisible = document.getElementById("itogVisible");
+                var j = parseInt(am.value, 10);
+                if (j > 0) {
+                    var itog = parseInt(itogValue.value, 10); 
+                    am.value = j - 1;
+                    tdam.innerHTML = am.value;
+                    var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
+                    preSum.innerHTML = preSumNum;
+                    preSumValue.value = preSumNum;
+                    itog = itog - parseInt(price.value, 10);
+                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+                    itogValue.value = itog;
+                }
+            }
+        </script>
+        <!--AJAX изменение кол-ва-->
+        <script src="/Scripts/jquery-1.10.2.js"></script>
+        <script type="text/javascript">
+            var c = 0;
+            $("button").click(function (event) {
+
+                if ($(this).hasClass("plus") || $(this).hasClass("mins") || $(this).hasClass("dels")) {
+                    event.preventDefault();
+                    var pid = parseInt(this.id.slice(5), 10);
+                    var temp = "#val-" + pid;
+                    var temp2 = "#amount-" + pid;
+                    var priceEl = "#preSumValue-" + pid;
+                    var price = parseInt($(priceEl).val());
+                    var id = parseInt($(temp).val());
+                    var qua = parseInt($(temp2).val());
+                    if ($(this).hasClass("dels"))
+                    {
+                        qua = 0;
+                        var temp3 = "#row-" + pid;
+                        var i = parseInt($(temp3).children(":first").text(), 10);
+                        $(temp3).nextAll().each(function (index) {
+                            $(this).children(":first").text(index + i);
+                        });
+                        $(temp3).remove();
+                        $("#itogVisible").html(parseInt(($("#itogValue").val()) - price) + "&nbsp;<span>&#8381;</span>");
+                        $("#itogValue").val(parseInt($("#itogValue").val()) - price);
+                    }
+                    $.ajax({
+                        url: "/Home/CartChangeQuantity",
+                        dataType: "json",
+                        data: {
+                            productId: id,
+                            amount: qua
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            $("#cartindicator").html(data.Data);
+                        }
+
+                    });
+                }
+            });
+        </script>
+
+
+
+                    <p></p><br />
+                    <div class="form-group-row">
+
+                    </div>
+
+
+                    <br />
+                    <br />
+
+
+                        </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <form method="post" enctype="multipart/form-data" action="/Home/NewTaskFromCart">
+
+                <label for="TaskDeliveryCustomerAddress">Адрес доставки</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="адрес клиента из интернет магазина" /><br />
+
+                <label for="TaskDeliveryCustomerPhone">Телефон</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="+12internet90" /><br />
+
+                <label for="TaskDeliveryCustomerName">ФИО</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="тестовое имя из интернета" /><br />
+
+                <label for="TaskPaymentMethod">Способ платежа</label><br />
+                <input class="form-control" type="text" id="TaskPaymentMethod" name="TaskPaymentMethod" value="Банковская карта" /><br />
+
+                <br />
+                <input class="btn btn-danger" type="submit" value="отправить заказ" />
+            </form>
+        </div>
+    </div>
+</div>
+<br /><br />
+<div class="hrcustom"> </div>
+
+
+

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
+    <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{ var temp = Convert.ToString(ViewBag.cartindicator);}
+</head>
+<body>
+    <div id="topImage">
+        <div><img src="../img/top.png" /></div>
+        <div id="logo"><a href="/Manager/Index"><img  src="../img/logo.png" /></a></div>
+    </div>
+    <div class="container">
+        <div id="customnavbar">
+                <div class="menuitems">@Html.ActionLink("ВЫБРАТЬ ПИЦЦУ", "Index", "Home")</div>
+                <div class="menuitems">@Html.ActionLink("ПРАВИЛА", "Index", "Home")</div>
+                <div class="menuitems">@Html.ActionLink("КАК ЗАКАЗАТЬ", "Index", "Home")</div>
+                <div class="menuitems">@Html.ActionLink("КОНТАКТНАЯ ИНФОРМАЦИЯ", "Index", "Home")</div>
+                <div class="menuitems">@Html.ActionLink("ВАКАНСИИ", "Index", "Home")</div>
+                <div class="menuitems" id="myCart">@Html.ActionLink("КОРЗИНА", "Cart", "Home")</div><div class="menuitems" id="cartindicator">@temp</div>
+
+        </div>
+        <div class="hrcustom"> </div>
+    </div>
+
+<!--
+    <div class="navbar   navbar-dominospizza">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="img-circle" src="https://apke.ru/images/icon/14278158171750_icon.png" width="45" height="45" />
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>Html.ActionLink("Выбрать пиццу", "Index", "Home")</li>
+                    <li>Html.ActionLink("Правила", "Rules", "Home")</li>
+                    <li>Html.ActionLink("Как заказать", "HowToOrder", "Home")</li>
+                    <li>Html.ActionLink("Контактная информация", "Contact", "Home")</li>
+                    <li>Html.ActionLink("Вакансии", "Vacations", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>-->
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – Dominos Pizza - доставка пиццы 24 часа.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,320 @@
+﻿@model DominosPizza.Models.Tasks
+
+@{
+    Layout = "~/Views/Shared/_LayoutStaffOnly.cshtml";
+    ViewBag.Title = "Index";
+}
+<!--ПРИЕМ ЗАКАЗОВ-->
+<h2>Менеджер </h2>
+<div class="row">
+    <div class="col-sm-6">
+        <br>
+        <p></p>
+        <p style="font-size: .9rem; color: gray; line-height: 110%">
+            Инструкция для тестовых испытаний: <br />выбрать пиццу, изменить количество при помощи кнопок и добавить к заказу.<br />
+            Поле ввода пока не работает правильно.<br /> Изменение и удаление позиций из списка ещё в разработке.<br />
+            Имя сотрудника на каждой из страниц пока тоже ни на что не влияет.<br />
+            Ниже на странице видны все заказы по статусам.<br />
+            На странице "КУХНЯ" видны только принятые заказы. У "ДОСТАВКИ" только приготовленные.
+        </p><br />
+        <div class="form-group-row">
+            <div style="display:flex; justify-content: flex-start;">
+                <select id="productId" class="form-control" name="OptionName">
+                    @foreach (var product in ViewBag.products)
+                    {
+                        <option value="@product.ProductsId">@product.ProductName</option>
+                    }
+                </select>
+
+                <div style=" display:flex; justify-content: flex-start;width: 250px;">
+                    <button style=" display:block; margin:0 3px;" class="btn btn-success" id="mins" onclick="minus(this.id)">-</button>
+                    <button style=" display:block;" class="btn btn-success" id="plus" onclick="plus(this.id)">+</button>
+
+                    <div class="col-xs-3" style=" display:block;">
+                        <input style="min-width: 45px; margin-left: -10px; display:block;" class="form-control " id="amount" type="text" value="1" />
+                    </div>
+
+
+                </div>
+            </div><br />
+        </div>
+
+
+        <input type="hidden" id="xamount" name="x" value="1" />
+        <button id="addtocartbtn" class="btn btn-success">добавить к заказу</button>
+        <br />
+        <br />
+<!--таблица, куда jquery добавляет PartialView с сервера -->
+        <div id="tableContainer"></div>
+<!----->
+
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <form method="post" enctype="multipart/form-data" action="/Manager/NewTask">
+
+                <label for="OptionName">Сотрудник, принявший заказ</label><br />
+                <select class="form-control btn-default" style="background-color: #dedede;" name="userId">
+                    @foreach (var user in ViewBag.users)
+                    {
+                        <option value="@user.UsersId">@user.UserName</option>
+                    }
+
+                </select><br />
+                <hr />
+                <label for="TaskDeliveryCustomerAddress">Адрес клиента</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="тестовый адрес" /><br />
+
+                <label for="TaskDeliveryCustomerPhone">Телефон</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="+1234567890" /><br />
+
+                <label for="TaskDeliveryCustomerName">ФИО</label><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="тестовое ФИО" /><br />
+                
+                <label for="TaskPaymentMethod">Способ оплаты</label><br />
+                <input class="form-control" type="text" id="TaskPaymentMethod" name="TaskPaymentMethod" value="наличными" /><br />
+
+                <br />
+                <input class="btn btn-danger" type="submit" value="создать задание" />
+            </form>
+        </div>
+    </div>
+</div>
+<br /><br />
+<div class="hrcustom"> </div>
+<div class="row">
+    <div class="col-sm-3">
+        <h3>из интернета</h3>
+        <br />
+        <div class="well content kitchen">
+
+            @foreach (var task in ViewBag.tasks)
+            {
+                if (task.TaskStatusId == 0)
+                {
+                    <div class="well pizzacard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TasksId</p>
+                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TasksId" class="collapse">
+                            <br /><br />
+                            <p>@task.TaskDeliveryCustomerAddress</p>
+                            <p>@task.TaskDeliveryCustomerPhone</p>
+                            <p>@task.TaskDeliveryCustomerName</p>
+                            <p>@task.TaskDeliveryDateTime </p>
+                            <p>@task.TaskPaymentMethod</p>
+
+                            @{var list = task.taskList;}
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
+                                    @foreach (KeyValuePair<int, int> keyValue in list)
+                                    {
+                                        var temp = ViewBag.prod;
+                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            <form method="post" enctype="multipart/form-data" action="/Manager/NewTaskFromWeb">
+                                <input type="hidden" name="TasksId" value="@task.TasksId" />
+                                <input type="hidden" name="TaskStatusId" value="1" />
+                                <input type="hidden" name="userId" value="1" />
+                                <input class="btn btn-danger" type="submit" value="в работу" />
+                            </form>
+                        </div>
+                    </div>
+                                }
+                            }
+
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <h3>приняты</h3>
+        <br />
+        <div class="well content kitchen">
+
+            @foreach (var task in ViewBag.tasks)
+            {
+                if (task.TaskStatusId == 1)
+                {
+                    <div class="well pizzacard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TasksId</p>
+                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TasksId" class="collapse">
+                            <br /><br />
+                            <p>@task.TaskDeliveryCustomerAddress</p>
+                            <p>@task.TaskDeliveryCustomerPhone</p>
+                            <p>@task.TaskDeliveryCustomerName</p>
+                            <p>@task.TaskDeliveryDateTime </p>
+                            <p>@task.TaskPaymentMethod</p>
+
+                            @{var list = task.taskList;}
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
+                                    @foreach (KeyValuePair<int, int> keyValue in list)
+                                    {
+                                        var temp = ViewBag.prod;
+                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            <input type="hidden" name="TasksId" value="@task.TasksId" />
+                        </div>
+                    </div>
+                                    }
+                                }
+                       
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <h3>приготовлены</h3>
+        <br />
+        <div class="well content kitchen">
+
+            @foreach (var task in ViewBag.tasks)
+            {
+                if (task.TaskStatusId == 2)
+                {
+                    <div class="well pizzacard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TasksId</p>
+                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TasksId" class="collapse">
+                            <br /><br />
+                            @{var list = task.taskList;
+                            }
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
+                                    @foreach (KeyValuePair<int, int> keyValue in list)
+                                    {
+                                        var temp = ViewBag.prod;
+                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            <input type="hidden" name="TasksId" value="@task.TasksId" />
+                        </div>
+                        </div>
+                                }
+                            }
+
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <h3>доставлены</h3>
+        <br />
+
+        <div class="well content kitchen">
+
+            @foreach (var task in ViewBag.tasks)
+            {
+                if (task.TaskStatusId == 3)
+                {
+                    <div class="well pizzacard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TasksId</p>
+                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TasksId" class="collapse">
+                            <br /><br />
+                            <p>@task.TaskDeliveryCustomerAddress</p>
+                            <p>@task.TaskDeliveryCustomerPhone</p>
+                            <p>@task.TaskDeliveryCustomerName</p>
+                            <p>@task.TaskDeliveryDateTime </p>
+                            <p>@task.TaskPaymentMethod</p>
+
+                            @{var list = task.taskList;}
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
+                                    @foreach (KeyValuePair<int, int> keyValue in list)
+                                    {
+                                        var temp = ViewBag.prod;
+                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            <input type="hidden" name="TasksId" value="@task.TasksId" />
+
+                        </div>
+                        </div>
+                                }
+                            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--AJAX добавление в корзину-->
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    var c = 0;
+    $("button").click(function (event) {
+
+        if (this.id == "addtocartbtn") {
+            event.preventDefault();
+
+            $.ajax({
+                url: "/Manager/AddtoCart",
+                dataType: "html",
+                data: {
+                    productId: parseInt($("#productId").val()),
+                    amount: parseInt($("#xamount").val())
+                },
+                type: "POST",
+                success: function (data) {
+                        $("#tableContainer").html(data);
+                }
+            });
+        }
+    });
+</script>
+<!--ПЛЮС и МИНУС----->
+<script type="text/javascript">
+    function plus(id) {
+        var pb = document.getElementById("plus");
+        var am = document.getElementById("amount");
+        var x = document.getElementById("xamount");
+        if (isNaN(parseInt(am.value, 10))) am.value = x.value;
+        x.value = parseInt(am.value, 10) + 1;
+        am.value = x.value;
+    }
+
+    function minus(id) {
+        var mb = document.getElementById("mins");
+        var am = document.getElementById("amount");
+        var x = document.getElementById("xamount");
+        if (isNaN(parseInt(am.value, 10))) am.value = x.value;
+        var j = parseInt(am.value, 10);
+        if (j > 0) {
+            x.value = j - 1;
+            am.value = x.value;
+        }
+    }
+</script>
+
+
+

@@ -1,0 +1,48 @@
+﻿@using DominosPizza.Models
+@model List<OrderTable>
+<table style="width:500px; max-width:500px;">
+    <thead></thead>
+    <tbody class="managerOrderList">
+        <tr class="thead">
+            <td>№</td>
+            <td>арт.</td>
+            <td style="width: 100%">название</td>
+            <td>цена</td>
+            <td>шт.</td>
+            <td>итог</td>
+            <td colspan="3">изменить</td>
+        </tr>
+        @{ int itog = 0;}
+        @foreach (var tableRow in Model)
+        {
+            itog += tableRow.PreSum();
+            <tr id="row-@tableRow.ProductId">
+                <td>@tableRow.OrderTableId</td>
+                <td>@tableRow.ProductId</td>
+                <td style="font-weight: 700;">@tableRow.ProductName</td>
+                <td>@tableRow.ProductPrice</td>
+                <td id="tdamount-@tableRow.ProductId" style="font-weight: 700;">@tableRow.ProductQuantity</td>
+                <td id="preSum-@tableRow.ProductId">@tableRow.PreSum()</td>
+                <!---->
+                <td style="padding: 2px;  border-right: 0;"><button style=" display:block; margin: 0;" class="btn btn-success mins" id="mins-@tableRow.ProductId" onclick="minus(this.id)">&#x2796</button>
+                </td>
+                <td style="padding: 2px;  border-right: 0; border-left: 0;"><button style=" display:block;  margin: 0;" class="btn btn-success plus" id="plus-@tableRow.ProductId" onclick="plus(this.id)">&#x2795</button>
+                    <input type="hidden" id="val-@tableRow.ProductId" name="productId" value="@tableRow.ProductId" />
+                    <input type="hidden" id="amount-@tableRow.ProductId" name="amount" value="@tableRow.ProductQuantity" />
+                    <input type="hidden" id="price-@tableRow.ProductId" name="price" value="@tableRow.ProductPrice" />
+                    <input type="hidden" id="preSumValue-@tableRow.ProductId" name="price" value="@tableRow.PreSum()" />
+                </td>
+                <td style="padding: 2px;    border-left: 0;">
+                    <button style=" display:block; margin:0;" class="btn btn-danger dels" id="dels-@tableRow.ProductId" >&#x274C</button>
+                </td>
+                <!---->
+            </tr>
+
+        }
+
+    </tbody>
+</table><br />
+<p id="itogVisible" style="font-size: 2em; font-weight: 800; text-align: left;">@itog <span>&#8381;</span></p>
+<input type="hidden" id="itogValue" name="price" value="@itog" />
+
+

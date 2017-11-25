@@ -1,0 +1,58 @@
+﻿@model DominosPizza.Models.Tasks
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tasks</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDeliveryCustomerAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDeliveryCustomerAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDeliveryCustomerPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDeliveryCustomerPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDeliveryCustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDeliveryCustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDeliveryDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDeliveryDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskPaymentMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskPaymentMethod)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TasksId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
