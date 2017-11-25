@@ -13,7 +13,7 @@ namespace DominosPizza.Controllers
     public class ManagerController : Controller
     {
         private DominosContext db = new DominosContext();
-        Tasks task = new Tasks();
+        /*Tasks task = new Tasks();
         // GET: Manager
         public ActionResult Index()
         {
@@ -170,21 +170,22 @@ namespace DominosPizza.Controllers
         }
 
 
-
+        */
 
         // GET: Manager/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tasks tasks = db.TasksDbSet.Find(id);
-            if (tasks == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tasks);
+            /*  if (id == null)
+              {
+                  return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+              }
+              Tasks tasks = db.TasksDbSet.Find(id);
+              if (tasks == null)
+              {
+                  return HttpNotFound();
+              }
+              return View(tasks);*/
+            return View();
         }
 
         // GET: Manager/Create
@@ -198,8 +199,8 @@ namespace DominosPizza.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TasksId,TaskDeliveryCustomerAddress,TaskDeliveryCustomerPhone,TaskDeliveryCustomerName,TaskDeliveryDateTime,TaskPaymentMethod")] Tasks tasks)
-        {
+        //public ActionResult Create([Bind(Include = "TasksId,TaskDeliveryCustomerAddress,TaskDeliveryCustomerPhone,TaskDeliveryCustomerName,TaskDeliveryDateTime,TaskPaymentMethod")] Tasks tasks)
+        /*{
             if (ModelState.IsValid)
             {
                 db.TasksDbSet.Add(tasks);
@@ -208,11 +209,12 @@ namespace DominosPizza.Controllers
             }
 
             return View(tasks);
-        }
+            return View();
+        }*/
 
         // GET: Manager/Edit/5
         public ActionResult Edit(int? id)
-        {
+        {/*
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -222,7 +224,8 @@ namespace DominosPizza.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tasks);
+            return View(tasks);*/
+            return View();
         }
 
         // POST: Manager/Edit/5
@@ -230,7 +233,7 @@ namespace DominosPizza.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TasksId,TaskDeliveryCustomerAddress,TaskDeliveryCustomerPhone,TaskDeliveryCustomerName,TaskDeliveryDateTime,TaskPaymentMethod")] Tasks tasks)
+     /*   public ActionResult Edit([Bind(Include = "TasksId,TaskDeliveryCustomerAddress,TaskDeliveryCustomerPhone,TaskDeliveryCustomerName,TaskDeliveryDateTime,TaskPaymentMethod")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -239,11 +242,11 @@ namespace DominosPizza.Controllers
                 return RedirectToAction("Index");
             }
             return View(tasks);
-        }
+        }*/
 
         // GET: Manager/Delete/5
         public ActionResult Delete(int? id)
-        {
+        {/*
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -253,17 +256,18 @@ namespace DominosPizza.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tasks);
+            return View(tasks);*/
+            return View();
         }
 
         // POST: Manager/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
+        {/*
             Tasks tasks = db.TasksDbSet.Find(id);
             db.TasksDbSet.Remove(tasks);
-            db.SaveChanges();
+            db.SaveChanges();*/
             return RedirectToAction("Index");
         }
 

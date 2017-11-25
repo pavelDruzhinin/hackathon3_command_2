@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace DominosPizza.Controllers
 {
     public class KitchenController : Controller
-    {
+    {/*
         DominosContext db = new DominosContext();
         // GET: Kitchen
         public ActionResult Index()
@@ -62,6 +62,6 @@ namespace DominosPizza.Controllers
                 }
             }
             return RedirectToRoute(new { controller = "Kitchen", action = "Index" });
-        }
+        }*/
     }
 }

@@ -10,8 +10,8 @@ namespace DominosPizza.Controllers
 {
     public class HomeController : Controller
     {
-        DominosContext db = new DominosContext();
-        public ActionResult Index()
+        //DominosContext db = new DominosContext();
+       /* public ActionResult Index()
         {
             Cart cart = new Cart();
             if ((Cart)Session["cart"] != null)
@@ -127,9 +127,15 @@ namespace DominosPizza.Controllers
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
+        */
+
+        public ActionResult Index()
+        {
+              return View();
+        }
 
 
-        public ActionResult Vacations()
+            public ActionResult Vacancies()
         {
             ViewBag.Message = "Your application description page.";
 

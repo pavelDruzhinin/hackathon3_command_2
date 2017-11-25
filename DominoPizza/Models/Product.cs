@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DominosPizza.Models
 {
-    public class Products
+    public class Product
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -13,6 +13,5 @@ namespace DominosPizza.Models
         public double ProductPrice { get; set; }
         public double ProductQuantity { get; set; }
 
-        public ICollection<Ingredients> IngredientsId { get; set; }
     }
 }

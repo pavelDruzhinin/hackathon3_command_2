@@ -4,19 +4,20 @@
     ViewBag.Title = "Dominos Пицца - доставка пиццы, суши, бургеров и любой еды в городе Петрозаводске круглосуточно";
 
 }
-@model IEnumerable<Products>
+
+<!--model IEnumerable<Product>
 <br /><p style="font-size: .9rem; color: gray; line-height: 110%; text-align:center;">
     Инструкция для тестовых испытаний: переключение между публичным и служебным интерфейсами осуществляется через белый квадратный логотип вверху страницы.
 </p><br />
 <div class="well content" style="justify-content: center;">
-    @foreach (var product in Model) { 
+    foreach (var product in Model) { 
 <div class="well pizzacard" style="margin: 2px;">
-    @*<img class="pizzaimg" src="@product.ImageLink"/>*@
+    <img class="pizzaimg" src="product.ImageLink"/>*
     <div class="pizzaname">
-        <span class="pizzaname-text">@product.ProductName</span>
+        <span class="pizzaname-text">product.ProductName</span>
     </div>
     <p class="pizzacontent">
-       @*@product.ProductDescription*@
+       product.ProductDescription
     </p>
     <div class="pizzasize">
         <div class="pizzasize-active" >35см</div>
@@ -25,18 +26,18 @@
     </div>
     <p class="doughselect"><span class="doughselect-active">Традиционное</span><span class="doughselect-passive"> / Тонкое</span></p>
     <div class="pizzaorder">
-        <div class="pizzaorder-price">@product.ProductPrice <span>&#8381;</span></div>
-        <div id="addtocartbtn-@product.ProductId" class="pizzaorder-tocart">в корзину</div>
+        <div class="pizzaorder-price">product.ProductPrice <span>&#8381;</span></div>
+        <div id="addtocartbtn-product.ProductId" class="pizzaorder-tocart">в корзину</div>
         
-        <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="@product.ProductId" />
-        <div id="successFadeOut-@product.ProductId" class="successFadeOut" style="display:none;">добавлено</div>
+        <input id="addtocartinp-product.ProductId" type="hidden" name="productId" value="product.ProductId" />
+        <div id="successFadeOut-product.ProductId" class="successFadeOut" style="display:none;">добавлено</div>
     </div>
 
 </div>
     }
 
 </div>
-
+-->
 
 <!--AJAX добавление в корзину-->
 <script src="/Scripts/jquery-1.10.2.js"></script>
