@@ -176,6 +176,13 @@ namespace DominosPizza.Controllers
             return View();
         }
 
+        public ActionResult Auth()
+        {
+            ViewBag.Message = "Вход";
+
+            return View();
+        }
+
         public ActionResult Offer()
         {
             ViewBag.Message = "Публичная оферта о продаже товаров дистанционным способом (действует с 25 ноября 2017 года)";
