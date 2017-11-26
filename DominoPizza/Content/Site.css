@@ -520,3 +520,11 @@ textarea {
     .carttop_price_value .value {
         font-family: VAG Rounded, tahoma, sans-serif;
     }
+.img-top-padding {
+    padding-top: 40px;
+}
+
+.dominos-pizza-text {
+    color: #FAAB49;
+    font-size: 26px;
+}
