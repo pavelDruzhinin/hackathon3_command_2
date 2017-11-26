@@ -32,6 +32,8 @@ namespace DominosPizza.Models
         public TaskMap()
         {
             HasRequired(x => x.Contact).WithMany(x => x.Tasks).HasForeignKey(x => x.ContactId);
+            HasMany(x => x.Users);
+
         }
     }
 }

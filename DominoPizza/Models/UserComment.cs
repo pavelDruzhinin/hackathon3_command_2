@@ -16,7 +16,7 @@ namespace DominosPizza.Models
         public User User { get; set; }
 
         public int TaskId { get; set; }
-        public User Task { get; set; }
+        public Task Task { get; set; }
 
     }
 

@@ -15,7 +15,6 @@ namespace DominosPizza
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new DominosDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
