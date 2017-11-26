@@ -1,6 +1,72 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Dominos Pizza - Как заказать";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<!--<h2>@ViewBag.Title.</h2>-->
 
+<div class="body-content">
+
+    <h1 class="h1-ua">Варианты заказа любимой пиццы</h1>
+    <ul class="list-style">
+        <li><h3 class="h3-ua">На сайте</h3>
+            Вы можете оплатить заказ банковской картой прямо на сайте и отслеживать статус заказа!
+        </li>
+        <li><h3 class="h3-ua">Заказ по телефону</h3>
+            Вы можете позвонить на номер оператора доставки: @ViewBag.Phone и оператор примет ваш заказ.
+        </li>
+        <li><h3 class="h3-ua">Заказать обратный звонок</h3>
+            Просто заполните форму "Заказать обратный звонок" и вам перезвонит первый
+            освободившейся оператор (входящий звонок бесплатный).
+        </li>
+    </ul>
+
+    <h1 class="h1-ua">Процесс обработки заказа Dominos Pizza</h1>
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/sectorPizza1.png" alt="" width="40" /></div>
+        <div class="col-md-10"><h3 class="h3-ua">Оператор принимает заказ</h3>
+            При заказе через интернет оператор должен подтвердить Ваш заказ в течение 5 минут,
+            позвонив по телефону, указанному в заказе. До момента подтверждения заказа оператором,
+            статус заказа – <span class="badge">Обрабатывается</span>
+        </div>
+    </div>
+
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/sectorPizza2.png" alt="" width="40" /></div>
+        <div class="col-md-10"><h3 class="h3-ua">Подтверждение стоимости и времени доставки</h3>
+            Оператор сообщает по телефону ориентировочное время доставки, а также итоговую стоимость заказа.
+            В зависимости от района города время доставки может варьироваться.
+            После завершения этого этапа заказ отправляется на кухню со статусом <span class="badge">Обработан</span>
+        </div>
+    </div>
+
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/sectorPizza3.png" alt="" width="40" /></div>
+        <div class="col-md-10"><h3 class="h3-ua">Приготовление заказа</h3>
+            Заказ отправляется на кухню и наши профессиональные повара берутся за работу.
+            Обычно приготовление заказа занимает от 10 до 30 минут, в зависимости от объёма заказа.
+            На этом этапе статус заказа – <span class="badge">На кухне</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 img-top-padding"><img src="~/img/sectorPizza4.png" alt="" width="40" /></div>
+        <div class="col-md-10"><h3 class="h3-ua">Упаковка и доставка</h3>
+            Ваш заказ помещается в коробки и в дальнейшем едет к Вам в термосумке,
+            сохраняя жар наших печек. Заказы доставляются курьерами на автомобилях.
+            В этот момент у заказа будет статус <span class="badge">Доставляется</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 img-top-padding"><img src="~/img/sectorPizza5.png" alt="" width="40" /></div>
+        <div class="col-md-10"><h3 class="h3-ua">Оплата и передача заказа</h3>
+            Наш курьер доставит Ваш заказ. После оплаты статус заказа изменится на <span class="badge">Выполнен</span>
+        </div>
+    </div>
+
+    <h1 class="h1-ua">Примечания</h1>
+    <p><strong>Обратите внимание!</strong> Минимальная сумма заказа - 300 рублей.</p>
+
+    <div class="container-u">
+        <h2 class="h3-u">C любовью, Ваша <span class="dominos-pizza-text">Dominos Pizza</span></h2>
+    </div>
+</div>

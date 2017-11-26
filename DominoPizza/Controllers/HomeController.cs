@@ -149,9 +149,9 @@ namespace DominosPizza.Controllers
 
         public ActionResult Delivery()
         {
-            ViewBag.Message = "Информация как заказать";
-
-            return View();
+            //ViewBag.Message = "Информация как заказать";
+            ViewBag.Phone = "(8142) xx-xx-xx";
+                return View();
         }
 
         public ActionResult Contacts()
