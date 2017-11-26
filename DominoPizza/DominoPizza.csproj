@@ -215,18 +215,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711261237332_Init.cs" />
+    <Compile Include="Migrations\201711261237332_Init.Designer.cs">
+      <DependentUpon>201711261237332_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DominosContext.cs" />
-    <Compile Include="Models\DominosDbInitializer.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711261237332_Init.resx">
+      <DependentUpon>201711261237332_Init.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
