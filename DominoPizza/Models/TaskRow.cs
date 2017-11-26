@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DominosPizza.Models;
-
+using System.Data.Entity.ModelConfiguration;
 
 namespace DominosPizza.Models
 {
@@ -18,5 +18,14 @@ namespace DominosPizza.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
+    }
+
+    public class TaskRowMap:EntityTypeConfiguration<TaskRow>
+    {
+        public TaskRowMap()
+        {
+            HasRequired(x => x.Task);
+            HasRequired(x => x.Product);
+        }
     }
 }

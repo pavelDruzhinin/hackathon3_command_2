@@ -9,14 +9,14 @@ namespace DominosPizza.Models
     public class User
     {
         public int UserId { get; set; }
-        private string UserFirstName { get; set; }
-        private string UserPatronymic { get; set; }
-        private string UserLastName { get; set; }
-        private Boolean UserSex { get; set; }
-        private DateTime UserBirthDate { get; set; }
+        public string UserFirstName { get; set; }
+        public string UserPatronymic { get; set; }
+        public string UserLastName { get; set; }
+        public Boolean UserSex { get; set; }
+        public DateTime UserBirthDate { get; set; }
 
-        public int RoleId { get; set; }
-        public UserRole Role { get; set; }
+        public int UserRoleId { get; set; }
+        public UserRole UserRole { get; set; }
 
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<Task> Tasks { get; set; }
@@ -42,7 +42,8 @@ namespace DominosPizza.Models
     {
         public UserMap()
         {
-            HasRequired(x => x.Role).WithMany(x => x.Users).HasForeignKey(x => x.RoleId);
+            HasRequired(x => x.UserRole).WithMany(x => x.Users).HasForeignKey(x => x.UserRoleId);
+            HasMany(x => x.Tasks);
         }
     }
 }

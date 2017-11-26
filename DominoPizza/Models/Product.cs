@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
@@ -19,5 +20,14 @@ namespace DominosPizza.Models
 
 
 
+    }
+
+    public class ProductMap:EntityTypeConfiguration<Product>
+
+    {
+        public ProductMap()
+        {
+            HasMany(x => x.TaskRows);
+        }
     }
 }
