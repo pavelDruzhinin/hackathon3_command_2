@@ -179,6 +179,13 @@ namespace DominosPizza.Controllers
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
+            
+            return View();
+        }
+
+        public ActionResult Registration()
+        {
+            ViewBag.Message = "Зарегистрироваться";
 
             return View();
         }

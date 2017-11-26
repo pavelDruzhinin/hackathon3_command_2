@@ -3,5 +3,24 @@
     ViewBag.Title = "Вход в систему";
 }
 
-<h2>Привет, Андрей!</h2>
-
+<h3>Для входа в систему заполните  поля</h3>
+@using (Html.BeginForm("Войти", "Customers", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Номер телефона</td>
+            <td><input type="text" name="CustomerPhone" /></td>
+        </tr>
+        
+        <tr>
+            <td>Пароль</td>
+            <td><input type="text" name="CustomerPassword" /></td>
+        </tr>
+     
+        <tr>
+            <td>@Html.ActionLink("Войти", "Index", "Home")</td>
+            <td>@Html.ActionLink("Зарегистрироваться", "Registration", "CustomersController")</td>
+        </tr>
+        
+    </table>
+}
