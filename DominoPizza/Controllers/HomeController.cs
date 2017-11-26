@@ -143,7 +143,7 @@ namespace DominosPizza.Controllers
 
         public ActionResult Delivery()
         {
-            ViewBag.Message = "Информация о доставке";
+            ViewBag.Message = "Информация как заказать";
 
             return View();
         }
