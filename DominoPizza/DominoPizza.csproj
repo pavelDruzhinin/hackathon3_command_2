@@ -141,7 +141,7 @@
     <Content Include="Views\Home\Delivery.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Rules.cshtml" />
-    <Content Include="Views\Home\Vacations.cshtml" />
+    <Content Include="Views\Home\Vacancies.cshtml" />
     <Content Include="Views\Kitchen\Index.cshtml" />
     <Content Include="Views\Manager\Create.cshtml" />
     <Content Include="Views\Manager\Delete.cshtml" />
