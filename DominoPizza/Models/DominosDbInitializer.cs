@@ -6,13 +6,14 @@ using System.Web;
 
 namespace DominosPizza.Models
 {
-    public class DominosDbInitializer : DropCreateDatabaseAlways<DominosContext>
+   
+        public class DominosDbInitializer : DropCreateDatabaseAlways<DominosContext>
     {
         protected override void Seed(DominosContext db)
         {
-            /* db.UserRolesDbSet.Add(new UserRoles { RoleId = 1, RoleName = "Менеджер" });
-             db.UserRolesDbSet.Add(new UserRoles { RoleId = 2, RoleName = "Повар" });
-             db.UserRolesDbSet.Add(new UserRoles { RoleId = 3, RoleName = "Курьер" });*/
+             //db.UserRolesDbSet.Add(new UserRoles { RoleId = 1, RoleName = "Менеджер" });
+             //db.UserRolesDbSet.Add(new UserRoles { RoleId = 2, RoleName = "Повар" });
+             //db.UserRolesDbSet.Add(new UserRoles { RoleId = 3, RoleName = "Курьер" });
             db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/1.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1});
             db.Products.Add(new Product { ProductName = "Двойная пепперони", ProductWeight = 610, ImageLink = "/img/2.jpg", ProductDescription = "Томатный соус, моцарелла и пикантная пепперони", ProductPrice = 672, ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Итальянская", ProductWeight = 610, ProductType = 1, ImageLink = "/img/3.jpg", ProductDescription = "Томатный соус, пикантная пепперони, шампиньоны, моцарелла, маслины и орегано", ProductPrice = 673 });
