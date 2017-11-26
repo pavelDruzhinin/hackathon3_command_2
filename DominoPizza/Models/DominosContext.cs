@@ -9,7 +9,7 @@ namespace DominosPizza.Models
 {
     public class DominosContext : DbContext
     {
-       /* public DominosContext() : base("DominosContext")
+        /*public DominosContext() : base("DominosContext")
         {
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DominosContext, DominosPizza.Migrations.Configuration>("DominosContext"));
@@ -26,7 +26,7 @@ namespace DominosPizza.Models
         public DbSet<TaskRow> TaskRows { get; set; }
     }
 
-  /*  protected override void OnModelCreating(DbModelBuilder modelBuilder)
+   /* protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
         modelBuilder.Configurations.Add(new TaskMap());
 
