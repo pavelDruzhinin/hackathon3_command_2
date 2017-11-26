@@ -8,8 +8,18 @@ using DominosPizza.Models;
 
 namespace DominosPizza.Controllers
 {
+    
     public class HomeController : Controller
     {
+        DominosContext db = new DominosContext();
+
+        public ActionResult Index()
+        {
+            IEnumerable<Product> temp = db.Products;
+            List<Product> products = temp.ToList(); 
+            return View(products);
+        }
+
         //DominosContext db = new DominosContext();
         /* public ActionResult Index()
          {
@@ -129,10 +139,6 @@ namespace DominosPizza.Controllers
          }
          */
 
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Stock()
         {

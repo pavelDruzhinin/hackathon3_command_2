@@ -7,7 +7,7 @@ namespace DominosPizza.Models
 {
     public class Customer
     {
-        private int CustomerId { get; set; }
+        public int CustomerId { get; set; }
         private string CustomerFirstName { get; set; }
         private string CustomerPatronymic { get; set; }
         private string CustomerLastName { get; set; }
