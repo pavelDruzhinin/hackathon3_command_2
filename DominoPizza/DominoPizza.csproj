@@ -108,7 +108,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\rouble-webfont.eot" />
+    <Content Include="fonts\rouble-webfont.ttf" />
+    <Content Include="fonts\rouble-webfont.woff" />
+    <Content Include="fonts\VAGRoundedLTCYR-Black.eot" />
+    <Content Include="fonts\VAGRoundedLTCYR-Black.ttf" />
+    <Content Include="fonts\VAGRoundedLTCYR-Black.woff" />
     <None Include="packages.config" />
+    <Content Include="fonts\VAGRoundedLTCYR-Black.svg" />
+    <Content Include="img\cart.png" />
+    <Content Include="img\icon_txt-doc.svg" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\ok.png" />
+    <Content Include="img\pay1.jpg" />
+    <Content Include="img\vk.jpg" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -124,8 +137,8 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Delivery\Index.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\HowToOrder.cshtml" />
+    <Content Include="Views\Home\Contacts.cshtml" />
+    <Content Include="Views\Home\Delivery.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Rules.cshtml" />
     <Content Include="Views\Home\Vacations.cshtml" />
@@ -150,6 +163,9 @@
     <Content Include="Views\Shared\_OrderTablePartial.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Offer.cshtml" />
+    <Content Include="Views\Home\UserAgreement.cshtml" />
+    <Content Include="Views\Home\Stock.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,7 +187,7 @@
     <Content Include="img\6.jpg" />
     <Content Include="img\7.jpg" />
     <Content Include="img\8.jpg" />
-    <Content Include="img\logo.png" />
+    <Content Include="img\logo_old.png" />
     <Content Include="img\top.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -4,63 +4,69 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
     <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title – Доставка пиццы по Петрозаводску 24 часа.</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{ var temp = Convert.ToString(ViewBag.cartindicator);}
 </head>
 <body>
-    <div id="topImage">
-        <div><img src="../img/top.png" /></div>
-        <div id="logo"><a href="/Manager/Index"><img  src="../img/logo.png" /></a></div>
-    </div>
-    <div class="container">
-        <div id="customnavbar">
-                <div class="menuitems">@Html.ActionLink("ВЫБРАТЬ ПИЦЦУ", "Index", "Home")</div>
-                <div class="menuitems">@Html.ActionLink("ПРАВИЛА", "Index", "Home")</div>
-                <div class="menuitems">@Html.ActionLink("КАК ЗАКАЗАТЬ", "Index", "Home")</div>
-                <div class="menuitems">@Html.ActionLink("КОНТАКТНАЯ ИНФОРМАЦИЯ", "Index", "Home")</div>
-                <div class="menuitems">@Html.ActionLink("ВАКАНСИИ", "Index", "Home")</div>
-                <div class="menuitems" id="myCart">@Html.ActionLink("КОРЗИНА", "Cart", "Home")</div><div class="menuitems" id="cartindicator">@temp</div>
+    <header>
+        <div class="navbar navbar-rospizza navbar-fixed-top">
+            <div class="container head__container">
+                <div class="logo">
+                    <img src="~/img/logo.png" alt="" width="70" />
+                </div>
+                <div class="head__block_pizza">
+                    <p>Dominos</p>Pizza
+                </div>
+                <div class="head__block_moto">
+                    Пиццерия № 1<br />в Петрозаводске
+                </div>
+                <div class="head__block_phone">
+                    Доставка пиццы <br>24 часа: <span>555 - 555</span>
 
-        </div>
-        <div class="hrcustom"> </div>
-    </div>
-
-<!--
-    <div class="navbar   navbar-dominospizza">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img class="img-circle" src="https://apke.ru/images/icon/14278158171750_icon.png" width="45" height="45" />
+                </div>
+                <div class="head__block_moto">
+                    <div class="cart_top">
+                        <span class="carttop_price_value" pricevalue="0">
+                            <span class="value">0</span> ₽
+                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>Html.ActionLink("Выбрать пиццу", "Index", "Home")</li>
-                    <li>Html.ActionLink("Правила", "Rules", "Home")</li>
-                    <li>Html.ActionLink("Как заказать", "HowToOrder", "Home")</li>
-                    <li>Html.ActionLink("Контактная информация", "Contact", "Home")</li>
-                    <li>Html.ActionLink("Вакансии", "Vacations", "Home")</li>
-                </ul>
+            <div class="container navbar navbar-pizzamenu">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav h3-u">
+                        <li>@Html.ActionLink("Пиццы", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Акции", "Stock", "Home")</li>
+                        <li>@Html.ActionLink("Как заказать", "Delivery", "Home")</li>
+                        <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
+                        <li>@Html.ActionLink("Вакансии", "Vacations", "Home")</li>
+                        <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
+                    </ul>
+                  <!--  <div class="h3-u">Html.Partial("_LoginPartial")</div> !!!!!здесь вход в систему авторизации-->
+                </div>
             </div>
         </div>
-    </div>-->
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year – Dominos Pizza - доставка пиццы 24 часа.</p>
-        </footer>
-    </div>
+    </header>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <div class="container-u">
+                    <h3 class="h3-ua">Способы оплаты: <img src="~/img/pay1.jpg" /></h3>
+                    <h3 class="h3-ua">Мы в сети: <img src="~/img/vk.jpg" width="50" /><img src="~/img/ok.png" width="30" /></h3>
+                    <p class="lead-footer h3-ua">&copy; 2016 - @DateTime.Now.Year – DominosPizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
+                </div>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
