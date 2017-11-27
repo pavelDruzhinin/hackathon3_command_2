@@ -17,6 +17,7 @@
 body {
     padding-top: 170px;
     padding-bottom: 20px;
+    border: 1px solid #F2F0ED;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -131,22 +132,35 @@ textarea {
     width: 210px;
 }
 .pizzacontent {
-    color: #e41843;
+    color: #428bca;
     margin: 10px 10px;
     text-align: justify;
+    height:40px;
+    font-size: 11px;
+    font-family: VAG Rounded, tahoma, sans-serif;
 }
 .pizzaname-text {
-    color: #fff;
+    color: #FAAB49;
     font-weight: bold;
     line-height: 40px;
     vertical-align: middle;
+    font-family: VAG Rounded, tahoma, sans-serif;
 }
+
+.pizzaweight {
+    color: #898989;
+    line-height: 40px;
+    vertical-align: middle;
+    font-family: VAG Rounded, tahoma, sans-serif;
+    padding-left:183px;
+}
+
 .pizzaname {
     height: 40px;
     margin-top: 20px;
     margin-left: -20px;
     width: 270px;
-    background-color: #e41843;
+    background-color: /*#e41843*/ #F2F0ED;
     text-align: left;
     padding-left: 30px;
 }
@@ -157,7 +171,6 @@ textarea {
     background-color: #fff;
     border: none;
     display: flex;
-
     flex-wrap: wrap;
 }
 .kitchen {
@@ -211,7 +224,7 @@ textarea {
     width: 210px;
 }
 .pizzaorder-price {
-    color: #e41843;
+    color: #FAAB49;
     font-size: 1.8em;
 }
 .pizzaorder-tocart {

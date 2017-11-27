@@ -140,11 +140,14 @@ namespace DominosPizza.Controllers
          */
         DominosContext db = new DominosContext();
 
+<<<<<<< HEAD
+=======
         public ActionResult Index()
         {
             IEnumerable<Product> products = db.Products; 
             return View(products);
         }
+>>>>>>> CatalogCartView
 
         public ActionResult Stock()
         {
