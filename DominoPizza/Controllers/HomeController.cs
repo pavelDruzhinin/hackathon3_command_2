@@ -137,16 +137,15 @@ namespace DominosPizza.Controllers
              Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
              return RedirectToRoute(new { controller = "Home", action = "Index" });
          }
-         */
+        
         DominosContext db = new DominosContext();
 
         public ActionResult Index()
         {
-            ViewBag.Tempp = 123;
- //           IEnumerable<Product> products = db.Products; 
+            IEnumerable<Product> products = db.Products; 
             return View(products);
         }
-
+         */
         public ActionResult Stock()
         {
             ViewBag.Message = "Акции";
