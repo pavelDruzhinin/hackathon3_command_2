@@ -143,7 +143,7 @@ namespace DominosPizza.Controllers
         public ActionResult Index()
         {
             ViewBag.Tempp = 123;
- //           IEnumerable<Product> products = db.Products; 
+            IEnumerable<Product> products = db.Products; 
             return View(products);
         }
 
