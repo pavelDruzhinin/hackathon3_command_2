@@ -166,6 +166,7 @@
     <Content Include="Views\Home\Offer.cshtml" />
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
+    <Content Include="Views\Home\Auth.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
