@@ -19,6 +19,12 @@ namespace DominosPizza.Controllers
             List<Product> products = temp.ToList(); 
             return View(products);
         }
+        public ActionResult Muzzle()
+        {
+            IEnumerable<Product> temp = db.Products;
+            List<Product> products = temp.ToList();
+            return View(products);
+        }
 
         //DominosContext db = new DominosContext();
         /* public ActionResult Index()

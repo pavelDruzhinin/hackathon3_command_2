@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Muzzle</title>
+    <style>
+/*      body {
+            background: #000000 url("../img/muzzle/mainBackground.jpg") no-repeat;
+            background-position: center 0;
+            background-size:cover;
+            background-attachment:scroll;
+        } */
+
+        html, body,
+        .mainBackground,
+        .mainLogoOnStart {
+            padding: 0;
+            margin: 0;
+        }
+        .mainBackground {
+
+            background-color: black;
+            width: 100%;
+
+        }
+        .mainLogoOnStart {
+            position: fixed;
+            height: 57%;
+            top: 14.2%;
+            left: 11.7%;
+            z-index: 700;
+
+
+        }
+    </style>
+</head>
+<body>
+    <div style="position: relative;">
+    <img class="mainBackground" src="../img/muzzle/mainBackground.jpg">  
+        <img class="mainLogoOnStart" src="~/img/muzzle/mainLogo.svg" >
+        <img style="height: 100px; width: 100%; position: absolute; bottom: 0;" src="~/img/muzzle/black-opacity-gradient.png" />
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
