@@ -16,6 +16,7 @@ namespace DominosPizza.Models
         public Boolean CustomerSex { get; set; }
         public string CustomerPhone{get;set;}
         public string CustomerEmail { get; set; }
+        public string CustomerPassword { get; set; }
 
 
         public ICollection<Contact> Contacts{ get; set; }
