@@ -173,7 +173,6 @@
     <Content Include="Views\Home\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Index.cshtml" />
     <Content Include="Views\Crmpanel\Register.cshtml" />
-    <Content Include="Views\Crmpanel\Login.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
