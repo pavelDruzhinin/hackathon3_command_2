@@ -37,7 +37,7 @@ namespace DominosPizza.Controllers
                 }
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.Name, true); // добавить проверку роли и перенаправление на соответствующую страницу - "Manage" Администратор, "Manager" менеджер, "Kitchen" повар, "Delivery" курьер
                     return RedirectToAction("Manage", "Crmpanel"); // при успешной авторизации перенаправляем пользователя в админку
                 }
                 else
@@ -48,7 +48,7 @@ namespace DominosPizza.Controllers
             return View(model);
         }
 
-        [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией
+        [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
         [HttpGet]
         public ActionResult Register()
         {
@@ -70,17 +70,17 @@ namespace DominosPizza.Controllers
                 {
                     using (DominosContext db = new DominosContext())
                     {
-                        db.Users.Add(new User { Login = model.Name, Password = model.Password, UserRoleId = model.Role, UserFirstName = model.FirstName, UserLastName = model.LastName, UserPatronymic = model.Patronymic });
+                        db.Users.Add(new User { Login = model.Name, Password = model.Password, UserRole = model.Role, UserFirstName = model.FirstName, UserLastName = model.LastName, UserPatronymic = model.Patronymic });
                         db.SaveChanges();
 
                         user = db.Users.Where(u => u.Login == model.Name && u.Password == model.Password).FirstOrDefault();
                     }
 
-                    //if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий
-                    //{
+                    if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий
+                    {
                     //    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    //    return RedirectToAction("Index", "Crmpanel"); 
-                    //}
+                        return RedirectToAction("Manage", "Crmpanel"); 
+                    }
                 }
                 else
                 {

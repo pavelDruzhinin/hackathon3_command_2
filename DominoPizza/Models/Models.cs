@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DominosPizza.Models;
 
 namespace DominoPizza.Models
 {
@@ -15,7 +16,7 @@ namespace DominoPizza.Models
     {
         public string Name { get; set; }
         public string Password { get; set; }
-        public int Role { get; set; }
+        public UserRole Role { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
         public string LastName { get; set; }
