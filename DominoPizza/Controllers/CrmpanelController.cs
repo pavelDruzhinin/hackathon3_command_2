@@ -12,31 +12,21 @@ namespace DominosPizza.Controllers
     public class CrmpanelController : Controller
     {
         // GET: Crmpanel
-        public string Index()
-        {
-            string result = "Вы не авторизированы";
-            if (User.Identity.IsAuthenticated)
-            {
-                result = "Ваш логин: " + User.Identity.Name;
-            }
-            return result;
-        }
-
-        [Authorize]
-        public ActionResult About()
+        [Authorize] // только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult Manage() // страница управления пиццерией
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Index() // страница логина в CRM panel
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Index(LoginModel model) // метод авторизации
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +38,7 @@ namespace DominosPizza.Controllers
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Crmpanel");
+                    return RedirectToAction("Manage", "Crmpanel"); // при успешной авторизации перенаправляем пользователя в админку
                 }
                 else
                 {
@@ -58,6 +48,7 @@ namespace DominosPizza.Controllers
             return View(model);
         }
 
+        [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией
         [HttpGet]
         public ActionResult Register()
         {
@@ -66,7 +57,7 @@ namespace DominosPizza.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model) // метод регистрации сотрудника, указывается логин, пароль, ФИО, роль
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +76,11 @@ namespace DominosPizza.Controllers
                         user = db.Users.Where(u => u.Login == model.Name && u.Password == model.Password).FirstOrDefault();
                     }
 
-                    if (user != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction("Index", "Crmpanel");
-                    }
+                    //if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий
+                    //{
+                    //    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    //    return RedirectToAction("Index", "Crmpanel"); 
+                    //}
                 }
                 else
                 {
