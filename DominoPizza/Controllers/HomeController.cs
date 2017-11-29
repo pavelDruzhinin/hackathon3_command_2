@@ -128,10 +128,12 @@ namespace DominosPizza.Controllers
              return RedirectToRoute(new { controller = "Home", action = "Index" });
          }
          */
+        DominosContext db = new DominosContext();
 
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Product> products = db.Products; 
+            return View(products);
         }
 
         public ActionResult Stock()
@@ -155,7 +157,7 @@ namespace DominosPizza.Controllers
             return View();
         }
 
-        public ActionResult Vacations()
+        public ActionResult Vacancies()
         {
             ViewBag.Message = "Вакансии";
 
