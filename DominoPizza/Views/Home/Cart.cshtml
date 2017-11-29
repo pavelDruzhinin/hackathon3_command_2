@@ -136,9 +136,14 @@
                 <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="тестовое имя из интернета" /><br />
 
                 <label for="TaskPaymentMethod">Способ платежа</label><br />
-                <input class="form-control" type="text" id="TaskPaymentMethod" name="TaskPaymentMethod" value="Банковская карта" /><br />
-
+                <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod">
+                    <option value="1">Картой на сайте</option>
+                    <option value="2">Картой курьеру</option>
+                    <option value="3">Наличными</option>
+                </select>
                 <br />
+                <label for="TaskDeliveryCustomerName">ФИО</label><br />
+                <input class="form-control" type="text" id="CustomerComment" name="CustomerComment" value="Самый лучший комментарий" /><br />
                 <input class="btn btn-danger" type="submit" value="отправить заказ" />
             </form>
         </div>
