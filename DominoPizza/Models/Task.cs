@@ -15,6 +15,8 @@ namespace DominosPizza.Models
         public int TaskPayMethod { get; set; }
         public string TaskCustomerComment { get; set; }
 
+       // private Dictionary<int, DateTime> taskStatusChange = new Dictionary<int, DateTime>();//<ИД пользователя сменившего статус, время>
+
         public ICollection<UserComment> UserComments { get; set; }
 
         public int ContactId { get; set; }
@@ -26,6 +28,8 @@ namespace DominosPizza.Models
 
 
     }
+
+    public enum Status {processed, kitchen, delivery, done, canceled}
 
     public class TaskMap : EntityTypeConfiguration<Task>
     {

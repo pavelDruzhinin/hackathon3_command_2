@@ -148,6 +148,11 @@ namespace DominosPizza.Controllers
 
         public ActionResult Index()
         {
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
             IEnumerable<Product> products = db.Products; 
             return View(products);
         }
@@ -184,7 +189,46 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Message = "Оформление заказа";
 
-            return View();
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+            ViewBag.cartList = cart.cartlist;
+            IEnumerable<Product> products = db.Products;
+            ViewBag.products = products;
+
+            Dictionary<int, string> productNames = new Dictionary<int, string>();
+            foreach (var temp in products)
+            {
+                productNames.Add(temp.ProductId, temp.ProductName);
+            }
+            ViewBag.prod = productNames;
+            ViewBag.cartindicator = cart.Counter;
+
+
+            List<OrderTable> table = new List<OrderTable>();
+            int i = 1;
+            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+            {
+                OrderTable orderTableRow = new OrderTable();
+                orderTableRow.OrderTableId = i++;
+                orderTableRow.ProductId = keyValue.Key;
+                orderTableRow.ProductQuantity = keyValue.Value;
+                IQueryable<Product> product = db.Products
+                                                    .Where(c => c.ProductId == keyValue.Key)
+                                                    .Select(c => c);
+                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
+                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
+                table.Add(orderTableRow);
+            }
+
+
+
+
+
+
+            return View(table);
         }
 
         public ActionResult Rules()
@@ -220,6 +264,103 @@ namespace DominosPizza.Controllers
             ViewBag.Message = "Пользовательское соглашение (действует с 25 ноября 2017 года)";
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult AddtoCart(int productId, int amount)
+        {
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+            int counter = cart.AddDishToCart(productId, amount);
+            Session["cart"] = cart;
+            return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CartChangeQuantity(int productId, int amount)
+        {
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+            int counter = cart.EditCartList(productId, amount);
+            Session["cart"] = cart;
+            return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod, string CustomerComment)
+        {
+            //TaskDeliveryDateTime
+            //IEnumerable<Tasks> Tasks = db.TasksDbSet;
+            Task task = new Task();
+            Cart cart = new Cart();
+            Contact contact = new Contact();
+            Customer customer = new Customer();
+            int i = 0; // индикатор останется таким если у нас есть и контакт и клиент
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+            Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
+            if (mycontact == null)
+            {
+                i = 2;
+                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { } };
+            }
+            Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerPhone == TaskDeliveryCustomerPhone);
+            if (mycustomer == null)
+            {
+                if (i == 2) //нет контакта есть клиент
+                {
+                    i = 3; //нет ни того ни другого
+                }
+                else
+                {
+                    i = 1; //есть контакт нет клиента
+                }
+                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() {mycontact} };
+                db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
+            }
+            if (i > 0)
+            {
+                mycontact.Customers.Add(mycustomer);
+            //    mycustomer.Contacts.Add(mycontact);
+                db.Contacts.Add(mycontact);
+            }
+            db.SaveChanges();
+            task.Contact = mycontact; 
+            task.ContactId = mycontact.ContactId;
+            //int userId = 0;
+            double sum = 0;
+            task.TaskStatus = Status.processed.ToString();
+            task.TaskDate = DateTime.Now;
+            task.TaskPayMethod = Convert.ToInt32(TaskPaymentMethod);
+            // task.taskStatusChangeHistory.Add(userId, DateTime.Now, 0); Надо разобраться как мы будем хранить историю
+            foreach (var m in cart.cartlist) {
+                var mydish = db.Products.FirstOrDefault(k => k.ProductId == m.Key);
+                sum = mydish.ProductPrice * m.Value + sum;
+                    }
+            task.TaskTotalSum = sum;
+            task.TaskCustomerComment = CustomerComment;
+            db.Tasks.Add(task);
+            db.SaveChanges();
+            IEnumerable<Task> tasks = db.Tasks;
+            var tid = tasks.Last().TaskId;
+            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+            {
+                TaskRow productList = new TaskRow();
+                productList.TaskId = tid;
+                productList.ProductId = keyValue.Key;
+                productList.Quantity = keyValue.Value;
+                db.TaskRows.Add(productList);
+            }
+            db.SaveChanges();
+            Session["cart"] = null;
+            Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
+            return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
     }
 }
