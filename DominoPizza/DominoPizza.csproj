@@ -171,7 +171,10 @@
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
     <Content Include="Views\Home\Auth.cshtml" />
-    <Content Include="Views\Crmpanel\Index.cshtml" />
+    <Content Include="Views\Crmpanel\Index-old.cshtml" />
+    <Content Include="Views\Crmpanel\Register.cshtml" />
+    <Content Include="Views\Crmpanel\Login.cshtml" />
+    <Content Include="Views\Crmpanel\About.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -227,6 +230,7 @@
       <DependentUpon>201711261237332_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Models.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />

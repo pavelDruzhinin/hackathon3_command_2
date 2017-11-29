@@ -9,11 +9,13 @@ namespace DominosPizza.Models
     public class User
     {
         public int UserId { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public string UserFirstName { get; set; }
         public string UserPatronymic { get; set; }
         public string UserLastName { get; set; }
-        public Boolean UserSex { get; set; }
-        public DateTime UserBirthDate { get; set; }
+        //public Boolean UserSex { get; set; }
+        //public DateTime UserBirthDate { get; set; }
 
         public int UserRoleId { get; set; }
         public UserRole UserRole { get; set; }
@@ -22,13 +24,13 @@ namespace DominosPizza.Models
         public ICollection<Task> Tasks { get; set; }
 
         
-        public void NewUser(string uFirstName, string uPatronymic, string uLastName, DateTime uBirthDate, Boolean uSex)
+        public void NewUser(string uFirstName, string uPatronymic, string uLastName) //, DateTime uBirthDate, Boolean uSex
         {
             UserFirstName = uFirstName;
             UserPatronymic = uPatronymic;
             UserLastName = uLastName;
-            UserSex = uSex;
-            UserBirthDate = uBirthDate;
+ //           UserSex = uSex;
+ //           UserBirthDate = uBirthDate;
         }
 
         public string UserFullName()
