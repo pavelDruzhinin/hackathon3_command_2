@@ -275,6 +275,8 @@ namespace DominosPizza.Controllers
             Task task = new Task();
             Cart cart = new Cart();
             Contact contact = new Contact();
+            Customer customer = new Customer();
+            int i = 0; // индикатор останется таким если у нас есть и контакт и клиент
             if ((Cart)Session["cart"] != null)
             {
                 cart = (Cart)Session["cart"];
@@ -282,17 +284,29 @@ namespace DominosPizza.Controllers
             Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
             if (mycontact == null)
             {
-                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now };
+                i = 2;
+                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { } };
             }
             Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerPhone == TaskDeliveryCustomerPhone);
             if (mycustomer == null)
             {
-                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now };
+                if (i == 2) //нет контакта есть клиент
+                {
+                    i = 3; //нет ни того ни другого
+                }
+                else
+                {
+                    i = 1; //есть контакт нет клиента
+                }
+                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() {mycontact} };
                 db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
             }
-            //mycontact.Customers.Add(mycustomer);
-            //mycustomer.Contacts.Add(mycontact);
-            db.Contacts.Add(mycontact);
+            if (i > 0)
+            {
+                mycontact.Customers.Add(mycustomer);
+            //    mycustomer.Contacts.Add(mycontact);
+                db.Contacts.Add(mycontact);
+            }
             db.SaveChanges();
             task.Contact = mycontact; 
             task.ContactId = mycontact.ContactId;
