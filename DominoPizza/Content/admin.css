@@ -49,7 +49,7 @@ body {
 
         .login-form .header h1 {
             font-family: VAG Rounded, tahoma, sans-serif;
-            font-size: 25px;
+            font-size: 28px;
             line-height: 30px;
             color: #FAAB49;
             display: inline-block;
@@ -103,7 +103,7 @@ body {
 }
 
 .login-form .footer {
-    padding: 20px 90px 20px 30px;
+    padding: 15px 100px 15px 20px;
     overflow: auto;
     background: #d4dedf;
     border-top: 1px solid #fff;
