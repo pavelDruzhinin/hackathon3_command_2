@@ -12,12 +12,30 @@ namespace DominosPizza.Controllers
     public class CrmpanelController : Controller
     {
         // GET: Crmpanel
-        [Authorize] // только авторизированный пользователь может получить доступ к странице управления CRM
+        [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manage() // страница управления пиццерией
         {
             return View();
         }
 
+        [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult Manager() // страница управления пиццерией
+        {
+            return View();
+        }
+
+        [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult Kitchen() // страница управления пиццерией
+        {
+            return View();
+        }
+
+        [Authorize] // (Roles = "Courier") только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult Delivery() // страница управления пиццерией
+        {
+            return View();
+        }
+        
         [HttpGet]
         public ActionResult Index() // страница логина в CRM panel
         {
@@ -88,6 +106,14 @@ namespace DominosPizza.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Crmpanel");
         }
     }
 }
