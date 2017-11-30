@@ -178,6 +178,13 @@ namespace DominosPizza.Controllers
             return View();
         }
 
+        public ActionResult Feedback()
+        {
+            ViewBag.Message = "Обратная связь";
+
+            return View();
+        }
+
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
