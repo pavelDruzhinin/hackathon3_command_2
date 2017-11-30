@@ -179,6 +179,11 @@
     <Content Include="Views\Crmpanel\Manager.cshtml" />
     <Content Include="Views\Crmpanel\Kitchen.cshtml" />
     <Content Include="Views\Crmpanel\Delivery.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -224,6 +229,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CrmpanelController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
@@ -238,6 +244,10 @@
     <Compile Include="Migrations\201711292122478_MigrateDB.cs" />
     <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711301920475_customer.cs" />
+    <Compile Include="Migrations\201711301920475_customer.Designer.cs">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -259,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
