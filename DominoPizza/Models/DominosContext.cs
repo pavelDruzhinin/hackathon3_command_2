@@ -18,7 +18,7 @@ namespace DominosPizza.Models
 
        // public DbSet<UserRole> UserRoles{ get; set; }
     //    public DbSet<User> Users{ get; set; }
-     //   public DbSet<Task> Tasks { get; set; }
+        public DbSet<Task> Tasks { get; set; }
 
         public DbSet<Product> Products{ get; set; }
         public DbSet<Customer> Customers{ get; set; }
