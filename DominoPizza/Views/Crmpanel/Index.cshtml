@@ -10,7 +10,7 @@
                 <div class="header">
                     <h1>Dominos Pizza</h1>
                 </div>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "container-u" })
                 <div class="content">
                     <img src="~/img/user-icon.png" />&nbsp;&nbsp;@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input username", placeholder = "Имя Пользователя", type = "text", onclick = "this.value='';" } })
                     <img src="~/img/pass-icon.png" />&nbsp;&nbsp;@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input password", placeholder = "****************", type = "password", onclick = "this.value='';" } })

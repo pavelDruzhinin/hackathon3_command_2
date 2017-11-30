@@ -60,7 +60,7 @@ namespace DominosPizza.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователь с таким логином и паролем не существует.");
+                    ModelState.AddModelError("", "Неверное имя или пароль");
                 }
             }
             return View(model);
@@ -113,7 +113,7 @@ namespace DominosPizza.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Crmpanel");
+            return RedirectToAction("Index", "Crmpanel");
         }
     }
 }
