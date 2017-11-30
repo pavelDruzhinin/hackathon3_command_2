@@ -26,7 +26,21 @@
         <div>
             @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
             @Html.ActionLink("Список сотрудников", "Register", "Crmpanel")
-            @Html.ActionLink("Выйти", "Logout")
+            @Html.ActionLink("Список текущих заказов", "Register", "Crmpanel")
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <div>
+                        <span>Вы вошли как: @User.Identity.Name</span>
+                            @using (Html.BeginForm("Logout", "Crmpanel", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            }
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
