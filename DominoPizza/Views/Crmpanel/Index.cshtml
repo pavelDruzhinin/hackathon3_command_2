@@ -1,31 +1,22 @@
-﻿@{
+﻿@model DominoPizza.Models.LoginModel
+
+@{
     ViewBag.Title = "Вход в систему управления пиццерией Dominos Pizza";
-    Layout = null;
+    Layout = "~/Views/Crmpanel/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/admin.css")
-</head>
-<body>
-    <div id="wrapper">
-            <form name="login-form" class="login-form" action="" method="post">
+   <div id="wrapper">
+            <form name="login-form" class="login-form" action="/Crmpanel/Index" method="post">
+                @Html.AntiForgeryToken()
                 <div class="header">
                     <h1>Dominos Pizza</h1>
                 </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="content">
-                    <img src="~/img/user-icon.png" />&nbsp;&nbsp;<input name="username" type="text" class="input username" value="Имя Пользователя" onfocus="this.value=''" />
-                    <img src="~/img/pass-icon.png" />&nbsp;&nbsp;<input name="password" type="password" class="input password" value="Пароль Пользователя" onfocus="this.value=''" />
+                    <img src="~/img/user-icon.png" />&nbsp;&nbsp;@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input username", placeholder = "Имя Пользователя", type = "text", onclick = "this.value='';" } })
+                    <img src="~/img/pass-icon.png" />&nbsp;&nbsp;@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input password", placeholder = "****************", type = "password", onclick = "this.value='';" } })
                 </div>
                 <div class="footer">
                     <input type="submit" name="submit" value="ВОЙТИ" class="button" />
                 </div>
             </form>
         </div>
-</body>
-</html>

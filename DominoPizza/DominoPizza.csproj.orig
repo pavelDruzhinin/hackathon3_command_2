@@ -236,8 +236,11 @@
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Models.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\Cart.cs" />
+=======
+    <Compile Include="Models\Models.cs" />
+>>>>>>> crm
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />

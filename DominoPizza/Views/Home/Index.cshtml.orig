@@ -28,9 +28,19 @@
        <!-- <p class="doughselect"><span class="doughselect-active">Традиционное</span><span class="doughselect-passive"> / Тонкое</span></p>-->
         <p class="pizzaweight">@product.ProductWeight г.</p>
 
+<<<<<<< HEAD
+    <div class="pizzaorder">
+        <div class="pizzaorder-price">@product.ProductPrice <span>&#8381;</span></div>
+        <div id="addtocartbtn-@product.ProductId" class="pizzaorder-tocart">в корзину</div>
+        
+        <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="@product.ProductId" />
+        <div id="successFadeOut-@product.ProductId" class="successFadeOut" style="display:none;">добавлено</div>
+    </div>
+=======
         <div class="pizzaorder">
             <div class="pizzaorder-price">@product.ProductPrice <span>&#8381;</span></div>
             <div id="addtocartbtn-product.ProductId" class="pizzaorder-tocart">в корзину</div>
+>>>>>>> crm
 
             <input id="addtocartinp-product.ProductId" type="hidden" name="productId" value="product.ProductId" />
             <div id="successFadeOut-product.ProductId" class="successFadeOut" style="display:none;">добавлено</div>
