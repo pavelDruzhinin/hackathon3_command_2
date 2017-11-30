@@ -1,11 +1,23 @@
 ﻿@model DominoPizza.Models.LoginModel
 
 @{
-    ViewBag.Title = "Вход в систему управления пиццерией Dominos Pizza";
+    ViewBag.Title = "Управление сотрудниками пиццерии Dominos Pizza";
     Layout = "~/Views/Crmpanel/_Layout.cshtml";
 }
 
-    <div class="container">
-        <h1 class="head__block_phone">Dominos Pizza<span>Управление сотрудниками</span></h1>
-        тут будет добавление удаление и редактирование пользователей
+<div class="navbar navbar-rospizza navbar-fixed-top">
+    <div class="container head__container">
+        <div class="head__block_pizza">
+            <p>Dominos Pizza:</p>
+        </div>
+        <div class="head__block_pizza">
+            <p>Управление сотрудниками</p>
+        </div>
+        
     </div>
+    <div>
+        @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
+    </div>
+</div>
+
+

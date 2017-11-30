@@ -2,21 +2,9 @@
 
 @{
     ViewBag.Title = "Вход в систему управления пиццерией Dominos Pizza";
-    Layout = null;
+    Layout = "~/Views/Crmpanel/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/admin.css")
-</head>
-<body>
-    
-    <div id="wrapper">
+   <div id="wrapper">
             <form name="login-form" class="login-form" action="/Crmpanel/Index" method="post">
                 @Html.AntiForgeryToken()
                 <div class="header">
@@ -32,5 +20,3 @@
                 </div>
             </form>
         </div>
-</body>
-</html>

@@ -3,47 +3,24 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-    @Styles.Render("~/Content/css")
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/admin.css")
+    @Styles.Render("~/Content/bootstrap.css")
 </head>
 <body>
-    <div>
-        <div class="container navbar navbar-pizzamenu">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav h3-u">
-                    <li>@Html.ActionLink("Пиццы", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Акции", "Stock", "Home")</li>
-                    <li>@Html.ActionLink("Как заказать", "Delivery", "Home")</li>
-                    <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
-                    <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
-                    <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
-                    <li>@Html.ActionLink("Вход", "Auth", "Home")</li>
-                </ul>
-                <!--<div class="h3-u">Html.Partial("_LoginPartial")</div> !!!!!здесь вход в систему авторизации-->
-            </div>
-        </div>
-
-    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <div class="container-u">
-                <h3 class="h3-ua">Способы оплаты: <img src="~/img/pay1.jpg" /></h3>
-                <h3 class="h3-ua">Мы в сети: <img src="~/img/vk.jpg" width="50" /><img src="~/img/ok.png" width="30" /></h3>
-                <p class="lead-footer h3-ua">&copy; 2016 - @DateTime.Now.Year – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
-            </div>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-
 </body>
 </html>
