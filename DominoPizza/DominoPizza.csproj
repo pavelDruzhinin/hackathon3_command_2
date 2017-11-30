@@ -175,6 +175,10 @@
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
     <Content Include="Views\Crmpanel\_Layout.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutManage.cshtml" />
+    <Content Include="Views\Crmpanel\Manager.cshtml" />
+    <Content Include="Views\Crmpanel\Kitchen.cshtml" />
+    <Content Include="Views\Crmpanel\Delivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

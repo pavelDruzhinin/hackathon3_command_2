@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/admin.css")
+</head>
+<body>
+    <div class="navbar navbar-rospizza navbar-fixed-top">
+        <div class="container head__container">
+            <div class="head__block_pizza">
+                <p>Dominos Pizza:</p>
+            </div>
+            <div class="head__block_pizza">
+                <p>Управление сотрудниками</p>
+            </div>
+
+        </div>
+        <div>
+            @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
+            @Html.ActionLink("Список сотрудников", "Register", "Crmpanel")
+            @Html.ActionLink("Выйти", "Logout")
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
