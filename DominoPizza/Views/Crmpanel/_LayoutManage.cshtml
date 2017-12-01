@@ -10,46 +10,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/admin.css")
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrapmin.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/manage.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="navbar navbar-rospizza navbar-fixed-top">
-        <div class="container head__container">
-            <div class="head__block_pizza">
-                <p>Dominos Pizza:</p>
-            </div>
-            <div class="head__block_pizza">
-                <p>Управление сотрудниками</p>
-            </div>
-
-        </div>
-        <div>
-            @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
-            @Html.ActionLink("Список сотрудников", "Register", "Crmpanel")
-            @Html.ActionLink("Список текущих заказов", "Register", "Crmpanel")
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div>
-                    <div>
-                        <span>Вы вошли как: @User.Identity.Name</span>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")</li>
+                    <li>@Html.ActionLink("Список сотрудников", "Register", "Crmpanel")</li>
+                    <li>@Html.ActionLink("Список текущих заказов", "Manage", "Crmpanel")</li>
+                    @if (User.Identity.IsAuthenticated)
+                     {
+                        <li>Вы вошли как:@User.Identity.Name</li>
+                        <li>
                             @using (Html.BeginForm("Logout", "Crmpanel", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-                            }
-                            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                    </div>
-                </div>
-            }
+                        {
+                            @Html.AntiForgeryToken()
+                        }
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                        </li>
+                    }
+                            
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="main">
         @RenderBody()
-        <hr />
     </div>
+    <div id="footer">
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    }
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>

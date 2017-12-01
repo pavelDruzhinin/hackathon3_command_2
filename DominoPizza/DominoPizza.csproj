@@ -105,7 +105,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DominosPizza.mdf" />
+    <Content Include="App_Data\DominosPizza_log.ldf">
+      <DependentUpon>DominosPizza.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\manage.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -239,6 +244,10 @@
     <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712012230427_MigrateDB1.cs" />
+    <Compile Include="Migrations\201712012230427_MigrateDB1.Designer.cs">
+      <DependentUpon>201712012230427_MigrateDB1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -260,10 +269,11 @@
     <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712012230427_MigrateDB1.resx">
+      <DependentUpon>201712012230427_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

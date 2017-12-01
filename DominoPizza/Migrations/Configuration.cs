@@ -13,11 +13,13 @@ namespace DominoPizza.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DominosPizza.Models.DominosContext db)
+        protected override void Seed(DominosContext db)
         {
-            //db.UserRolesDbSet.Add(new UserRoles { RoleId = 1, RoleName = "Менеджер" });
-            //db.UserRolesDbSet.Add(new UserRoles { RoleId = 2, RoleName = "Повар" });
-            //db.UserRolesDbSet.Add(new UserRoles { RoleId = 3, RoleName = "Курьер" });
+            // переработал, теперь работает с нашей БД
+            db.UserRoles.Add(new UserRole { UserRoleId = 1, UserRoleName = "Менеджер" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 2, UserRoleName = "Повар" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 3, UserRoleName = "Курьер" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Администратор" });
 
             db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/1.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Двойная пепперони", ProductWeight = 610, ImageLink = "/img/2.jpg", ProductDescription = "Томатный соус, моцарелла и пикантная пепперони", ProductPrice = 672, ProductType = 1 });

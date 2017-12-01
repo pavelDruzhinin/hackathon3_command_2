@@ -88,7 +88,7 @@ namespace DominosPizza.Controllers
                 {
                     using (DominosContext db = new DominosContext())
                     {
-                        db.Users.Add(new User { Login = model.Name, Password = model.Password, UserRole = model.Role, UserFirstName = model.FirstName, UserLastName = model.LastName, UserPatronymic = model.Patronymic });
+                        db.Users.Add(new User { Login = model.Name, Password = model.Password, UserRoleId = model.RoleId, UserFirstName = model.FirstName, UserLastName = model.LastName, UserPatronymic = model.Patronymic });
                         db.SaveChanges();
 
                         user = db.Users.Where(u => u.Login == model.Name && u.Password == model.Password).FirstOrDefault();
