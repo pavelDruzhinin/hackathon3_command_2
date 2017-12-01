@@ -1,9 +1,39 @@
-﻿@model DominoPizza.Models.LoginModel
+﻿@model IEnumerable<DominosPizza.Models.Task>
 
 @{
     ViewBag.Title = "Управление сотрудниками пиццерии Dominos Pizza";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
 }
 
-<h1>Список текущих заказов:</h1>
+<table border="1">
+    <tr>
+        <th>TaskId</th>
+        <th>TaskTotalSum</th>
+        <th>TaskStatus</th>
+        <th>TaskPayMethod</th>
+        <th>TaskDate</th>
 
+     </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+           <td>
+                @Html.DisplayFor(modelItem => item.TaskId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskTotalSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskPayMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskDate)
+            </td>
+            
+        </tr>
+    }
+</table>

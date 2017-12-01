@@ -19,9 +19,9 @@
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Список заказов", "Manage", "Crmpanel")</li>
+                    <li>@Html.ActionLink("Список сотрудников", "Users", "Crmpanel")</li>
                     <li>@Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")</li>
-                    <li>@Html.ActionLink("Список сотрудников", "Register", "Crmpanel")</li>
-                    <li>@Html.ActionLink("Список текущих заказов", "Manage", "Crmpanel")</li>
                     @if (User.Identity.IsAuthenticated)
                      {
                         <li>Вы вошли как:@User.Identity.Name</li>

@@ -11,11 +11,21 @@ namespace DominosPizza.Controllers
 {
     public class CrmpanelController : Controller
     {
+        private DominosContext db = new DominosContext();
+
         // GET: Crmpanel
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manage() // страница управления пиццерией
         {
-            return View();
+            return View(db.Tasks.ToList());
+        }
+
+        [Authorize]
+        public ActionResult Users()
+        {
+            //ViewBag.Users = new SelectList(db.Users, "ID", "FullName");
+
+            return View(db.Users.ToList());
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
