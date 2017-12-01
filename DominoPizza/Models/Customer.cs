@@ -50,6 +50,7 @@ namespace DominosPizza.Models
         }
     }
 
+
     public class CustomerMap : EntityTypeConfiguration<Customer>
     {
         public CustomerMap()

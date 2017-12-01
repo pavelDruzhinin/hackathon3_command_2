@@ -1,0 +1,40 @@
+﻿@model DominosPizza.Models.Customer
+@{
+    ViewBag.Title = "Вход в систему";
+}
+
+<h2>Заполните поля</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerEmail, "E-mail",new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerEmail)
+                @Html.ValidationMessageFor(model => model.CustomerEmail)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerPassword,"Пароль", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerPassword)
+                @Html.ValidationMessageFor(model => model.CustomerPassword)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Войти" class="btn btn-default" />
+                @Html.ActionLink("Зарегистрироваться", "Create", "Customers")
+            </div>
+        </div>
+    </div>
+}
+       
+
