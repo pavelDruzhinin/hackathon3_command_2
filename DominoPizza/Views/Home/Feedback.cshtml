@@ -4,4 +4,24 @@
 <div class="body-content">
     <h1 class="h1-ua">@ViewBag.Message</h1>
 
+    <div class="form-group">
+        <form method="post" enctype="multipart/form-data" action="/SendMail">
+            <label for="MailUserFIO">Ваше имя</label><br />
+            <input class="form-control" type="text" id="MailUserFIO" name="UserFIO" /><br />
+
+            <label for="UserEmail">Ваш E-mail</label><br />
+            <input class="form-control" type="text" id="UserEmail" name="UserEmail" /><br />
+
+            
+            <label for="MailSubject">Тема письма</label><br />
+            <input class="form-control" type="text" id="MailSubject" name="Subject" /><br />
+
+            <label for="MailBody">Текст сообщения</label><br />
+            <textarea  class="form-control" rows="10" id="MailBody" name="MailBody"></textarea><br />
+            <br />
+            <input class="btn btn-danger" type="submit" value="отправить" />
+        </form>
+    </div>
+
+
 </div>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DominosPizza.Models;
+using DominoPizza.Models;
 
 namespace DominosPizza.Controllers
 {
@@ -178,13 +179,7 @@ namespace DominosPizza.Controllers
             return View();
         }
 
-        public ActionResult Feedback()
-        {
-            ViewBag.Message = "Обратная связь";
-
-            return View();
-        }
-
+       
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
@@ -205,5 +200,29 @@ namespace DominosPizza.Controllers
 
             return View();
         }
+
+        public ActionResult Feedback()
+        {
+            ViewBag.Message = "Обратная связь";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SendMail(FeedbackMail model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult SuccessSend()
+        {
+            return View();
+        }
+
+        public ActionResult ErrorSend()
+        {
+            return View();
+        }
+
     }
 }

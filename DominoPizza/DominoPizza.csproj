@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionMailer.Net, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ActionMailer.Net.Mvc, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
@@ -231,7 +237,16 @@
     <Compile Include="Migrations\201711292007328_cart.Designer.cs">
       <DependentUpon>201711292007328_cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712011537378_feedbackmail.cs" />
+    <Compile Include="Migrations\201712011537378_feedbackmail.Designer.cs">
+      <DependentUpon>201712011537378_feedbackmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712011559180_feedbackmail1.cs" />
+    <Compile Include="Migrations\201712011559180_feedbackmail1.Designer.cs">
+      <DependentUpon>201712011559180_feedbackmail1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FeedbackMail.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -249,6 +264,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711292007328_cart.resx">
       <DependentUpon>201711292007328_cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011537378_feedbackmail.resx">
+      <DependentUpon>201712011537378_feedbackmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011559180_feedbackmail1.resx">
+      <DependentUpon>201712011559180_feedbackmail1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

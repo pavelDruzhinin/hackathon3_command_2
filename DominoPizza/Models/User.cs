@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DominoPizza.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
@@ -20,8 +21,9 @@ namespace DominosPizza.Models
 
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<Task> Tasks { get; set; }
+        public ICollection<FeedbackMail> FeedBackMails { get; set; }
 
-        
+
         public void NewUser(string uFirstName, string uPatronymic, string uLastName, DateTime uBirthDate, Boolean uSex)
         {
             UserFirstName = uFirstName;

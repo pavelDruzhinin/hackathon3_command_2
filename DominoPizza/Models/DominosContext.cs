@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using DominosPizza.Models;
+using DominoPizza.Models;
 
 namespace DominosPizza.Models
 {
@@ -24,6 +25,8 @@ namespace DominosPizza.Models
         public DbSet<Customer> Customers{ get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<TaskRow> TaskRows { get; set; }
+        public DbSet<FeedbackMail> FeedBacks { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
