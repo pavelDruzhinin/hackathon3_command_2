@@ -29,7 +29,7 @@ namespace DominosPizza.Models
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         public string CustomerPassword { get; set; }
 
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("CustomerPassword", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         public string CustomerPasswordConfirm { get; set; }
