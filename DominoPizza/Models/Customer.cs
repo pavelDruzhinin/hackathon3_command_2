@@ -19,7 +19,7 @@ namespace DominosPizza.Models
 
 
         public ICollection<Contact> Contacts{ get; set; }
-
+        public ICollection<OnlineChatRow> OnlineChatRows { get; set; } //!!!!!!!!
 
 
         public void NewCustomer(string cFirstName,  string cPatronymicName, string cLastName, DateTime cBirthDate, Boolean cSex, string cPhone, string cEmail)

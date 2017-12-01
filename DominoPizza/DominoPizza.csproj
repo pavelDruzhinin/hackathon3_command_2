@@ -228,6 +228,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\MessagingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,13 +236,10 @@
     <Compile Include="Migrations\201711261237332_Init.Designer.cs">
       <DependentUpon>201711261237332_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711292122478_MigrateDB.cs" />
-    <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\OnlineChatRow.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -257,12 +255,10 @@
     <EmbeddedResource Include="Migrations\201711261237332_Init.resx">
       <DependentUpon>201711261237332_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Messaging\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

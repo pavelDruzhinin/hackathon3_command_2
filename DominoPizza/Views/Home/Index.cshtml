@@ -40,6 +40,93 @@
         }
 
     </div>
+<button id="commentsShow-">chat</button>
+<!--место для загрузки Partial View c комментариями-->
+<div id="comments-modal" class="comments-modal">
+
+    <div class="comments-window">
+
+        <div id="comment-PartialView"> </div>
+
+    </div>
+    <div class="addNewComment">
+
+        <textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>
+        <div class="commentUser">
+            <div><button id="chat-Add-message-" class="btn btn-default" title="отправить"><span class="glyphicon glyphicon-user"></span> АннаМенеджер</button></div>
+            <button id="closeComments" class="btn btn-danger" onclick="hideComments()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<!---->
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    var taskId = 0;
+
+    $("button").click(function (event) {
+
+        if (this.id.slice(0, 13) == "commentsShow-") {
+            event.preventDefault();
+            $("#comments-modal").css({
+                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            });
+            // CustomerId = parseInt(this.id.slice(13));
+            $.ajax({
+                url: "/Messaging/TaskCommentsShow",
+                dataType: "html",
+                //     data: {
+                //         taskId: taskId,
+                //     },
+                type: "POST",
+                success: function (data) {
+                    $("#comment-PartialView").html(data);
+                }
+            });
+        }
+
+        //string onlineChatUniqueId, int customerId, int userId, bool messageByUser, string messageText)
+        
+        if (this.id == "chat-Add-message-") {
+            event.preventDefault();
+            $("#chat-modal").css({
+                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            });
+            //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
+            var userID = 1; //!!! пока так, но позже пользователя над будет определять по логину
+            var newCommentText = $("#NewCommentInput").val();
+            alert("here");
+            $.ajax({
+                url: "/Messaging/AddNewMessageToChat",
+                dataType: "json",
+                data: {
+                    customerId: 2,
+                    userId: 1,
+                    messageByUser: false,
+                    messageText: newCommentText
+                },
+                type: "POST",
+                success: function (data) {
+                   // $("#comment-PartialView").html(data);
+                    alert(data.Data);
+                }
+            });
+        }
+    });
+
+
+
+</script>
+
+
+<!--закрытие окна с комментариями-->
+<script>
+    function hideComments() {
+        $("#comments-modal").css({ "display": "none" });
+    }
+</script>
+<!---->
 
 
 @*AJAX добавление в корзину*@

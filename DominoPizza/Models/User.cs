@@ -22,8 +22,8 @@ namespace DominosPizza.Models
 
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<Task> Tasks { get; set; }
+        public ICollection<OnlineChatRow> OnlineChatRows { get; set; } //!!!!!!!!
 
-        
         public void NewUser(string uFirstName, string uPatronymic, string uLastName) //, DateTime uBirthDate, Boolean uSex
         {
             UserFirstName = uFirstName;

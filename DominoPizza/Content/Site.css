@@ -292,16 +292,16 @@ textarea {
 }
 
 .comments-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -250px 0 0 -150px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0;
     display: none;
     background-color: rgba(147, 147, 147, 0.70);
     width: 300px;
     height: 500px;
-
 }
+
 .commentsTop {
     padding-right: 10px;
     margin: 10px;
@@ -310,6 +310,7 @@ textarea {
     height: 350px;
     border-bottom: 1px solid white;
 }
+
 .comments-window {
     padding-right: 10px;
     margin: 10px;
@@ -318,16 +319,19 @@ textarea {
     height: 350px;
     overflow: auto;
 }
-.comment-header{
+
+.comment-header {
     display: flex;
     justify-content: space-between;
 }
-.comment-header span{
-    color: white;
-    padding: 3px 10px;
-    background-color: #7ab920;
-    font-size: .6em;
-}
+
+    .comment-header span {
+        color: white;
+        padding: 3px 10px;
+        background-color: #7ab920;
+        font-size: .6em;
+    }
+
 .comment-message {
     line-height: .9em;
     font-size: .8em;
@@ -345,13 +349,15 @@ textarea {
     padding: 10px;
     font-size: .9em;
 }
-.commentUser{
+
+.commentUser {
     display: flex;
-    justify-content:space-between;
-    margin: 5px 15px 10px 15px;
+    justify-content: space-between;
+    margin: 5px 15px 10px 10px;
     color: white;
 }
-#closeComments{
+
+#closeComments {
     font-size: .7em;
     padding: 5px 8px;
     margin-right: -5px;
