@@ -4,24 +4,33 @@
 <div class="body-content">
     <h1 class="h1-ua">@ViewBag.Message</h1>
 
-    <div class="form-group">
-        <form method="post" enctype="multipart/form-data" action="/SendMail">
-            <label for="MailUserFIO">Ваше имя</label><br />
-            <input class="form-control" type="text" id="MailUserFIO" name="UserFIO" /><br />
+    <form method="post"  class="" enctype="multipart/form-data" action="/SendMail">
+        <div class="form-group">
+            <label for="MailUserFIO" class="col-xs-2">Ваше имя</label><br />
+            <div class="col-xs-10">
 
-            <label for="UserEmail">Ваш E-mail</label><br />
-            <input class="form-control" type="text" id="UserEmail" name="UserEmail" /><br />
+                <input class="form-control" type="text" id="MailUserFIO" name="MailUserFIO" /><br />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserEmail" class="col-xs-2">Ваш E-mail</label><br />
+            <div class="col-xs-10">
+                <input class="form-control" type="text" id="UserEmail" name="MailUserEmail" /><br />
+            </div>
+        </div>
 
-            
-            <label for="MailSubject">Тема письма</label><br />
-            <input class="form-control" type="text" id="MailSubject" name="Subject" /><br />
+            <label for="MailSubject" class="col-xs-2">Тема письма</label><br />
+            <div class="col-xs-10">
+                <input class="form-control" type="text" id="MailSubject" name="MailSubject" /><br />
+            </div>
 
-            <label for="MailBody">Текст сообщения</label><br />
-            <textarea  class="form-control" rows="10" id="MailBody" name="MailBody"></textarea><br />
+            <label for="MailBody" class="col-xs-2">Текст сообщения</label><br />
+            <div class="col-xs-10">
+                <textarea class="form-control" rows="10" id="MailBody" name="MailBody"></textarea><br />
+            </div>
             <br />
             <input class="btn btn-danger" type="submit" value="отправить" />
-        </form>
+</form>
     </div>
 
 
-</div>

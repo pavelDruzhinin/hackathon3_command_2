@@ -203,7 +203,7 @@ namespace DominosPizza.Controllers
 
         public ActionResult Feedback()
         {
-            ViewBag.Message = "Обратная связь";
+            ViewBag.Message = "Напишите нам";
 
             return View();
         }
