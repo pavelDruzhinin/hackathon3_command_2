@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DominosPizza.Models;
-using System.Web.Security;
+
 
 namespace DominoPizza.Controllers
 {
@@ -42,10 +42,7 @@ namespace DominoPizza.Controllers
             return View();
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
+   
 
         // POST: Customers/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
@@ -65,32 +62,7 @@ namespace DominoPizza.Controllers
             return View(customer);
         }
        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(Customer model)
-        {
-
-            if (ModelState.IsValid)
-            {
-                Customer customer = null;
-                using (DominosContext db = new DominosContext())
-                {
-                    customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
-
-                }
-                if (customer != null)
-                {
-                    FormsAuthentication.SetAuthCookie(customer.CustomerEmail, true);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-                }
-               
-            }
-            return View(model);
-        }
+        
 
             // GET: Customers/Edit/5
             public ActionResult Edit(int? id)
