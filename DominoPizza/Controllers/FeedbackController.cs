@@ -14,10 +14,9 @@ namespace DominosPizza.Controllers
         {
             To.Add(model.To);
 
-            From = "AlexandraSchetchikova@yandex.ru"; //e-mail user 
+            From = "customermail@yandex.ru"; //e-mail user 
 
             Subject = model.Subject;
-             = model.Body;
 
             return Email("SendEmail", model);
         }

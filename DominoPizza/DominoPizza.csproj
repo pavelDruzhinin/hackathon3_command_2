@@ -181,6 +181,7 @@
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
+    <Content Include="Views\Home\Email.html.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
