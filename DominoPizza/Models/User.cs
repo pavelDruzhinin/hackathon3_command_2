@@ -1,4 +1,4 @@
-﻿using DominoPizza.Models;
+﻿using DominosPizza.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -13,7 +13,7 @@ namespace DominosPizza.Models
         public string UserFirstName { get; set; }
         public string UserPatronymic { get; set; }
         public string UserLastName { get; set; }
-        public Boolean UserSex { get; set; }
+       // public Boolean UserSex { get; set; }
         public DateTime UserBirthDate { get; set; }
 
         public int UserRoleId { get; set; }
@@ -21,7 +21,7 @@ namespace DominosPizza.Models
 
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<Task> Tasks { get; set; }
-        public ICollection<FeedbackMail> FeedBackMails { get; set; }
+       
 
 
         public void NewUser(string uFirstName, string uPatronymic, string uLastName, DateTime uBirthDate, Boolean uSex)
@@ -29,7 +29,7 @@ namespace DominosPizza.Models
             UserFirstName = uFirstName;
             UserPatronymic = uPatronymic;
             UserLastName = uLastName;
-            UserSex = uSex;
+            //UserSex = uSex;
             UserBirthDate = uBirthDate;
         }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
+using DominosPizza.Models;
+
 
 namespace DominosPizza.Models
 {
@@ -19,8 +21,8 @@ namespace DominosPizza.Models
 
 
         public ICollection<Contact> Contacts{ get; set; }
-
-
+        public ICollection<FeedbackMail> FeedBackMails { get; set; }
+        
 
         public void NewCustomer(string cFirstName,  string cPatronymicName, string cLastName, DateTime cBirthDate, Boolean cSex, string cPhone, string cEmail)
         {

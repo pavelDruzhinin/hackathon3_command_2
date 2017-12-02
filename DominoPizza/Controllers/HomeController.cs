@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DominosPizza.Models;
-using DominoPizza.Models;
 using DominoPizza.Controllers;
 
 namespace DominosPizza.Controllers

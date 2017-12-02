@@ -7,13 +7,13 @@ namespace DominoPizza.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class feedbackmail1 : IMigrationMetadata
+    public sealed partial class filepath : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(feedbackmail1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(filepath));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712011559180_feedbackmail1"; }
+            get { return "201712021303152_filepath"; }
         }
         
         string IMigrationMetadata.Source

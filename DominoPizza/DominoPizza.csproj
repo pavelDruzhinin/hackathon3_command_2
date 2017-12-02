@@ -217,7 +217,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -240,13 +242,13 @@
     <Compile Include="Migrations\201711292007328_cart.Designer.cs">
       <DependentUpon>201711292007328_cart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712011537378_feedbackmail.cs" />
-    <Compile Include="Migrations\201712011537378_feedbackmail.Designer.cs">
-      <DependentUpon>201712011537378_feedbackmail.cs</DependentUpon>
+    <Compile Include="Migrations\201712021241544_feedbackс.cs" />
+    <Compile Include="Migrations\201712021241544_feedbackс.Designer.cs">
+      <DependentUpon>201712021241544_feedbackс.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712011559180_feedbackmail1.cs" />
-    <Compile Include="Migrations\201712011559180_feedbackmail1.Designer.cs">
-      <DependentUpon>201712011559180_feedbackmail1.cs</DependentUpon>
+    <Compile Include="Migrations\201712021303152_filepath.cs" />
+    <Compile Include="Migrations\201712021303152_filepath.Designer.cs">
+      <DependentUpon>201712021303152_filepath.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
@@ -268,11 +270,11 @@
     <EmbeddedResource Include="Migrations\201711292007328_cart.resx">
       <DependentUpon>201711292007328_cart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712011537378_feedbackmail.resx">
-      <DependentUpon>201712011537378_feedbackmail.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712021241544_feedbackс.resx">
+      <DependentUpon>201712021241544_feedbackс.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712011559180_feedbackmail1.resx">
-      <DependentUpon>201712011559180_feedbackmail1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712021303152_filepath.resx">
+      <DependentUpon>201712021303152_filepath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

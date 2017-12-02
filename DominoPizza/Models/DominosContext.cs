@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using DominosPizza.Models;
-using DominoPizza.Models;
 
 namespace DominosPizza.Models
 {
