@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using DominosPizza.Models;
 using DominoPizza.Models;
+using DominoPizza.Controllers;
 
 namespace DominosPizza.Controllers
 {
@@ -211,7 +212,20 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult SendMail(FeedbackMail model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    new FeedbackController().SendEmail(model).Deliver();
+
+                    return RedirectToAction("SuccessSend");
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("ErrorSend");
+                }
+            }
+            return View(model);
         }
 
         public ActionResult SuccessSend()

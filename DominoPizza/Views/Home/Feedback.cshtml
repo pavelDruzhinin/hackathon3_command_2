@@ -4,32 +4,37 @@
 <div class="body-content">
     <h1 class="h1-ua">@ViewBag.Message</h1>
 
-    <form method="post"  class="" enctype="multipart/form-data" action="/SendMail">
+    <form method="post"  action="/Home/SendMail">
         <div class="form-group">
-            <label for="MailUserFIO" class="col-xs-2">Ваше имя</label><br />
+            <label for="MailUserFIO" class="col-xs-2">Ваше имя</label>
             <div class="col-xs-10">
-
                 <input class="form-control" type="text" id="MailUserFIO" name="MailUserFIO" /><br />
             </div>
         </div>
+
         <div class="form-group">
-            <label for="UserEmail" class="col-xs-2">Ваш E-mail</label><br />
+            <label for="UserEmail" class="col-xs-2">Ваш E-mail</label>
             <div class="col-xs-10">
-                <input class="form-control" type="text" id="UserEmail" name="MailUserEmail" /><br />
+                <input class="form-control" type="text" id="UserEmail" name="MailUserEmail" /> <br />
             </div>
         </div>
 
-            <label for="MailSubject" class="col-xs-2">Тема письма</label><br />
+        <div class="form-group">
+            <label for="MailSubject" class="col-xs-2">Тема письма</label>
             <div class="col-xs-10">
-                <input class="form-control" type="text" id="MailSubject" name="MailSubject" /><br />
+                <input class="form-control" type="text" id="MailSubject" name="MailSubject" /> <br />
             </div>
+        </div>
 
-            <label for="MailBody" class="col-xs-2">Текст сообщения</label><br />
+        <div class="form-group">
+            <label for="MailBody" class="col-xs-2">Текст сообщения</label>
             <div class="col-xs-10">
-                <textarea class="form-control" rows="10" id="MailBody" name="MailBody"></textarea><br />
+                <textarea class="form-control" rows="10" id="MailBody" name="MailBody"></textarea> <br />
             </div>
-            <br />
+        </div>
+         <div class="feedback">   
             <input class="btn btn-danger" type="submit" value="отправить" />
+             </div>
 </form>
     </div>
 
