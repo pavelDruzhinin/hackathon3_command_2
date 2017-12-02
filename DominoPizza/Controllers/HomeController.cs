@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DominosPizza.Models;
-using System.Web.Security;
 
 namespace DominosPizza.Controllers
 {
@@ -223,39 +222,8 @@ namespace DominosPizza.Controllers
             return View();
         }
 
-        public ActionResult Auth()
-        {
-            ViewBag.Message = "Вход";
-
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Auth(CustomerLogin model)
-        {
-
-
-            if (ModelState.IsValid)
-            {
-                Customer customer = null;
-                using (DominosContext db = new DominosContext())
-                {
-                    customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
-
-                }
-                if (customer != null)
-                {
-                    FormsAuthentication.SetAuthCookie(model.CustomerEmail, true);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-                }
-
-            }
-            return View();
-        }
+       
+      
 
 
 public ActionResult Offer()
