@@ -3,7 +3,7 @@
     ViewBag.Title = "Войти";
 }
 
-@using (Html.BeginForm("Auth", "Home", FormMethod.Post))
+@using (Html.BeginForm("Auth", "Customers", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
