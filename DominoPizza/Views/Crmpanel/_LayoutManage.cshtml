@@ -26,7 +26,7 @@
                      {
                         <li>Вы вошли как:@User.Identity.Name</li>
                         <li>
-                            @using (Html.BeginForm("Logout", "Crmpanel", FormMethod.Post, new { id = "logoutForm" }))
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                         {
                             @Html.AntiForgeryToken()
                         }

@@ -22,7 +22,7 @@ namespace DominosPizza.Models
         public int ContactId { get; set; }
         public Contact Contact { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<Customer> Customers { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
 
@@ -36,7 +36,7 @@ namespace DominosPizza.Models
         public TaskMap()
         {
             HasRequired(x => x.Contact).WithMany(x => x.Tasks).HasForeignKey(x => x.ContactId);
-            HasMany(x => x.Users);
+            HasMany(x => x.Customers);
 
         }
     }

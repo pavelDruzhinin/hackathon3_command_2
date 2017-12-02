@@ -13,7 +13,7 @@ namespace DominosPizza.Models
         public DateTime UserCommentDate { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public Customer Customer { get; set; }
 
         public int TaskId { get; set; }
         public Task Task { get; set; }
@@ -24,7 +24,7 @@ namespace DominosPizza.Models
     {
         public UserCommentMap()
         {
-            HasRequired(x => x.User).WithMany(x => x.UserComments).HasForeignKey(x => x.UserId);
+            HasRequired(x => x.Customer).WithMany(x => x.UserComments).HasForeignKey(x => x.UserId);
             HasRequired(x => x.Task).WithMany(x => x.UserComments).HasForeignKey(x => x.TaskId);
 
         }

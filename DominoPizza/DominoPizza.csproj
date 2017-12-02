@@ -254,6 +254,18 @@
     <Compile Include="Migrations\201711301920475_customer.Designer.cs">
       <DependentUpon>201711301920475_customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712022103446_MigrateDB1.cs" />
+    <Compile Include="Migrations\201712022103446_MigrateDB1.Designer.cs">
+      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712022125061_MigrateDB2.cs" />
+    <Compile Include="Migrations\201712022125061_MigrateDB2.Designer.cs">
+      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712022139340_MigrateDB3.cs" />
+    <Compile Include="Migrations\201712022139340_MigrateDB3.Designer.cs">
+      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
@@ -278,6 +290,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
       <DependentUpon>201711301920475_customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022103446_MigrateDB1.resx">
+      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022125061_MigrateDB2.resx">
+      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022139340_MigrateDB3.resx">
+      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
