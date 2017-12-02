@@ -76,10 +76,16 @@ namespace DominosPizza.Controllers
             return View(model);
         }
 
-        [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
+       // [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
         [HttpGet]
         public ActionResult Register()
         {
+            return View();
+        }
+        public ActionResult Auth()
+        {
+            ViewBag.Message = "Вход";
+
             return View();
         }
 

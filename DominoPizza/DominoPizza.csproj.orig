@@ -105,7 +105,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DominosPizza.mdf" />
+    <Content Include="App_Data\DominosPizza_log.ldf">
+      <DependentUpon>DominosPizza.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\manage.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -132,7 +137,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -170,11 +174,24 @@
     <Content Include="Views\Home\Offer.cshtml" />
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
-    <Content Include="Views\Home\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Index.cshtml" />
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
     <Content Include="Views\Crmpanel\_Layout.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutManage.cshtml" />
+    <Content Include="Views\Crmpanel\Manager.cshtml" />
+    <Content Include="Views\Crmpanel\Kitchen.cshtml" />
+    <Content Include="Views\Crmpanel\Delivery.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Crmpanel\Users.cshtml" />
+=======
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Auth.cshtml" />
+>>>>>>> Auth4Users
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -220,6 +237,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CrmpanelController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
@@ -235,12 +253,20 @@
     <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
 <<<<<<< HEAD
-    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Migrations\201712012230427_MigrateDB1.cs" />
+    <Compile Include="Migrations\201712012230427_MigrateDB1.Designer.cs">
+      <DependentUpon>201712012230427_MigrateDB1.cs</DependentUpon>
 =======
+    <Compile Include="Migrations\201711301920475_customer.cs" />
+    <Compile Include="Migrations\201711301920475_customer.Designer.cs">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
+>>>>>>> Auth4Users
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
->>>>>>> crm
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -259,10 +285,16 @@
     <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Migrations\201712012230427_MigrateDB1.resx">
+      <DependentUpon>201712012230427_MigrateDB1.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
+>>>>>>> Auth4Users
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
