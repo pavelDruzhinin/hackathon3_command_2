@@ -3,7 +3,7 @@ namespace DominoPizza.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class init2 : DbMigration
     {
         public override void Up()
         {
@@ -101,7 +101,6 @@ namespace DominoPizza.Migrations
                         UserFirstName = c.String(),
                         UserPatronymic = c.String(),
                         UserLastName = c.String(),
-                        UserSex = c.Boolean(nullable: false),
                         UserBirthDate = c.DateTime(nullable: false),
                         UserRoleId = c.Int(nullable: false),
                     })
@@ -117,6 +116,21 @@ namespace DominoPizza.Migrations
                         UserRoleName = c.String(),
                     })
                 .PrimaryKey(t => t.UserRoleId);
+            
+            CreateTable(
+                "dbo.FeedbackMails",
+                c => new
+                    {
+                        FeedbackMailId = c.Int(nullable: false, identity: true),
+                        Subject = c.String(),
+                        FeedbackName = c.String(),
+                        Body = c.String(),
+                        MailDateCreate = c.DateTime(nullable: false),
+                        To = c.String(),
+                        From = c.String(),
+                        FilePath = c.String(),
+                    })
+                .PrimaryKey(t => t.FeedbackMailId);
             
             CreateTable(
                 "dbo.ContactCustomers",
@@ -170,6 +184,7 @@ namespace DominoPizza.Migrations
             DropIndex("dbo.Tasks", new[] { "ContactId" });
             DropTable("dbo.TaskUsers");
             DropTable("dbo.ContactCustomers");
+            DropTable("dbo.FeedbackMails");
             DropTable("dbo.UserRoles");
             DropTable("dbo.Users");
             DropTable("dbo.UserComments");

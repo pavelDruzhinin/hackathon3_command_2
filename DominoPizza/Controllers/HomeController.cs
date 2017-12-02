@@ -209,22 +209,31 @@ namespace DominosPizza.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendMail(FeedbackMail model)
+        public ActionResult SendMail(FeedbackMail Feedback)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    new FeedbackController().SendEmail(model).Deliver();
+                     try
+                     {
+                        new FeedbackController().SendEmail(Feedback).Deliver();
+                        Feedback.MailDateCreate = DateTime.Now;
+                        db.FeedBacks.Add(Feedback);
+                        db.SaveChanges();
 
-                    return RedirectToAction("SuccessSend");
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("ErrorSend");
-                }
+                        return RedirectToAction("SuccessSend");
+                     }
+                     catch (Exception)
+                     {
+                         return RedirectToAction("ErrorSend");
+                     }
+
+              /*  new FeedbackController().SendEmail(Feedback).Deliver();
+                Feedback.MailDateCreate = DateTime.Now;
+                db.FeedBacks.Add(Feedback);
+                db.SaveChanges();*/
             }
-            return View(model);
+            //return RedirectToRoute(new { controller = "Home", action = "Index" });
+            return View();
         }
 
         public ActionResult SuccessSend()

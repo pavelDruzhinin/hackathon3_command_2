@@ -3,16 +3,16 @@ namespace DominoPizza.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class filepath : DbMigration
+    public partial class init4 : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.FeedbackMails", "FilePath", c => c.String());
+            AddColumn("dbo.FeedbackMails", "ReplyEmail", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.FeedbackMails", "FilePath");
+            DropColumn("dbo.FeedbackMails", "ReplyEmail");
         }
     }
 }

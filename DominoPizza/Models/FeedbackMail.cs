@@ -8,14 +8,21 @@ namespace DominosPizza.Models
         
             public int FeedbackMailId { get; set; }
             public string Subject { get; set; }
-
+            public string FeedbackName { get; set; }
+        
             public string Body { get; set; }
             public DateTime MailDateCreate { get; set; }
-            private string to = "admindominos@yandex.ru";
+            private string to = "dominospizzaptz@yandex.ru";
             public string To { get { return to; } set { to = value; } }
 
+            private string from = "dominospizzaptz@yandex.ru";
+
+            public string From { get { return to; } set { from = value; } }
+
+            public string ReplyEmail { get; set; }
             public string FilePath { get; set; }
-            public int CustomerId { get; set; }
+
+            public int? CustomerId { get; set; }
             public Customer Customer { get; set; }
         }
 
@@ -23,7 +30,7 @@ namespace DominosPizza.Models
         {
             public FeedbackMailMap()
             {
-                HasRequired(x => x.Customer).WithMany(x => x.FeedBackMails).HasForeignKey(x => x.CustomerId);
+                HasOptional(x => x.Customer).WithMany(x => x.FeedBackMails).HasForeignKey(x => x.CustomerId);
             }
         }
     

@@ -10,15 +10,17 @@ namespace DominosPizza.Controllers
 {
     public class FeedbackController : MailerBase
     {
-        public EmailResult SendEmail(FeedbackMail model)
+        public EmailResult SendEmail(FeedbackMail feedbackMail)
         {
-            To.Add(model.To);
+            DominosContext db = new DominosContext();
 
-            From = "customermail@yandex.ru"; //e-mail user 
+            To.Add(feedbackMail.To);
 
-            Subject = model.Subject;
+            From = feedbackMail.From; //e-mail user 
 
-            return Email("SendEmail", model);
+            Subject = feedbackMail.Subject;
+
+            return Email("Email", feedbackMail);
         }
     }
 }

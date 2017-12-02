@@ -181,7 +181,7 @@
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
-    <Content Include="Views\Home\Email.html.cshtml" />
+    <Content Include="Views\Shared\Email.html.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -235,21 +235,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711261237332_Init.cs" />
-    <Compile Include="Migrations\201711261237332_Init.Designer.cs">
-      <DependentUpon>201711261237332_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201712021754554_init2.cs" />
+    <Compile Include="Migrations\201712021754554_init2.Designer.cs">
+      <DependentUpon>201712021754554_init2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711292007328_cart.cs" />
-    <Compile Include="Migrations\201711292007328_cart.Designer.cs">
-      <DependentUpon>201711292007328_cart.cs</DependentUpon>
+    <Compile Include="Migrations\201712021810001_init3.cs" />
+    <Compile Include="Migrations\201712021810001_init3.Designer.cs">
+      <DependentUpon>201712021810001_init3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712021241544_feedbackс.cs" />
-    <Compile Include="Migrations\201712021241544_feedbackс.Designer.cs">
-      <DependentUpon>201712021241544_feedbackс.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712021303152_filepath.cs" />
-    <Compile Include="Migrations\201712021303152_filepath.Designer.cs">
-      <DependentUpon>201712021303152_filepath.cs</DependentUpon>
+    <Compile Include="Migrations\201712021955099_init4.cs" />
+    <Compile Include="Migrations\201712021955099_init4.Designer.cs">
+      <DependentUpon>201712021955099_init4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
@@ -265,22 +261,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711261237332_Init.resx">
-      <DependentUpon>201711261237332_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711292007328_cart.resx">
-      <DependentUpon>201711292007328_cart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712021241544_feedbackс.resx">
-      <DependentUpon>201712021241544_feedbackс.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712021303152_filepath.resx">
-      <DependentUpon>201712021303152_filepath.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Feedback\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712021754554_init2.resx">
+      <DependentUpon>201712021754554_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712021810001_init3.resx">
+      <DependentUpon>201712021810001_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712021955099_init4.resx">
+      <DependentUpon>201712021955099_init4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
