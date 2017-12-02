@@ -11,7 +11,7 @@ namespace DominosPizza.Models
 
             public string Body { get; set; }
             public DateTime MailDateCreate { get; set; }
-            private string to = "alu-sia@yandex.ru";
+            private string to = "admindominos@yandex.ru";
             public string To { get { return to; } set { to = value; } }
 
             public string FilePath { get; set; }
