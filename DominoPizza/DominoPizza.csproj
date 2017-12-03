@@ -127,6 +127,8 @@
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\js-cookie\js.cookie-2.2.0.min.js" />
+    <Content Include="Scripts\js-cookie\js.cookie.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -179,6 +181,10 @@
     <Content Include="Views\Crmpanel\Manager.cshtml" />
     <Content Include="Views\Crmpanel\Kitchen.cshtml" />
     <Content Include="Views\Crmpanel\Delivery.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatDialog.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatList.cshtml" />
+    <Content Include="Views\Messaging\Index.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatDialogForManager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -236,6 +242,10 @@
     <Compile Include="Migrations\201711261237332_Init.Designer.cs">
       <DependentUpon>201711261237332_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712021706366_MessageIsNew.cs" />
+    <Compile Include="Migrations\201712021706366_MessageIsNew.Designer.cs">
+      <DependentUpon>201712021706366_MessageIsNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -255,10 +265,12 @@
     <EmbeddedResource Include="Migrations\201711261237332_Init.resx">
       <DependentUpon>201711261237332_Init.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712021706366_MessageIsNew.resx">
+      <DependentUpon>201712021706366_MessageIsNew.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Messaging\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

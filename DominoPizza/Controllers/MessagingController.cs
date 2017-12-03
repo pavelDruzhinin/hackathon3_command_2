@@ -12,17 +12,17 @@ namespace DominoPizza.Controllers
     {
         DominosContext db = new DominosContext();
         // GET: Messaging
-        // public ActionResult Index()
-        // {
-        //     return View();
-        // }
+        public ActionResult Index()
+        {
+            return View();
+        }
         [HttpPost]
-        public ActionResult OnlineChatShow(int CustomerId)
+        public ActionResult ShowDialog(string onlineChatUniqueId)
         {
             IQueryable<OnlineChatRow> rows = db.OnlineChatRows
-                                                    .Where(c => c.CustomerId == CustomerId)
+                                                    .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
                                                     .Select(c => c);
-            return PartialView("_CommentsWindowPartial", rows);
+            return PartialView("_OnlineChatDialog", rows);
         }
 
         [HttpPost]
@@ -33,9 +33,9 @@ namespace DominoPizza.Controllers
             newRow.CustomerId = customerId;                         //!!!     0 если незарегистрированный
             newRow.UserId = userId;
             newRow.MessageByUser = messageByUser;
-            if (onlineChatUniqueId != null)
+            if (onlineChatUniqueId != "new")
             {
-                newRow.Assigned = true;
+                newRow.Assigned = false;
                 newRow.OnlineChatUniqueId = onlineChatUniqueId;
             }
             else
@@ -45,6 +45,7 @@ namespace DominoPizza.Controllers
             }
             newRow.MessageText = messageText;
             newRow.MessageDateTime = DateTime.Now;
+            newRow.MessageIsNew = true;
             /*           IQueryable<Users> table = db.UsersDbSet
                                                   .Where(c => c.UsersId == userId)
                                                   .Select(c => c);
@@ -59,7 +60,7 @@ namespace DominoPizza.Controllers
                                                                    .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
                                                                    .Select(c => c); */
 
-            return Json(data: new { Data = addStatus }, behavior: JsonRequestBehavior.AllowGet);
+            return Json(data: new { Data = newRow.OnlineChatUniqueId }, behavior: JsonRequestBehavior.AllowGet);
             //return PartialView("_CommentsWindowPartial", rows);
             /*      
 
@@ -68,6 +69,121 @@ namespace DominoPizza.Controllers
 
 
         }
+        //вывод чата для менеджера
+        [HttpPost]
+        public ActionResult ShowChat()
+        {
+            Dictionary<string, int> chatlist = new Dictionary<string, int>();            //<номер диалога, взят менеджером>
+            Dictionary<string, int> dialogsWithNewMessages = new Dictionary<string, int>(); //<номер диалого, кол-во новых сообщений>
+            IEnumerable<OnlineChatRow> rows = db.OnlineChatRows
+                                                    /*.Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
+                                                    .Select(c => c)
+                                                    .OrderByDescending(c => c.MessageDateTime)
+                                                    .Select(c => c)*/;
+            foreach (var row in rows)
+            {
+                if (!(chatlist.ContainsKey(row.OnlineChatUniqueId)))
+                    chatlist.Add(row.OnlineChatUniqueId, row.Assigned ? 1 : 0);
 
+                if (row.MessageIsNew && !(row.MessageByUser))
+                {
+                    if (dialogsWithNewMessages.ContainsKey(row.OnlineChatUniqueId))
+                    {
+                        dialogsWithNewMessages[row.OnlineChatUniqueId]++;
+                    }
+                    else
+                    {
+                        dialogsWithNewMessages.Add(row.OnlineChatUniqueId, 1);
+                    }
+                }
+            }
+            List<Dictionary<string, int>> list = new List<Dictionary<string, int>>();
+            list.Add(chatlist);
+            list.Add(dialogsWithNewMessages);
+
+            return PartialView("_OnlineChatList", list);
+
+
+
+        }
+        [HttpPost]
+        public ActionResult ShowDialogManager(string onlineChatUniqueId)
+        {
+            if (onlineChatUniqueId == "empty" || onlineChatUniqueId == null)
+            {
+                IEnumerable<OnlineChatRow> rows2 = db.OnlineChatRows;
+                /* .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
+                 .Select(c => c);*/
+                onlineChatUniqueId = rows2.LastOrDefault().OnlineChatUniqueId;
+            }
+
+            IQueryable<OnlineChatRow> rows = db.OnlineChatRows
+                                        .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
+                                        .Select(c => c);
+            /*               if (!(rows.FirstOrDefault().Assigned))
+                           {
+                               foreach (var row in rows)
+                               {
+                                   row.Assigned = true;
+                                   db.Entry(row).State = System.Data.Entity.EntityState.Modified;
+                               }
+                               db.SaveChanges();
+                           }*/
+
+            foreach (var row in rows)
+            {
+                row.Assigned = true;
+                if (!(row.MessageByUser))
+                {
+                    row.MessageIsNew = false;
+                }
+                db.Entry(row).State = System.Data.Entity.EntityState.Modified;
+            }
+            db.SaveChanges();
+            /*           //1. Get  from DB
+            Tasks task = db.TasksDbSet.FirstOrDefault(u => u.TasksId == TasksId);
+            //Tasks  task = db.TasksDbSet.Where(s => s.TasksId == TasksId).FirstOrDefault();
+            int TaskStatusId = 2;
+                                                ////нужно не забыть добавить таблицу для TaskStatusChange, а то пока пишет в никуда
+            if (task != null)
+            {
+               if ( task.TaskStatusChange(TaskStatusId, userId, DateTime.Now) == TaskStatusId) {
+                    task.TaskStatusId = TaskStatusId;
+
+                    //3. Mark entity as modified
+                    db.Entry(task).State = System.Data.Entity.EntityState.Modified;
+
+                    //4. call SaveChanges
+                    db.SaveChanges();
+
+                }
+            }*/
+
+
+            return PartialView("_OnlineChatDialogForManager", rows);
+
+        }
+
+        [HttpPost]
+        public ActionResult ChatIndicators()
+        {
+            /*   int indicator1 = db.OnlineChatRows
+                                           .Where(c => c.Assigned == false)
+                                           .Select(c => c.OnlineChatUniqueId)
+                                           .Distinct()
+                                           .Count();
+              int indicator1 = db.OnlineChatRows
+                             .Where(c => c.Assigned == false)
+                             .GroupBy(c => c.OnlineChatUniqueId)
+                             .Count();*/
+
+            int indicator2 = db.OnlineChatRows
+                                        .Where(c => c.MessageIsNew == true && c.MessageByUser == false)
+                                        .Select(c => c)
+                                        .Count();
+            string indicators = $"{indicator2}";
+            return Json(data: new { Data = indicators }, behavior: JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

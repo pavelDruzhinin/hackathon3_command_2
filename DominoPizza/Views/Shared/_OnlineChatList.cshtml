@@ -1,0 +1,32 @@
+﻿@using DominosPizza.Models
+@model List<Dictionary<string, int>>
+@{
+
+}
+
+
+@foreach (KeyValuePair<string, int> keyValue in Model[0])
+     {
+        if (keyValue.Value == 0)
+        {
+                <div style="background-color:lightpink;" class="chatList-chats" id="chatList-chats-@keyValue.Key"><p>@keyValue.Key  <span>+</span></p></div>
+        }
+     }
+
+      @foreach (KeyValuePair<string, int> keyValue in Model[0].OrderByDescending(i => i.Key))
+      {
+          if (keyValue.Value == 1)
+          {
+
+        <div class="chatList-chats" id="chatList-chats-@keyValue.Key"><p>@keyValue.Key  <span>
+                @if (Model[1].ContainsKey(keyValue.Key))
+                {
+                    @Model[1][keyValue.Key]
+                }
+                </span></p></div>
+          }
+       }
+
+
+
+
