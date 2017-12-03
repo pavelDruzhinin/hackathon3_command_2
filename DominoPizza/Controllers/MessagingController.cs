@@ -185,5 +185,11 @@ namespace DominoPizza.Controllers
             return Json(data: new { Data = indicators }, behavior: JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult Muzzle()
+        {
+            IEnumerable<Product> temp = db.Products;
+            List<Product> products = temp.ToList();
+            return View(products);
+        }
     }
 }

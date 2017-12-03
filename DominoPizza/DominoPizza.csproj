@@ -185,6 +185,7 @@
     <Content Include="Views\Shared\_OnlineChatList.cshtml" />
     <Content Include="Views\Messaging\Index.cshtml" />
     <Content Include="Views\Shared\_OnlineChatDialogForManager.cshtml" />
+    <Content Include="Views\Messaging\Muzzle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
