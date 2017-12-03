@@ -220,8 +220,35 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Message = "Правовая информация";
 
-            return View();
+
+            List<OrderTable> table = new List<OrderTable>();
+            int i = 1;
+            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+            {
+                OrderTable orderTableRow = new OrderTable();
+                orderTableRow.OrderTableId = i++;
+                orderTableRow.ProductId = keyValue.Key;
+                orderTableRow.ProductQuantity = keyValue.Value;
+                IQueryable<Product> product = db.Products
+                                                    .Where(c => c.ProductId == keyValue.Key)
+                                                    .Select(c => c);
+                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
+                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
+                table.Add(orderTableRow);
+            }
+
+
+
+
+
+
+            return View(table);
         }
+
+        public ActionResult Rules()
+        {
+            ViewBag.Message = "Правовая информация";
+
 
        
       

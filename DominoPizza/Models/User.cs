@@ -1,5 +1,4 @@
-﻿using DominosPizza.Models;
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
@@ -30,4 +29,4 @@ namespace DominosPizza.Models
             HasMany(x => x.Tasks);
         }
     }
-}
+}*/

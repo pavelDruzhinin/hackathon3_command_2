@@ -48,8 +48,23 @@
                         <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
                         <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
                         <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
+                        <li>@if (User.Identity.IsAuthenticated)
+                        {
+                            <li>Вы вошли как:@User.Identity.Name</li>
+                            <li>
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                }
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                            </li>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Вход", "Auth", "Customers")
+                        }
+                        </li>
                         <li>@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
-                        <li>@Html.ActionLink("Вход", "Auth", "Home")</li>
                     </ul>
                 </div>
             </div>

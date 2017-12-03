@@ -22,7 +22,7 @@ namespace DominosPizza
             routes.MapRoute(
                name: "crmpanel",
                url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Crmpanel", action = "Index", id = UrlParameter.Optional }
+               defaults: new { controller = "Crmpanel", action = "Manage", id = UrlParameter.Optional }
            );
         }
     }

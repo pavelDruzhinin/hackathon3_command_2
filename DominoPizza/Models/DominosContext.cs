@@ -17,7 +17,7 @@ namespace DominosPizza.Models
         }
 
         public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
 
         public DbSet<Product> Products { get; set; }
@@ -30,7 +30,7 @@ namespace DominosPizza.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new TaskMap());
-            modelBuilder.Configurations.Add(new UserMap());
+            //modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UserCommentMap());
             modelBuilder.Configurations.Add(new ContactMap());
             modelBuilder.Configurations.Add(new CustomerMap());

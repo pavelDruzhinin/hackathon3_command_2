@@ -181,10 +181,13 @@
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
     <Content Include="Views\Crmpanel\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
     <Content Include="Views\Shared\Email.html.cshtml" />
+=======
+>>>>>>> master
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
     <Content Include="Views\Crmpanel\_Layout.cshtml" />
@@ -273,11 +276,34 @@
     <Compile Include="Migrations\201711301920475_customer.Designer.cs">
       <DependentUpon>201711301920475_customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711292122478_MigrateDB.cs" />
+    <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
+      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711301920475_customer.cs" />
+    <Compile Include="Migrations\201711301920475_customer.Designer.cs">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712022103446_MigrateDB1.cs" />
+    <Compile Include="Migrations\201712022103446_MigrateDB1.Designer.cs">
+      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712022125061_MigrateDB2.cs" />
+    <Compile Include="Migrations\201712022125061_MigrateDB2.Designer.cs">
+      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712022139340_MigrateDB3.cs" />
+    <Compile Include="Migrations\201712022139340_MigrateDB3.Designer.cs">
+      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\FeedbackMail.cs" />
+=======
+>>>>>>> master
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -307,10 +333,29 @@
     <EmbeddedResource Include="Migrations\201712021955099_init4.resx">
       <DependentUpon>201712021955099_init4.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
+      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
+      <DependentUpon>201711301920475_customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022103446_MigrateDB1.resx">
+      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022125061_MigrateDB2.resx">
+      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712022139340_MigrateDB3.resx">
+      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="Views\Feedback\" />
   </ItemGroup>
+=======
+  <ItemGroup />
+>>>>>>> master
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

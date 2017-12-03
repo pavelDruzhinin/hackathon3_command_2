@@ -25,7 +25,7 @@ namespace DominosPizza.Controllers
         {
             //ViewBag.Users = new SelectList(db.Users, "ID", "FullName");
 
-            return View(db.Users.ToList());
+            return View(db.Customers.ToList());
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
@@ -45,27 +45,27 @@ namespace DominosPizza.Controllers
         {
             return View();
         }
-        
+        /*
         [HttpGet]
         public ActionResult Index() // страница логина в CRM panel
         {
             return View();
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(LoginModel model) // метод авторизации
+        public ActionResult Index(CustomerLogin model) // метод авторизации
         {
             if (ModelState.IsValid)
             {
-                User user = null;
+                Customer user = null;
                 using (DominosContext db = new DominosContext())
                 {
-                    user = db.Users.FirstOrDefault(u => u.Login == model.Name && u.Password == model.Password);
+                    user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
                 }
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true); // добавить проверку роли и перенаправление на соответствующую страницу - "Manage" Администратор, "Manager" менеджер, "Kitchen" повар, "Delivery" курьер
+                    FormsAuthentication.SetAuthCookie(model.CustomerEmail, true); // добавить проверку роли и перенаправление на соответствующую страницу - "Manage" Администратор, "Manager" менеджер, "Kitchen" повар, "Delivery" курьер
                     return RedirectToAction("Manage", "Crmpanel"); // при успешной авторизации перенаправляем пользователя в админку
                 }
                 else
@@ -75,39 +75,40 @@ namespace DominosPizza.Controllers
             }
             return View(model);
         }
-
+        */
        // [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
         [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
+        /*
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
 
             return View();
         }
-
+        */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model) // метод регистрации сотрудника, указывается логин, пароль, ФИО, роль
         {
             if (ModelState.IsValid)
             {
-                User user = null;
+                Customer user = null;
                 using (DominosContext db = new DominosContext())
                 {
-                    user = db.Users.FirstOrDefault(u => u.Login == model.Name);
+                    user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email);
                 }
                 if (user == null)
                 {
                     using (DominosContext db = new DominosContext())
                     {
-                        db.Users.Add(new User { Login = model.Name, Password = model.Password, UserRoleId = model.RoleId, UserFirstName = model.FirstName, UserLastName = model.LastName, UserPatronymic = model.Patronymic });
+                        db.Customers.Add(new Customer { CustomerEmail = model.Email, CustomerPassword = model.Password, CustomerRoleId = model.RoleId, CustomerFirstName = model.FirstName, CustomerLastName = model.LastName, CustomerPatronymic = model.Patronymic });
                         db.SaveChanges();
 
-                        user = db.Users.Where(u => u.Login == model.Name && u.Password == model.Password).FirstOrDefault();
+                        user = db.Customers.Where(u => u.CustomerEmail == model.Email && u.CustomerPassword == model.Password).FirstOrDefault();
                     }
 
                     if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий
@@ -129,7 +130,7 @@ namespace DominosPizza.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Crmpanel");
+            return RedirectToAction("Auth", "Customer");
         }
     }
 }

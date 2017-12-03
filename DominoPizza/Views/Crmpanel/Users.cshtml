@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DominosPizza.Models.User>
+@model IEnumerable<DominosPizza.Models.Customer>
 @using DominosPizza.Models
 
 @{
@@ -24,24 +24,24 @@
     {
         <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Login)
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserFirstName)
+                @Html.DisplayFor(modelItem => item.CustomerFirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserPatronymic)
+                @Html.DisplayFor(modelItem => item.CustomerPatronymic)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserLastName)
+                @Html.DisplayFor(modelItem => item.CustomerLastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserRoleId)
+                @Html.DisplayFor(modelItem => item.CustomerRoleId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserRoles)

@@ -11,7 +11,7 @@ namespace DominosPizza.Models
         public int UserRoleId { get; set; }
         public string UserRoleName { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<Customer> Customers { get; set; }
 
     }
 
@@ -19,7 +19,7 @@ namespace DominosPizza.Models
     {
         public UserRoleMap()
         {
-            HasMany(x => x.Users);
+            HasMany(x => x.Customers);
         }
 
     }
