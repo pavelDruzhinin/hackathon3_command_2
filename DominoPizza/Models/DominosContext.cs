@@ -11,9 +11,6 @@ namespace DominosPizza.Models
     {
         public DominosContext() : base("DominosContext")
         {
-
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DominosContext, DominoPizza.Migrations.Configuration>("DominosContext"));
-
         }
 
         public DbSet<UserRole> UserRoles { get; set; }
@@ -24,6 +21,8 @@ namespace DominosPizza.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<TaskRow> TaskRows { get; set; }
+        public DbSet<FeedbackMail> FeedBacks { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

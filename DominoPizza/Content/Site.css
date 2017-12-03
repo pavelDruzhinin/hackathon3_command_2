@@ -541,3 +541,13 @@ textarea {
     color: #FAAB49;
     font-size: 26px;
 }
+
+.feedback {
+    margin-left: 390px;
+}
+
+.feedback-text {
+    text-align:center;
+}
+
+
