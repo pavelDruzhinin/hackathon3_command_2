@@ -322,20 +322,20 @@ namespace DominosPizza.Controllers
                 i = 2;
                 mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { } };
             }
-            Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerPhone == TaskDeliveryCustomerPhone);
-            if (mycustomer == null)
-            {
-                if (i == 2) //нет контакта есть клиент
-                {
-                    i = 3; //нет ни того ни другого
-                }
-                else
-                {
-                    i = 1; //есть контакт нет клиента
-                }
-                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
-                db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
-            }
+            Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerEmail == User.Identity.Name);
+            //if (mycustomer == null)
+            //{
+            //    if (i == 2) //нет контакта есть клиент
+            //    {
+            //        i = 3; //нет ни того ни другого
+            //    }
+            //    else
+            //    {
+            //        i = 1; //есть контакт нет клиента
+            //    }
+            //    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
+            //    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
+            //}
             if (i > 0)
             {
                 mycontact.Customers.Add(mycustomer);

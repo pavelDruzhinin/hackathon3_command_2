@@ -89,7 +89,7 @@ namespace DominoPizza.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Auth","Home");
+                return RedirectToAction("Auth","Customers");
             }
 
             return View(customer);
