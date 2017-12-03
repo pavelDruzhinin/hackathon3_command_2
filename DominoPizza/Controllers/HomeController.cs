@@ -373,7 +373,8 @@ namespace DominosPizza.Controllers
             db.SaveChanges();
             Session["cart"] = null;
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
+            //  return RedirectToRoute(new { controller = "Home", action = "PayOffer" });
+           return RedirectToAction("PayOffer");
         }
     }
 }
