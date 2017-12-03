@@ -138,7 +138,7 @@ namespace DominosPizza.Controllers
             {
                 cart = (Cart)Session["cart"];
             }
-            IEnumerable<Product> products = db.Products; 
+            IEnumerable<Product> products = db.Products;
             return View(products);
         }
 
@@ -153,7 +153,7 @@ namespace DominosPizza.Controllers
         {
             //ViewBag.Message = "Информация как заказать";
             ViewBag.Phone = "(8142) xx-xx-xx";
-                return View();
+            return View();
         }
 
         public ActionResult Contacts()
@@ -208,11 +208,6 @@ namespace DominosPizza.Controllers
                 table.Add(orderTableRow);
             }
 
-
-
-
-
-
             return View(table);
         }
 
@@ -220,41 +215,11 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Message = "Правовая информация";
 
-
-            List<OrderTable> table = new List<OrderTable>();
-            int i = 1;
-            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
-            {
-                OrderTable orderTableRow = new OrderTable();
-                orderTableRow.OrderTableId = i++;
-                orderTableRow.ProductId = keyValue.Key;
-                orderTableRow.ProductQuantity = keyValue.Value;
-                IQueryable<Product> product = db.Products
-                                                    .Where(c => c.ProductId == keyValue.Key)
-                                                    .Select(c => c);
-                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
-                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
-                table.Add(orderTableRow);
-            }
-
-
-
-
-
-
-            return View(table);
+            return View();
         }
 
-        public ActionResult Rules()
-        {
-            ViewBag.Message = "Правовая информация";
 
-
-       
-      
-
-
-public ActionResult Offer()
+        public ActionResult Offer()
         {
             ViewBag.Message = "Публичная оферта о продаже товаров дистанционным способом (действует с 25 ноября 2017 года)";
 
@@ -280,24 +245,24 @@ public ActionResult Offer()
         {
             if (ModelState.IsValid)
             {
-                     try
-                     {
-                        new FeedbackController().SendEmail(Feedback).Deliver();
-                        Feedback.MailDateCreate = DateTime.Now;
-                        db.FeedBacks.Add(Feedback);
-                        db.SaveChanges();
+                try
+                {
+                    new FeedbackController().SendEmail(Feedback).Deliver();
+                    Feedback.MailDateCreate = DateTime.Now;
+                    db.FeedBacks.Add(Feedback);
+                    db.SaveChanges();
 
-                        return RedirectToAction("SuccessSend");
-                     }
-                     catch (Exception)
-                     {
-                         return RedirectToAction("ErrorSend");
-                     }
+                    return RedirectToAction("SuccessSend");
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("ErrorSend");
+                }
 
-              /*  new FeedbackController().SendEmail(Feedback).Deliver();
-                Feedback.MailDateCreate = DateTime.Now;
-                db.FeedBacks.Add(Feedback);
-                db.SaveChanges();*/
+                /*  new FeedbackController().SendEmail(Feedback).Deliver();
+                  Feedback.MailDateCreate = DateTime.Now;
+                  db.FeedBacks.Add(Feedback);
+                  db.SaveChanges();*/
             }
             //return RedirectToRoute(new { controller = "Home", action = "Index" });
             return View();
@@ -368,17 +333,17 @@ public ActionResult Offer()
                 {
                     i = 1; //есть контакт нет клиента
                 }
-                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() {mycontact} };
+                mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
                 db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
             }
             if (i > 0)
             {
                 mycontact.Customers.Add(mycustomer);
-            //    mycustomer.Contacts.Add(mycontact);
+                //    mycustomer.Contacts.Add(mycontact);
                 db.Contacts.Add(mycontact);
             }
             db.SaveChanges();
-            task.Contact = mycontact; 
+            task.Contact = mycontact;
             task.ContactId = mycontact.ContactId;
             //int userId = 0;
             double sum = 0;
@@ -386,10 +351,11 @@ public ActionResult Offer()
             task.TaskDate = DateTime.Now;
             task.TaskPayMethod = Convert.ToInt32(TaskPaymentMethod);
             // task.taskStatusChangeHistory.Add(userId, DateTime.Now, 0); Надо разобраться как мы будем хранить историю
-            foreach (var m in cart.cartlist) {
+            foreach (var m in cart.cartlist)
+            {
                 var mydish = db.Products.FirstOrDefault(k => k.ProductId == m.Key);
                 sum = mydish.ProductPrice * m.Value + sum;
-                    }
+            }
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
             db.Tasks.Add(task);

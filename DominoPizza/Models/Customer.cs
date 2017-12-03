@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace DominosPizza.Models
 {
@@ -19,7 +17,7 @@ namespace DominosPizza.Models
         public string CustomerLastName { get; set; }
         public DateTime CustomerBirthDate { get; set; }
         public Boolean CustomerSex { get; set; }
-        public string CustomerPhone{get;set;}
+        public string CustomerPhone { get; set; }
 
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         //[Required(ErrorMessage = "Поле должно быть заполнено")]
@@ -37,24 +35,11 @@ namespace DominosPizza.Models
         public int CustomerRoleId { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
-        public ICollection<Contact> Contacts{ get; set; }
+        public ICollection<Contact> Contacts { get; set; }
         public ICollection<Task> Tasks { get; set; }
         public ICollection<UserComment> UserComments { get; set; }
-
-
-
-        public void NewCustomer(string cFirstName,  string cPatronymicName, string cLastName, DateTime cBirthDate, Boolean cSex, string cPhone, string cEmail)
-        {
-            CustomerFirstName = cFirstName;
-            CustomerPatronymic = cPatronymicName;
-            CustomerLastName = cLastName;
-            CustomerBirthDate = cBirthDate;
-            CustomerSex = cSex;
-            CustomerPhone = cPhone;
-            CustomerEmail = cEmail;
-        }
+        public ICollection<FeedbackMail> FeedBackMails { get; set; }
     }
-
 
     public class CustomerMap : EntityTypeConfiguration<Customer>
     {

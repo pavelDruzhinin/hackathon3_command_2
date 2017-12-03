@@ -111,10 +111,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DominosPizza.mdf" />
-    <Content Include="App_Data\DominosPizza_log.ldf">
-      <DependentUpon>DominosPizza.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\admin.css" />
     <Content Include="Content\manage.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -181,13 +177,10 @@
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
     <Content Include="Views\Crmpanel\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
     <Content Include="Views\Shared\Email.html.cshtml" />
-=======
->>>>>>> master
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
     <Content Include="Views\Crmpanel\_Layout.cshtml" />
@@ -256,54 +249,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712021754554_init2.cs" />
-    <Compile Include="Migrations\201712021754554_init2.Designer.cs">
-      <DependentUpon>201712021754554_init2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712021810001_init3.cs" />
-    <Compile Include="Migrations\201712021810001_init3.Designer.cs">
-      <DependentUpon>201712021810001_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712021955099_init4.cs" />
-    <Compile Include="Migrations\201712021955099_init4.Designer.cs">
-      <DependentUpon>201712021955099_init4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711292122478_MigrateDB.cs" />
-    <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711301920475_customer.cs" />
-    <Compile Include="Migrations\201711301920475_customer.Designer.cs">
-      <DependentUpon>201711301920475_customer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711292122478_MigrateDB.cs" />
-    <Compile Include="Migrations\201711292122478_MigrateDB.Designer.cs">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711301920475_customer.cs" />
-    <Compile Include="Migrations\201711301920475_customer.Designer.cs">
-      <DependentUpon>201711301920475_customer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712022103446_MigrateDB1.cs" />
-    <Compile Include="Migrations\201712022103446_MigrateDB1.Designer.cs">
-      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712022125061_MigrateDB2.cs" />
-    <Compile Include="Migrations\201712022125061_MigrateDB2.Designer.cs">
-      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712022139340_MigrateDB3.cs" />
-    <Compile Include="Migrations\201712022139340_MigrateDB3.Designer.cs">
-      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
+    <Compile Include="Migrations\201712031205104_Init.cs" />
+    <Compile Include="Migrations\201712031205104_Init.Designer.cs">
+      <DependentUpon>201712031205104_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\FeedbackMail.cs" />
-=======
->>>>>>> master
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -316,46 +270,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
-      <DependentUpon>201711301920475_customer.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712021754554_init2.resx">
-      <DependentUpon>201712021754554_init2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712021810001_init3.resx">
-      <DependentUpon>201712021810001_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712021955099_init4.resx">
-      <DependentUpon>201712021955099_init4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
-      <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711301920475_customer.resx">
-      <DependentUpon>201711301920475_customer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712022103446_MigrateDB1.resx">
-      <DependentUpon>201712022103446_MigrateDB1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712022125061_MigrateDB2.resx">
-      <DependentUpon>201712022125061_MigrateDB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712022139340_MigrateDB3.resx">
-      <DependentUpon>201712022139340_MigrateDB3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712031205104_Init.resx">
+      <DependentUpon>201712031205104_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-<<<<<<< HEAD
-  <ItemGroup>
-    <Folder Include="Views\Feedback\" />
-  </ItemGroup>
-=======
-  <ItemGroup />
->>>>>>> master
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
