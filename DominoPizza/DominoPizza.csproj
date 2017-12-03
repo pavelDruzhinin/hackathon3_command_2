@@ -290,11 +290,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\Feedback\" />
-    <EmbeddedResource Include="Migrations\201711261237332_Init.resx">
-      <DependentUpon>201711261237332_Init.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711292122478_MigrateDB.resx">
       <DependentUpon>201711292122478_MigrateDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -312,6 +307,9 @@
     <EmbeddedResource Include="Migrations\201712021955099_init4.resx">
       <DependentUpon>201712021955099_init4.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Feedback\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
