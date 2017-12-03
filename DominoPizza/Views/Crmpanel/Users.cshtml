@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DominosPizza.Models.User>
+@using DominosPizza.Models
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
+</p>
+<table border="1">
+    <tr>
+        <th></th>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Фамилия</th>
+        <th>Id Должности</th>
+        <th>Должность</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPatronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserRoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserRoles)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -224,7 +224,13 @@ namespace DominosPizza.Controllers
         }
 
        
+<<<<<<< HEAD
+        public ActionResult Auth()
+        {
+            ViewBag.Message = "Вход";
+=======
       
+>>>>>>> master
 
 
 public ActionResult Offer()
@@ -240,6 +246,7 @@ public ActionResult Offer()
 
             return View();
         }
+<<<<<<< HEAD
 
         public ActionResult Feedback()
         {
@@ -285,6 +292,8 @@ public ActionResult Offer()
         {
             return View();
         }
+
+=======
         [HttpPost]
         public ActionResult AddtoCart(int productId, int amount)
         {
@@ -382,5 +391,6 @@ public ActionResult Offer()
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
+>>>>>>> master
     }
 }

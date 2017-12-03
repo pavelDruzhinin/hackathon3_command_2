@@ -15,12 +15,38 @@ namespace DominosPizza.Models
         public string UserFirstName { get; set; }
         public string UserPatronymic { get; set; }
         public string UserLastName { get; set; }
+<<<<<<< HEAD
+       // public Boolean UserSex { get; set; }
+        public DateTime UserBirthDate { get; set; }
+=======
+>>>>>>> master
 
         public int UserRoleId { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
 
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<Task> Tasks { get; set; }
+<<<<<<< HEAD
+       
+
+
+        public void NewUser(string uFirstName, string uPatronymic, string uLastName, DateTime uBirthDate, Boolean uSex)
+        {
+            UserFirstName = uFirstName;
+            UserPatronymic = uPatronymic;
+            UserLastName = uLastName;
+            //UserSex = uSex;
+            UserBirthDate = uBirthDate;
+        }
+
+        public string UserFullName()
+        {
+            return $"{UserFirstName} {UserPatronymic} {UserLastName}";
+        }
+
+     
+=======
+>>>>>>> master
     }
     public class UserMap : EntityTypeConfiguration<User>
     {

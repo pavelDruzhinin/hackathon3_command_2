@@ -48,8 +48,12 @@
                         <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
                         <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
                         <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
+<<<<<<< HEAD
                         <li>@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
                         <li>@Html.ActionLink("Вход", "Auth", "Home")</li>
+=======
+                        <li>@Html.ActionLink("Вход", "Auth", "Customers")</li>
+>>>>>>> master
                     </ul>
                 </div>
             </div>
