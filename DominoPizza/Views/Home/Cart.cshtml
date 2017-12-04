@@ -64,6 +64,23 @@
                     itogValue.value = itog;
                 }
             }
+
+            function discount(id) {
+                var uid = parseInt(id.slice(5));
+                var tdam = document.getElementById("tdamount-" + uid);
+                var am = document.getElementById("amount-" + uid);
+                var preSum = document.getElementById("preSum-" + uid);
+                var preSumValue = document.getElementById("preSumValue-" + uid);
+                var price = document.getElementById("price-" + uid);
+                var itogValue = document.getElementById("itogValue");
+                var itogVisible = document.getElementById("itogVisible");
+                var d = parseInt(am.value, 10);
+                var date = new Date();
+                var day = date.getDay();
+                if (day == 0);
+
+            }
+
         </script>
         <!--AJAX изменение кол-ва-->
         <script src="/Scripts/jquery-1.10.2.js"></script>
