@@ -423,10 +423,13 @@ textarea {
     justify-content: center;
     align-items: center;
 }
+    #OnlineChatList{
+        display: block;
+    }
     #OnlineChatList img,
     #OnlineChatDialog img {
-        width: 100px; 
-        height: 100px; 
+        width: 100px;
+        height: 100px;
         opacity: 0.5;
     }
 .chatList-chats {
@@ -446,16 +449,23 @@ textarea {
         font-size: .8em;
         padding: 1px 10px 2px 10px;
         color: #898989;
+
     }
 .chatList-chats p span{
     padding: 1px 4px;
     color: orangered;
     font-weight: bold;
 }
-.chatList-chats:hover {
-    cursor:pointer;
-    background-color: white;
-}
+    .chatList-chats:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #898989;
+    }
+    .chatList-chats p:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #898989;
+    }
 .NewMessageTextArea-manager {
     font-family: 'Roboto', sans-serif;
     height: 100px;

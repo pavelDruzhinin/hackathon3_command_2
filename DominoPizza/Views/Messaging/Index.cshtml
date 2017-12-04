@@ -45,6 +45,8 @@
     var timerId;
     var timerId2;
     var timerId3;
+    var oldHtml;
+    var oldHtml2;
 
     $(".comments-manager-leftPanel").on("click", ".chatList-chats" ,function (event) {
         
@@ -52,6 +54,11 @@
             event.preventDefault();
             onlineChatUniqueId = this.id.slice(15);
             Cookies.set("chatId", onlineChatUniqueId);
+            $(this).siblings().css({ "border": "none", "background-color": "#efefef" });
+            $(this).siblings().find("p").css({ "color": "#898989" });
+            $(this).css({ "color": " #ffffff", "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+            $(this).find("p").css({ "color": " #ffffff" });
+            
             $.ajax({
                 url: "/Messaging/ShowDialogManager",
                 dataType: "html",
@@ -61,11 +68,15 @@
                 type: "POST",
                 success: function (data) {
                     var h5;
+                    var sumh5 = 20;
                     $("#OnlineChatDialog").html(data);
                     $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                    $("#OnlineChatDialog").css({ "height": "10000%" });
                     $(".messageInChat").each(function () {
                         h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
                         $(this).css({ "height": h5, "background-color": "white" });
+                        sumh5 += h5 + 20;
+                        $("#OnlineChatDialog").css({ "height": sumh5 });
                     });
                 }
             });
@@ -91,27 +102,43 @@
                    //                              },
                    type: "POST",
                    success: function (data) {
-                       
-                      
-                           $("#OnlineChatList").html(data);
-                           $("#OnlineChatList").css({ "justify-content": "flex-start" });
-                           if (Cookies.get("chatId") != "empty") {
-                               onlineChatUniqueId = Cookies.get("chatId");
-                               $("#chatList-chats-" + onlineChatUniqueId).css({ "color": " #ffffff", "border": "1px solid #ffffff","background-color": "rgba(255,255,255,0)" });
-                               $("#chatList-chats-" + onlineChatUniqueId + " p").css({ "color": " #ffffff"});
+                       if(data != oldHtml2) {
+                           oldHtml2 = data;
 
-                           } else {
-                               onlineChatUniqueId = $("#chatList-chats-").id.slice(0, 15);
-                               $("#chatList-chats-" + onlineChatUniqueId).css({ "color": " #ffffff", "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
-                               $("#chatList-chats-" + onlineChatUniqueId + " p").css({ "color": " #ffffff" });
-                               Cookies.set("chatId", onlineChatUniqueId);
-                           }
+                       $("#OnlineChatList").html(data);
+                       $("#OnlineChatList").css({ "justify-content": "flex-start" });
+
+                       if ( !(Cookies.get("chatId") == "empty" || Cookies.get("chatId") == undefined )) {
+                           var temp = "chatList-chats-" + onlineChatUniqueId;
+                           $(".chatList-chats").each(function () {
+                               if (this.id == temp){
+                                   $(this).css({ "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+                                   $(this).find("p:first").css({ "color": " #ffffff" });
+                               }
+                           });
+                       }
+                       else
+                       {
+                           console.log(onlineChatUniqueId);
+                           onlineChatUniqueId = $(".chatList-chats").attr("id").slice(15);
+
+                           console.log(onlineChatUniqueId);
+                           var temp = "chatList-chats-" + onlineChatUniqueId;
+                           $(".chatList-chats").each(function () {
+                               if (this.id == temp) {
+                                   $(this).css({ "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+                                   $(this).find("p:first").css({ "color": " #ffffff" });
+                               }
+                           });
                        
+                           Cookies.set("chatId", onlineChatUniqueId);
+                       }
+                   }
                        
                    }});
 
-                        timerId = setTimeout(swap, 3000);
-            }, 200);
+                        timerId = setTimeout(swap, 2000);
+            }, 500);
 
 
            if (Cookies.get("chatId") != null) {
@@ -127,18 +154,24 @@
                        },
                        type: "POST",
                        success: function (data) {
-                           var h5;
-                           
-                           $("#OnlineChatDialog").html(data);
-                           $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
-                           $(".messageInChat").each(function () {
-                               h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
-                               $(this).css({ "height": h5, "background-color": "white" });
-                           });
+                           if (data != oldHtml) {
+                               oldHtml = data;
+                               var h5;
+                               var sumh5 = 20;
+                               $("#OnlineChatDialog").html(data);
+                               $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                               $("#OnlineChatDialog").css({ "height": "10000%" });
+                               $(".messageInChat").each(function () {
+                                   h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                                   $(this).css({ "height": h5, "background-color": "white" });
+                                   sumh5 += h5 + 20;
+                                   $("#OnlineChatDialog").css({ "height": sumh5 });
+                               });
+                           }
                        }
                    });
                    timerId2 = setTimeout(swap2, 3000);
-               }, 3000);
+               }, 1000);
            
 
 

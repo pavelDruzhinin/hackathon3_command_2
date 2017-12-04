@@ -29,7 +29,8 @@ namespace DominoPizza.Controllers
         public ActionResult AddNewMessageToChat(string onlineChatUniqueId, int customerId, int userId, bool messageByUser, string messageText)
         {
             OnlineChatRow newRow = new OnlineChatRow();
-
+            if (onlineChatUniqueId == null) { onlineChatUniqueId = "new"; }
+            if (onlineChatUniqueId == "undefined") { onlineChatUniqueId = "new"; }
             newRow.CustomerId = customerId;                         //!!!     0 если незарегистрированный
             newRow.UserId = userId;
             newRow.MessageByUser = messageByUser;
@@ -41,7 +42,7 @@ namespace DominoPizza.Controllers
             else
             {
                 newRow.Assigned = false;
-                newRow.OnlineChatUniqueId = DateTime.Now.ToString("yyyyMMddhhmmssfff");
+                newRow.OnlineChatUniqueId = DateTime.Now.ToString("yyyyMMdd.HH:mm.ssfff");
             }
             newRow.MessageText = messageText;
             newRow.MessageDateTime = DateTime.Now;

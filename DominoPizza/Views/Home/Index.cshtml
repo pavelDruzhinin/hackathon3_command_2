@@ -93,6 +93,8 @@
     var taskId = 0;
     var onlineChatUniqueId = "new";
     var timerId;
+    var newHtml;
+    var oldHtml;
     $("button").click(function (event) {
 
         if (this.id.slice(0, 13) == "commentsShow-") {
@@ -113,17 +115,26 @@
                                 },
                             type: "POST",
                             success: function (data) {
-//                                $("#comment-PartialView").html(data);
-                                $("#OnlineChatDialog").html(data);
-                                $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
-                                $(".messageInChat").each(function () {
-                                    h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
-                                    $(this).css({ "height": h5, "background-color": "white" });
-                                });
+
+                                if (data != oldHtml) {
+                                    oldHtml = data;
+                                    onlineChatUniqueId = Cookies.get("chatId");                                    
+                                    var h5;
+                                    var sumh5 = 20;
+                                    $("#OnlineChatDialog").html(data);
+                                    $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                                    $("#OnlineChatDialog").css({ "height": "10000%" });
+                                    $(".messageInChat").each(function () {
+                                        h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                                        $(this).css({ "height": h5, "background-color": "white" });
+                                        sumh5 += h5 + 20;
+                                        $("#OnlineChatDialog").css({ "height": sumh5 });
+                                    });
+                                }
                             }
                         });
                      
-                        timerId = setTimeout(swap, 3000);
+                        timerId = setTimeout(swap, 2000);
            }, 500);
 
         }

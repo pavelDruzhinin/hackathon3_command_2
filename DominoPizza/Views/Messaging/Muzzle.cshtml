@@ -1054,5 +1054,115 @@
                                 $("html, body").animate({ scrollTop: 0 }, 800);
                             });
     </script>
+    <!---->
+    <button id="commentsShow-" class="openChat"><span class="glyphicon glyphicon-chevron-up"></span></button>
+
+    <!--место для загрузки Partial View c комментариями-->
+    <div id="comments-modal" class="comments-modal-client">
+
+
+        <div class="comments-client-rightPanel">
+            <div class="comments-window-manager-right">
+
+                <div id="OnlineChatDialog"><img src="~/img/sectorPizza3.gif" /></div>
+
+            </div>
+
+
+            <textarea id="NewMessageTextArea-manager" class="NewMessageTextArea-manager" placeholder="введите здесь текст сообщения и нажмите на кнопку &laquo;отправить&raquo;"></textarea>
+
+            <div class="SendMessage-manager">
+                <div><button id="AddNewMessage-" class="sendMessageButton" title="отправить">отправить</button></div>
+                <button id="closeComments-manager" class="closeChat" onclick="hideComments()">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <!---->
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script src="/Scripts/js.cokie/js.cookie.js"></script>
+    <script type="text/javascript">
+        var taskId = 0;
+        var onlineChatUniqueId = "new";
+        var timerId;
+        $("button").click(function (event) {
+
+            if (this.id.slice(0, 13) == "commentsShow-") {
+                event.preventDefault();
+                $("#comments-modal").css({
+                    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                });
+
+                timerId = setTimeout(function swap() {
+
+                    if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
+
+                    $.ajax({
+                        url: "/Messaging/ShowDialog",
+                        dataType: "html",
+                        data: {
+                            onlineChatUniqueId: onlineChatUniqueId
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            //                                $("#comment-PartialView").html(data);
+                            $("#OnlineChatDialog").html(data);
+                            $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                            $(".messageInChat").each(function () {
+                                h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                                $(this).css({ "height": h5, "background-color": "white" });
+                            });
+                        }
+                    });
+
+                    timerId = setTimeout(swap, 3000);
+                }, 500);
+
+            }
+
+            //string onlineChatUniqueId, int customerId, int userId, bool messageByUser, string messageText)
+
+            if (this.id == "AddNewMessage-") {
+                event.preventDefault();
+                $("#chat-modal").css({
+                    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                });
+                //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
+                var userID = 1; //!!! пока так, но позже пользователя над будет определять по логину
+                var newCommentText = $("#NewMessageTextArea-manager").val();
+
+                if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
+                $.ajax({
+                    url: "/Messaging/AddNewMessageToChat",
+                    dataType: "json",
+                    data: {
+                        onlineChatUniqueId: onlineChatUniqueId,
+                        customerId: 1,
+                        userId: 1,
+                        messageByUser: false,
+                        messageText: newCommentText
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#NewMessageTextArea-manager").val("");
+                        Cookies.set("chatId", data.Data);
+                    }
+                });
+            }
+        });
+
+        function hideComments() {
+            clearInterval(timerId);
+            $("#comments-modal").css({ "display": "none" });
+            $("#comment-PartialView").html("<img style=\"width: 100px; height: 100px; margin-left: 90px; opacity: 0.5; \" src=\"img/sectorPizza3.gif\" />");
+            $("#comment-PartialView").css({ "width": "100%", "height": "100%", "display": "flex", "flex-direction": "column", "justify-content": "center" });
+
+        }
+    </script>
+    <!---->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/js-cookie")
 </body>
 </html>
