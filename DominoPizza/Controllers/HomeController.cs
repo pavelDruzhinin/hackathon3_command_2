@@ -172,43 +172,51 @@ namespace DominosPizza.Controllers
 
         public ActionResult Cart()
         {
-            ViewBag.Message = "Оформление заказа";
-
-            Cart cart = new Cart();
-            if ((Cart)Session["cart"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                cart = (Cart)Session["cart"];
-            }
-            ViewBag.cartList = cart.cartlist;
-            IEnumerable<Product> products = db.Products;
-            ViewBag.products = products;
 
-            Dictionary<int, string> productNames = new Dictionary<int, string>();
-            foreach (var temp in products)
+                ViewBag.Message = "Оформление заказа";
+
+                Cart cart = new Cart();
+                if ((Cart)Session["cart"] != null)
+                {
+                    cart = (Cart)Session["cart"];
+                }
+                ViewBag.cartList = cart.cartlist;
+                IEnumerable<Product> products = db.Products;
+                ViewBag.products = products;
+
+                Dictionary<int, string> productNames = new Dictionary<int, string>();
+                foreach (var temp in products)
+                {
+                    productNames.Add(temp.ProductId, temp.ProductName);
+                }
+                ViewBag.prod = productNames;
+                ViewBag.cartindicator = cart.Counter;
+
+
+                List<OrderTable> table = new List<OrderTable>();
+                int i = 1;
+                foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+                {
+                    OrderTable orderTableRow = new OrderTable();
+                    orderTableRow.OrderTableId = i++;
+                    orderTableRow.ProductId = keyValue.Key;
+                    orderTableRow.ProductQuantity = keyValue.Value;
+                    IQueryable<Product> product = db.Products
+                                                        .Where(c => c.ProductId == keyValue.Key)
+                                                        .Select(c => c);
+                    orderTableRow.ProductName = product.FirstOrDefault().ProductName;
+                    orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
+                    table.Add(orderTableRow);
+                }
+
+                return View(table);
+            }
+            else
             {
-                productNames.Add(temp.ProductId, temp.ProductName);
+                return RedirectToAction("Auth", "Customers");
             }
-            ViewBag.prod = productNames;
-            ViewBag.cartindicator = cart.Counter;
-
-
-            List<OrderTable> table = new List<OrderTable>();
-            int i = 1;
-            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
-            {
-                OrderTable orderTableRow = new OrderTable();
-                orderTableRow.OrderTableId = i++;
-                orderTableRow.ProductId = keyValue.Key;
-                orderTableRow.ProductQuantity = keyValue.Value;
-                IQueryable<Product> product = db.Products
-                                                    .Where(c => c.ProductId == keyValue.Key)
-                                                    .Select(c => c);
-                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
-                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
-                table.Add(orderTableRow);
-            }
-
-            return View(table);
         }
 
         public ActionResult Rules()
@@ -311,19 +319,21 @@ namespace DominosPizza.Controllers
             Cart cart = new Cart();
             Contact contact = new Contact();
             Customer customer = new Customer();
-            int i = 0; // индикатор останется таким если у нас есть и контакт и клиент
+            int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
                 cart = (Cart)Session["cart"];
             }
-            Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
-            if (mycontact == null)
-            {
-                i = 2;
-                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { } };
-            }
             Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerEmail == User.Identity.Name);
-            //if (mycustomer == null)
+            Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
+            if (mycontact == null) //если такого контакта не существует то добавляем со связью с текущим пользователем
+            {
+            //    i = 2;
+                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() {mycustomer} };
+                db.Contacts.Add(mycontact);
+            }
+
+            //if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
             //{
             //    if (i == 2) //нет контакта есть клиент
             //    {
@@ -336,11 +346,17 @@ namespace DominosPizza.Controllers
             //    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
             //    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
             //}
-            if (i > 0)
+
+            foreach (var cuscon in mycustomer.Contacts)
             {
-                mycontact.Customers.Add(mycustomer);
-                //    mycustomer.Contacts.Add(mycontact);
-                db.Contacts.Add(mycontact);
+                if (cuscon == mycontact)
+                {
+                    i = 1; //этот клиент пользовался этим контактом
+                }
+            }
+            if (i != 1) //если не пользовался
+            {
+                db.Customers.FirstOrDefault(e => e.CustomerId == mycustomer.CustomerId).Contacts.Add(mycontact);
             }
             db.SaveChanges();
             task.Contact = mycontact;
