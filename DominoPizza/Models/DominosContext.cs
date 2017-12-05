@@ -23,6 +23,7 @@ namespace DominosPizza.Models
         public DbSet<TaskRow> TaskRows { get; set; }
         public DbSet<FeedbackMail> FeedBacks { get; set; }
 
+        public DbSet<OnlineChatRow> OnlineChatRows { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -34,7 +35,7 @@ namespace DominosPizza.Models
             modelBuilder.Configurations.Add(new ProductMap());
             modelBuilder.Configurations.Add(new TaskRowMap());
             modelBuilder.Configurations.Add(new UserRoleMap());
-
+            modelBuilder.Configurations.Add(new OnlineChatRowMap());
 
             base.OnModelCreating(modelBuilder);
 

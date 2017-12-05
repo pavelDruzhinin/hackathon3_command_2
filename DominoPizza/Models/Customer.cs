@@ -31,6 +31,8 @@ namespace DominosPizza.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         public string CustomerPasswordConfirm { get; set; }
+       
+        public ICollection<OnlineChatRow> OnlineChatRows { get; set; } //!!!!!!!!
 
         public int CustomerRoleId { get; set; }
 

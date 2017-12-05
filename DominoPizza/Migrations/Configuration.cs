@@ -1,10 +1,10 @@
 namespace DominoPizza.Migrations
 {
-    using DominosPizza.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using DominosPizza.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DominosPizza.Models.DominosContext>
     {

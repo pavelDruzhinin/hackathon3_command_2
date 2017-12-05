@@ -134,6 +134,8 @@
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\js-cookie\js.cookie-2.2.0.min.js" />
+    <Content Include="Scripts\js-cookie\js.cookie.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -188,6 +190,11 @@
     <Content Include="Views\Crmpanel\Manager.cshtml" />
     <Content Include="Views\Crmpanel\Kitchen.cshtml" />
     <Content Include="Views\Crmpanel\Delivery.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatDialog.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatList.cshtml" />
+    <Content Include="Views\Messaging\Index.cshtml" />
+    <Content Include="Views\Shared\_OnlineChatDialogForManager.cshtml" />
+    <Content Include="Views\Messaging\Muzzle.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
@@ -246,6 +253,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\MessagingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,14 +261,13 @@
     <Compile Include="Migrations\201712031205104_Init.Designer.cs">
       <DependentUpon>201712031205104_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712031402155_Test.cs" />
-    <Compile Include="Migrations\201712031402155_Test.Designer.cs">
-      <DependentUpon>201712031402155_Test.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\OnlineChatRow.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
@@ -280,8 +287,7 @@
     <EmbeddedResource Include="Migrations\201712031205104_Init.resx">
       <DependentUpon>201712031205104_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712031402155_Test.resx">
-      <DependentUpon>201712031402155_Test.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
