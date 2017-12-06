@@ -11,124 +11,6 @@ namespace DominosPizza.Controllers
 {
     public class HomeController : Controller
     {
-        //DominosContext db = new DominosContext();
-        /* public ActionResult Index()
-         {
-             Cart cart = new Cart();
-             if ((Cart)Session["cart"] != null)
-             {
-                 cart = (Cart)Session["cart"];
-             }
-             IEnumerable<Products> products = db.ProductsDbSet;
-             ViewBag.products = products;
-             ViewBag.cartindicator = cart.Counter;
-             return View(products);
-         }
-         [HttpPost]
-         public ActionResult AddtoCart(int productId, int amount)
-         {
-             Cart cart = new Cart();
-             if ((Cart)Session["cart"] != null)
-             {
-                 cart = (Cart)Session["cart"]; 
-             }
-             int counter = cart.AddDishToCart(productId, amount);
-             Session["cart"] = cart;
-             return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
-         }
-         public ActionResult Cart() 
-         {
-             Cart cart = new Cart();
-             if ((Cart)Session["cart"] != null)
-             {
-                 cart = (Cart)Session["cart"];
-             }
-             ViewBag.cartList = cart.cartlist;
-             IEnumerable<Products> products = db.ProductsDbSet;
-             ViewBag.products = products;
-
-             Dictionary<int, string> productNames = new Dictionary<int, string>();
-             foreach (var temp in products)
-             {
-                 productNames.Add(temp.ProductId, temp.ProductName);
-             }
-             ViewBag.prod = productNames;
-             ViewBag.cartindicator = cart.Counter;
-
-
-             List<OrderTable> table = new List<OrderTable>();
-             int i = 1;
-             foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
-             {
-                 OrderTable orderTableRow = new OrderTable();
-                 orderTableRow.OrderTableId = i++;
-                 orderTableRow.ProductId = keyValue.Key;
-                 orderTableRow.ProductQuantity = keyValue.Value;
-                 IQueryable<Products> product = db.ProductsDbSet
-                                                     .Where(c => c.ProductId == keyValue.Key)
-                                                     .Select(c => c);
-                 orderTableRow.ProductName = product.FirstOrDefault().ProductName;
-                 orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
-                 table.Add(orderTableRow);
-             }
-
-
-
-
-
-
-             return View(table);
-         }
-         [HttpPost]
-         public ActionResult CartChangeQuantity(int productId, int amount) 
-         {
-             Cart cart = new Cart();
-             if ((Cart)Session["cart"] != null)
-             {
-                 cart = (Cart)Session["cart"];
-             }
-             int counter = cart.EditCartList(productId, amount);
-             Session["cart"] = cart;
-             return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
-         }
-
-         [HttpPost]
-         public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod)
-         {
-             //TaskDeliveryDateTime
-             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
-             Tasks task = new Tasks();
-             Cart cart = new Cart();
-             if ((Cart)Session["cart"] != null)
-             {
-                 cart = (Cart)Session["cart"];
-             }
-             int userId = 0;
-             task.TaskStatusId = 0;
-             task.TaskDeliveryCustomerAddress = TaskDeliveryCustomerAddress;
-             task.TaskDeliveryCustomerPhone = TaskDeliveryCustomerPhone;
-             task.TaskDeliveryDateTime = DateTime.Now;
-             task.TaskDeliveryCustomerName = TaskDeliveryCustomerName;
-             task.TaskPaymentMethod = TaskPaymentMethod;
-             task.TaskStatusChangeHistory.Add(userId, DateTime.Now);
-             db.TasksDbSet.Add(task);
-             db.SaveChanges();
-             IEnumerable<Tasks> Tasks = db.TasksDbSet;
-             var tid = Tasks.Last().TasksId;
-             foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
-             {
-                 TaskList productList = new TaskList();
-                 productList.TaskId = tid;
-                 productList.ProductId = keyValue.Key;
-                 productList.ProductQuantity = keyValue.Value;
-                 db.TaskListsDbSet.Add(productList);
-             }
-             db.SaveChanges();
-             Session["cart"] = null;
-             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
-             return RedirectToRoute(new { controller = "Home", action = "Index" });
-         }
-         */
         DominosContext db = new DominosContext();
 
         public ActionResult Index()
@@ -324,15 +206,22 @@ namespace DominosPizza.Controllers
             {
                 cart = (Cart)Session["cart"];
             }
-            Customer mycustomer = db.Customers.FirstOrDefault(e => e.CustomerEmail == User.Identity.Name);
+            //Customer mycustomer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+            var hiscontacts = db.Customers.Where(e => e.CustomerEmail == User.Identity.Name).Include(e => e.Contacts);
+            Customer mycustomer = hiscontacts.First(e => e.CustomerEmail == User.Identity.Name);
             Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
             if (mycontact == null) //если такого контакта не существует то добавляем со связью с текущим пользователем
             {
-            //    i = 2;
-                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() {mycustomer} };
+                //    i = 2;
+                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { mycustomer } };
                 db.Contacts.Add(mycontact);
             }
-
+            else if (!(mycustomer.Contacts.Contains(mycontact)))
+            {
+                mycontact.Customers = new List<Customer> { mycustomer };
+            }
+            mycontact.ContactDateLatestOrder = DateTime.Now;
+            db.Entry(mycontact).State = EntityState.Modified;
             //if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
             //{
             //    if (i == 2) //нет контакта есть клиент
@@ -347,21 +236,8 @@ namespace DominosPizza.Controllers
             //    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
             //}
 
-            foreach (var cuscon in mycustomer.Contacts)
-            {
-                if (cuscon == mycontact)
-                {
-                    i = 1; //этот клиент пользовался этим контактом
-                }
-            }
-            if (i != 1) //если не пользовался
-            {
-                db.Customers.FirstOrDefault(e => e.CustomerId == mycustomer.CustomerId).Contacts.Add(mycontact);
-            }
-            db.SaveChanges();
             task.Contact = mycontact;
             task.ContactId = mycontact.ContactId;
-            //int userId = 0;
             double sum = 0;
             task.TaskStatus = Status.processed.ToString();
             task.TaskDate = DateTime.Now;
