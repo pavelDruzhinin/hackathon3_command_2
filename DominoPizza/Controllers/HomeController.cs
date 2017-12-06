@@ -92,13 +92,33 @@ namespace DominosPizza.Controllers
                     orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
                     table.Add(orderTableRow);
                 }
-
                 return View(table);
             }
             else
             {
                 return RedirectToAction("Auth", "Customers");
             }
+        }
+
+        public JsonResult FindLastContact()
+        {
+            var hiscontacts = db.Customers.Where(e => e.CustomerEmail == User.Identity.Name).Include(e => e.Contacts);
+            Customer mycustomer = hiscontacts.First(e => e.CustomerEmail == User.Identity.Name);
+            DateTime lastdate = DateTime.MinValue;
+            string lastcont = null;
+            foreach (var p in mycustomer.Contacts)
+            {
+                if (p.ContactDateLatestOrder > lastdate)
+                {
+                    lastdate = p.ContactDateLatestOrder;
+                    lastcont = p.ContactAddress;
+                }
+            }
+            if (lastcont == null)
+            {
+                lastcont = "Шотмана 13, Росквартал";
+            }
+            return Json(data: new { Data = lastcont }, behavior: JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Rules()
@@ -206,7 +226,6 @@ namespace DominosPizza.Controllers
             {
                 cart = (Cart)Session["cart"];
             }
-            //Customer mycustomer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
             var hiscontacts = db.Customers.Where(e => e.CustomerEmail == User.Identity.Name).Include(e => e.Contacts);
             Customer mycustomer = hiscontacts.First(e => e.CustomerEmail == User.Identity.Name);
             Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
@@ -215,13 +234,21 @@ namespace DominosPizza.Controllers
                 //    i = 2;
                 mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { mycustomer } };
                 db.Contacts.Add(mycontact);
+                db.SaveChanges();
             }
             else if (!(mycustomer.Contacts.Contains(mycontact)))
             {
                 mycontact.Customers = new List<Customer> { mycustomer };
+                mycontact.ContactDateLatestOrder = DateTime.Now;
+                db.Entry(mycontact).State = EntityState.Modified;
+                db.SaveChanges();
             }
-            mycontact.ContactDateLatestOrder = DateTime.Now;
-            db.Entry(mycontact).State = EntityState.Modified;
+            else
+            {
+                mycontact.ContactDateLatestOrder = DateTime.Now;
+                db.Entry(mycontact).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             //if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
             //{
             //    if (i == 2) //нет контакта есть клиент

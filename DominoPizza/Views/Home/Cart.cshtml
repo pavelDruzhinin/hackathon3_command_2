@@ -122,12 +122,13 @@
 
 
                         </div>
+    
     <div class="col-sm-6">
         <div class="form-group">
             <form method="post" enctype="multipart/form-data" action="/Home/NewTaskFromCart">
                 <label for="test">Надо потестить с разными и одинаковыми данными</label><br />
                 <label for="TaskDeliveryCustomerAddress">Адрес доставки</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="адрес клиента из интернет магазина" /><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress"/><br />
 
                 @*<label for="TaskDeliveryCustomerPhone">Телефон</label><br />
                 <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="+12internet90" /><br />
@@ -149,8 +150,22 @@
         </div>
     </div>
 </div>
-<br /><br />
+<br />
 <div class="hrcustom"> </div>
-
-
-
+@*AJAX найти адрес*@
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+            $(document).ready(function () {
+                //var lastcontf = document.getElementById("TaskDeliveryCustomerAddress");
+                    $.ajax({
+                        url: "/Home/FindLastContact",
+                        dataType: "json",
+                        data: {
+                        },
+                        type: "GET",
+                        success: function (data) {
+                            TaskDeliveryCustomerAddress.value = data.Data;
+                        }
+                    });
+            });
+</script>
