@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "PayOnline";
+}
+<br/>
+<div>
+    <form method="POST">
+        <label for="sum">Выберите способ оплаты: </label><br /><br />
+        <input type="radio" name="paymentType" value="1"> <img src="~/img/payCard.jpg"><!--Банковская карта--><br /><br />
+        <input type="radio" name="paymentType" value="2"> <img src="~/img/payYM.jpg"><!-- Яндекс.Деньги--><br /><br />
+        <input type="radio" name="paymentType" value="3"> <img src="~/img/payQW.jpg"><!-- Qiwi.Wallet--><br /><br />
+        <input type="radio" name="paymentType" value="4"> <img src="~/img/payPP.jpg"><!-- PayPal--><br /><br />
+        <input class="btn btn-danger" type="submit" name="submit-button" value="Оплатить">
+
+    </form>
+</div>
