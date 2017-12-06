@@ -50,7 +50,8 @@
                         <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
                         <li>@if (User.Identity.IsAuthenticated)
                         {
-                            <li>Вы вошли как:@User.Identity.Name</li>
+                            <li>Вы вошли как: @User.Identity.Name</li>
+                            
                             <li>
                                 @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                 {
