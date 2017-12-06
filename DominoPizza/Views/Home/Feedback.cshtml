@@ -1,42 +1,79 @@
 ﻿@{
     ViewBag.Title = "Dominos Pizza - Обратная связь";
 }
-<div class="body-content">
-    <h1 class="h1-ua">@ViewBag.Message</h1>
+<h1 class="h1-ua">@ViewBag.Message</h1>
+<div class="row">
 
-    <form method="post"  action="/Home/SendMail">
-        <div class="form-group">
-            <label for="FeedbackName" class="col-xs-2">Ваше имя</label>
-            <div class="col-xs-10">
+    <div class="col-sm-7">
+        <form method="post" action="/Home/SendMail">
+            <label for="FeedbackName" class="col-xs-4">Ваше имя</label>
+            <div class="col-xs-8">
                 <input class="form-control" type="text" id="FeedbackName" name="FeedbackName" /><br />
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="ReplyEmail" class="col-xs-2">Ваш E-mail</label>
-            <div class="col-xs-10">
+            <label for="ReplyEmail" class="col-xs-4">Ваш E-mail</label>
+            <div class="col-xs-8">
                 <input class="form-control" type="text" id="ReplyEmail" name="ReplyEmail" /> <br />
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="Subject" class="col-xs-2">Тема письма</label>
-            <div class="col-xs-10">
+            <label for="Subject" class="col-xs-4">Тема письма</label>
+            <div class="col-xs-8">
                 <input class="form-control" type="text" id="Subject" name="Subject" /> <br />
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="Body" class="col-xs-2">Текст сообщения</label>
-            <div class="col-xs-10">
+            <label for="Body" class="col-xs-4">Текст сообщения</label>
+            <div class="col-xs-8">
                 <textarea class="form-control" rows="10" id="MailBody" name="Body"></textarea> <br />
             </div>
-        </div>
-         <div class="feedback">   
-            <input class="btn btn-danger" type="submit" value="отправить" />
-             </div>
 
-</form>
+            <div class="col-xs-12 col-md-offset-4">
+
+                <input class="btn btn-danger" type="submit" value="отправить" />
+
+
+                <a class="feedback btn btn-danger" href="#" onclick="javascript: AddEmailFile();">Добавить Файл</a>
+
+            </div>
+
+        </form>
     </div>
 
+    <div class="col-md-5">
+
+        <div id="attachmentcontainer">
+
+        </div>
+    </div>
+    <!--
+        <div class="attachitem">
+        <div class="attachdelete" onclick="javascript: $(this).parent().remove();">&nbsp;</div>
+         <input class="form-control" name="attachment" type="file">
+        </div>
+        -->
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        function AddEmailFile() {
+
+            var new_input = document.createElement("input");
+            new_input.name = "attachment";
+            new_input.className = "chosefile form-control";
+            new_input.type = "file";
+           
+            var new_div = document.createElement('div');
+            new_div.className = "attachdelete";
+            new_div.onclick = function () { $(this).parent().remove(); };
+            var div = document.createElement('div');
+            div.className = "attachitem";
+
+            div.appendChild(new_div);
+            div.appendChild(new_input);
+
+            $('#attachmentcontainer').append(div);
+
+
+        }
+
+    </script>
+
+</div>
 
