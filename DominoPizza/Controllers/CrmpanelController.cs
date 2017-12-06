@@ -28,6 +28,11 @@ namespace DominosPizza.Controllers
             return View(db.Customers.ToList());
         }
 
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manager() // страница управления пиццерией
         {

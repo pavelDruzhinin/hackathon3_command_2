@@ -112,7 +112,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
+    <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\default.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\jquery-ui-1.10.4.custom.css" />
+    <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\manage.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="Content\theme-custom.css" />
+    <Content Include="Content\theme.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -133,7 +142,15 @@
     <Content Include="img\pay1.jpg" />
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
+    <Content Include="Scripts\Calendar.js" />
+    <Content Include="Scripts\charts-home.js" />
+    <Content Include="Scripts\front.js" />
+    <Content Include="Scripts\grasp_mobile_progress_circle-1.0.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.nicescroll.min.js" />
+    <Content Include="Scripts\modernizr.js" />
+    <Content Include="Scripts\tether.min.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -195,6 +212,7 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
+    <Content Include="Views\Crmpanel\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -249,15 +267,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712031205104_Init.cs" />
-    <Compile Include="Migrations\201712031205104_Init.Designer.cs">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712031402155_Test.cs" />
-    <Compile Include="Migrations\201712031402155_Test.Designer.cs">
-      <DependentUpon>201712031402155_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -275,14 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712031205104_Init.resx">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712031402155_Test.resx">
-      <DependentUpon>201712031402155_Test.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
