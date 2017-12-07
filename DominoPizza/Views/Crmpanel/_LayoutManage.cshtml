@@ -48,38 +48,38 @@
             </div>
             <!-- start: search & user box -->
             @if (User.Identity.IsAuthenticated)
-        {
-            <div class="header-right">
-                <span class="separator"></span>
+            {
+                <div class="header-right">
+                    <span class="separator"></span>
 
-                <div id="userbox" class="userbox">
-                    <a href="#" data-toggle="dropdown">
-                        <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                            <span class="name">@User.Identity.Name</span>
-                            <span class="role">Администратор</span>
+                    <div id="userbox" class="userbox">
+                        <a href="#" data-toggle="dropdown">
+                            <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                                <span class="name">@User.Identity.Name</span>
+                                <span class="role">Администратор</span>
+                            </div>
+
+                            <i class="fa custom-caret"></i>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <ul class="list-unstyled">
+                                <li class="divider"></li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href="UserProfile"><i class="fa fa-user"></i> Профиль</a>
+                                </li>
+                                <li>
+                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                    }
+                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
+                                </li>
+                            </ul>
                         </div>
-
-                        <i class="fa custom-caret"></i>
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <ul class="list-unstyled">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="profile.html"><i class="fa fa-user"></i> Профиль</a>
-                            </li>
-                            <li>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-                        }
-                                <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
-            </div>
-    }
+            }
             <!-- end: search & user box -->
         </header>
         <!-- end: header -->
@@ -87,25 +87,25 @@
         <div class="inner-wrapper">
             @RenderBody()
         </div>
-            <!-- end: Content -->
-            <aside id="sidebar-right" class="sidebar-right">
-                <div class="nano">
-                    <div class="nano-content">
-                        <a href="#" class="mobile-close visible-xs">
-                            Collapse <i class="fa fa-chevron-right"></i>
-                        </a>
+        <!-- end: Content -->
+        <aside id="sidebar-right" class="sidebar-right">
+            <div class="nano">
+                <div class="nano-content">
+                    <a href="#" class="mobile-close visible-xs">
+                        Collapse <i class="fa fa-chevron-right"></i>
+                    </a>
 
-                        <div class="sidebar-right-wrapper">
+                    <div class="sidebar-right-wrapper">
 
-                            <div class="sidebar-widget widget-calendar">
-                                <h6>Календарь</h6>
-                                <div data-plugin-datepicker data-plugin-skin="dark"></div>
-                            </div>
-
+                        <div class="sidebar-widget widget-calendar">
+                            <h6>Календарь</h6>
+                            <div data-plugin-datepicker data-plugin-skin="dark"></div>
                         </div>
+
                     </div>
                 </div>
-            </aside>
+            </div>
+        </aside>
     </section>
 
     <!-- Vendor -->
@@ -116,6 +116,7 @@
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script src="~/Scripts/magnific-popup.js"></script>
     <script src="~/Scripts/jquery.placeholder.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="~/Scripts/theme.js"></script>
