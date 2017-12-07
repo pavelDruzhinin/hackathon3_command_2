@@ -122,7 +122,6 @@
     <Content Include="Content\morris.css" />
     <Content Include="Content\theme-custom.css" />
     <Content Include="Content\theme.css" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -132,11 +131,6 @@
     <Content Include="fonts\VAGRoundedLTCYR-Black.eot" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.ttf" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="packages.config" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.svg" />
     <Content Include="img\bg.png" />
@@ -148,25 +142,15 @@
     <Content Include="img\pay1.jpg" />
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
-    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\Calendar.js" />
     <Content Include="Scripts\charts-home.js" />
-    <Content Include="Scripts\examples.dashboard.js" />
     <Content Include="Scripts\front.js" />
     <Content Include="Scripts\grasp_mobile_progress_circle-1.0.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Scripts\jquery.browser.mobile.js" />
     <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.nicescroll.min.js" />
-    <Content Include="Scripts\jquery.placeholder.js" />
-    <Content Include="Scripts\magnific-popup.js" />
     <Content Include="Scripts\modernizr.js" />
-    <Content Include="Scripts\nanoscroller.js" />
     <Content Include="Scripts\tether.min.js" />
-    <Content Include="Scripts\theme.custom.js" />
-    <Content Include="Scripts\theme.init.js" />
-    <Content Include="Scripts\theme.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -229,8 +213,6 @@
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
     <Content Include="Views\Crmpanel\Test.cshtml" />
-    <Content Include="Scripts\jquery.nanoscroller.js.map" />
-    <Content Include="Views\Crmpanel\Active_Orders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
