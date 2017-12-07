@@ -158,6 +158,7 @@
     <Content Include="Scripts\jquery.browser.mobile.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
     <Content Include="Scripts\jquery.nicescroll.min.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\magnific-popup.js" />
@@ -231,6 +232,7 @@
     <Content Include="Views\Crmpanel\Test.cshtml" />
     <Content Include="Scripts\jquery.nanoscroller.js.map" />
     <Content Include="Views\Crmpanel\Active_Orders.cshtml" />
+    <Content Include="Views\Crmpanel\UserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

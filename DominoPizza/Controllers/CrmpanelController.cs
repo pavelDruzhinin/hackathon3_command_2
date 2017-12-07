@@ -14,6 +14,12 @@ namespace DominosPizza.Controllers
         private DominosContext db = new DominosContext();
 
         // GET: Crmpanel Administrator Block
+        [Authorize]
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
+
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manage() // страница управления пиццерией
         {
