@@ -5,12 +5,12 @@
 <html class="fixed">
 <head>
     <meta charset="UTF-8">
-    <title>Dominos Pizza | Administrator - управление сотрудниками</title>
+    <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Web Fonts  -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-    <!-- Vendor CSS --> 
+    <!-- Vendor CSS -->
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
 
     <link rel="stylesheet" href="~/Content/font-awesome.css" />
@@ -36,23 +36,27 @@
 </head>
 <body>
     <section class="body">
-
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
+                <a href="Manage" class="logo">
+                    <h4>Dominos Pizza CRM</h4>
+                </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                     <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
                 </div>
             </div>
             <!-- start: search & user box -->
+            @if (User.Identity.IsAuthenticated)
+        {
             <div class="header-right">
                 <span class="separator"></span>
 
                 <div id="userbox" class="userbox">
                     <a href="#" data-toggle="dropdown">
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                            <span class="name">John Doe Junior</span>
-                            <span class="role">administrator</span>
+                            <span class="name">@User.Identity.Name</span>
+                            <span class="role">Администратор</span>
                         </div>
 
                         <i class="fa custom-caret"></i>
@@ -62,225 +66,68 @@
                         <ul class="list-unstyled">
                             <li class="divider"></li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+                                <a role="menuitem" tabindex="-1" href="profile.html"><i class="fa fa-user"></i> Профиль</a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                        }
+                                <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+    }
             <!-- end: search & user box -->
         </header>
         <!-- end: header -->
-
+        <!-- start: Content -->
         <div class="inner-wrapper">
-            <!-- start: sidebar -->
-            <aside id="sidebar-left" class="sidebar-left">
-
-                <div class="sidebar-header">
-                    <div class="sidebar-title">
-                        Управление пиццерией
-                    </div>
-                    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                    </div>
-                </div>
-
+            @RenderBody()
+        </div>
+            <!-- end: Content -->
+            <aside id="sidebar-right" class="sidebar-right">
                 <div class="nano">
                     <div class="nano-content">
-                        <nav id="menu" class="nav-main" role="navigation">
-                            <ul class="nav nav-main">
-                                <li class="nav-active">
-                                    <!-- стиль предполагает активную вкладку -->
-                                    <a href="index.html">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                        <span>Общая статистика</span>
-                                    </a>
-                                </li>
-                                <!-- переписка доступна только Менеджерам, сделать проверку на роль
-                            <li>
-                                <a href="mailbox-folder.html">
-                                    <span class="pull-right label label-primary">182</span>
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    <span>Mailbox</span>
-                                </a>
-                            </li>
-                            -->
-                                <li>
-                                    <a href="mailbox-folder.html">
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        <span>Активные заказы</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailbox-folder.html">
-                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                                        <span>Список сотрудников</span>
-                                    </a>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-align-left" aria-hidden="true"></i>
-                                        <span>Редактор товаров</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a>Пиццы</a>
-                                        </li>
-                                        <li>
-                                            <a>Закуски</a>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>Десерты</a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a>Торты</a>
-                                                </li>
-                                                <li>
-                                                    <a>Печенье</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a>Напитки</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
+                        <a href="#" class="mobile-close visible-xs">
+                            Collapse <i class="fa fa-chevron-right"></i>
+                        </a>
 
-                        <hr class="separator" />
+                        <div class="sidebar-right-wrapper">
+
+                            <div class="sidebar-widget widget-calendar">
+                                <h6>Календарь</h6>
+                                <div data-plugin-datepicker data-plugin-skin="dark"></div>
+                            </div>
+
+                        </div>
                     </div>
-
                 </div>
-
             </aside>
-            <!-- end: sidebar -->
-
-        </div>
     </section>
+
+    <!-- Vendor -->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.browser.mobile.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/nanoscroller.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/magnific-popup.js"></script>
+    <script src="~/Scripts/jquery.placeholder.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/Scripts/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/Scripts/theme.custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/Scripts/theme.init.js"></script>
+
+
+    <!-- Examples -->
+    <script src="~/Scripts/examples.dashboard.js"></script>
 </body>
 </html>
-<!--
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/css")" rel="stylesheet" type="text/css" />
-    <style>
-        body {
-            padding-top: 70px;
-            padding-bottom: 20px;
-            border: 0px;
-            background-color: #cecbc6;
-        }
-        #userslist {
-            margin: auto;
-        }
-
-        th {
-            font-size: 13px;
-            font-weight: normal;
-            background: #b9c9fe;
-            border-top: 4px solid #aabcfe;
-            border-bottom: 1px solid #fff;
-            border: 1px dashed white;
-            color: #039;
-            padding: 8px;
-        }
-
-        td {
-            background: #e8edff;
-            border-bottom: 1px solid #fff;
-            color: #669;
-            border-top: 1px solid transparent;
-            border: 1px dashed white;
-            padding: 8px;
-        }
-
-        tr:hover td {
-            background: #ccddff;
-        }
-
-        #calendar {
-            width: 100%;
-            font: monospace;
-            line-height: 1.2em;
-            font-size: 16px;
-            text-align: center;
-        }
-
-            #calendar thead tr:last-child {
-                font-size: small;
-                color: rgb(85, 85, 85);
-            }
-
-            #calendar thead tr:nth-child(1) td:nth-child(2) {
-                color: rgb(50, 50, 50);
-            }
-
-            #calendar thead tr:nth-child(1) td:nth-child(1):hover, #calendar thead tr:nth-child(1) td:nth-child(3):hover {
-                cursor: pointer;
-            }
-
-            #calendar tbody td {
-                color: rgb(44, 86, 122);
-            }
-
-                #calendar tbody td:nth-child(n+6), #calendar .holiday {
-                    color: rgb(231, 140, 92);
-                }
-
-                #calendar tbody td.today {
-                    background: rgb(220, 0, 0);
-                    color: #fff;
-                }
-    </style>
-</head>
-<body>
-    <div class="navbar navbar-fixed-top">
-        <div class="container">
-            <div class="nav navbar-left">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Список заказов", "Manage", "Crmpanel")</li>
-                    <li>@Html.ActionLink("Список сотрудников", "Users", "Crmpanel")</li>
-                    <li>@Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")</li>
-                </ul>
-            </div>
-            <div class="nav navbar-right">
-                <ul class="nav navbar-nav">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>Вы вошли как:@User.Identity.Name</li>
-                        <li>
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-                            }
-                            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div id="main">
-        @RenderBody()
-    </div>
-    <div id="footer">
-    </div>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    }
-</body>
-</html>
-    -->

@@ -1,17 +1,174 @@
 ﻿@model DominoPizza.Models.RegisterModel
 
 @{
-    ViewBag.Title = "Регистрация сотрудника в CRM Dominos Pizza";
+    ViewBag.Title = "Dominos Pizza | Регистрация сотрудника";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
 }
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
 
-<h1 class="h1-ua">Добавить нового сотрудника</h1>
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление пиццерией
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
 
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li>
+                        <!-- стиль предполагает активную вкладку -->
+                        <a href="Manage">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Общая статистика</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Active_Orders">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Активные заказы</span>
+                        </a>
+                    </li>
+                    <li class="nav-active">
+                        <a href="Register">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Добавить сотрудника</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Users">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            <span>Список сотрудников</span>
+                        </a>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-align-left" aria-hidden="true"></i>
+                            <span>Редактор товаров</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a>Пиццы</a>
+                            </li>
+                            <li>
+                                <a>Закуски</a>
+                            </li>
+                            <li class="nav-parent">
+                                <a>Десерты</a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a>Торты</a>
+                                    </li>
+                                    <li>
+                                        <a>Печенье</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Напитки</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
 
-@using (Html.BeginForm()) 
+            <hr class="separator" />
+        </div>
+
+    </div>
+
+</aside>
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Регистрация нового сотрудника</h2>
+
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="Register">
+                        <i class="fa fa-user"></i>
+                    </a>
+                </li>
+                <li><span>Регистрация сотрудника</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
+    <!-- start: page -->
+    <div class="center-sign col-sm-6">
+        <div class="panel panel-sign">
+            <div class="panel-body">
+                <form>
+                    <div class="form-group mb-lg">
+                        <label>E-mail / Login</label>
+                        <input name="email" type="email" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Фамилия</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Имя</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Отчество</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Пол</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Дата рождения</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Номер телефона</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Должность</label>
+                        <input name="name" type="text" class="form-control input-lg" />
+                    </div>
+
+                    <div class="form-group mb-none">
+                        <div class="row">
+                            <div class="col-sm-6 mb-lg">
+                                <label>Пароль</label>
+                                <input name="pwd" type="password" class="form-control input-lg" />
+                            </div>
+                            <div class="col-sm-6 mb-lg">
+                                <label>Подтверждение пароля</label>
+                                <input name="pwd_confirm" type="password" class="form-control input-lg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 text-right">
+                            <button type="submit" class="btn btn-primary hidden-xs">Зарегистрировать</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Зарегистрировать</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end: page -->
+<!--
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -70,3 +227,4 @@
         </div>
     </div>
 }
+    -->
