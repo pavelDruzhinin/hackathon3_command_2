@@ -13,9 +13,11 @@
             <td colspan="3">изменить</td>
         </tr>
         @{ int itog = 0;}
+        @{ int totalQ = 0;}
         @foreach (var tableRow in Model)
         {
             itog += tableRow.PreSum();
+            totalQ += tableRow.ProductQuantity;
             <tr id="row-@tableRow.ProductId">
                 <td>@tableRow.OrderTableId</td>
                 <td>@tableRow.ProductId</td>
@@ -35,14 +37,35 @@
                 <td style="padding: 2px;    border-left: 0;">
                     <button style=" display:block; margin:0;" class="btn btn-danger dels" id="dels-@tableRow.ProductId" >&#x274C</button>
                 </td>
+                
                 <!---->
             </tr>
 
         }
-
+        
     </tbody>
 </table><br />
-<p id="itogVisible" style="font-size: 2em; font-weight: 800; text-align: left;">@itog <span>&#8381;</span></p>
+<p id="itogVisible" style="font-size: 2em; font-weight: 800; text-align: left;">@itog.00 <span>&#8381;</span></p>
 <input type="hidden" id="itogValue" name="price" value="@itog" />
 
+<div>
+   
+        <p style="font-weight: 700;"id="prom"></p>
+        <p style="font-weight: 700; bottom:100px" id="message"></p>
+        
+ </div>
+<div >
+    <button style=" display:block;  margin: 0; visibility:hidden" class="btn btn-success plus" id="dis-" onclick="discount(this.id)">ПОЛУЧИТЬ СКИДКУ!</button>
+
+</div>
+
+  
+ <div>
+    <p id="see"></p>
+     <p id="amount"></p>
+</div> 
+  
+<p id="totalQVisible" style="font-size: 2em; font-weight: 800; text-align: left; visibility:hidden">@totalQ</p>
+<input type="hidden" id="totalQValue" name="quantity" value="@totalQ" />
+    
 
