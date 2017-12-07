@@ -292,7 +292,32 @@ namespace DominosPizza.Controllers
             db.SaveChanges();
             Session["cart"] = null;
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
+                                            //  return RedirectToRoute(new { controller = "Home", action = "PayOffer" });
+
+            if (Convert.ToInt32(TaskPaymentMethod) != 1)
+            {
+                return RedirectToRoute(new { controller = "Home", action = "SuccessOrder" });
+            }
+            else
+            {
+
+                return RedirectToRoute(new { controller = "Home", action = "PayOnline" });
+            }
+
+
+        }
+        public ActionResult PayOnline()
+        {
+            ViewBag.Message = "On-line оплата";
+
+            return View();
+        }
+
+        public ActionResult SuccessOrder()
+        {
+            ViewBag.Message = "Заказ отправлен менеджеру";
+
+            return View();
         }
     }
 }
