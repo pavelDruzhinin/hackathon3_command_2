@@ -228,6 +228,8 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
+    <Content Include="Views\Home\SuccessOrder.cshtml" />
+    <Content Include="Views\Home\PayOnline.cshtml" />
     <Content Include="Views\Crmpanel\Test.cshtml" />
     <Content Include="Scripts\jquery.nanoscroller.js.map" />
     <Content Include="Views\Crmpanel\Active_Orders.cshtml" />
@@ -285,6 +287,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712031205104_Init.cs" />
+    <Compile Include="Migrations\201712031205104_Init.Designer.cs">
+      <DependentUpon>201712031205104_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061833191_second.cs" />
+    <Compile Include="Migrations\201712061833191_second.Designer.cs">
+      <DependentUpon>201712061833191_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -302,6 +313,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712031205104_Init.resx">
+      <DependentUpon>201712031205104_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061833191_second.resx">
+      <DependentUpon>201712061833191_second.cs</DependentUpon>
+    </EmbeddedResource>
     <Folder Include="Migrations\" />
   </ItemGroup>
   <PropertyGroup>
