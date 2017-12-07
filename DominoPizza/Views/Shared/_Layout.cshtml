@@ -35,7 +35,10 @@
                     <div class="cart_top">
                         <span class="carttop_price_value" pricevalue="0">
                             <span class="value">0</span> ₽
-                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
+                        </span>
+                        <a href="@Url.Action("Cart", "Home")">
+                            <img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -48,7 +51,7 @@
                         <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
                         <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
                         <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
-                        <li>@if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li>Вы вошли как: @User.Identity.Name</li>
                             
@@ -62,9 +65,11 @@
                         }
                         else
                         {
-                            @Html.ActionLink("Вход", "Auth", "Customers")
+                            <li>
+                                @Html.ActionLink("Вход", "Auth", "Customers")
+                            </li>
                         }
-                        </li>
+                        
                         <li>@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
                     </ul>
                 </div>
