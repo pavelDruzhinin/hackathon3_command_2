@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@*@using DominosPizza.Models
+@model List<OrderTable>*@
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,7 +37,12 @@
                 <div class="head__block_moto">
                     <div class="cart_top">
                         <span class="carttop_price_value" pricevalue="0">
-                            <span class="value">0</span> ₽
+                            <span class="value">
+                                <script type="text/javascript">
+
+                                </script>
+                            </span>
+                            <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
                         </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
                     </div>
                 </div>
@@ -87,7 +95,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    }
-        
+    }        
     </body>
 </html>

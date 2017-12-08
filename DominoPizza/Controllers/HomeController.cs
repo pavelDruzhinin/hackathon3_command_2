@@ -170,6 +170,34 @@ namespace DominosPizza.Controllers
             return View();
         }
 
+        public ActionResult Cook()
+        {
+            ViewBag.Message = "Повар";
+
+            return View();
+        }
+
+        public ActionResult Courier()
+        {
+            ViewBag.Message = "Курьер";
+
+            return View();
+        }
+
+        public ActionResult Manager()
+        {
+            ViewBag.Message = "Менеджер";
+
+            return View();
+        }
+
+        public ActionResult Resume()
+        {
+            ViewBag.Message = "Резюме";
+
+            return View();
+        }
+
         public ActionResult Cart()
         {
             ViewBag.Message = "Оформление заказа";

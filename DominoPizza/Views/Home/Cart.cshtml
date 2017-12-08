@@ -5,7 +5,7 @@
     
 }
 
-<h2>Ваш заказ </h2>
+<h2>Ваш заказ</h2>
 <div class="row">
     <div class="col-sm-6">
         <br>
@@ -54,7 +54,7 @@
                 var j = parseInt(am.value, 10);
                 if (j > 0) {
                     var itog = parseInt(itogValue.value, 10); 
-                    am.value = j - 1;
+                        am.value = j - 1;
                     tdam.innerHTML = am.value;
                     var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
                     preSum.innerHTML = preSumNum;
@@ -103,14 +103,10 @@
                         success: function (data) {
                             $("#cartindicator").html(data.Data);
                         }
-
                     });
                 }
             });
         </script>
-
-
-
                     <p></p><br />
                     <div class="form-group-row">
 
@@ -142,6 +138,7 @@
                     <option value="3">Наличными</option>
                 </select>
                 <br />
+
                 <label for="TaskDeliveryCustomerName">Комментарий к заказу</label><br />
                 <input class="form-control" type="text" id="CustomerComment" name="CustomerComment" value="Самый лучший комментарий" /><br />
                 <input class="btn btn-danger" type="submit" value="отправить заказ" />

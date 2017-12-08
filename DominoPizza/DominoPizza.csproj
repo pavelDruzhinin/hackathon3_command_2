@@ -195,6 +195,10 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
+    <Content Include="Views\Home\Resume.cshtml" />
+    <Content Include="Views\Home\Cook.cshtml" />
+    <Content Include="Views\Home\Courier.cshtml" />
+    <Content Include="Views\Home\Manager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

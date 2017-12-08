@@ -1,13 +1,39 @@
 ﻿@{
     ViewBag.Title = "Dominos Pizza - Вакансии";
 }
-<div>
-    <p></p>
-</div>
-<div class="body-content">
+
+    <div class="body-content">
     <h1 class="h1-ua">Вакансии</h1>
-    <p class="lead">Открытые вакансии:</p>
-    <p class='help-block'>- диспетчер</p>
-    <p class='help-block'>- водитель с личным л/а</p>
-    <p class="lead">Присылайте ваше резюме на эл.адрес xx@xx.ru (в теме письма обязательно укажите "резюме" и желаемую должность).</p>
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/Cook.png" alt="" width="60" /></div>
+        <div class="col-md-10">
+            <h3 class="h3-ua">@Html.ActionLink("Повар", "Cook", "Home")</h3>
+        </div>
+    </div>
+
+
+  
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/Courier.png" alt="" width="60" /></div>
+        <div class="col-md-10">
+            <h3 class="h3-ua">@Html.ActionLink("Курьер", "Courier", "Home")</h3>
+        </div>
+    </div>
+
+    <div class="row" style="vertical-align:top">
+        <div class="col-md-1 img-top-padding"><img src="~/img/Manager.png" alt="" width="60" /></div>
+        <div class="col-md-10">
+            <h3 class="h3-ua">@Html.ActionLink("Менеджер", "Manager", "Home")</h3>
+        </div>
+    </div>
+
+        <h1 class="h1-ua">Хотите работать с нами?</h1>
+        <div class="row" style="vertical-align:top">
+            <div class="col-md-1 img-top-padding"><img src="~/img/Resume.png" alt="" width="60" /></div>
+            <div class="col-md-10">
+                <h3 class="h3-ua">@Html.ActionLink("Перейти к оформлению резюме", "Resume", "Home")</h3>
+            </div>
+        </div>
+
+    <p></p>
 </div>
