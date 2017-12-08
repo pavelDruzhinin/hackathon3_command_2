@@ -1,0 +1,28 @@
+﻿@model DominosPizza.Models.Customer
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h2>Личный кабинет</h2>
+
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        Имя
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerFirstName)
+    </dd>
+
+    <dt>
+        E-Mail
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerId)
+    </dd>
+
+</dl>
+</div>
+

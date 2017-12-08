@@ -47,12 +47,19 @@ namespace DominoPizza.Controllers
 
             return View();
         }
+
+        public ActionResult PersonalArea()
+        {
+            //Customer customer = null;
+            //db.Customers.Find(customer.CustomerId);
+            return View();
+            
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Auth(CustomerLogin model)
         {
-
-
             if (ModelState.IsValid)
             {
                 Customer customer = null;
@@ -70,12 +77,15 @@ namespace DominoPizza.Controllers
                 {
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
-
             }
             return View();
         }
 
-
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         // POST: Customers/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.

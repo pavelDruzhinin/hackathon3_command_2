@@ -51,14 +51,14 @@
                         <li>@if (User.Identity.IsAuthenticated)
                         {
                             <li>Вы вошли как: @User.Identity.Name</li>
-                            
-                            <li>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            <li>@Html.ActionLink("Личный кабинет", "PersonalArea","Customers")</li>
+                            <li>@Html.ActionLink("Выйти", "Logoff", "Customers")</li>
+                                <!--using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                 {
-                                    @Html.AntiForgeryToken()
+                                    Html.AntiForgeryToken()
                                 }
                                 <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                            </li>
+                                    -->
                         }
                         else
                         {
