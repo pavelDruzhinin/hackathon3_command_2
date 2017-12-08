@@ -9,51 +9,51 @@
     <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            border: unset;
+            height:100%;
+        }
+        span {
+            margin: 15px 5px 0 0;
+        }
+            span span {
+                margin: 0 10px 0 10px;
+            }
+    </style>
 </head>
 <body>
-    <div id="topImage">
-        <div><img src="../img/top.png" /></div>
-        <div id="logo"><a href="/Home/Index"><img src="../img/logo.png" /></a></div>
-    </div>
-    <div class="container">
-        <div id="customnavbar">
-                <div class="menuitems">@Html.ActionLink("ПРИЁМ", "Index", "Manager")</div>
-                <div class="menuitems">@Html.ActionLink("КУХНЯ", "Index", "Kitchen")</div>
-                <div class="menuitems">@Html.ActionLink("ДОСТАВКА", "Index", "Delivery")</div>
-        </div>
-        <div class="hrcustom"> </div>
-    </div>
+    <div style="width:100%; display: flex; justify-content: flex-end; ">
+        
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span>@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</span>
 
-<!--
-    <div class="navbar   navbar-dominospizza">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img class="img-circle" src="https://apke.ru/images/icon/14278158171750_icon.png" width="45" height="45" />
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>Html.ActionLink("Выбрать пиццу", "Index", "Home")</li>
-                    <li>Html.ActionLink("Правила", "Rules", "Home")</li>
-                    <li>Html.ActionLink("Как заказать", "HowToOrder", "Home")</li>
-                    <li>Html.ActionLink("Контактная информация", "Contact", "Home")</li>
-                    <li>Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>-->
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year – Dominos Pizza - доставка пиццы 24 часа.</p>
-        </footer>
-    </div>
+                        <span style=" white-space: nowrap;">
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            }
+                            <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style="color:black;"></span></a>
+                        </span>
+                }
+                else
+                {
+                    @Html.ActionLink("Вход", "Auth", "Users")
+                }
+        
+</div>
 
+    
+        <div class="container body-content" >
+            @RenderBody()
+
+
+        </div>
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

@@ -1,0 +1,81 @@
+﻿@using DominosPizza.Models
+@model TaskDetails
+@{ TaskDetails taskdetails = Model;}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <p style="font-size: 1.8em; font-weight:700;">№@taskdetails.TaskId, <span style="font-size: .75em;"> статус: </span>@taskdetails.Status
+             <p>@taskdetails.ClientAddress</p>
+            <p>@taskdetails.ClientFullName</p>
+            <p>@taskdetails.ClientPhone</p>
+            <p>@taskdetails.DateTime</p>
+            <p style="font-size: 1.8em; font-weight:700;">@taskdetails.TotalSum <span style="font-size: .75em;" class="glyphicon glyphicon-ruble"></span></p>
+
+            <p></p>
+            <div style="overflow-y:auto; max-height:300px;">
+                <table class="task-details-table">
+                    <tr class="thead"><td style="width: 100%">Наименование</td><td>шт</td></tr>
+                    @foreach (var row in taskdetails.tasklist)
+                    {
+                        var temp = taskdetails.products.Where(z => z.ProductId == row.ProductId).Select(z => z).FirstOrDefault();
+                        <tr><td> @temp.Name </td><td> @row.Quantity</td></tr>
+                    }
+                </table>
+                </div>
+            </div>
+        <div class="col-sm-6">
+
+            <table class="task-details-table">
+                <tr class="thead"><td style="">пользователь</td><td>роль</td><td>приступил</td><td>закончил</td></tr>
+                @foreach (var row in taskdetails.changes)
+                {
+                    var temp = taskdetails.staff.Where(z => z.UserId == row.UserId).Select(z => z).FirstOrDefault();
+                    var temp2 = taskdetails.roles.Where(z => z.UserRoleId == temp.UserRoleId).Select(z => z).FirstOrDefault();
+                    <tr><td> @temp.FirstName @temp.Patronymic @temp.LastName</td><td> @temp2.Name</td><td> @row.In</td><td> @row.Out</td></tr>
+                }
+            </table>
+            <br />
+            <div style="overflow-y:auto; max-height:300px;">
+                <table class="task-details-table">
+                    <tr class="thead"><td>пользователь</td><td>время</td><td style="width: 100%">комментарий</td></tr>
+                    @foreach (var row in taskdetails.comments)
+                    {
+                        var temp = taskdetails.staff.Where(z => z.UserId == row.UserId).Select(z => z).FirstOrDefault();
+                        var temp2 = taskdetails.roles.Where(z => z.UserRoleId == temp.UserRoleId).Select(z => z).FirstOrDefault();
+                        <tr><td>@temp.FirstName @temp.LastName (@temp2.Name)</td><td> @row.DateTime</td><td> @row.Text</td></tr>
+                    }
+                </table>
+            </div>
+            <textarea  class="task-details-input" id="NewCommentTextA" placeholder="введите здесь текст комментария и нажмите кнопку отправить"></textarea>
+            <div class="commentUser">
+                <div><button id="comments-Add-@taskdetails.TaskId" class="btn btn-default" onClick="addComment(event, this)" title="отправить">отправить</button></div>
+            </div>
+        </div>
+    </div>
+    @if (taskdetails.inWorkFlag)
+    {                           
+        <br /><br /><button id="isDone-@taskdetails.TaskId" class="btn btn-danger inWork" onClick="isDone(event, this)">на кухню</button>
+    }
+</div>
+        @*public int TaskId { get; set; }
+        public double TotalSum { get; set; }
+        public string Status { get; set; }
+        public DateTime DateTime { get; set; } //!!! время, когда нужно доставить заказ
+        public int PayMethod { get; set; }
+        public int? UserComment { get; set; }*@
+
+@*taskdetails.userrole = staff.UserRoleId;
+                taskdetails.ClientFullName = contact.FullName;
+                taskdetails.ClientPhone = contact.Phone;
+                taskdetails.ClientAddress = contact.Address;
+                taskdetails.changes = db.TaskStatusChanges.Where(z => z.TaskId == taskId).Select(z => z).ToList();
+                taskdetails.tasklist = db.TaskRows.Where(z => z.TaskId == taskId).Select(z => z).ToList();
+                taskdetails.comments = db.UserComments.Where(z => z.TaskId == taskId).Select(z => z).ToList();
+                foreach (var change in taskdetails.changes)
+                {
+                    taskdetails.staff.Add(db.Users.Where(z => z.UserId == change.UserId).Select(z => z).FirstOrDefault());
+                }
+                foreach (var row in taskdetails.tasklist)
+                {
+                    taskdetails.products.Add(db.Products.Where(z => z.ProductId == row.ProductId).Select(z => z).FirstOrDefault());
+                }*@

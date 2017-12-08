@@ -3,159 +3,272 @@
     Layout = "~/Views/Shared/_LayoutStaffOnly.cshtml";
     ViewBag.Title = "Index";
 }
+<div style="z-index:-1; position:fixed; top:0; left:0; width: 100%; height:100%;">
+    <div style="width: 50%; height:100%;background-color:white;position:fixed; top:0; left:0;"></div>
+    <div style="width: 50%; height:100%;background-color:antiquewhite;position:fixed; top:0; left:50%;"></div>
+</div>
+<h3 class="ToDoTasks">доступные заказы</h3>
+<h3 class="InWorkTasks">сейчас в работе</h3>
 <!--KITCHEN-->
-<div class="row">
-    <div class="col-sm-10">
-        <h2>Повар</h2>
-    </div> 
-    <div class="col-sm-2">
-        <br />
-        <label for="OptionName">Имя пользователя</label><br />
-        <select class="form-control" name="userId">
-        @foreach (var user in ViewBag.users)
-        {
-            <option value="@user.UsersId">@user.UserName</option>
-        }
-        </select>
-     </div>
-</div>
-<br />
+@if (User.Identity.IsAuthenticated && ViewBag.user.UserRoleId == 3)
+{
+    <br />
+
+    @*<button id="ShowTasksTable" class="ShowTasksTable">просмотр заказов</button>*@
 
 
-<div class="well content kitchen">
+        <div class="row" style="align-items: flex-start;">
 
-    @foreach (var task in ViewBag.tasks)
-    {
-        if (task.TaskStatusId == 1) { 
-        <div class="well pizzacard" >
-            
-                <p>Номер заказа: @task.TasksId</p>
-                <p><strong> @task.TaskDeliveryDateTime</strong></p>
-            
-            <div >
-                <br />
-                @{var list = task.taskList;
-                }
-
-                <table style="width: 100%;">
-                    <tbody class="managerOrderList">
-                        <tr class="thead"><td style="width: 100%;"> Наименование</td><td>шт.</td></tr>
-                        @foreach (KeyValuePair<int, int> keyValue in list)
-                        {
-                            var temp = ViewBag.prod;
-                            <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
-                        }
-                    </tbody>
-                </table>
-                <br />
-                <form method="post" enctype="multipart/form-data" action="/Kitchen/KitchenReadyTask">
-                    <input type="hidden" name="TasksId" value="@task.TasksId" />
-                    <input type="hidden" name="TaskStatusId" value="2" />
-                    <input type="hidden" name="userId" value="2" />
-                    <div style="display: flex; justify-content: space-between;">
-                    <input class="btn btn-danger" type="submit" value="приготовлен" /><button id="commentsShow-@task.TasksId" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></div>
-                </form>
-            </div>
-            </div>
-        }
-     }
-</div>
+            <div id="TasksTable" class="TasksTable"></div>
 
 
-<!--место для загрузки Partial View c комментариями-->
-<div id="comments-modal" class="comments-modal">
-    
-    <div class="comments-window">
- 
-        <div id="comment-PartialView"> </div>
+            <div id="TasksInWork" class="TasksInWork"></div>
 
-    </div>
-    <div class="addNewComment">
-        
-        <textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>
-        <div class="commentUser">
-            <div><button id="comments-Add-" class="btn btn-default" title="отправить"><span class="glyphicon glyphicon-user"></span> ПётрПовар</button></div>
-            <button id="closeComments" class="btn btn-danger" onclick="hideComments()">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
         </div>
-    </div>
+       
+}
+else
+{
+
+        <div style="z-index: 1000; background-color: white; position: fixed; top:0;left:0; display:flex; justify-content:center; align-items:center; width:100%;height:100%;">
+            <div class="well" style="width: 320px; padding: 15px;">
+                <br />
+                <p style="text-align:center; font-size: .9em;">Для работы в системе вам необходимо</p><br />
+                <a class="btn btn-success" style="width: 290px; font-size: 1.4em;" href="/Users/Auth">войти</a>
+                <br /><br />
+            </div>
+        </div>
+        }
+
+        <script src="/Scripts/jquery-1.10.2.js"></script>
+        <!--AJAX showTask-->
+        <script>
+            var oldHtml;
+            var oldHtml2;
+            $(document).ready(function () {
+
+                timerId = setTimeout(function swap() {
+
+                    $.ajax({
+                        url: "/Kitchen/ShowTasksTable",
+                        dataType: "html",
+                        //                              data: {
+                        //                                   onlineChatUniqueId: onlineChatUniqueId
+                        //                              },
+                        type: "POST",
+                        success: function (data) {
+                            if (data != oldHtml) {
+                                oldHtml = data;
+                                $("#TasksTable").html(data);
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: "/Kitchen/ShowTasksInWork",
+                        dataType: "html",
+                        //                              data: {
+                        //                                   onlineChatUniqueId: onlineChatUniqueId
+                        //                              },
+                        type: "POST",
+                        success: function (data) {
+                            if (data != oldHtml2) {
+                                oldHtml2 = data;
+                                $("#TasksInWork").html(data);
+                            }
+                        }
+                    });
+                    timerId = setTimeout(swap, 2000);
+                }, 100);
+
+            });
+        </script>
+
+
+    <!--место для загрузки Partial View c деталями-->
+<div id="ModalshowTaskDetail" class="well ModalshowTaskDetail" style="display: none; background-color:azure;">
+
+    <div id="showTaskDetail" class="showTaskDetail"></div>
+
+
+    @*<textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>*@
+
+    <button id="closeComments" class="btn btn-danger" onclick="hideComments()" style="position:absolute; right:15px;top:15px;">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+
+
 </div>
-<!---->
+<!--конец места для загрузки-->
 
+        <!--место для загрузки Partial View c комментариями-->
+        <div id="comments-modal" class="comments-modal">
 
+            <div class="comments-window">
 
-<!--AJAX загрузка комментов-->
-<script src="/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-    var taskId = 0;
-    $("button").click(function (event) {
+                <div id="comment-PartialView"> </div>
 
-        if (this.id.slice(0, 13) == "commentsShow-") {
-            event.preventDefault();
-            $("#comments-modal").css({
-                "display": "block", "overflow": "hidden", "flex-direction":"column", "display": "flex","justify-content": "center", "vertical-align": "top"});
-            taskId = parseInt(this.id.slice(13));
-            $.ajax({
-                url: "/Manager/TaskCommentsShow",
-                dataType: "html",
-                data: {
-                    taskId: taskId,
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#comment-PartialView").html(data);
+            </div>
+            <div class="addNewComment">
+
+                <textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>
+                <div class="commentUser">
+                    <div><button id="comments-Add-" class="btn btn-default" title="отправить"><span class="glyphicon glyphicon-user"></span> ПётрПовар</button></div>
+                    <button id="closeComments" class="btn btn-danger" onclick="hideComments()">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!--AJAX загрузка комментов-->
+        <script src="/Scripts/jquery-1.10.2.js"></script>
+        <script type="text/javascript">
+            var taskId = 0;
+
+            function inWork(event, t) {
+                event.preventDefault();
+
+                if (t.id.slice(0, 7) == "inWork-") {
+                    event.preventDefault();
+
+                    taskId = parseInt(t.id.slice(7));
+
+                    $.ajax({
+                        url: "/Kitchen/TaskInWork",
+                        dataType: "json",
+                        data: {
+                            taskId: taskId,
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            console.log(data.Data);
+                        }
+                    });
                 }
-            });
-        }
+            }
+            function ShowDetails(event, t) {
+                event.preventDefault();
+                if (t.id.slice(0, 16) == "showTaskDetails-") {
+                    event.preventDefault();
+                    $("#ModalshowTaskDetail").css({
+                        "display": "block", "width": "100%", "height": "100%", "position": "fixed", "top": "0", "left": "0"
+                    });
+                    taskId = parseInt(t.id.slice(16));
+                    $.ajax({
+                        url: "/Manager/ShowTaskDetails",
+                        dataType: "html",
+                        data: {
+                            taskId: taskId,
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            $("#showTaskDetail").html(data);
 
-
-        if (this.id.slice(0, 13) == "comments-Add-") {
-            event.preventDefault();
-            $("#comments-modal").css({
-                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
-            });
-//            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
-            var userID = 2; //!!! пока так, но позже пользователя над будет определять по логину
-            var newCommentText = $("#NewCommentInput").val();
-            console.log(taskId);
-            console.log(userID);
-            console.log(newCommentText);
-            $.ajax({
-                url: "/Manager/AddNewComment",
-                dataType: "html",
-                data: {
-                    TasksId: taskId,
-                    userId: userID,
-                    CommentText: newCommentText
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#comment-PartialView").html(data);
-                    console.log(taskId);
+                        }
+                    });
                 }
-            });
-        }
-    });
+            }
+            function isDone(event, t) {
+                event.preventDefault();
+
+                if (t.id.slice(0, 7) == "isDone-") {
+                    event.preventDefault();
+
+                    taskId = parseInt(t.id.slice(7));
+
+                    $.ajax({
+                        url: "/Kitchen/TaskDone",
+                        dataType: "json",
+                        data: {
+                            taskId: taskId,
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            console.log(data.Data);
+                        }
+                    });
+                }
+            }
+
+            //$("button").click(function (event) {
+            //    if (this.id.slice(0, 13) == "commentsShow-") {
+            //        event.preventDefault();
+            //        $("#comments-modal").css({
+            //            "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            //        });
+            //        taskId = parseInt(this.id.slice(13));
+            //        $.ajax({
+            //            url: "/Manager/TaskCommentsShow",
+            //            dataType: "html",
+            //            data: {
+            //                taskId: taskId,
+            //            },
+            //            type: "POST",
+            //            success: function (data) {
+            //                $("#comment-PartialView").html(data);
+            //            }
+            //        });
+            //    }
 
 
+                //if (this.id.slice(0, 13) == "comments-Add-") {
+                //    event.preventDefault();
+                //    $("#comments-modal").css({
+                //        "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                //    });
+                //    //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
+                //    var userID = 2; //!!! пока так, но позже пользователя над будет определять по логину
+                //    var newCommentText = $("#NewCommentInput").val();
 
-</script>
+                //    $.ajax({
+                //        url: "/Manager/AddNewComment",
+                //        dataType: "html",
+                //        data: {
+                //            TasksId: taskId,
+                //            userId: userID,
+                //            CommentText: newCommentText
+                //        },
+                //        type: "POST",
+                //        success: function (data) {
+                //            $("#comment-PartialView").html(data);
+                //            console.log(taskId);
+                //        }
+                //    });
+                //}
+            //});
 
-   <!--$("#par1").hover(function(){ }, 
-                    function(){     }
-      
-      
-                    );-->
+            function addComment(event, t) {
+                event.preventDefault();
+                //$("#comments-modal").css({
+                //    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                //});
+                var taskId = parseInt(t.id.slice(13)); //значение остаётся от функции открытия окна комментов
+                var newCommentText = $("#NewCommentTextA").val();
+                $.ajax({
+                    url: "/Messaging/AddNewComment",
+                    dataType: "json",
+                    data: {
+                        taskId: taskId,
+                        CommentText: newCommentText
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        if (data.Data > 0) {
+                            alert("сообщение отправлено, откройте заново окно с деталями задания (надо доделать, чтобы коммент сразу добавлялся)");
+                        }
+                    }
+                });
+            }
+
+        </script>
+        <!--$("#par1").hover(function(){ },
+                         function(){     }
 
 
-<!--int TasksId, int userId, string CommentText-->
-
-
-<!--закрытие окна с комментариями-->
+                         );-->
+        <!--int TasksId, int userId, string CommentText-->
 <script>
-    function hideComments() {
-        $("#comments-modal").css({ "display": "none" });
-    }
+            function hideComments() {
+                $("#ModalshowTaskDetail").css({ "display": "none" });
+            }
 </script>
-<!---->

@@ -1,0 +1,160 @@
+﻿@using DominosPizza.Models
+@model List<Task>
+@{ int a = 0;}
+
+<div class="well content kitchen" style="display:block; background-color:unset; min-height:unset;">
+    
+    <!-- public enum Status {processed, kitchen, delivery, done, canceled}-->
+    <div class="col-sm-3">
+        @foreach (var task in Model)
+        {
+            if (++a > 2) { a = 1; }
+
+             Dictionary<string, int> namelist = new Dictionary<string, int>();
+            
+                if (task.Status == "kitchen" && a == 1)
+                {
+                    <div class="well taskcard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TaskId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TaskId</p>
+                            <p><strong> @task.DateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TaskId" class="collapse">
+                            <br /><br />
+                            @*<p>@task.Contact.Address </p>
+            <p>@task.Contact.Phone</p>
+            <p>@task.Contact.FullName</p>*@
+                            <p>@task.TotalSum<span class="glyphicon glyphicon-ruble"></span></p>
+
+                            @{
+                                int TaskId = task.TaskId;
+                                List<TaskRow> orderlist = null;
+                                using (DominosContext db = new DominosContext())
+                                {
+                                    orderlist = db.TaskRows
+                                                            .Where(c => c.TaskId == TaskId)
+                                                            .Select(c => c).ToList();
+                                }
+                                using (DominosContext db = new DominosContext())
+                                {
+                                    foreach (TaskRow row in orderlist)
+                                    {
+                                        string Name = db.Products.Where(c => c.ProductId == row.ProductId)
+                                                                 .FirstOrDefault().Name;
+                                        namelist.Add(Name, row.Quantity);
+                                    }
+                                }
+
+                            }
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td style="width: 100%">Наименование</td><td>шт</td></tr>
+                                    @foreach (KeyValuePair<string, int> keyValue in namelist)
+                                    {
+
+                                        <tr><td> @keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @*<form method="post" enctype="multipart/form-data" action="/Kitchen/TaskInWork">*@
+                            <input type="hidden" name="TasksId" value="@task.TaskId" />
+                            <input type="hidden" name="TaskStatusId" value="1" />
+                            <input type="hidden" name="userId" value="1" />
+                            @*<div style="display: flex; justify-content: space-between;">
+                                <button id="inWork-@task.TaskId" class="btn btn-danger inWork" onClick="inWork(event, this)">в работу</button><span class="glyphicon glyphicon-comment"></span>
+                            </div>*@
+                            <div style="display: flex; justify-content: space-between;">
+                                <button id="inWork-@task.TaskId" class="btn btn-danger inWork" onClick="inWork(event, this)">в работу</button>
+                                <button class="showTaskDetails btn btn-default" id="showTaskDetails-@task.TaskId" onclick="ShowDetails(event, this)">подробно</button>
+                                <div>
+                                    @if (task.UserComment > 0)
+                                    {<span>@task.UserComment</span> }<span class="glyphicon glyphicon-comment"></span>
+                                </div>
+                            </div>
+                                    @*</form>*@
+                                </div>
+                            </div>
+                            }
+
+
+                            }
+                        </div>
+@{ a = 0;}
+<div class="col-sm-3">
+        @foreach (var task in Model)
+        {
+            if (++a > 2) { a = 1; }
+
+
+                 Dictionary<string, int> namelist2 = new Dictionary<string, int>();
+                
+                if (task.Status == "kitchen" && a == 2)
+                {
+                    <div class="well taskcard">
+                        <button data-toggle="collapse" data-target="#collapse-@task.TaskId" class="collapse-task-content">
+                            <p>Номер заказа: @task.TaskId</p>
+                            <p><strong> @task.DateTime</strong></p>
+                        </button>
+                        <div id="collapse-@task.TaskId" class="collapse">
+                            <br /><br />
+                            @*<p>@task.Contact.Address </p>
+                                <p>@task.Contact.Phone</p>
+                                <p>@task.Contact.FullName</p>*@
+                            <p>@task.TotalSum<span class="glyphicon glyphicon-ruble"></span></p>
+
+                            @{
+                                int TaskId = task.TaskId;
+                                List<TaskRow> orderlist = null;
+                                using (DominosContext db = new DominosContext())
+                                {
+                                    orderlist = db.TaskRows
+                                                            .Where(c => c.TaskId == TaskId)
+                                                            .Select(c => c).ToList();
+                                }
+                                using (DominosContext db = new DominosContext())
+                                {
+                                    foreach (TaskRow row in orderlist)
+                                    {
+                                        string Name = db.Products.Where(c => c.ProductId == row.ProductId)
+                                                                 .FirstOrDefault().Name;
+                                        namelist2.Add(Name, row.Quantity);
+                                    }
+                                }
+
+                            }
+
+                            <table>
+                                <tbody class="managerOrderList">
+                                    <tr class="thead"><td style="width: 100%">Наименование</td><td>шт</td></tr>
+                                    @foreach (KeyValuePair<string, int> keyValue in namelist2)
+                                    {
+
+                                    <tr><td> @keyValue.Key] </td><td> @keyValue.Value</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @*<form method="post" enctype="multipart/form-data" action="/Manager/NewTaskFromWeb">*@
+                                <input type="hidden" name="TasksId" value="@task.TaskId" />
+                                <input type="hidden" name="TaskStatusId" value="1" />
+                                <input type="hidden" name="userId" value="1" />
+                            <div style="display: flex; justify-content: space-between;">
+                                <button id="inWork-@task.TaskId" class="btn btn-danger inWork" onClick="inWork(event, this)">в работу</button>
+                                <button class="showTaskDetails btn btn-default" id="showTaskDetails-@task.TaskId" onclick="ShowDetails(event, this)">подробно</button>
+                                <div>
+                                    @if (task.UserComment > 0)
+                                    {<span>@task.UserComment</span> }<span class="glyphicon glyphicon-comment"></span>
+                                </div>
+                            </div>
+                            @*</form>*@
+                        </div>
+                    </div>
+                                }
+
+                }
+        </div>
+</div>
+
+

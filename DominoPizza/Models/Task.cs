@@ -9,35 +9,33 @@ namespace DominosPizza.Models
     public class Task
     {
         public int TaskId { get; set; }
-        public double TaskTotalSum { get; set; }
-        public string TaskStatus { get; set; }
-        public DateTime TaskDate { get; set; }
-        public int TaskPayMethod { get; set; }
-        public string TaskCustomerComment { get; set; }
-
-       // private Dictionary<int, DateTime> taskStatusChange = new Dictionary<int, DateTime>();//<ИД пользователя сменившего статус, время>
+        public double TotalSum { get; set; }
+        public string Status { get; set; }        
+        public DateTime DateTime { get; set; } //!!! время, когда нужно доставить заказ
+        public int PayMethod { get; set; }
+        public int? UserComment { get; set; } 
+        public int RoleId { get; set; } 
 
         public ICollection<UserComment> UserComments { get; set; }
 
         public int ContactId { get; set; }
         public Contact Contact { get; set; }
 
-        public ICollection<Customer> Customers { get; set; }
+        public ICollection<TaskStatusChange> TaskStatusChange { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
-
 
     }
 
     public enum Status {processed, kitchen, delivery, done, canceled}
 
-    public class TaskMap : EntityTypeConfiguration<Task>
-    {
-        public TaskMap()
-        {
-            HasRequired(x => x.Contact).WithMany(x => x.Tasks).HasForeignKey(x => x.ContactId);
-            HasMany(x => x.Customers);
-
-        }
-    }
+    //public class TaskMap : EntityTypeConfiguration<Task>
+    //{
+    //    public TaskMap()
+    //    {
+    //        HasRequired(x => x.Contact).WithMany(x => x.Tasks).HasForeignKey(x => x.ContactId);
+    //        HasMany(x => x.Users);
+    //        
+    //    }
+    //}
 }

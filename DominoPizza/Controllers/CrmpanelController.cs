@@ -25,7 +25,7 @@ namespace DominosPizza.Controllers
         {
             //ViewBag.Users = new SelectList(db.Users, "ID", "FullName");
 
-            return View(db.Customers.ToList());
+            return View(db.Users.ToList());
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
@@ -96,19 +96,19 @@ namespace DominosPizza.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer user = null;
+                User user = null;
                 using (DominosContext db = new DominosContext())
                 {
-                    user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email);
+                    user = db.Users.FirstOrDefault(u => u.Email == model.Email);
                 }
                 if (user == null)
                 {
                     using (DominosContext db = new DominosContext())
                     {
-                        db.Customers.Add(new Customer { CustomerEmail = model.Email, CustomerPassword = model.Password, CustomerRoleId = model.RoleId, CustomerFirstName = model.FirstName, CustomerLastName = model.LastName, CustomerPatronymic = model.Patronymic });
+                        db.Users.Add(new User { Email = model.Email, Password = model.Password, UserRoleId = model.RoleId, FirstName = model.FirstName, LastName = model.LastName, Patronymic = model.Patronymic });
                         db.SaveChanges();
 
-                        user = db.Customers.Where(u => u.CustomerEmail == model.Email && u.CustomerPassword == model.Password).FirstOrDefault();
+                        user = db.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefault();
                     }
 
                     if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий

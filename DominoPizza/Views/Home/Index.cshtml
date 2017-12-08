@@ -14,10 +14,10 @@
     <div class="well pizzacard" style="margin: 2px;">
         <img class="pizzaimg" src="@product.ImageLink"/>
         <div class="pizzaname">
-            <span class="pizzaname-text">@product.ProductName</span>
+            <span class="pizzaname-text">@product.Name</span>
         </div>
         <div class="pizzacontent">
-           @product.ProductDescription
+           @product.Description
         </div>
 
       <!--  <div class="pizzasize">
@@ -26,10 +26,10 @@
             <div class="pizzasize-passive">25см</div>
         </div>-->
        <!-- <p class="doughselect"><span class="doughselect-active">Традиционное</span><span class="doughselect-passive"> / Тонкое</span></p>-->
-        <p class="pizzaweight">@product.ProductWeight г.</p>
+        <p class="pizzaweight">@product.Weight г.</p>
 
         <div class="pizzaorder">
-            <div class="pizzaorder-price">@product.ProductPrice <span>&#8381;</span></div>
+            <div class="pizzaorder-price">@product.Price <span>&#8381;</span></div>
             <div id="addtocartbtn-@product.ProductId" class="pizzaorder-tocart">в корзину</div>
 
             <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="@product.ProductId" />
@@ -156,9 +156,8 @@
                 dataType: "json",
                 data: {
                     onlineChatUniqueId: onlineChatUniqueId,
-                    customerId: 1,
                     userId: 1,
-                    messageByUser: false,
+                    messageByManager: false,
                     messageText: newCommentText
                 },
                 type: "POST",

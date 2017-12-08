@@ -274,23 +274,8 @@ textarea {
     border-bottom: none;
     background-color: #ffffff;
 }
-.collapse-task-content {
-    width: 270px; 
-    margin: -20px 0 -20px -20px;
-    padding: 10px 0 10px 0;
-    height: 90px;
-    background-color: white;
-    border: 1px solid #cecece;
-}
-.collapse-task-content p{
-    text-align: left;
-    margin-top: 5px;
-    padding-left: 20px;
 
-}
-.well {
-    box-shadow: unset;
-}
+
 
 .comments-modal {
     position: fixed;
@@ -745,4 +730,63 @@ textarea {
     text-align:center;
 }
 
+.well {
+    box-shadow: unset;
+}
+.taskcard {
+    width: 260px;
+    background-color: #fff;
+    border-radius: 0;
+    margin-bottom: 5px;
+}
+.collapse-task-content {
+    width: 260px;
+    margin: -20px 0 -20px -20px;
+    padding: 10px 0 10px 0;
+    height: 90px;
+    background-color: white;
+    border: 1px solid #cecece;
+}
+
+.collapse-task-content p {
+    text-align: left;
+    margin-top: 5px;
+    padding-left: 20px;
+}
+.ToDoTasks,
+.InWorkTasks {
+    position: fixed;
+    bottom: 5%;
+    font-size: 3em;
+    z-index:0;
+}
+.ToDoTasks{
+    left: 5%;
+    color:antiquewhite;
+    margin-left: 5px;
+}
+.InWorkTasks {
+    right: 5%;
+    color: white;
+}
+.task-details-table {
+    width: 100%;
+    border: 1px solid #cecece;
+}
+.task-details-table tr td {
+        padding: 6px 15px;
+        border: 1px solid #cecece;
+        background-color: #fff;
+    }
+.task-details-table .thead  td{
+        border: 1px solid #fff;
+        background-color: #cecece;
+        color: #fff;
+    }
+.task-details-input {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 6px 15px;
+}
 

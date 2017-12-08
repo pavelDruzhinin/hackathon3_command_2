@@ -123,20 +123,40 @@
 
                         </div>
     <div class="col-sm-6">
+        @if (User.Identity.IsAuthenticated)
+        {
+           <!-- <p>Вы вошли как: a@User.Identity.Name</p>
+
+                            <p>
+                                a@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    a@Html.AntiForgeryToken()
+                                }
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                            </p>
+            -->
         <div class="form-group">
             <form method="post" enctype="multipart/form-data" action="/Home/NewTaskFromCart">
-                <label for="test">Надо потестить с разными и одинаковыми данными</label><br />
+               <!-- <label for="test">Надо потестить с разными и одинаковыми данными</label><br />  -->
                 <label for="TaskDeliveryCustomerAddress">Адрес доставки</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="адрес клиента из интернет магазина" /><br />
+             <!--   <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="ViewBag.contacts.Address" /><br />
+-->
+                <input class="form-control" list="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress">
+                <datalist id="TaskDeliveryCustomerAddress">
+                    @foreach (var addresses in ViewBag.addresses)
+                    {
+                        <option value="@addresses.Address"/>
+                    }
+                </datalist><br />
 
                 <label for="TaskDeliveryCustomerPhone">Телефон</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="+12internet90" /><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="@ViewBag.contacts.Phone" /><br />
 
                 <label for="TaskDeliveryCustomerName">ФИО</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="тестовое имя из интернета" /><br />
+                <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName" /><br />
 
                 <label for="TaskPaymentMethod">Способ платежа</label><br />
-                <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod">
+                <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod" >
                     <option value="1">Картой на сайте</option>
                     <option value="2">Картой курьеру</option>
                     <option value="3">Наличными</option>
@@ -147,6 +167,24 @@
                 <input class="btn btn-danger" type="submit" value="отправить заказ" />
             </form>
         </div>
+        }
+        else
+        {
+            <br />
+            <div class="well" style="width: 320px; padding: 15px;">
+                <br />
+                <p style="text-align:center; font-size: .9em;">Для оформления заказа вам необходимо</p><br />
+                <a class="btn btn-success" style="width: 290px; font-size: 1.4em;" href="/Users/Auth">войти</a>
+                <br /><br />
+                <p style="text-align:center; font-size: .9em;">или</p>
+                <br />
+                <a class="btn btn-default" style="width: 290px; font-size: 1.2em; margin-top: -10px;" href="/Users/Create">зарегистрироваться</a>
+                <br />
+                <br />
+              
+
+</div>
+        }
     </div>
 </div>
 <br /><br />

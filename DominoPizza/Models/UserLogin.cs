@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DominosPizza.Models
 {
-    public class CustomerLogin
+    public class UserLogin
     {
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
-        public string CustomerEmail { get; set; }
+        public string Email { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
-        public string CustomerPassword { get; set; }
+        public string Password { get; set; } 
 
     }
 }

@@ -1,320 +1,314 @@
-﻿@model DominosPizza.Models.Task
+﻿@model DominosPizza.Models.Product
 
 @{
     Layout = "~/Views/Shared/_LayoutStaffOnly.cshtml";
     ViewBag.Title = "Index";
 }
 <!--ПРИЕМ ЗАКАЗОВ-->
-<h2>Менеджер </h2>
-<div class="row">
-    <div class="col-sm-6">
-        <br>
-        <p></p>
-        <p style="font-size: .9rem; color: gray; line-height: 110%">
-            Инструкция для тестовых испытаний: <br />выбрать пиццу, изменить количество при помощи кнопок и добавить к заказу.<br />
-            Поле ввода пока не работает правильно.<br /> Изменение и удаление позиций из списка ещё в разработке.<br />
-            Имя сотрудника на каждой из страниц пока тоже ни на что не влияет.<br />
-            Ниже на странице видны все заказы по статусам.<br />
-            На странице "КУХНЯ" видны только принятые заказы. У "ДОСТАВКИ" только приготовленные.
-        </p><br />
-        <div class="form-group-row">
-            <div style="display:flex; justify-content: flex-start;">
-                <select id="productId" class="form-control" name="OptionName">
-                    @foreach (var product in ViewBag.products)
-                    {
-                        <option value="@product.ProductsId">@product.ProductName</option>
+@if (User.Identity.IsAuthenticated && ViewBag.user.UserRoleId == 2)
+{
+    <br />
+    <div class= "row">
+        <div class= "col-sm-6">
+            <br />
+            <div class= "form-group-row">
+                <div style="display: flex; justify-content: space-between; width: 500px;">
+                    <select id="productId" class="form-control" name="OptionName" style=" width: 350px; max-width: 350px;">
+                        @foreach (KeyValuePair<int, string> product in ViewBag.prod)
+                         {
+                            <option value="@product.Key">@product.Value</option>
+                         }
+                    </select>
+                    <button id="addtocartbtn" class="btn btn-success">добавить к заказу</button>
+
+                </div><br />
+            </div>
+
+            <input type="hidden" id="xamount" name="x" value="1" />
+ 
+            <br />
+            <br />
+   
+            <div id="tableContainer"></div>
+
+
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <form method="post" enctype="multipart/form-data" action="/Manager/NewTaskFromCart">
+                    
+                    <label for="TaskDeliveryCustomerAddress">Адрес доставки</label><br />
+                       <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress"  /><br />
+
+                    <br />
+
+                    <label for="TaskDeliveryCustomerPhone">Телефон</label><br />
+                    <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone"  /><br />
+
+                    <label for="TaskDeliveryCustomerName">ФИО</label><br />
+                    <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName"  /><br />
+
+                    <label for="TaskPaymentMethod">Способ платежа</label><br />
+                    <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod" >
+                        <option value="1">Картой на сайте</option>
+                        <option value="2">Картой курьеру</option>
+                        <option value="3">Наличными</option>
+                    </select>
+                    <br />
+                    <label for="TaskDeliveryCustomerName">Комментарий к заказу</label><br />
+                    <input class="form-control" type="text" id="CustomerComment" name="CustomerComment" value="Самый лучший комментарий" /><br />
+                    <input class="btn btn-danger" type="submit" value="отправить заказ" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="hrcustom"> </div>
+    @*<button id="ShowTasksTable" class="ShowTasksTable">просмотр заказов</button>*@
+    <div id="TasksTable" class="TasksTable"></div>
+    <!--место для загрузки Partial View c деталями-->
+    <div id="ModalshowTaskDetail" class="well ModalshowTaskDetail" style="display: none; background-color:azure;">
+
+        <div id="showTaskDetail" class="showTaskDetail"></div>
+
+
+            @*<textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>*@
+
+            <button id="closeComments" class="btn btn-danger" onclick="hideComments()" style="position:absolute; right:15px;top:15px;">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+
+        </div>
+    <!--конец места для загрузки-->
+}
+else
+{
+    <div style="z-index: 1000; background-color: white; position: fixed; top:0;left:0; display:flex; justify-content:center; align-items:center; width:100%;height:100%;">
+        <div class="well" style="width: 320px; padding: 15px;">
+            <br />
+            <p style="text-align:center; font-size: .9em;">Для работы в системе вам необходимо</p><br />
+            <a class="btn btn-success" style="width: 290px; font-size: 1.4em;" href="/Users/Auth">войти</a>
+            <br /><br />
+        </div>
+    </div>
+}
+
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <!--AJAX showTask-->
+    <script type="text/javascript">
+        var oldHtml;
+        $(document).ready(function () {
+                timerId = setTimeout(function swap() {
+
+                    $.ajax({
+                        url: "/Manager/ShowTasksTable",
+                        dataType: "html",
+                        //                              data: {
+                        //                                   onlineChatUniqueId: onlineChatUniqueId
+                        //                              },
+                        type: "POST",
+                        success: function (data) {
+                            if (data != oldHtml) {
+                                oldHtml = data;
+                                $("#TasksTable").html(data);
+                            }
+                        }
+                    });
+                    timerId = setTimeout(swap, 2000);
+                }, 100);
+            
+        });
+    </script>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+
+    <!--ПЛЮС и МИНУС----->
+    <script type="text/javascript">
+        function plus(id) {
+            var uid = parseInt(id.slice(5));
+            var tdam = document.getElementById("tdamount-" + uid);
+            var am = document.getElementById("amount-" + uid);
+            var preSum = document.getElementById("preSum-" + uid);
+            var preSumValue = document.getElementById("preSumValue-" + uid);
+            var price = document.getElementById("price-" + uid);
+            var itogValue = document.getElementById("itogValue");
+            var itogVisible = document.getElementById("itogVisible");
+            var itog = parseInt(itogValue.value, 10);
+            am.value = parseInt(am.value, 10) + 1;
+            tdam.innerHTML = am.value;
+            var preSumNum = parseInt(preSumValue.value, 10) + parseInt(price.value, 10);
+            preSum.innerHTML = preSumNum;
+            preSumValue.value = preSumNum;
+            itog = itog + parseInt(price.value, 10);
+            itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+            itogValue.value = itog;
+        }
+        function minus(id) {
+            var uid = parseInt(id.slice(5));
+            var tdam = document.getElementById("tdamount-" + uid);
+            var am = document.getElementById("amount-" + uid);
+            var preSum = document.getElementById("preSum-" + uid);
+            var preSumValue = document.getElementById("preSumValue-" + uid);
+            var price = document.getElementById("price-" + uid);
+            var itogValue = document.getElementById("itogValue");
+            var itogVisible = document.getElementById("itogVisible");
+            var j = parseInt(am.value, 10);
+            if (j > 1) {
+                var itog = parseInt(itogValue.value, 10);
+                am.value = j - 1;
+                tdam.innerHTML = am.value;
+                var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
+                preSum.innerHTML = preSumNum;
+                preSumValue.value = preSumNum;
+                itog = itog - parseInt(price.value, 10);
+                itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+                itogValue.value = itog;
+            }
+        }
+    </script>
+    <!--AJAX изменение кол-ва-->
+    <!--AJAX загрузка комментов-->
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        var taskId = 0;
+        $("#tableContainer").on('click', 'button', function (event) {
+            if ($(this).hasClass("plus") || $(this).hasClass("mins") || $(this).hasClass("dels")) {
+                event.preventDefault();
+                var pid = parseInt(this.id.slice(5), 10);
+                var temp = "#val-" + pid;
+                var temp2 = "#amount-" + pid;
+                var priceEl = "#preSumValue-" + pid;
+                var price = parseInt($(priceEl).val());
+                var id = parseInt($(temp).val());
+                var qua = parseInt($(temp2).val());
+                if ($(this).hasClass("dels")) {
+                    qua = 0;
+                    var temp3 = "#row-" + pid;
+                    var i = parseInt($(temp3).children(":first").text(), 10);
+                    $(temp3).nextAll().each(function (index) {
+                        $(this).children(":first").text(index + i);
+                    });
+                    $(temp3).remove();
+                    $("#itogVisible").html(parseInt(($("#itogValue").val()) - price) + "&nbsp;<span>&#8381;</span>");
+                    $("#itogValue").val(parseInt($("#itogValue").val()) - price);
+                }
+                $.ajax({
+                    url: "/Manager/CartChangeQuantity",
+                    dataType: "json",
+                    data: {
+                        productId: id,
+                        amount: qua
+                    },
+                    type: "POST",
+                    success: function (data) {
+
                     }
-                </select>
 
-                <div style=" display:flex; justify-content: flex-start;width: 250px;">
-                    <button style=" display:block; margin:0 3px;" class="btn btn-success" id="mins" onclick="minus(this.id)">-</button>
-                    <button style=" display:block;" class="btn btn-success" id="plus" onclick="plus(this.id)">+</button>
-
-                    <div class="col-xs-3" style=" display:block;">
-                        <input style="min-width: 45px; margin-left: -10px; display:block;" class="form-control " id="amount" type="text" value="1" />
-                    </div>
-
-
-                </div>
-            </div><br />
-        </div>
-
-
-        <input type="hidden" id="xamount" name="x" value="1" />
-        <button id="addtocartbtn" class="btn btn-success">добавить к заказу</button>
-        <br />
-        <br />
-<!--таблица, куда jquery добавляет PartialView с сервера -->
-        <div id="tableContainer"></div>
-<!----->
-
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <form method="post" enctype="multipart/form-data" action="/Manager/NewTask">
-
-                <label for="OptionName">Сотрудник, принявший заказ</label><br />
-                <select class="form-control btn-default" style="background-color: #dedede;" name="userId">
-                    @foreach (var user in ViewBag.users)
-                    {
-                        <option value="@user.UsersId">@user.UserName</option>
+                });
+            }
+        });
+        function ShowDetails(event, t) {
+            event.preventDefault();
+            if (t.id.slice(0, 16) == "showTaskDetails-") {
+                event.preventDefault();
+                $("#ModalshowTaskDetail").css({
+                    "display": "block", "width": "100%", "height": "100%", "position": "fixed", "top": "0", "left": "0"
+                });
+                taskId = parseInt(t.id.slice(16));
+                $.ajax({
+                    url: "/Manager/ShowTaskDetails",
+                    dataType: "html",
+                    data: {
+                        taskId: taskId,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#showTaskDetail").html(data);
+ 
                     }
-
-                </select><br />
-                <hr />
-                <label for="TaskDeliveryCustomerAddress">Адрес клиента</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerAddress" name="TaskDeliveryCustomerAddress" value="тестовый адрес" /><br />
-
-                <label for="TaskDeliveryCustomerPhone">Телефон</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerPhone" name="TaskDeliveryCustomerPhone" value="+1234567890" /><br />
-
-                <label for="TaskDeliveryCustomerName">ФИО</label><br />
-                <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="тестовое ФИО" /><br />
-                
-                <label for="TaskPaymentMethod">Способ оплаты</label><br />
-                <input class="form-control" type="text" id="TaskPaymentMethod" name="TaskPaymentMethod" value="наличными" /><br />
-
-                <br />
-                <input class="btn btn-danger" type="submit" value="создать задание" />
-            </form>
-        </div>
-    </div>
-</div>
-<br /><br />
-<div class="hrcustom"> </div>
-<div class="row">
-    <div class="col-sm-3">
-        <h3>из интернета</h3>
-        <br />
-        <div class="well content kitchen">
-
-            @foreach (var task in ViewBag.tasks)
-            {
-                if (task.TaskStatusId == 0)
-                {
-                    <div class="well pizzacard">
-                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
-                            <p>Номер заказа: @task.TasksId</p>
-                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
-                        </button>
-                        <div id="collapse-@task.TasksId" class="collapse">
-                            <br /><br />
-                            <p>@task.TaskDeliveryCustomerAddress</p>
-                            <p>@task.TaskDeliveryCustomerPhone</p>
-                            <p>@task.TaskDeliveryCustomerName</p>
-                            <p>@task.TaskDeliveryDateTime </p>
-                            <p>@task.TaskPaymentMethod</p>
-
-                            @{var list = task.taskList;}
-
-                            <table>
-                                <tbody class="managerOrderList">
-                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
-                                    @foreach (KeyValuePair<int, int> keyValue in list)
-                                    {
-                                        var temp = ViewBag.prod;
-                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <form method="post" enctype="multipart/form-data" action="/Manager/NewTaskFromWeb">
-                                <input type="hidden" name="TasksId" value="@task.TasksId" />
-                                <input type="hidden" name="TaskStatusId" value="1" />
-                                <input type="hidden" name="userId" value="1" />
-                                <input class="btn btn-danger" type="submit" value="в работу" />
-                            </form>
-                        </div>
-                    </div>
-                                }
-                            }
-
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <h3>приняты</h3>
-        <br />
-        <div class="well content kitchen">
-
-            @foreach (var task in ViewBag.tasks)
-            {
-                if (task.TaskStatusId == 1)
-                {
-                    <div class="well pizzacard">
-                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
-                            <p>Номер заказа: @task.TasksId</p>
-                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
-                        </button>
-                        <div id="collapse-@task.TasksId" class="collapse">
-                            <br /><br />
-                            <p>@task.TaskDeliveryCustomerAddress</p>
-                            <p>@task.TaskDeliveryCustomerPhone</p>
-                            <p>@task.TaskDeliveryCustomerName</p>
-                            <p>@task.TaskDeliveryDateTime </p>
-                            <p>@task.TaskPaymentMethod</p>
-
-                            @{var list = task.taskList;}
-
-                            <table>
-                                <tbody class="managerOrderList">
-                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
-                                    @foreach (KeyValuePair<int, int> keyValue in list)
-                                    {
-                                        var temp = ViewBag.prod;
-                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <input type="hidden" name="TasksId" value="@task.TasksId" />
-                        </div>
-                    </div>
-                                    }
-                                }
-                       
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <h3>приготовлены</h3>
-        <br />
-        <div class="well content kitchen">
-
-            @foreach (var task in ViewBag.tasks)
-            {
-                if (task.TaskStatusId == 2)
-                {
-                    <div class="well pizzacard">
-                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
-                            <p>Номер заказа: @task.TasksId</p>
-                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
-                        </button>
-                        <div id="collapse-@task.TasksId" class="collapse">
-                            <br /><br />
-                            @{var list = task.taskList;
-                            }
-
-                            <table>
-                                <tbody class="managerOrderList">
-                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
-                                    @foreach (KeyValuePair<int, int> keyValue in list)
-                                    {
-                                        var temp = ViewBag.prod;
-                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <input type="hidden" name="TasksId" value="@task.TasksId" />
-                        </div>
-                        </div>
-                                }
-                            }
-
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <h3>доставлены</h3>
-        <br />
-
-        <div class="well content kitchen">
-
-            @foreach (var task in ViewBag.tasks)
-            {
-                if (task.TaskStatusId == 3)
-                {
-                    <div class="well pizzacard">
-                        <button data-toggle="collapse" data-target="#collapse-@task.TasksId" class="collapse-task-content">
-                            <p>Номер заказа: @task.TasksId</p>
-                            <p><strong> @task.TaskDeliveryDateTime</strong></p>
-                        </button>
-                        <div id="collapse-@task.TasksId" class="collapse">
-                            <br /><br />
-                            <p>@task.TaskDeliveryCustomerAddress</p>
-                            <p>@task.TaskDeliveryCustomerPhone</p>
-                            <p>@task.TaskDeliveryCustomerName</p>
-                            <p>@task.TaskDeliveryDateTime </p>
-                            <p>@task.TaskPaymentMethod</p>
-
-                            @{var list = task.taskList;}
-
-                            <table>
-                                <tbody class="managerOrderList">
-                                    <tr class="thead"><td> Наименование</td><td> Количество</td></tr>
-                                    @foreach (KeyValuePair<int, int> keyValue in list)
-                                    {
-                                        var temp = ViewBag.prod;
-                                        <tr><td> @temp[keyValue.Key] </td><td> @keyValue.Value</td></tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <input type="hidden" name="TasksId" value="@task.TasksId" />
-
-                        </div>
-                        </div>
-                                }
-                            }
-
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-<!--AJAX добавление в корзину-->
-<script src="/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-    var c = 0;
-    $("button").click(function (event) {
-
-        if (this.id == "addtocartbtn") {
+                });
+            }
+        }
+        function isDone(event, t) {
             event.preventDefault();
 
+            if (t.id.slice(0, 7) == "isDone-") {
+
+                taskId = parseInt(t.id.slice(7));
+                $("#ModalshowTaskDetail").css({ "display": "none" });
+                $.ajax({
+                    url: "/Manager/TaskDone",
+                    dataType: "json",
+                    data: {
+                        taskId: taskId,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        console.log(data.Data);
+                        
+                    }
+                });
+            }
+        }
+
+
+        function addComment(event, t){
+            event.preventDefault();
+            //$("#comments-modal").css({
+            //    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            //});
+            var taskId = parseInt(t.id.slice(13)); //значение остаётся от функции открытия окна комментов
+            var newCommentText = $("#NewCommentTextA").val();
             $.ajax({
-                url: "/Manager/AddtoCart",
-                dataType: "html",
+                url: "/Messaging/AddNewComment",
+                dataType: "json",
                 data: {
-                    productId: parseInt($("#productId").val()),
-                    amount: parseInt($("#xamount").val())
+                    taskId: taskId,
+                    CommentText: newCommentText
                 },
                 type: "POST",
                 success: function (data) {
-                        $("#tableContainer").html(data);
+                    if (data.Data > 0) {
+                        alert("сообщение отправлено, откройте заново окно с деталями задания (надо доделать, чтобы коммент сразу добавлялся)");
+                    }
                 }
             });
         }
-    });
-</script>
-<!--ПЛЮС и МИНУС----->
-<script type="text/javascript">
-    function plus(id) {
-        var pb = document.getElementById("plus");
-        var am = document.getElementById("amount");
-        var x = document.getElementById("xamount");
-        if (isNaN(parseInt(am.value, 10))) am.value = x.value;
-        x.value = parseInt(am.value, 10) + 1;
-        am.value = x.value;
-    }
 
-    function minus(id) {
-        var mb = document.getElementById("mins");
-        var am = document.getElementById("amount");
-        var x = document.getElementById("xamount");
-        if (isNaN(parseInt(am.value, 10))) am.value = x.value;
-        var j = parseInt(am.value, 10);
-        if (j > 0) {
-            x.value = j - 1;
-            am.value = x.value;
-        }
-    }
+        //if (this.id == "addtocartbtn") {
+        //    event.preventDefault();
+
+        //    $.ajax({
+        //        url: "/Manager/AddtoCart",
+        //        dataType: "html",
+        //        data: {
+        //            productId: parseInt($("#productId").val()),
+        //            amount: parseInt($("#xamount").val())
+        //        },
+        //        type: "POST",
+        //        success: function (data) {
+        //            $("#tableContainer").html(data);
+        //        }
+        //    });
+        //}
+
+
+
+
 </script>
+
+
+
+
+<script>
+        function hideComments() {
+            $("#ModalshowTaskDetail").css({ "display": "none" });
+        }
+</script>
+
+
+
+
 
 
 

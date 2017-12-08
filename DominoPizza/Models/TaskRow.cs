@@ -17,15 +17,15 @@ namespace DominosPizza.Models
 
         public int ProductId { get; set; }
         public Product Product { get; set; }
-
+         
     }
 
-    public class TaskRowMap:EntityTypeConfiguration<TaskRow>
-    {
-        public TaskRowMap()
-        {
-            HasRequired(x => x.Task);
-            HasRequired(x => x.Product);
-        }
-    }
+    //public class TaskRowMap : EntityTypeConfiguration<TaskRow>
+    //{
+    //    public TaskRowMap()
+    //    {
+    //        HasRequired(x => x.Task).WithMany(x => x.TaskRows).HasForeignKey(x => x.TaskId);
+    //        HasRequired(x => x.Product).WithMany(x => x.TaskRows).HasForeignKey(x => x.ProductId);
+    //    }
+    //}
 }

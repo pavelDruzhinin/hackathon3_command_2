@@ -11,14 +11,14 @@ using System.Web.Security;
 
 namespace DominoPizza.Controllers
 {
-    public class CustomersController : Controller
+    public class UsersController : Controller
     {
         private DominosContext db = new DominosContext();
 
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.Users.ToList());
         }
 
         // GET: Customers/Details/5
@@ -28,7 +28,7 @@ namespace DominoPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            User customer = db.Users.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -44,33 +44,40 @@ namespace DominoPizza.Controllers
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
-
+            Session["backUrl"] = Request.UrlReferrer.ToString();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Auth(CustomerLogin model)
+        public ActionResult Auth(UserLogin model)
         {
-
-
             if (ModelState.IsValid)
             {
-                Customer customer = null;
+                User user = null;
                 using (DominosContext db = new DominosContext())
                 {
-                    customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
-
+                    user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
                 }
-                if (customer != null)
+                if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.CustomerEmail, true);
-                    return RedirectToAction("Index", "Home");
+                    FormsAuthentication.SetAuthCookie(model.Email, true);
+                    Session["user"] = user;
+
+                    if ((string)Session["backUrl"] != null)
+                    {
+                        string backUrl = (string)Session["backUrl"];
+                        Session["backUrl"] = null;
+                        return Redirect(backUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
-
             }
             return View();
         }
@@ -82,16 +89,15 @@ namespace DominoPizza.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,CustomerFirstName,CustomerPatronymic,CustomerLastName,CustomerBirthDate,CustomerSex,CustomerPhone,CustomerEmail,CustomerPassword,CustomerPasswordConfirm")] Customer customer)
+        public ActionResult Create([Bind(Include = "UserId,FirstName,Patronymic,LastName,BirthDate,Sex,Phone,Email,Password,PasswordConfirm")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Auth","Customers");
             }
-
-            return View(customer);
+            return View(user);
         }
        
         
@@ -103,12 +109,12 @@ namespace DominoPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(user);
         }
 
         // POST: Customers/Edit/5
@@ -116,15 +122,15 @@ namespace DominoPizza.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,CustomerFirstName,CustomerPatronymic,CustomerLastName,CustomerBirthDate,CustomerSex,CustomerPhone,CustomerEmail,CustomerPassword,CustomerPasswordConfirm")] Customer customer)
+        public ActionResult Edit([Bind(Include = "CustomerId,CustomerFirstName,CustomerPatronymic,CustomerLastName,CustomerBirthDate,CustomerSex,CustomerPhone,CustomerEmail,CustomerPassword,CustomerPasswordConfirm")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(user);
         }
 
         // GET: Customers/Delete/5
@@ -134,12 +140,12 @@ namespace DominoPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(user);
         }
 
         // POST: Customers/Delete/5
@@ -147,8 +153,8 @@ namespace DominoPizza.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

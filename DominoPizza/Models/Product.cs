@@ -9,25 +9,23 @@ namespace DominosPizza.Models
     public class Product
     {
         public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public double ProductWeight { get; set; }
-        public double ProductPrice { get; set; }
-        public string ProductDescription { get; set; }
-        public int ProductType { get; set; } // 1-пицца
+        public string Name { get; set; }
+        public double Weight { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
+        public int Type { get; set; } // 1-пицца
         public string ImageLink { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
 
-
-
     }
 
-    public class ProductMap:EntityTypeConfiguration<Product>
+    //public class ProductMap:EntityTypeConfiguration<Product>
 
-    {
-        public ProductMap()
-        {
-            HasMany(x => x.TaskRows);
-        }
-    }
+    //{
+    //    public ProductMap()
+    //    {
+    //        HasMany(x => x.TaskRows);
+    //    }
+    //}
 }

@@ -23,7 +23,7 @@ namespace DominosPizza.Models
             public string FilePath { get; set; }
 
             public int? CustomerId { get; set; }
-            public Customer Customer { get; set; }
+            public User Customer { get; set; }
         }
 
         public class FeedbackMailMap : EntityTypeConfiguration<FeedbackMail>
