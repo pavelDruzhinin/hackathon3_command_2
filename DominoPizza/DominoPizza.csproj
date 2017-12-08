@@ -196,6 +196,7 @@
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
     <Content Include="Views\Customers\PersonalArea.cshtml" />
+    <Content Include="Views\Customers\EditPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

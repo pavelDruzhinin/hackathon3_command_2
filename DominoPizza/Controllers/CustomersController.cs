@@ -48,12 +48,33 @@ namespace DominoPizza.Controllers
             return View();
         }
 
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPassword([Bind(Include = "CustomerPassword, CustomerPasswordConfirm")] Customer customerPas)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(customerPas).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalArea", "Customers");
+            }
+            return View(customerPas);
+            
+        }
+       
+
         public ActionResult PersonalArea()
         {
-            //Customer customer = null;
-            //db.Customers.Find(customer.CustomerId);
-            return View();
-            
+            Customer customer = null;
+            using (DominosContext db = new DominosContext())
+            {
+                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            }
+            return View(customer);
         }
 
         [HttpPost]
@@ -108,18 +129,20 @@ namespace DominoPizza.Controllers
 
             // GET: Customers/Edit/5
             public ActionResult Edit(int? id)
-        {
-            if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(customer);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
+
+            
 
         // POST: Customers/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
