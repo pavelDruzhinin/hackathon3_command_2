@@ -1,52 +1,170 @@
 @model IEnumerable<DominosPizza.Models.Customer>
-@using DominosPizza.Models
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Dominos Pizza | Список сотрудников";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
 }
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
 
-<p>
-    @Html.ActionLink("Добавить сотрудника", "Register", "Crmpanel")
-</p>
-<table border="1">
-    <tr>
-        <th></th>
-        <th>Логин</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Фамилия</th>
-        <th>Id Должности</th>
-        <th>Должность</th>
-    </tr>
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление пиццерией
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerPatronymic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerRoleId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRoles)
-            </td>
-        </tr>
-    }
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li>
+                        <!-- стиль предполагает активную вкладку -->
+                        <a href="Manage">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Общая статистика</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Active_Orders">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Активные заказы</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Register">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Добавить сотрудника</span>
+                        </a>
+                    </li>
+                    <li class="nav-active">
+                        <a href="Users">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            <span>Список сотрудников</span>
+                        </a>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-align-left" aria-hidden="true"></i>
+                            <span>Редактор товаров</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a>Пиццы</a>
+                            </li>
+                            <li>
+                                <a>Закуски</a>
+                            </li>
+                            <li class="nav-parent">
+                                <a>Десерты</a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a>Торты</a>
+                                    </li>
+                                    <li>
+                                        <a>Печенье</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Напитки</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
 
-</table>
+            <hr class="separator" />
+        </div>
+
+    </div>
+
+</aside>
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Список сотрудников</h2>
+
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="Users">
+                        <i class="fa fa-list-alt"></i>
+                    </a>
+                </li>
+                <li><span>Список сотрудников</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
+
+    <!-- start: page -->
+    <div class="row">
+        <div class="center-sign">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Список сотрудников</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table mb-none">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Логин</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Фамилия</th>
+                                    <th>Должность</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>maria@dominospizza.com</td>
+                                    <td>Мария</td>
+                                    <td>Сергеевна</td>
+                                    <td>Соколова</td>
+                                    <td>Менеджер</td>
+                                    <td class="actions">
+                                        <a href=""><i class="fa fa-pencil"></i></a>
+                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>fedor@dominospizza.com</td>
+                                    <td>Федор</td>
+                                    <td>Иванович</td>
+                                    <td>Капустин</td>
+                                    <td>Повар</td>
+                                    <td class="actions">
+                                        <a href=""><i class="fa fa-pencil"></i></a>
+                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>vasiliy@dominospizza.com</td>
+                                    <td>Василий</td>
+                                    <td>Алексеевич</td>
+                                    <td>Портнягин</td>
+                                    <td>Курьер</td>
+                                    <td class="actions">
+                                        <a href=""><i class="fa fa-pencil"></i></a>
+                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<!-- end: page -->

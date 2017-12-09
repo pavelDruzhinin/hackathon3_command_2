@@ -544,7 +544,7 @@ textarea {
 }
 
 .feedback {
-    margin-left: 390px;
+    margin-left: 50px;
 }
 
 .feedback-text {
@@ -552,4 +552,19 @@ textarea {
 }
 
 
+.attachdelete {
+    background: url("/img/trash_18x18.png") no-repeat 0px 1px;
+    margin: 0 4px 0 0px;
+    width: 20px;
+    display: inline-block;
+    height: 20px;
+    cursor: pointer;
+}
 
+.attachitem {
+    margin-bottom: 10px;
+}
+
+.chosefile {
+    display: inline-block !important;
+}

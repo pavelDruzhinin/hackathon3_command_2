@@ -64,7 +64,10 @@ namespace DominoPizza.Controllers
                 if (customer != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.CustomerEmail, true);
-                    return RedirectToAction("Index", "Home");
+                    if ((Cart)Session["cart"] != null)
+                        return RedirectToAction("Cart", "Home");
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -74,7 +77,6 @@ namespace DominoPizza.Controllers
             }
             return View();
         }
-
 
 
         // POST: Customers/Create
@@ -89,7 +91,7 @@ namespace DominoPizza.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Auth","Home");
+                return RedirectToAction("Auth","Customers");
             }
 
             return View(customer);
