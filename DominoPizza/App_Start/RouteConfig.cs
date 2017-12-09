@@ -24,6 +24,13 @@ namespace DominosPizza
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Crmpanel", action = "Manage", id = UrlParameter.Optional }
            );
+           // routes.MapRoute(
+           //     name: "EditCustomer",
+           //     // only apply route to Residents/Details/your-user-name
+           //     // make sure to use parameter name {username}, like in your method
+           //     url: "Crmpanel/EditCustomer/{CustomerId}",
+           //     defaults: new { controller = "Crmpanel", action = "EditCustomer" }
+           //);
         }
     }
 }
