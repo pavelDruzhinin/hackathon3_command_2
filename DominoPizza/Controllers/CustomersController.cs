@@ -52,10 +52,19 @@ namespace DominoPizza.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPassword([Bind(Include = "CustomerPassword, CustomerPasswordConfirm")] Customer customerPas)
+        public ActionResult EditPassword(string CustomerPassword,string CustomerPasswordConfirm)
         {
+            //using (DominosContext db = new DominosContext())
+            //{
+            //    customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            //}
+            Customer customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            customerPas.CustomerPassword = CustomerPassword;
+            customerPas.CustomerPasswordConfirm = CustomerPasswordConfirm;
+
             if (ModelState.IsValid)
             {
                 db.Entry(customerPas).State = EntityState.Modified;
@@ -63,7 +72,6 @@ namespace DominoPizza.Controllers
                 return RedirectToAction("PersonalArea", "Customers");
             }
             return View(customerPas);
-            
         }
        
 
