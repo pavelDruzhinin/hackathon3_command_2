@@ -29,7 +29,7 @@
         <p class="pizzaweight">@product.ProductWeight г.</p>
 
         <div class="pizzaorder">
-            <div class="pizzaorder-price">@product.ProductPrice <span>&#8381;</span></div>
+            <div class="pizzaorder-price">@product.ProductPrice <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="20" height="20" /></span></div>
             <div id="addtocartbtn-@product.ProductId" class="pizzaorder-tocart">в корзину</div>
 
             <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="@product.ProductId" />

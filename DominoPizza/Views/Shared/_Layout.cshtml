@@ -1,6 +1,5 @@
-﻿@*@using DominosPizza.Models
-@model List<OrderTable>*@
-
+﻿@using DominosPizza.Models
+@model IEnumerable<Product>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,7 @@
     <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
     <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
     <title>@ViewBag.Title – Доставка пиццы по Петрозаводску 24 часа.</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{ var temp = Convert.ToString(ViewBag.cartindicator);}
@@ -31,16 +31,13 @@
                 </div>
                 <div class="head__block_phone">
                     Доставка пиццы <br>24 часа: <span>555 - 555</span>
-
                 </div>
 
                 <div class="head__block_moto">
                     <div class="cart_top">
                         <span class="carttop_price_value" pricevalue="0">
                             <span class="value">
-                                <script type="text/javascript">
-
-                                </script>
+                               
                             </span>
                             <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
                         </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
