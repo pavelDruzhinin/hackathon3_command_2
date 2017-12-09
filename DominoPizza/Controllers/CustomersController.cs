@@ -100,7 +100,10 @@ namespace DominoPizza.Controllers
                 if (customer != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.CustomerEmail, true);
-                    return RedirectToAction("Index", "Home");
+                    if ((Cart)Session["cart"] != null)
+                        return RedirectToAction("Cart", "Home");
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
                 {
