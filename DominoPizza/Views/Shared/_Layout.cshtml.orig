@@ -36,11 +36,19 @@
                 <div class="head__block_moto">
                     <div class="cart_top">
                         <span class="carttop_price_value" pricevalue="0">
+<<<<<<< HEAD
                             <span class="value">
                                
                             </span>
                             <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
                         </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
+=======
+                            <span class="value">0</span> ₽
+                        </span>
+                        <a href="@Url.Action("Cart", "Home")">
+                            <img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />
+                        </a>
+>>>>>>> master
                     </div>
                 </div>
             </div>
@@ -56,14 +64,14 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>Вы вошли как: @User.Identity.Name</li>
-                            <li>@Html.ActionLink("Личный кабинет", "PersonalArea","Customers")</li>
-                            <li>@Html.ActionLink("Выйти", "Logoff", "Customers")</li>
-                                <!--using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            
+                            <li>
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                 {
-                                    Html.AntiForgeryToken()
+                                    @Html.AntiForgeryToken()
                                 }
                                 <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                                    -->
+                            </li>
                         }
                         else
                         {

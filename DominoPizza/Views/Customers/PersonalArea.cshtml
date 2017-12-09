@@ -1,0 +1,87 @@
+﻿@model DominosPizza.Models.Customer
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h2>Личный кабинет</h2>
+
+<hr />
+
+<div>
+    <table class="table">
+        <tr>
+            <td align="center">
+                Фамилия
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerLastName)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                Имя
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerFirstName)
+                
+            </td>
+        </tr>      
+
+        <tr>
+            <td align="center">
+                Отчество
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerPatronymic)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                Дата рождения
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerBirthDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                Пол
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerSex)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                Номер телефона
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerPhone)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                E-Mail
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerEmail)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                Пароль
+            </td>
+            
+            <td align="left">
+                @Html.ActionLink("Редактировать", "EditPassword")
+            </td>
+        </tr>
+
+    </table>
+</div>

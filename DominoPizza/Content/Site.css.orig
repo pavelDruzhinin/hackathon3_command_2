@@ -552,6 +552,9 @@ textarea {
 }
 
 
+<<<<<<< HEAD
+
+=======
 .attachdelete {
     background: url("/img/trash_18x18.png") no-repeat 0px 1px;
     margin: 0 4px 0 0px;
@@ -568,3 +571,4 @@ textarea {
 .chosefile {
     display: inline-block !important;
 }
+>>>>>>> master

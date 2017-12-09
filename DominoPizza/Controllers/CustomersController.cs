@@ -47,12 +47,48 @@ namespace DominoPizza.Controllers
 
             return View();
         }
+
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPassword(string CustomerPassword,string CustomerPasswordConfirm)
+        {
+            //using (DominosContext db = new DominosContext())
+            //{
+            //    customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            //}
+            Customer customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            customerPas.CustomerPassword = CustomerPassword;
+            customerPas.CustomerPasswordConfirm = CustomerPasswordConfirm;
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(customerPas).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalArea", "Customers");
+            }
+            return View(customerPas);
+        }
+       
+
+        public ActionResult PersonalArea()
+        {
+            Customer customer = null;
+            using (DominosContext db = new DominosContext())
+            {
+                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            }
+            return View(customer);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Auth(CustomerLogin model)
         {
-
-
             if (ModelState.IsValid)
             {
                 Customer customer = null;
@@ -73,12 +109,15 @@ namespace DominoPizza.Controllers
                 {
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
-
             }
             return View();
         }
 
-
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         // POST: Customers/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -101,18 +140,20 @@ namespace DominoPizza.Controllers
 
             // GET: Customers/Edit/5
             public ActionResult Edit(int? id)
-        {
-            if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(customer);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
+
+            
 
         // POST: Customers/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
