@@ -32,11 +32,33 @@
                 </div>
 
                 <div class="head__block_moto">
-                    <div class="cart_top">
-                        <span class="carttop_price_value" pricevalue="0">
-                            <span class="value">0</span> ₽
-                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
+    <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px;">
+        <div><span class="carttop_price_value" pricevalue="0"></span></div>
+        <div><span class="value">0</span> ₽                    </div>
+        <div><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a></div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div>
+                <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
+                <span >@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
+            </div>
+
+                    <div><span  >
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        }
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989;"></span></a>
+                    </span>
+                </div>
+        }
+        else
+        {
+                            @Html.ActionLink("Вход", "Auth", "Users")
+                        }
+                        
                     </div>
+
                 </div>
             </div>
             <div class="container navbar navbar-pizzamenu">
@@ -48,24 +70,8 @@
                         <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
                         <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
                         <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
-                        <li>@if (User.Identity.IsAuthenticated)
-                        {
-                            <li>Вы вошли как: @User.Identity.Name</li>
-                            
-                            <li>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                }
-                                <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                            </li>
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Вход", "Auth", "Users")
-                        }
-                        </li>
                         <li>@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
+                        
                     </ul>
                 </div>
             </div>
@@ -84,13 +90,11 @@
             </footer>
         </div>
     @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
     @Scripts.Render("~/bundles/js-cookie")
-      
-        @RenderSection("scripts", required: false)}
+    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)}
     </body>
 </html>

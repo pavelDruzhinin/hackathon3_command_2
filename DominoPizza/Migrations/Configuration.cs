@@ -41,7 +41,7 @@ namespace DominoPizza.Migrations
             //db.Contacts.Add(new Contact { FullName = "Довольный Клиент", Phone = "+71234567890", Address = "Адрес Довольного клиента из Contacts", OrderDateTime = DateTime.Now, UserId = 6 });
 
 
-            //db.OnlineChatMessages.Add(new OnlineChatMessage { UserId = 2, OnlineChatUniqueId = "WelcomeToChat", DateTime = DateTime.Now, Assigned = false, IsByManager = true, Text = "Добро пожаловать в чат! Ожидайте сообщения от клиентов.", IsNew = true, });
+            //db.OnlineChatMessages.Add(new OnlineChatMessage { UserId = 2, OnlineChatUniqueId = "WelcomeToChat", DateTime = DateTime.Now, Assigned = false, IsByManager = true, Text = "Добро пожаловать в чат! Ожидайте сообщения от клиентов.", IsNew = true, ManagerId = 1 });
 
             //для дбавления этих комментов в таблице Task должно быть задание с Id = 1
             //db.UserComments.Add(new UserComment { Text = "примите заказ на пиццу", DateTime = DateTime.Now, UserId = 1, TaskId = 1 });

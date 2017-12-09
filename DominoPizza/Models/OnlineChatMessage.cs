@@ -15,8 +15,8 @@ namespace DominosPizza.Models
         //public Customer Customer { get; set; } 
         
         public int UserId { get; set; }          
-        public User User { get; set; }          
-
+        public User User { get; set; }
+        public int ManagerId { get; set; } 
         public string OnlineChatUniqueId { get; set; }
         public DateTime DateTime { get; set; }
         public bool Assigned { get; set; }  // если правда, то чат взят в работу конкретным менеджером

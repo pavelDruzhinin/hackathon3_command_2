@@ -134,8 +134,8 @@
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Scripts\js-cookie\js.cookie-2.2.0.min.js" />
-    <Content Include="Scripts\js-cookie\js.cookie.js" />
+    <Content Include="Scripts\js-cookie\js-cookie-2.2.0.min.js" />
+    <Content Include="Scripts\js-cookie\js-cookie.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -275,6 +275,10 @@
     <Compile Include="Migrations\201712081225147_taskdetails.Designer.cs">
       <DependentUpon>201712081225147_taskdetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712091845029_managerId.cs" />
+    <Compile Include="Migrations\201712091845029_managerId.Designer.cs">
+      <DependentUpon>201712091845029_managerId.cs</DependentUpon>
+    </Compile>
     <!--<Compile Include="Migrations\201712031205104_Init.cs" />
     <Compile Include="Migrations\201712031205104_Init.Designer.cs">
       <DependentUpon>201712031205104_Init.cs</DependentUpon>
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712081225147_taskdetails.resx">
       <DependentUpon>201712081225147_taskdetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712091845029_managerId.resx">
+      <DependentUpon>201712091845029_managerId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

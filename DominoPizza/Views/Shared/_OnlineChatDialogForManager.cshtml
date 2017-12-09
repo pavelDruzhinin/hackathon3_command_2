@@ -1,5 +1,5 @@
 ﻿@using DominosPizza.Models
-@model IQueryable<OnlineChatRow>
+@model IQueryable<OnlineChatMessage>
 @{
     string UserName;
     string align;
@@ -7,7 +7,7 @@
 }
 @foreach (var row in Model)
 {
-    if (row.MessageByUser)
+    if (row.IsByManager)
     {
         UserName = "Вы";
         align = "flex-end";
@@ -16,8 +16,8 @@
     }
     else { UserName = "Клиент"; align = "flex-start"; color= "#e41843";}
     <div class="messageInChat" style="align-self:@align">
-        <div class="comment-header"><span style="background-color:@color">@UserName</span><span style="background-color:@color">@row.MessageDateTime</span></div>
-        <p class="comment-message">@row.MessageText</p>
+        <div class="comment-header"><span style="background-color:@color">@UserName</span><span style="background-color:@color">@row.DateTime</span></div>
+        <p class="comment-message">@row.Text</p>
         <br />
     </div>
 }

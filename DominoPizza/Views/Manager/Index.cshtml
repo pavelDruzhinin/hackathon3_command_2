@@ -66,21 +66,48 @@
     <div class="hrcustom"> </div>
     @*<button id="ShowTasksTable" class="ShowTasksTable">просмотр заказов</button>*@
     <div id="TasksTable" class="TasksTable"></div>
+
     <!--место для загрузки Partial View c деталями-->
     <div id="ModalshowTaskDetail" class="well ModalshowTaskDetail" style="display: none; background-color:azure;">
 
         <div id="showTaskDetail" class="showTaskDetail"></div>
 
+        <button id="closeComments" class="btn btn-danger" onclick="hideDetails()" style="position:absolute; right:15px;top:15px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
 
-            @*<textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>*@
+    </div>
+    <!--конец места для загрузки деталей-->
 
-            <button id="closeComments" class="btn btn-danger" onclick="hideComments()" style="position:absolute; right:15px;top:15px;">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
+    <!--место для загрузки Partial View c чатом-->
+    <button id="commentsShow-" class="openChat"><span class="glyphicon glyphicon-chevron-up"></span></button>
+    <div id="chatIndicator1" style="right: 158px;" class="chatIndicators"></div>
+    <div id="chatIndicator2" class="chatIndicators"></div>
 
-
+    <div id="comments-modal" class="comments-modal-manager">
+        <div class="comments-manager-leftPanel">
+            <div class="comments-window-manager-left">
+                <div id="OnlineChatList"><img src="~/img/sectorPizza3.gif" /></div>
+            </div>
         </div>
-    <!--конец места для загрузки-->
+        <div class="comments-manager-rightPanel">
+            <div class="comments-window-manager-right">
+                <div id="OnlineChatDialog"><img src="~/img/sectorPizza3.gif" /></div>
+            </div>
+            <textarea id="NewMessageTextArea-manager" class="NewMessageTextArea-manager" placeholder="введите здесь текст сообщения и нажмите на кнопку &laquo;отправить&raquo;"></textarea>
+            <div class="SendMessage-manager">
+                <div>
+                    <button id="AddNewMessage-" class="sendMessageButton" title="отправить">отправить</button>
+                </div>
+                <button id="closeComments-manager" class="closeChat" onclick="hideChat()">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--конец чата-->
+
+
 }
 else
 {
@@ -97,20 +124,17 @@ else
     <script src="/Scripts/jquery-1.10.2.js"></script>
     <!--AJAX showTask-->
     <script type="text/javascript">
-        var oldHtml;
+        var oldHtml5;
         $(document).ready(function () {
                 timerId = setTimeout(function swap() {
 
                     $.ajax({
                         url: "/Manager/ShowTasksTable",
                         dataType: "html",
-                        //                              data: {
-                        //                                   onlineChatUniqueId: onlineChatUniqueId
-                        //                              },
                         type: "POST",
                         success: function (data) {
-                            if (data != oldHtml) {
-                                oldHtml = data;
+                            if (data != oldHtml5) {
+                                oldHtml5 = data;
                                 $("#TasksTable").html(data);
                             }
                         }
@@ -120,7 +144,6 @@ else
             
         });
     </script>
-    <script src="/Scripts/jquery-1.10.2.js"></script>
 
     <!--ПЛЮС и МИНУС----->
     <script type="text/javascript">
@@ -168,7 +191,6 @@ else
     </script>
     <!--AJAX изменение кол-ва-->
     <!--AJAX загрузка комментов-->
-    <script src="/Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         var taskId = 0;
         $("#tableContainer").on('click', 'button', function (event) {
@@ -250,8 +272,6 @@ else
                 });
             }
         }
-
-
         function addComment(event, t){
             event.preventDefault();
             //$("#comments-modal").css({
@@ -274,35 +294,197 @@ else
                 }
             });
         }
-
-        //if (this.id == "addtocartbtn") {
-        //    event.preventDefault();
-
-        //    $.ajax({
-        //        url: "/Manager/AddtoCart",
-        //        dataType: "html",
-        //        data: {
-        //            productId: parseInt($("#productId").val()),
-        //            amount: parseInt($("#xamount").val())
-        //        },
-        //        type: "POST",
-        //        success: function (data) {
-        //            $("#tableContainer").html(data);
-        //        }
-        //    });
-        //}
-
-
-
-
+        function hideDetails() {
+            $("#ModalshowTaskDetail").css({ "display": "none" });
+        }
 </script>
 
+@*-----скрипты чата----*@
+
+<script src="/Scripts/jquery-1.10.2.js"></script>
+@*<script src="/Scripts/js.cokie/js.cookie.js"></script>*@
+<script type="text/javascript">
+        var taskId = 0;
+        var onlineChatUniqueId = "empty";
+        var timerId;
+        var timerId2;
+        var timerId3;
+        var oldHtml;
+        var oldHtml2;
+
+        $(".comments-manager-leftPanel").on("click", ".chatList-chats", function (event) {
+
+            if (this.id.slice(0, 15) == "chatList-chats-") {
+                event.preventDefault();
+                onlineChatUniqueId = this.id.slice(15);
+                //Cookies.set("chatId", onlineChatUniqueId);
+                $(this).siblings().css({ "border": "none", "background-color": "#efefef" });
+                $(this).siblings().find("p").css({ "color": "#898989" });
+                $(this).css({ "color": " #ffffff", "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+                $(this).find("p").css({ "color": " #ffffff" });
+
+                $.ajax({
+                    url: "/Messaging/ShowDialogManager",
+                    dataType: "html",
+                    data: {
+                        onlineChatUniqueId: onlineChatUniqueId
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        var h5;
+                        var sumh5 = 20;
+                        $("#OnlineChatDialog").html(data);
+                        $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                        $("#OnlineChatDialog").css({ "height": "10000%" });
+                        $(".messageInChat").each(function () {
+                            h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                            $(this).css({ "height": h5, "background-color": "white" });
+                            sumh5 += h5 + 20;
+                            $("#OnlineChatDialog").css({ "height": sumh5 });
+                        });
+                    }
+                });
+            }
+        });
+        $("button").click(function (event) {
+            if (this.id.slice(0, 13) == "commentsShow-") {
+                event.preventDefault();
+                $("#comments-modal").css({
+                    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                });
+                $("#chatIndicators").css({ "opacity": "0" });
+
+                timerId = setTimeout(function swap() {
+
+                    //               if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
+
+                    $.ajax({
+                        url: "/Messaging/ShowChat",
+                        dataType: "html",
+                        //                               data: {
+                        //                                   onlineChatUniqueId: onlineChatUniqueId
+                        //                              },
+                        type: "POST",
+                        success: function (data) {
+                            if (data != oldHtml2) {
+                                oldHtml2 = data;
+
+                                $("#OnlineChatList").html(data);
+                                $("#OnlineChatList").css({ "justify-content": "flex-start" });
+                                if (!(onlineChatUniqueId == "empty" || onlineChatUniqueId == undefined)) {
+                                    //if ( !(Cookies.get("chatId") == "empty" || Cookies.get("chatId") == undefined )) {
+                                    var temp = "chatList-chats-" + onlineChatUniqueId;
+                                    $(".chatList-chats").each(function () {
+                                        if (this.id == temp) {
+                                            $(this).css({ "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+                                            $(this).find("p:first").css({ "color": " #ffffff" });
+                                        }
+                                    });
+                                }
+                                else {
+
+                                    onlineChatUniqueId = $(".chatList-chats").attr("id").slice(15);
+
+                                    console.log(onlineChatUniqueId);
+                                    var temp = "chatList-chats-" + onlineChatUniqueId;
+                                    $(".chatList-chats").each(function () {
+                                        if (this.id == temp) {
+                                            $(this).css({ "border": "1px solid #ffffff", "background-color": "rgba(255,255,255,0)" });
+                                            $(this).find("p:first").css({ "color": " #ffffff" });
+                                        }
+                                    });
+                                    //Cookies.set("chatId", onlineChatUniqueId);
+                                }
+                            }
+                        }
+                    });
+
+                    timerId = setTimeout(swap, 2000);
+                }, 500);
+
+                //if (Cookies.get("chatId") != null) {
+                //    onlineChatUniqueId = Cookies.get("chatId");
+
+                timerId2 = setTimeout(function swap2() {
+                    //Cookies.set("chatId", onlineChatUniqueId);
+                    $.ajax({
+                        url: "/Messaging/ShowDialogManager",
+                        dataType: "html",
+                        data: {
+                            onlineChatUniqueId: onlineChatUniqueId
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            if (data == "{\"Data\":0}") { data = " "; }
+                            if (data != oldHtml) {
+                                oldHtml = data;
+                                var h5;
+                                var sumh5 = 20;
+                                $("#OnlineChatDialog").html(data);
+                                $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                                $("#OnlineChatDialog").css({ "height": "10000%" });
+                                $(".messageInChat").each(function () {
+                                    h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                                    $(this).css({ "height": h5, "background-color": "white" });
+                                    sumh5 += h5 + 20;
+                                    $("#OnlineChatDialog").css({ "height": sumh5 });
+                                });
+                            }
+                        }
+                    });
+                    timerId2 = setTimeout(swap2, 3000);
+                }, 1000);
+            }
 
 
+            if (this.id == "AddNewMessage-") {
+                event.preventDefault();
+                //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
+                var newCommentText = $("#NewMessageTextArea-manager").val();
+                //            if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
+                $.ajax({
+                    url: "/Messaging/AddNewMessageToChat",
+                    dataType: "json",
+                    data: {
+                        onlineChatUniqueId: onlineChatUniqueId,
+                        customerId: 1,
+                        userId: 1,
+                        messageByManager: true,
+                        messageText: newCommentText
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#NewMessageTextArea-manager").val("");
+                    }
+                });
+            }
+        });
 
-<script>
-        function hideComments() {
-            $("#ModalshowTaskDetail").css({ "display": "none" });
+        var ind1;
+        var ind2;
+        $(document).ready(function () {
+            timerId3 = setTimeout(function swap3() {
+                //Cookies.set("chatId", onlineChatUniqueId);
+                $.ajax({
+                    url: "/Messaging/ChatIndicators",
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+                        if (data.indicator1 != ind1) { ind1 = data.indicator1; $("#chatIndicator1").html(data.indicator1); }
+                        if (data.indicator2 != ind2) { ind2 = data.indicator2; $("#chatIndicator2").html(data.indicator2); }
+                    }
+                });
+                timerId3 = setTimeout(swap3, 1000);
+            }, 1000);
+        });
+
+        function hideChat() {
+            clearInterval(timerId);
+            clearInterval(timerId2);
+            $("#comments-modal").css({ "display": "none" });
+            //        $("#comment-PartialView").html("<img style=\"width: 100px; height: 100px; margin-left: 90px; opacity: 0.5; \" src=\"img/sectorPizza3.gif\" />");
+            //        $("#comment-PartialView").css({ "width": "100%", "height": "100%", "display": "flex", "flex-direction": "column", "justify-content": "center" });
+            $(".chatIndicators").css({ "opacity": "1" });
         }
 </script>
 

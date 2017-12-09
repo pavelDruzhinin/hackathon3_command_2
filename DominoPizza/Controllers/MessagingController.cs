@@ -45,29 +45,66 @@ namespace DominoPizza.Controllers
         [HttpPost]
         public ActionResult ShowDialog(string onlineChatUniqueId)
         {
-            IQueryable<OnlineChatMessage> rows = db.OnlineChatMessages
+            User user = new User();
+            List<OnlineChatMessage> rows = null;
+            if (Session["onlineChatUniqueId"] != null && user.UserRoleId != 2)
+            {
+                onlineChatUniqueId = (string)Session["onlineChatUniqueId"];
+            }
+            rows = db.OnlineChatMessages
                                                     .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
-                                                    .Select(c => c);
+                                                    .Select(c => c).ToList();
+            if (rows.Count() > 0) { Session["managerId"] = rows.FirstOrDefault().ManagerId; }
             return PartialView("_OnlineChatDialog", rows);
         }
 
         [HttpPost]
         public ActionResult AddNewMessageToChat(string onlineChatUniqueId, int userId, bool messageByManager, string messageText)
         {
+            User user = new User();
+            user.UserRoleId = 1;
+            user.UserId = 1;
+            int managerId = 1;
             OnlineChatMessage newMessage = new OnlineChatMessage();
+            newMessage.Assigned = false;
+            if (Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                userId = user.UserId;
+                if (user.UserRoleId != 2)
+                {
+                    if (Session["managerId"] != null) { managerId = (int)Session["managerId"]; newMessage.Assigned = true; }
+                }
+                else
+                {
+                    managerId = user.UserId;
+                }
+            }
+            else {
+                if (Session["managerId"] != null) { managerId = (int)Session["managerId"]; newMessage.Assigned = true; }
+            }
+            
+
+            if (Session["onlineChatUniqueId"] != null && user.UserRoleId != 2)
+            {
+                onlineChatUniqueId = (string)Session["onlineChatUniqueId"];
+            }
+            
             if (onlineChatUniqueId == null) { onlineChatUniqueId = "new"; }
             if (onlineChatUniqueId == "undefined") { onlineChatUniqueId = "new"; }
             newMessage.UserId = userId;
+            newMessage.ManagerId = managerId;
             newMessage.IsByManager = messageByManager;
             if (onlineChatUniqueId != "new")
             {
-                newMessage.Assigned = false;
+                
                 newMessage.OnlineChatUniqueId = onlineChatUniqueId;
             }
             else
             {
                 newMessage.Assigned = false;
                 newMessage.OnlineChatUniqueId = DateTime.Now.ToString("yyyyMMdd.HH:mm.ssfff");
+                Session["onlineChatUniqueId"] = newMessage.OnlineChatUniqueId;
             }
             newMessage.Text = messageText;
             newMessage.DateTime = DateTime.Now;
@@ -84,13 +121,23 @@ namespace DominoPizza.Controllers
         [HttpPost]
         public ActionResult ShowChat()
         {
+            User manager = new User();
             Dictionary<string, int> chatlist = new Dictionary<string, int>();            //<номер диалога, взят менеджером>
             Dictionary<string, int> dialogsWithNewMessages = new Dictionary<string, int>(); //<номер диалого, кол-во новых сообщений>
-            IEnumerable<OnlineChatMessage> rows = db.OnlineChatMessages
-                                                    /*.Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
-                                                    .Select(c => c)
-                                                    .OrderByDescending(c => c.MessageDateTime)
-                                                    .Select(c => c)*/;
+            IEnumerable<OnlineChatMessage> rows = null;
+            if (Session["user"] != null)
+            {
+                manager = (User)Session["user"];
+
+                rows = db.OnlineChatMessages
+                                                        .Where(c => c.ManagerId == manager.UserId || c.Assigned == false)
+                                                        .Select(c => c);
+                                                       
+            }
+            else
+            {
+                rows = db.OnlineChatMessages;
+            }
             foreach (var message in rows)
             {
                 if (!(chatlist.ContainsKey(message.OnlineChatUniqueId)))
@@ -117,20 +164,35 @@ namespace DominoPizza.Controllers
         [HttpPost]
         public ActionResult ShowDialogManager(string onlineChatUniqueId)
         {
+            User manager = new User();
+            int managerId = 1;
+            if (Session["user"] != null)
+            {
+                manager = (User)Session["user"];
+                managerId = manager.UserId;
+            }
             if (onlineChatUniqueId == "empty" || onlineChatUniqueId == null)
             {
                 IEnumerable<OnlineChatMessage> rows2 = db.OnlineChatMessages;
                 /* .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
                  .Select(c => c);*/
-                onlineChatUniqueId = rows2.LastOrDefault().OnlineChatUniqueId;
+                if (rows2.Where(z => z.ManagerId == managerId || z.Assigned == false).Count() < 1)
+                {
+                    return Json(data: new { Data = 0 }, behavior: JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    onlineChatUniqueId = rows2.Where(z => z.ManagerId == managerId || z.Assigned == false).LastOrDefault().OnlineChatUniqueId;
+                }
             }
-
+           
             IQueryable<OnlineChatMessage> rows = db.OnlineChatMessages
                                         .Where(c => c.OnlineChatUniqueId == onlineChatUniqueId)
                                         .Select(c => c);
             foreach (var message in rows)
             {
                 message.Assigned = true;
+                message.ManagerId = managerId;
                 if (!(message.IsByManager))
                 {
                     message.IsNew = false;
@@ -149,18 +211,23 @@ namespace DominoPizza.Controllers
                                            .Where(c => c.Assigned == false)
                                            .Select(c => c.OnlineChatUniqueId)
                                            .Distinct()
-                                           .Count();
-              int indicator1 = db.OnlineChatRows
+                                           .Count();*/
+            int indicator1 = db.OnlineChatMessages
                              .Where(c => c.Assigned == false)
                              .GroupBy(c => c.OnlineChatUniqueId)
-                             .Count();*/
-
+                             .Count();
+            User manager = new User();
+            int managerId = 1;
+            if (Session["user"] != null)
+            {
+                manager = (User)Session["user"];
+                managerId = manager.UserId;
+            }
             int indicator2 = db.OnlineChatMessages
-                                        .Where(c => c.IsNew == true && c.IsByManager == false)
+                                        .Where(c => c.IsNew == true && c.IsByManager == false && c.ManagerId == managerId)
                                         .Select(c => c)
                                         .Count();
-            string indicators = $"{indicator2}";
-            return Json(data: new { Data = indicators }, behavior: JsonRequestBehavior.AllowGet);
+            return Json(data: new { indicator1 = indicator1, indicator2 = indicator2 }, behavior: JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Muzzle()

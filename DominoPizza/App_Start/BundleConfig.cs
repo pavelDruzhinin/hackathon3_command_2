@@ -27,7 +27,7 @@ namespace DominosPizza
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/js-cookie").Include(
-          "~/Scripts/js-cookie/js.cookie.js"));
+          "~/Scripts/js-cookie/js-cookie.js"));
         }
     }
 }

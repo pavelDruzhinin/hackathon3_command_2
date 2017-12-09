@@ -16,10 +16,10 @@
             border: unset;
             height:100%;
         }
-        span {
+        .span1 {
             margin: 15px 5px 0 0;
         }
-            span span {
+            .span1 span {
                 margin: 0 10px 0 10px;
             }
     </style>
@@ -29,10 +29,10 @@
         
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span>@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</span>
+                    <span class="glyphicon glyphicon-user span1"></span>
+                    <span class="span1">@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</span>
 
-                        <span style=" white-space: nowrap;">
+                        <span class="span1" style=" white-space: nowrap;">
                             @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                             {
                                 @Html.AntiForgeryToken()

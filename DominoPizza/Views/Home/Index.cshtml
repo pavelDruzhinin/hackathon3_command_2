@@ -79,7 +79,7 @@
 
         <div class="SendMessage-manager">
             <div><button id="AddNewMessage-" class="sendMessageButton" title="отправить">отправить</button></div>
-            <button id="closeComments-manager" class="closeChat" onclick="hideComments()">
+            <button id="closeComments-manager" class="closeChat" onclick="hideChat()">
                 <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
         </div>
@@ -88,7 +88,7 @@
 </div>
 <!---->
 <script src="/Scripts/jquery-1.10.2.js"></script>
-<script src="/Scripts/js.cokie/js.cookie.js"></script>
+<script src="/Scripts/js-cokie/js-cookie.js"></script>
 <script type="text/javascript">
     var taskId = 0;
     var onlineChatUniqueId = "new";
@@ -105,7 +105,7 @@
 
            timerId = setTimeout(function swap() {
 
-                if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
+                //if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
 
                         $.ajax({
                             url: "/Messaging/ShowDialog",
@@ -118,7 +118,7 @@
 
                                 if (data != oldHtml) {
                                     oldHtml = data;
-                                    onlineChatUniqueId = Cookies.get("chatId");                                    
+                                    //onlineChatUniqueId = Cookies.get("chatId");                                    
                                     var h5;
                                     var sumh5 = 20;
                                     $("#OnlineChatDialog").html(data);
@@ -150,7 +150,7 @@
             var userID = 1; //!!! пока так, но позже пользователя над будет определять по логину
             var newCommentText = $("#NewMessageTextArea-manager").val();
            
-            if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
+            //if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
             $.ajax({
                 url: "/Messaging/AddNewMessageToChat",
                 dataType: "json",
@@ -163,13 +163,14 @@
                 type: "POST",
                 success: function (data) {
                     $("#NewMessageTextArea-manager").val("");
-                    Cookies.set("chatId", data.Data);
+                    //Cookies.set("chatId", data.Data);
+                    onlineChatUniqueId = data.Data;
                 }
             });
         }
     });
 
-    function hideComments() {
+    function hideChat() {
         clearInterval(timerId);
         $("#comments-modal").css({ "display": "none" });
         $("#comment-PartialView").html("<img style=\"width: 100px; height: 100px; margin-left: 90px; opacity: 0.5; \" src=\"img/sectorPizza3.gif\" />");
