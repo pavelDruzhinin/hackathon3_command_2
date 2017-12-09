@@ -139,7 +139,12 @@
                     <option value="3">Наличными</option>
                 </select>
                 <br />
+<<<<<<< HEAD
+
+                <label for="TaskDeliveryCustomerName">Комментарий к заказу</label><br />
+=======
                 <label for="CustomerComment">Комментарий к заказу</label><br />
+>>>>>>> master
                 <input class="form-control" type="text" id="CustomerComment" name="CustomerComment" value="Самый лучший комментарий" /><br />
                 <input class="btn btn-danger" type="submit" value="отправить заказ" />
             </form>

@@ -14,7 +14,6 @@ namespace DominosPizza.Models
             public DateTime MailDateCreate { get; set; }
             private string to = "dominospizzaptz@yandex.ru";
             public string To { get { return to; } set { to = value; } }
-
             private string from = "dominospizzaptz@yandex.ru";
 
             public string From { get { return to; } set { from = value; } }
@@ -33,5 +32,4 @@ namespace DominosPizza.Models
                 HasOptional(x => x.Customer).WithMany(x => x.FeedBackMails).HasForeignKey(x => x.CustomerId);
             }
         }
-    
 }
