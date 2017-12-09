@@ -39,7 +39,7 @@
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
-                <a href="Manage" class="logo">
+                <a href="~/Crmpanel/Manage" class="logo">
                     <h4>Dominos Pizza CRM</h4>
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -54,7 +54,7 @@
 
                     <div id="userbox" class="userbox">
                         <a href="#" data-toggle="dropdown">
-                            <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                            <div class="profile-info">
                                 <span class="name">@User.Identity.Name</span>
                                 <span class="role">Администратор</span>
                             </div>
@@ -66,7 +66,7 @@
                             <ul class="list-unstyled">
                                 <li class="divider"></li>
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href="UserProfile"><i class="fa fa-user"></i> Профиль</a>
+                                    <a role="menuitem" tabindex="-1" href="~/Crmpanel/UserProfile"><i class="fa fa-user"></i> Профиль</a>
                                 </li>
                                 <li>
                                     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
@@ -92,7 +92,7 @@
             <div class="nano">
                 <div class="nano-content">
                     <a href="#" class="mobile-close visible-xs">
-                        Collapse <i class="fa fa-chevron-right"></i>
+                        Свернуть <i class="fa fa-chevron-right"></i>
                     </a>
 
                     <div class="sidebar-right-wrapper">

@@ -22,15 +22,15 @@ namespace DominoPizza.Migrations
                 c => new
                     {
                         CustomerId = c.Int(nullable: false, identity: true),
-                        CustomerFirstName = c.String(),
-                        CustomerPatronymic = c.String(),
+                        CustomerFirstName = c.String(nullable: false),
+                        CustomerPatronymic = c.String(nullable: false),
                         CustomerLastName = c.String(),
-                        CustomerBirthDate = c.DateTime(nullable: false),
-                        CustomerSex = c.Boolean(nullable: false),
+                        CustomerBirthDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        CustomerSex = c.String(),
                         CustomerPhone = c.String(),
-                        CustomerEmail = c.String(),
-                        CustomerPassword = c.String(),
-                        CustomerPasswordConfirm = c.String(),
+                        CustomerEmail = c.String(nullable: false),
+                        CustomerPassword = c.String(nullable: false),
+                        CustomerPasswordConfirm = c.String(nullable: false),
                         CustomerRoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.CustomerId);

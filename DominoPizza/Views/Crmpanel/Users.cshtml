@@ -1,8 +1,11 @@
 @model IEnumerable<DominosPizza.Models.Customer>
+@using DominosPizza.Models
+
 
 @{
     ViewBag.Title = "Dominos Pizza | Список сотрудников";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
+    DominosContext db = new DominosContext();
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -22,25 +25,25 @@
                 <ul class="nav nav-main">
                     <li>
                         <!-- стиль предполагает активную вкладку -->
-                        <a href="Manage">
+                        <a href="~/Crmpanel/Manage">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span>Общая статистика</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Active_Orders">
+                        <a href="~/Crmpanel/Active_Orders">
                             <i class="fa fa-tasks" aria-hidden="true"></i>
                             <span>Активные заказы</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Register">
+                        <a href="~/Crmpanel/Register">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             <span>Добавить сотрудника</span>
                         </a>
                     </li>
                     <li class="nav-active">
-                        <a href="Users">
+                        <a href="~/Crmpanel/Users">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                             <span>Список сотрудников</span>
                         </a>
@@ -90,7 +93,7 @@
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
                 <li>
-                    <a href="Users">
+                    <a href="~/Crmpanel/Users">
                         <i class="fa fa-list-alt"></i>
                     </a>
                 </li>
@@ -123,42 +126,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>maria@dominospizza.com</td>
-                                    <td>Мария</td>
-                                    <td>Сергеевна</td>
-                                    <td>Соколова</td>
-                                    <td>Менеджер</td>
-                                    <td class="actions">
-                                        <a href=""><i class="fa fa-pencil"></i></a>
-                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>fedor@dominospizza.com</td>
-                                    <td>Федор</td>
-                                    <td>Иванович</td>
-                                    <td>Капустин</td>
-                                    <td>Повар</td>
-                                    <td class="actions">
-                                        <a href=""><i class="fa fa-pencil"></i></a>
-                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>vasiliy@dominospizza.com</td>
-                                    <td>Василий</td>
-                                    <td>Алексеевич</td>
-                                    <td>Портнягин</td>
-                                    <td>Курьер</td>
-                                    <td class="actions">
-                                        <a href=""><i class="fa fa-pencil"></i></a>
-                                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    UserRole userRoles = db.UserRoles.Find(item.CustomerRoleId);
+                                    if (item.CustomerRoleId > 1 && item.CustomerRoleId < 6)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CustomerEmail)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CustomerFirstName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CustomerPatronymic)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CustomerLastName)</td>
+                                            <td>@Html.DisplayFor(modelItem => userRoles.UserRoleName)</td>
+                                            <td class="actions">
+                                                <a href="EditCustomer/@item.CustomerId"><i class="fa fa-pencil"></i></a>
+                                                <a href="Delete/@item.CustomerId" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
