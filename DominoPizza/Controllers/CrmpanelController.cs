@@ -146,18 +146,21 @@ namespace DominosPizza.Controllers
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manager() // страница управления пиццерией
         {
+            ViewBag.Title = "Dominos Pizza | Обработка заказов";
             return View();
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Kitchen() // страница управления пиццерией
         {
+            ViewBag.Title = "Dominos Pizza | Кухня";
             return View();
         }
 
         [Authorize] // (Roles = "Courier") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Delivery() // страница управления пиццерией
         {
+            ViewBag.Title = "Dominos Pizza | Доставка";
             return View();
         }
         /*
