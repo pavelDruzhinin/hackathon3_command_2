@@ -290,17 +290,17 @@ namespace DominosPizza.Controllers
                 db.TaskRows.Add(productList);
             }
             db.SaveChanges();
-            Session["cart"] = null;
+
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
-                                            //  return RedirectToRoute(new { controller = "Home", action = "PayOffer" });
 
             if (Convert.ToInt32(TaskPaymentMethod) != 1)
             {
+                //заказ отправлен менеджеру
+                Session["cart"] = null;
                 return RedirectToRoute(new { controller = "Home", action = "SuccessOrder" });
             }
             else
-            {
-
+            {   //переход к онлайн оплате
                 return RedirectToRoute(new { controller = "Home", action = "PayOnline" });
             }
 
@@ -310,12 +310,76 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Message = "On-line оплата";
 
-            return View();
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+
+            Task task = new Task();
+
+            /*IEnumerable<Product> products = db.Products;
+           
+            Dictionary<int, string> productNames = new Dictionary<int, string>();
+            foreach (var temp in products)
+            {
+                productNames.Add(temp.ProductId, temp.ProductName);
+            }*/
+            // ViewBag.prod = productNames;
+            //ViewBag.cartindicator = cart.Counter;
+
+            IEnumerable<Task> tasks = db.Tasks;
+            ViewBag.LastTask = tasks.Last().TaskId;
+            ViewBag.TotalS = tasks.Last().TaskTotalSum;
+
+            List<OrderTable> table = new List<OrderTable>();
+            int i = 1;
+            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+            {
+                OrderTable orderTableRow = new OrderTable();
+                orderTableRow.OrderTableId = i++;
+                orderTableRow.ProductId = keyValue.Key;
+                orderTableRow.ProductQuantity = keyValue.Value;
+                IQueryable<Product> product = db.Products
+                                                    .Where(c => c.ProductId == keyValue.Key)
+                                                    .Select(c => c);
+                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
+                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
+                table.Add(orderTableRow);
+            }
+            Session["cart"] = null;
+            return View(table);
         }
 
         public ActionResult SuccessOrder()
         {
-            ViewBag.Message = "Заказ отправлен менеджеру";
+            IEnumerable<Task> tasks = db.Tasks;
+            ViewBag.LastTask = tasks.Last().TaskId;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PayMethod(int paymentType)
+        {
+            if (Convert.ToInt32(paymentType) == 1)
+            {
+
+
+                //прошла ли оплата = 4
+               // Session["cart"] = null;
+
+                return RedirectToRoute(new { controller = "Home", action = "PayCard" });
+            }
+            else
+            {
+                //другие платежные системы
+                return RedirectToRoute(new { controller = "Home", action = "PayOnline" });
+            }
+        }
+
+        public ActionResult PayCard()
+        {
+            ViewBag.Message = "On-line оплата банковской картой";
 
             return View();
         }
