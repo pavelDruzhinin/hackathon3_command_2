@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
+    <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
+    <title>@ViewBag.Title – Доставка пиццы по Петрозаводску 24 часа.</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{ var temp = Convert.ToString(ViewBag.cartindicator);}
+</head>
+<body>
+    <div class="inner-wrapper">
+        @RenderBody()
+    </div>
+    <!-- Vendor -->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.browser.mobile.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/nanoscroller.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/magnific-popup.js"></script>
+    <script src="~/Scripts/jquery.placeholder.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/Scripts/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/Scripts/theme.custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/Scripts/theme.init.js"></script>
+
+
+    <!-- Examples -->
+    <script src="~/Scripts/examples.dashboard.js"></script>
+    </body>
+</html>

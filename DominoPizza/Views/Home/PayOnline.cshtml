@@ -62,23 +62,18 @@
 
 
 <script src="/Scripts/jquery-1.10.2.js"></script>
-<!--<script type="text/javascript">
-    window.onbeforeunload = function (evt) {
-        var message = "Вы уверены что хотите уйти со страницы?";
-        if (typeof evt == "undefined") {
-            evt = window.event;
-        }
-        if (evt) {
-            evt.returnValue = message;
-        }
-        return message;
-    }
-  
-</script>-->
+
+</script>
 <script type="text/javascript" language="javascript">
 
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-        return "Вы уверены что хотите уйти со страницы?";
-    }
-    </script>
+    // Warning
+    $(window).on('beforeunload', function () {
+        return "Any changes will be lost";
+    });
+
+    // Form Submit
+    $(document).on("submit", "form", function (event) {
+        // disable unload warning
+        $(window).off('beforeunload');
+    });
+  </script>
