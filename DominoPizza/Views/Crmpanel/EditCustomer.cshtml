@@ -119,7 +119,6 @@
                                     <span class="icon"><i class="fa fa-envelope"></i></span>
                                 </span>
                                 @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                <!--@Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })-->
                             </div>
                         </div>
                         <div class="form-group mb-lg">
@@ -157,12 +156,12 @@
                             <div class="col-sm-12">
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-male"></i></span>
-                                    <input type="radio" id="CustomerSex" name="CustomerSex" value="Male">
+                                    @Html.RadioButtonFor(model => model.CustomerSex, "Male")
                                     <label>Мужской</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-female"></i></span>
-                                    <input type="radio" id="CustomerSex" name="CustomerSex" value="Female">
+                                    @Html.RadioButtonFor(model => model.CustomerSex, "Female")
                                     <label>Женский</label>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.CustomerSex, "", new { @class = "text-danger" })
@@ -173,11 +172,9 @@
                             <div class="col-md-6 input-group mb-md">
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-gift"></i></span>
-                                </span> <!-- тут надо запихать маску для ввода -->
+                                </span>
                                 @Html.EditorFor(model => model.CustomerBirthDate, new { htmlAttributes = new { @class = "form-control", placeholder = "__/__/____" } })
-                                <!--<input id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="__/__/____" class="form-control">-->
                                 @Html.ValidationMessageFor(model => model.CustomerBirthDate, "", new { @class = "text-danger" })
-                                
                             </div>
                         </div>
                         <div class="form-group mb-lg">
@@ -188,7 +185,6 @@
                                 </span>
                                 @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "(123) 123-1234" } })
                                 @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
-                                <!--<input id="phone" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">-->
                             </div>
                         </div>
                         <div class="form-group mb-lg">
@@ -196,23 +192,23 @@
                             <div class="col-sm-12">
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-user-secret"></i></span>
-                                    <input type="radio" id="1" name="CustomerRoleId">
-                                    <label for="Administrator">Администратор</label>
+                                    @Html.RadioButtonFor(model => model.CustomerRoleId, 2)
+                                    <label>Администратор</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-user"></i></span>
-                                    <input type="radio" id="2" name="CustomerRoleId">
-                                    <label for="SalesManager">Менеджер</label>
+                                    @Html.RadioButtonFor(model => model.CustomerRoleId, 3)
+                                    <label>Менеджер</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-cutlery"></i></span>
-                                    <input type="radio" id="3" name="CustomerRoleId">
-                                    <label for="Cook">Повар</label>
+                                    @Html.RadioButtonFor(model => model.CustomerRoleId, 4)
+                                    <label>Повар</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-car"></i></span>
-                                    <input type="radio" id="4" name="CustomerRoleId">
-                                    <label for="Courier">Курьер</label>
+                                    @Html.RadioButtonFor(model => model.CustomerRoleId, 5)
+                                    <label>Курьер</label>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +218,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-key"></i></span>
                                 </span>
-                                @Html.EditorFor(model => model.CustomerPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.CustomerPassword, new { htmlAttributes = new { @class = "form-control", value = Model.CustomerPassword  } })
                                 @Html.ValidationMessageFor(model => model.CustomerPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>

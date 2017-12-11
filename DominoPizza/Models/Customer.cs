@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Remoting.Messaging;
+using DominosPizza.Models;
 
 namespace DominosPizza.Models
 {
@@ -45,6 +47,11 @@ namespace DominosPizza.Models
         public ICollection<Task> Tasks { get; set; }
         public ICollection<UserComment> UserComments { get; set; }
         public ICollection<FeedbackMail> FeedBackMails { get; set; }
+
+        public string CustomerFullName()
+        {
+            return $"{CustomerFirstName} {CustomerPatronymic} {CustomerLastName}";
+        }
     }
 
     public class CustomerMap : EntityTypeConfiguration<Customer>
