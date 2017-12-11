@@ -25,7 +25,7 @@ namespace DominoPizza.Migrations
                         CustomerFirstName = c.String(nullable: false),
                         CustomerPatronymic = c.String(nullable: false),
                         CustomerLastName = c.String(),
-                        CustomerBirthDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        CustomerBirthDate = c.DateTime(nullable: false),
                         CustomerSex = c.String(),
                         CustomerPhone = c.String(),
                         CustomerEmail = c.String(nullable: false),

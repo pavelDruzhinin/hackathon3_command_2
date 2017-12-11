@@ -109,6 +109,7 @@ namespace DominosPizza.Controllers
 
         // GET: Customers/Delete/id
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -120,7 +121,12 @@ namespace DominosPizza.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            else
+            {
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Manage");
         }
 
         // POST: Customers/Delete/id

@@ -175,8 +175,9 @@
                                     <span class="icon"><i class="fa fa-gift"></i></span>
                                 </span> <!-- тут надо запихать маску для ввода -->
                                 @Html.EditorFor(model => model.CustomerBirthDate, new { htmlAttributes = new { @class = "form-control", placeholder = "__/__/____" } })
-                                @Html.ValidationMessageFor(model => model.CustomerBirthDate, "", new { @class = "text-danger" })
                                 <!--<input id="date" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="__/__/____" class="form-control">-->
+                                @Html.ValidationMessageFor(model => model.CustomerBirthDate, "", new { @class = "text-danger" })
+                                
                             </div>
                         </div>
                         <div class="form-group mb-lg">

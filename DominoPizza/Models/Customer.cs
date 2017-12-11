@@ -17,11 +17,12 @@ namespace DominosPizza.Models
         public string CustomerPatronymic { get; set; }
         public string CustomerLastName { get; set; }
 
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Column(TypeName = "DateTime2")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CustomerBirthDate { get; set; }
         public string CustomerSex { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [Phone]
         public string CustomerPhone { get; set; }
 
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]

@@ -1,4 +1,5 @@
-﻿@model DominoPizza.Models.RegisterModel
+﻿@using System.Web.UI.WebControls
+@model DominoPizza.Models.RegisterModel
 
 @{
     ViewBag.Title = "Dominos Pizza | Регистрация сотрудника";
@@ -171,7 +172,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-gift"></i></span>
                                 </span>
-                                <input id="BirthDay" data-plugin-masked-input data-input-mask="99.99.9999" placeholder="__.__.____" class="form-control">
+                                @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control"} })
                                 @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -181,7 +182,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-phone"></i></span>
                                 </span>
-                                <input id="Phone" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "79999999999" } })
                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                             </div>
                         </div>
