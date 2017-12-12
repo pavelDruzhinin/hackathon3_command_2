@@ -237,6 +237,7 @@
     <Content Include="Views\Crmpanel\UserProfile.cshtml" />
     <Content Include="Views\Home\PayCard.cshtml" />
     <Content Include="Views\Home\_LayoutPayOnlineMask.cshtml" />
+    <Content Include="Views\Home\SuccessOrderSend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
