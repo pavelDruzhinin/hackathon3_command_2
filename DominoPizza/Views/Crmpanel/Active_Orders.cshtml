@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DominosPizza.Models.Task>
+﻿@model IEnumerable<Task>
 @using DominosPizza.Models
 
 @{
     ViewBag.Title = "Dominos Pizza | Список заказов в работе";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
-    DominosContext db = new DominosContext();
+    var db = new DominosContext();
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -121,17 +121,17 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    Customer Customer = db.Customers.Find(item.TaskId);
-                                    var CustomerAdress = db.Contacts.Find(item.TaskId);
+                                    var customer = db.Customers.Find(item.TaskId);
+                                    var customerAdress = db.Contacts.Find(item.TaskId);
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
                                     <!--if (item.TaskStatus != null && item.TaskStatus == null)
                                     {-->
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
-                                            <td>@Html.DisplayFor(modelItem => Customer.CustomerFullName())</td>
+                                            <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
                                             <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
                                             <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
-                                            <td>@Html.DisplayFor(modelItem => CustomerAdress.ContactAddress)</td>
+                                            <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
                                             <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
                                         </tr>
                                     <!--}-->

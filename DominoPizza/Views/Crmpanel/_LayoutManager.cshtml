@@ -1,7 +1,4 @@
-﻿@using DominosPizza.Models
-@model IEnumerable<Task>
-
-@{
+﻿@{
     Layout = null;
 }
 <!doctype html>
@@ -45,7 +42,7 @@
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
-                <a href="~/Crmpanel/Delivery" class="logo">
+                <a href="~/Crmpanel/Manager" class="logo">
                     <h4>Dominos Pizza CRM</h4>
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -62,7 +59,7 @@
                         <a href="#" data-toggle="dropdown">
                             <div class="profile-info">
                                 <span class="name">@User.Identity.Name</span>
-                                <span class="role">Курьер</span>
+                                <span class="role">Менеджер</span>
                             </div>
 
                             <i class="fa custom-caret"></i>
@@ -89,24 +86,7 @@
         <!-- end: header -->
         <!-- start: Content -->
         <div class="inner-wrapper">
-            <section role="main" class="content-body">
-                <header class="page-headerstage">
-                    <h2>Доставка заказов</h2>
-
-                    <div class="right-wrapper pull-right">
-                        <ol class="breadcrumbs">
-                            <li>
-                                <a href="~/Crmpanel/Delivery">
-                                    <i class="fa fa-car"></i>
-                                </a>
-                            </li>
-                            <li><span>Доставка заказов</span></li>
-                        </ol>
-
-                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-                    </div>
-                </header>
-            </section>
+            @RenderBody()
         </div>
         <!-- end: Content -->
         <aside id="sidebar-right" class="sidebar-right">
@@ -148,6 +128,8 @@
     <!-- Theme Initialization Files -->
     <script src="~/Scripts/theme.init.js"></script>
 
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Scripts/waves.js"></script>
 
     <!-- Examples -->
     <script src="~/Scripts/examples.dashboard.js"></script>

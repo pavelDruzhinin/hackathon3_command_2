@@ -1,190 +1,122 @@
-﻿@{
-    Layout = null;
+﻿@using DominosPizza.Models
+@model IEnumerable<Task>
+
+@{
+    Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
+    var db = new DominosContext();
 }
-<!doctype html>
-<html class="fixed">
-<head>
-    <meta charset="UTF-8">
-    <title>@ViewBag.Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <!-- Web Fonts  -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
 
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление заказами
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
 
-    <link rel="stylesheet" href="~/Content/font-awesome.css" />
-    <link rel="stylesheet" href="~/Content/magnific-popup.css" />
-    <link rel="stylesheet" href="~/Content/datepicker3.css" />
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li class="nav-active">
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Заказы в работу</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span>Добавить заказ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                            <span>Диалоги с покупателями</span><span class="badge">3</span>
+                        </a>
+                    </li>
 
-    <!-- Specific Page Vendor CSS -->
-    <link rel="stylesheet" href="~/Content/jquery-ui-1.10.4.custom.css" />
-    <link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" />
-    <link rel="stylesheet" href="~/Content/morris.css" />
+                </ul>
+            </nav>
 
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="~/Content/theme.css" />
+            <hr class="separator" />
+        </div>
+    </div>
+</aside>
+<!-- start: Content -->
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Заказы в работе</h2>
 
-    <!-- Skin CSS -->
-    <link rel="stylesheet" href="~/Content/default.css" />
-
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="~/Content/theme-custom.css">
-
-    <!-- Head Libs -->
-    <script src="~/Scripts/modernizr.js"></script>
-</head>
-<body>
-    <section class="body">
-        <!-- start: header -->
-        <header class="header">
-            <div class="logo-container">
-                <a href="~/Crmpanel/Manager" class="logo">
-                    <h4>Dominos Pizza CRM</h4>
-                </a>
-                <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
-                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                </div>
-            </div>
-            <!-- start: search & user box -->
-            @if (User.Identity.IsAuthenticated)
-        {
-            <div class="header-right">
-                <span class="separator"></span>
-
-                <div id="userbox" class="userbox">
-                    <a href="#" data-toggle="dropdown">
-                        <div class="profile-info">
-                            <span class="name">@User.Identity.Name</span>
-                            <span class="role">Менеджер</span>
-                        </div>
-
-                        <i class="fa custom-caret"></i>
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="~/Crmpanel/Manage">
+                        <i class="fa fa-tasks"></i>
                     </a>
+                </li>
+                <li><span>Обработка заказов</span></li>
+            </ol>
 
-                    <div class="dropdown-menu">
-                        <ul class="list-unstyled">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
-                                    <i class="fa fa-power-off"></i> Выход</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-    }
-            <!-- end: search & user box -->
-        </header>
-        <!-- end: header -->
-        <!-- start: sidebar -->
-        <aside id="sidebar-left" class="sidebar-left">
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
 
-            <div class="sidebar-header">
-                <div class="sidebar-title">
-                    Управление заказами
-                </div>
-                <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-                </div>
-            </div>
-
-            <div class="nano">
-                <div class="nano-content">
-                    <nav id="menu" class="nav-main" role="navigation">
-                        <ul class="nav nav-main">
-                            <li class="nav-active">
-                                <a href="~/Crmpanel/Active_Orders">
-                                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                                    <span>Заказы в работу</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/Crmpanel/Register">
-                                    <i class="fa fa-table" aria-hidden="true"></i>
-                                    <span>Добавить заказ</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/Crmpanel/Register">
-                                    <i class="fa fa-comment-o" aria-hidden="true"></i>
-                                    <span>Диалоги с покупателями</span><span class="badge">3</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </nav>
-
-                    <hr class="separator" />
-                </div>
-
-            </div>
-
-        </aside>
-
-        <!-- start: Content -->
-        <div class="inner-wrapper">
-            <section role="main" class="content-body">
-                <header class="page-header">
-                    <h2>Обработка заказов</h2>
-
-                    <div class="right-wrapper pull-right">
-                        <ol class="breadcrumbs">
-                            <li>
-                                <a href="~/Crmpanel/Delivery">
-                                    <i class="fa fa-tasks"></i>
-                                </a>
-                            </li>
-                            <li><span>Обработка заказов</span></li>
-                        </ol>
-
-                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-                    </div>
+    <!-- start: page -->
+    <div class="row">
+        <div class="center-sign">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Обработка заказов</h2>
                 </header>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-none">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Дата заказа</th>
+                                    <th>ФИО</th>
+                                    <th>Адрес доставки</th>
+                                    <th>Сумма заказа</th>
+                                    <th>Детали заказа</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var customer = db.Customers.Find(item.TaskId);
+                                    var customerAdress = db.Contacts.Find(item.TaskId);
+                                    <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+                                    <!--if (item.TaskStatus != null && item.TaskStatus == null)
+                                    {-->
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
+                                        <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
+                                        <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
+                                        <td class="actions">
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <a href="~/Crmpanel/OrderDetails/@item.TaskId"><i class="fa fa-pencil"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <!--}-->
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
         </div>
-        <!-- end: Content -->
-        <aside id="sidebar-right" class="sidebar-right">
-            <div class="nano">
-                <div class="nano-content">
-                    <a href="#" class="mobile-close visible-xs">
-                        Collapse <i class="fa fa-chevron-right"></i>
-                    </a>
-
-                    <div class="sidebar-right-wrapper">
-
-                        <div class="sidebar-widget widget-calendar">
-                            <h6>Календарь</h6>
-                            <div data-plugin-datepicker data-plugin-skin="dark"></div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </section>
-
-    <!-- Vendor -->
-    <script src="~/Scripts/jquery.js"></script>
-    <script src="~/Scripts/jquery.browser.mobile.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/nanoscroller.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/magnific-popup.js"></script>
-    <script src="~/Scripts/jquery.placeholder.js"></script>
-    <script src="~/Scripts/jquery.maskedinput.js"></script>
-
-    <!-- Theme Base, Components and Settings -->
-    <script src="~/Scripts/theme.js"></script>
-
-    <!-- Theme Custom -->
-    <script src="~/Scripts/theme.custom.js"></script>
-
-    <!-- Theme Initialization Files -->
-    <script src="~/Scripts/theme.init.js"></script>
-
-
-    <!-- Examples -->
-    <script src="~/Scripts/examples.dashboard.js"></script>
-</body>
-</html>
+    </div>
+</section>
+<!-- end: page -->

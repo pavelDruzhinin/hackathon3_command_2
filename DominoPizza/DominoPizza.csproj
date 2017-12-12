@@ -242,6 +242,8 @@
     <Content Include="Views\Crmpanel\UserProfile.cshtml" />
     <Content Include="Views\Crmpanel\EditCustomer.cshtml" />
     <Content Include="Views\Crmpanel\Delete.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutManager.cshtml" />
+    <Content Include="Views\Crmpanel\OrderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
