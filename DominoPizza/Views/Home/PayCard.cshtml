@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "PayCard";
+    Layout = "~/Views/Home/_LayoutPayOnlineMask.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h3 class="h3-ua">Для оплаты банковской картой внесите данные:</h3>
+<br>
+<form method="post" action="/Home/SendReceiptMail">
+    <div class="col-md-5">
+        <div class="receiptMail">
+            <span>Ваш E-mail для отправки чека</span>
+            <div>
+                <input class="form-control" type="text" id="ReplyreceiptMail" name="ReplyreceiptMail" required/> <br />
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-offset-7">
+
+
+        <div class="card-block">
+            <div class="card-block-header clear">
+                <!--<span id="card-block-ttl">Введите номер карты: </span>-->
+                <div class="card-type"></div>
+            </div>
+            <input id="pan_sub" type="tel" required tabindex="3" class="form-control" placeholder="Номер карты" name="cardnumber" maxlength="19" data-plugin-masked-input data-input-mask="9999 9999 9999 9999"><br>
+            <!--<input type="hidden">-->
+
+            <input id="cardholder" type="text" required tabindex="4" class="form-control" name="cardholder" placeholder="Имя владельца как на карте" maxlength="90" /> <br>
+
+            <input id="expiry" type="tel" tabindex="5" required class="form-control" placeholder="Месяц/год" maxlength="5" name="expdate" data-plugin-masked-input data-input-mask="99/99">  <br>
+            <!--<input type="hidden" id="rbs_month">                 <input type="hidden" id="rbs_year">-->
+            <div>
+                <input type="password" required tabindex="6" maxlength="3" class="form-control" id="cvc" placeholder="CVC2/CVV2" data-plugin-masked-input data-input-mask="999">
+
+                <div class="question-out">
+                    <div class="question-hint">3 цифры с обратной стороны карты</div>
+                    <div class="question"></div>
+
+                </div>
+            </div>
+
+            <br />
+            <input class="btn btn-danger" type="submit" name="submit-button" value="Оплатить">
+
+        </div>
+</div>
+</form>
