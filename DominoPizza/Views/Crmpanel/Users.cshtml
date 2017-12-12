@@ -1,11 +1,11 @@
-@model IEnumerable<DominosPizza.Models.Customer>
+@model IEnumerable<Customer>
 @using DominosPizza.Models
 
 
 @{
     ViewBag.Title = "Dominos Pizza | Список сотрудников";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
-    DominosContext db = new DominosContext();
+    var db = new DominosContext();
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -128,7 +128,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    UserRole userRoles = db.UserRoles.Find(item.CustomerRoleId);
+                                    var userRoles = db.UserRoles.Find(item.CustomerRoleId);
                                     if (item.CustomerRoleId > 1 && item.CustomerRoleId < 6)
                                     {
                                         <tr>
@@ -139,8 +139,12 @@
                                             <td>@Html.DisplayFor(modelItem => item.CustomerLastName)</td>
                                             <td>@Html.DisplayFor(modelItem => userRoles.UserRoleName)</td>
                                             <td class="actions">
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
                                                 <a href="~/Crmpanel/EditCustomer/@item.CustomerId"><i class="fa fa-pencil"></i></a>
-                                                <a href="~/Crmpanel/Delete/@item.CustomerId" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                                                <a href="~/Crmpanel/Delete/@item.CustomerId"><i class="fa fa-trash-o"></i></a>
+                                            }
                                             </td>
                                         </tr>
                                     }
