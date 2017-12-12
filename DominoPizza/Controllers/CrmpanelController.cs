@@ -13,13 +13,17 @@ namespace DominosPizza.Controllers
 {
     public class CrmpanelController : Controller
     {
-        private DominosContext _db = new DominosContext();
+        DominosContext _db = new DominosContext();
         
         // GET: Crmpanel Administrator Block
         [Authorize]
         public ActionResult UserProfile()
         {
-            return View();
+            if (User.Identity.IsAuthenticated == false)
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+
+            var customer = _db.Customers.FirstOrDefault(m => m.CustomerEmail == User.Identity.Name);
+            return View(customer);
         }
 
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
@@ -79,7 +83,7 @@ namespace DominosPizza.Controllers
         [Authorize]
         public ActionResult EditCustomer(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated == false)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -94,15 +98,18 @@ namespace DominosPizza.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,CustomerFirstName,CustomerPatronymic,CustomerLastName,CustomerBirthDate,CustomerSex,CustomerPhone,CustomerEmail,CustomerPassword,CustomerPasswordConfirm")] Customer customer)
+        public ActionResult Edit(Customer customer)
         {
-                _db.Entry(customer).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Manage","Crmpanel");
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+            _db.Entry(customer).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Manage","Crmpanel");
         }
 
         [Authorize]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             if (id == null)
