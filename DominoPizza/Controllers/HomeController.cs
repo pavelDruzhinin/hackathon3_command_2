@@ -374,7 +374,7 @@ namespace DominosPizza.Controllers
             else
             {
                 //другие платежные системы
-                return RedirectToRoute(new { controller = "Home", action = "PayOnline" });
+                return RedirectToRoute(new { controller = "Home", action = "PayTypes" });
             }
         }
 
@@ -454,6 +454,11 @@ namespace DominosPizza.Controllers
     
         }
         public ActionResult SuccessOrderSend()
+        {
+
+            return View();
+        }
+        public ActionResult PayTypes()
         {
 
             return View();
