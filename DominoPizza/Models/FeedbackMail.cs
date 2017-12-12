@@ -35,5 +35,4 @@ namespace DominosPizza.Models
                 HasOptional(x => x.Customer).WithMany(x => x.FeedBackMails).HasForeignKey(x => x.CustomerId);
             }
         }
-    
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DominosPizza.Models
 {
@@ -15,8 +16,12 @@ namespace DominosPizza.Models
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         public string CustomerPatronymic { get; set; }
         public string CustomerLastName { get; set; }
+
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "DateTime2")]
         public DateTime CustomerBirthDate { get; set; }
-        public Boolean CustomerSex { get; set; }
+        public string CustomerSex { get; set; }
         public string CustomerPhone { get; set; }
 
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]

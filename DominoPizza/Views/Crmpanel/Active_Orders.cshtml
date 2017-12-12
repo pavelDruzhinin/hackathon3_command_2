@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<DominosPizza.Models.Task>
+@using DominosPizza.Models
 
 @{
     ViewBag.Title = "Dominos Pizza | Список заказов в работе";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
+    DominosContext db = new DominosContext();
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -111,32 +113,29 @@
                                     <th>#</th>
                                     <th>ФИО</th>
                                     <th>Дата заказа</th>
+                                    <th>Сумма заказа</th>
                                     <th>Адрес доставки</th>
                                     <th>Статус</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Александр Васильевич Кукушкин</td>
-                                    <td>07.12.2017 16:55</td>
-                                    <td>Петрозаводск, ул. Древлянка, д.20, кв. 56</td>
-                                    <td>Обрабатывается</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Татьяна Сергеевна Погребняк</td>
-                                    <td>07.12.2017 16:30</td>
-                                    <td>Петрозаводск, ул. Пограничная, д. 8, кв. 74</td>
-                                    <td>Готовится</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Андрей Витальевич Козловский</td>
-                                    <td>07.12.2017 16:23</td>
-                                    <td>Петрозаводск, ул. Ровио, д. 23, кв. 16</td>
-                                    <td>Доставляется</td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    Customer Customer = db.Customers.Find(item.TaskId);
+                                    var CustomerAdress = db.Contacts.Find(item.TaskId);
+                            <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+                            <!--if (item.TaskStatus != null && item.TaskStatus == null)
+{-->
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
+                                <td>@Html.DisplayFor(modelItem => Customer.CustomerFirstName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
+                                <td>@Html.DisplayFor(modelItem => CustomerAdress.ContactAddress)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
+                            </tr>
+                            <!--}-->
+}
                             </tbody>
                         </table>
                     </div>
