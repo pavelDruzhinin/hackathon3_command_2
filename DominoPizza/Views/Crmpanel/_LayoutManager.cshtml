@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Web Fonts  -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-    
+
     <!-- Waves Effect Css -->
     <link href="~/Content/waves.css" rel="stylesheet" />
 
@@ -42,7 +42,7 @@
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
-                <a href="~/Crmpanel/Manage" class="logo">
+                <a href="~/Crmpanel/Manager" class="logo">
                     <h4>Dominos Pizza CRM</h4>
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -59,7 +59,7 @@
                         <a href="#" data-toggle="dropdown">
                             <div class="profile-info">
                                 <span class="name">@User.Identity.Name</span>
-                                <span class="role">Администратор</span>
+                                <span class="role">Менеджер</span>
                             </div>
 
                             <i class="fa custom-caret"></i>
@@ -69,11 +69,12 @@
                             <ul class="list-unstyled">
                                 <li class="divider"></li>
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href=@Url.Action("UserProfile", "Crmpanel")><i class="fa fa-user"></i> Профиль</a>
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("ChangePassword", "Crmpanel")><i class="fa fa-user"></i> Сменить пароль</a>
                                 </li>
                                 <li>
                                     <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
-                                    <i class="fa fa-power-off"></i> Выход</a>
+                                        <i class="fa fa-power-off"></i> Выход
+                                    </a>
                                 </li>
                             </ul>
                         </div>

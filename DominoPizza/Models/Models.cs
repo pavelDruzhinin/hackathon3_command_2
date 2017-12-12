@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -23,11 +24,16 @@ namespace DominoPizza.Models
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
         public string LastName { get; set; }
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Column(TypeName = "DateTime2")]
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDay { get; set; }
+
         public string Sex { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Phone]
         public string Phone { get; set; }
+
     }
 }

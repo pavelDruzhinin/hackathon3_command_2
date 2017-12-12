@@ -1,4 +1,7 @@
-﻿@{
+﻿@using DominosPizza.Models
+@model IEnumerable<Task>
+
+@{
     Layout = null;
 }
 <!doctype html>
@@ -9,6 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Web Fonts  -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <!-- Waves Effect Css -->
+    <link href="~/Content/waves.css" rel="stylesheet" />
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
@@ -66,11 +72,12 @@
                             <ul class="list-unstyled">
                                 <li class="divider"></li>
                                 <li>
-                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                    }
-                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("ChangePassword", "Crmpanel")><i class="fa fa-user"></i> Сменить пароль</a>
+                                </li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
+                                        <i class="fa fa-power-off"></i> Выход
+                                    </a>
                                 </li>
                             </ul>
                         </div>

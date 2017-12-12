@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DominosPizza.Models.Task>
+﻿@model IEnumerable<Task>
 @using DominosPizza.Models
 
 @{
     ViewBag.Title = "Dominos Pizza | Список заказов в работе";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
-    DominosContext db = new DominosContext();
+    var db = new DominosContext();
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -22,25 +22,25 @@
                 <ul class="nav nav-main">
                     <li>
                         <!-- стиль предполагает активную вкладку -->
-                        <a href="Manage">
+                        <a href="~/Crmpanel/Manage">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span>Общая статистика</span>
                         </a>
                     </li>
                     <li class="nav-active">
-                        <a href="Active_Orders">
+                        <a href="~/Crmpanel/Active_Orders">
                             <i class="fa fa-tasks" aria-hidden="true"></i>
                             <span>Активные заказы</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Register">
+                        <a href="~/Crmpanel/Register">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             <span>Добавить сотрудника</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Users">
+                        <a href="~/Crmpanel/Users">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                             <span>Список сотрудников</span>
                         </a>
@@ -87,7 +87,7 @@
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
                 <li>
-                    <a href="Active_Orders">
+                    <a href="~/Crmpanel/Active_Orders">
                         <i class="fa fa-tasks"></i>
                     </a>
                 </li>
@@ -121,21 +121,21 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    Customer Customer = db.Customers.Find(item.TaskId);
-                                    var CustomerAdress = db.Contacts.Find(item.TaskId);
-                            <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                            <!--if (item.TaskStatus != null && item.TaskStatus == null)
-{-->
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
-                                <td>@Html.DisplayFor(modelItem => Customer.CustomerFirstName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
-                                <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
-                                <td>@Html.DisplayFor(modelItem => CustomerAdress.ContactAddress)</td>
-                                <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
-                            </tr>
-                            <!--}-->
-}
+                                    var customer = db.Customers.Find(item.TaskId);
+                                    var customerAdress = db.Contacts.Find(item.TaskId);
+                                    <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+                                    <!--if (item.TaskStatus != null && item.TaskStatus == null)
+                                    {-->
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
+                                            <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
+                                            <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
+                                        </tr>
+                                    <!--}-->
+                                }
                             </tbody>
                         </table>
                     </div>
