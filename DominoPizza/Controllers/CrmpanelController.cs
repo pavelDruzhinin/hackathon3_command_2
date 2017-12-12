@@ -98,14 +98,14 @@ namespace DominosPizza.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
+        public ActionResult EditCustomer(Customer customer)
         {
             if (User.Identity.IsAuthenticated == false)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
             _db.Entry(customer).State = EntityState.Modified;
-            _db.SaveChanges();
+            var saveChanges = _db.SaveChanges();
             return RedirectToAction("Manage","Crmpanel");
         }
 
@@ -125,9 +125,9 @@ namespace DominosPizza.Controllers
         }
 
         [Authorize]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
             var customer = _db.Customers.Find(id);
             if (customer == null)
@@ -168,12 +168,10 @@ namespace DominosPizza.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult LogOut()
-        //{
-        //    FormsAuthentication.SignOut();
-        //    return RedirectToAction("Index", "Customer");
-        //}
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

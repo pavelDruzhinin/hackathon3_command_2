@@ -66,11 +66,8 @@
                         <ul class="list-unstyled">
                             <li class="divider"></li>
                             <li>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-                        }
-                                <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
+                                <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
+                                    <i class="fa fa-power-off"></i> Выход</a>
                             </li>
                         </ul>
                     </div>

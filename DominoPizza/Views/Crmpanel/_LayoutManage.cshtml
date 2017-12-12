@@ -69,14 +69,11 @@
                             <ul class="list-unstyled">
                                 <li class="divider"></li>
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href="~/Crmpanel/UserProfile"><i class="fa fa-user"></i> Профиль</a>
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("UserProfile", "Crmpanel")><i class="fa fa-user"></i> Профиль</a>
                                 </li>
                                 <li>
-                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                    }
-                                    <a role="menuitem" tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Выход</a>
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
+                                    <i class="fa fa-power-off"></i> Выход</a>
                                 </li>
                             </ul>
                         </div>
