@@ -1,5 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@model DominoPizza.Models.RegisterModel
+﻿@model DominoPizza.Models.RegisterModel
 
 @{
     ViewBag.Title = "Dominos Pizza | Регистрация сотрудника";
@@ -172,7 +171,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-gift"></i></span>
                                 </span>
-                                @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -233,12 +232,16 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-7">
-                        <button type="submit" class="btn btn-primary hidden-xs">Зарегистрировать</button>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Зарегистрировать</button>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary hidden-xs" value="Зарегистрировать">Зарегистрировать</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Зарегистрировать">Зарегистрировать</button>
+                            <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
+                            <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
+                        </div>
                     </div>
-                </div>
+                </footer>
             </div>
         </div>
     }

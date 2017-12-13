@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using DominosPizza.Models;
 using DominoPizza.Models;
@@ -13,7 +10,7 @@ namespace DominosPizza.Controllers
 {
     public class CrmpanelController : Controller
     {
-        DominosContext _db = new DominosContext();
+        private DominosContext _db = new DominosContext();
         
         // GET: Crmpanel Administrator Block
         [Authorize]
@@ -52,7 +49,7 @@ namespace DominosPizza.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer user = null;
+                Customer user;
                 using (var db = new DominosContext())
                 {
                     user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email);
@@ -105,7 +102,7 @@ namespace DominosPizza.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
             _db.Entry(customer).State = EntityState.Modified;
-            var saveChanges = _db.SaveChanges();
+            _db.SaveChanges();
             return RedirectToAction("Manage","Crmpanel");
         }
 
@@ -173,6 +170,47 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Title = "Dominos Pizza | Доставка";
             return View(_db.Tasks.ToList());
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(string customerPassword, string customerPasswordConfirm)
+        {
+            var customer = _db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            if (customer != null)
+            {
+                customer.CustomerPassword = customerPassword;
+                customer.CustomerPasswordConfirm = customerPasswordConfirm;
+            }
+
+            if (User.Identity.Name == null) return View(customer);
+            _db.Entry(customer).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            if (customer != null && customer.CustomerRoleId == 2)
+            {
+                return RedirectToAction("Manage", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 3)
+            {
+                return RedirectToAction("Manager", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 4)
+            {
+                return RedirectToAction("Kitchen", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 5)
+            {
+                return RedirectToAction("Delivery", "Crmpanel");
+            }
+            return RedirectToAction("PersonalArea", "Customers");
         }
 
         public ActionResult LogOut()
