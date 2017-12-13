@@ -1,214 +1,1357 @@
-﻿@using DominosPizza.Models;
+﻿<!DOCTYPE html>
+@using DominosPizza.Models;
+@model List<Product>
 @{
-    
-    ViewBag.Title = "Dominos Пицца - доставка пиццы, суши, бургеров и любой еды в городе Петрозаводске круглосуточно";
-
+    Layout = null;
+    int i = 1;
 }
 
-@model IEnumerable<Product>
-<!--<br /><p style="font-size: .9rem; color: gray; line-height: 110%; text-align:center;">
-    Инструкция для тестовых испытаний: переключение между публичным и служебным интерфейсами осуществляется через белый квадратный логотип вверху страницы.
-</p><br />--> 
-    <div class="well content" style="justify-content: center;">
-        @foreach (var product in Model) {
-    <div class="well pizzacard" style="margin: 2px;">
-        <img class="pizzaimg" src="@product.ImageLink"/>
-        <div class="pizzaname">
-            <span class="pizzaname-text">@product.Name</span>
-        </div>
-        <div class="pizzacontent">
-           @product.Description
-        </div>
 
-      <!--  <div class="pizzasize">
-            <div class="pizzasize-active" >35см</div>
-            <div class="pizzasize-passive">30см</div>
-            <div class="pizzasize-passive">25см</div>
-        </div>-->
-       <!-- <p class="doughselect"><span class="doughselect-active">Традиционное</span><span class="doughselect-passive"> / Тонкое</span></p>-->
-        <p class="pizzaweight">@product.Weight г.</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DominosPizza</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <style>
+        /*      body {
+            background: #000000 url("../img/muzzle/mainBackground.jpg") no-repeat;
+            background-position: center 0;
+            background-size:cover;
+            background-attachment:scroll;
+        } */
 
-        <div class="pizzaorder">
-            <div class="pizzaorder-price">@product.Price <span>&#8381;</span></div>
-            <div id="addtocartbtn-@product.ProductId" class="pizzaorder-tocart">в корзину</div>
-
-            <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="@product.ProductId" />
-            <div id="successFadeOut-@product.ProductId" class="successFadeOut" style="display:none;">добавлено</div>
-        </div>
-
-    </div>
+        html, body,
+        .mainBackground,
+        .mainLogoOnStart {
+            padding: 0;
+            margin: 0;
+            border: unset;
         }
 
-    </div>
-<!--<button id="commentsShow-">chat</button>
-место для загрузки Partial View c комментариями
-<div id="comments-modal" class="comments-modal">
-
-    <div class="comments-window">
-
-        <div id="comment-PartialView" style="width: 100%; height: 100%; display: flex; flex-direction:column;  justify-content: center;"><img style="width: 100px; height: 100px; margin-left: 90px; opacity: 0.5;" src="~/img/sectorPizza3.gif" /></div>
-
-    </div>
-    <div class="addNewComment">
-
-        <textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на кнопку &laquo;отправить&raquo;"></textarea>
-        <div class="commentUser">
-            <div><button id="chat-Add-message-" class="btn btn-default" title="отправить">отправить</button></div>
-            <button id="closeComments" class="btn btn-danger" onclick="hideComments()">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-        </div>
-    </div>
-</div>
-<!---->
-<button id="commentsShow-" class="openChat"><span class="glyphicon glyphicon-chevron-up"></span></button>
-
-<!--место для загрузки Partial View c комментариями-->
-<div id="comments-modal" class="comments-modal-client">
-
-
-    <div class="comments-client-rightPanel">
-        <div class="comments-window-manager-right">
-
-            <div id="OnlineChatDialog"><img src="~/img/sectorPizza3.gif" /></div>
-
-        </div>
-
-
-        <textarea id="NewMessageTextArea-manager" class="NewMessageTextArea-manager" placeholder="введите здесь текст сообщения и нажмите на кнопку &laquo;отправить&raquo;"></textarea>
-
-        <div class="SendMessage-manager">
-            <div><button id="AddNewMessage-" class="sendMessageButton" title="отправить">отправить</button></div>
-            <button id="closeComments-manager" class="closeChat" onclick="hideChat()">
-                <span class="glyphicon glyphicon-chevron-down"></span>
-            </button>
-        </div>
-
-    </div>
-</div>
-<!---->
-<script src="/Scripts/jquery-1.10.2.js"></script>
-<script src="/Scripts/js-cokie/js-cookie.js"></script>
-<script type="text/javascript">
-    var taskId = 0;
-    var onlineChatUniqueId = "new";
-    var timerId;
-    var newHtml;
-    var oldHtml;
-    $("button").click(function (event) {
-
-        if (this.id.slice(0, 13) == "commentsShow-") {
-            event.preventDefault();
-            $("#comments-modal").css({
-                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
-            });
-
-           timerId = setTimeout(function swap() {
-
-                //if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
-
-                        $.ajax({
-                            url: "/Messaging/ShowDialog",
-                            dataType: "html",
-                                data: {
-                                    onlineChatUniqueId: onlineChatUniqueId
-                                },
-                            type: "POST",
-                            success: function (data) {
-
-                                if (data != oldHtml) {
-                                    oldHtml = data;
-                                    //onlineChatUniqueId = Cookies.get("chatId");                                    
-                                    var h5;
-                                    var sumh5 = 20;
-                                    $("#OnlineChatDialog").html(data);
-                                    $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
-                                    $("#OnlineChatDialog").css({ "height": "10000%" });
-                                    $(".messageInChat").each(function () {
-                                        h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
-                                        $(this).css({ "height": h5, "background-color": "white" });
-                                        sumh5 += h5 + 20;
-                                        $("#OnlineChatDialog").css({ "height": sumh5 });
-                                    });
-                                }
-                            }
-                        });
-                     
-                        timerId = setTimeout(swap, 2000);
-           }, 500);
-
+        .mainBackground {
+            background-color: black;
+            width: 100%;
         }
 
-        //string onlineChatUniqueId, int customerId, int userId, bool messageByUser, string messageText)
-        
-        if (this.id == "AddNewMessage-") {
-            event.preventDefault();
-            $("#chat-modal").css({
-                "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
-            });
-            //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
-            var userID = 1; //!!! пока так, но позже пользователя над будет определять по логину
-            var newCommentText = $("#NewMessageTextArea-manager").val();
-           
-            //if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
-            $.ajax({
-                url: "/Messaging/AddNewMessageToChat",
-                dataType: "json",
-                data: {
-                    onlineChatUniqueId: onlineChatUniqueId,
-                    userId: 1,
-                    messageByManager: false,
-                    messageText: newCommentText
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#NewMessageTextArea-manager").val("");
-                    //Cookies.set("chatId", data.Data);
-                    onlineChatUniqueId = data.Data;
+        .mainLogoOnStart {
+            position: fixed;
+            height: 55%;
+            top: 14.2%;
+            left: 11.7%;
+            z-index: 2;
+        }
+
+        .shortCutTextToPizza {
+            font-family: 'Oswald', sans-serif;
+            position: fixed;
+            top: 14.2%;
+            right: 13.7%;
+            width: 80px;
+            height: 80px;
+            text-align: justify;
+            text-align-last: justify;
+            text-justify: distribute;
+            line-height: 150%;
+            font-size: 120%;
+        }
+
+            .shortCutTextToPizza:hover {
+                cursor: pointer;
+            }
+
+            .shortCutTextToPizza p,
+            .shortCutTextToPizza span {
+                color: white;
+                text-align: justify;
+                text-align-last: justify;
+                text-justify: distribute;
+            }
+
+                .shortCutTextToPizza p:after {
+                    content: " ";
+                    display: inline-block;
+                    width: 100%;
+                    color: white;
+                }
+
+        .shortCutTextToPizza-pizza {
+            font-size: 2em;
+        }
+
+
+        .authBlock,
+        .text-main-bottom {
+            font-family: 'Oswald', sans-serif;
+            position: fixed;
+            bottom: 10%;
+            left: 13%;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            width: 73.5%;
+        }
+
+            .text-main-bottom:hover {
+                cursor: pointer;
+            }
+
+            .text-main-bottom .glyphicon {
+                margin-top: 5px;
+                font-size: 20px;
+            }
+
+        .authPartialInputGroup {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            margin-bottom: 4px;
+        }
+
+            .authPartialInputGroup #Password {
+                width: 100px;
+            }
+
+        .authPartialInputField {
+            background-color: unset;
+            border: none;
+            border-bottom: 1px solid white;
+            margin-right: 20px;
+        }
+
+        .authPartialSubmit {
+            background-color: unset;
+            border: unset;
+            padding: 0 5px 3px 5px;
+        }
+
+            .authPartialSubmit:hover {
+                background-color: #7ab920;
+                border: unset;
+            }
+
+        #userGlyph,
+        #logOutGlyph,
+        .authPartialLogIn,
+        .authPartialRemove {
+            background-color: unset;
+            padding: 0 5px 3px 5px;
+            border: unset;
+            font-size: 17px;
+            margin-bottom: -3px;
+            color: white;
+        }
+
+        #userGlyph,
+        #logOutGlyph {
+            font-size: 13px;
+            margin-top: -3px;
+        }
+
+        #userGlyph {
+            margin-top: 2px;
+        }
+
+        .authPartialLogIn:hover {
+            color: #7ab920;
+        }
+
+        #logOutGlyph:hover,
+        .authPartialRemove:hover {
+            color: rgb(219, 33, 50);
+        }
+
+        .firstGreenField {
+        }
+
+        .footer-menu,
+        /*.firstBlackField,*/
+        .firstRedField,
+        .firstGreenField,
+        .secondGreenField {
+            width: 100%;
+            height: 500px;
+            background-color: #7ab920;
+            display: flex;
+            justify-content: center;
+            vertical-align: middle;
+            z-index: 15;
+        }
+
+        .firstBlackField {
+            background-color: #7ab920;
+            height: 50px;
+            height: 100px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .blackgradient {
+            height: 100px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .footer-menu-content,
+        .firstRedField-content,
+        .firstGreenField-content,
+        .secondGreenField-content {
+            position: relative;
+            width: 73.5%;
+            height: 500px;
+            vertical-align: middle;
+        }
+
+        .firstGreenField-aboutText {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin-top: -150px;
+            width: 50%;
+            height: 300px;
+            background-color: none;
+        }
+
+        .firstGreenField-logo {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -150px;
+            width: 300px;
+            height: 300px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            vertical-align: middle;
+        }
+
+        .mainLogoOnGreenField {
+            width: 150px;
+        }
+
+        .firstGreenField-menuButton {
+            width: 100px;
+            height: 40px;
+            padding: 3px 9px 5px 9px;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            background-color: rgb(219, 33, 50);
+            color: white;
+            font-size: 1.5em;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+        }
+
+        .firstRedField-header,
+        .firstRedField-text,
+        .firstGreenField-header,
+        .firstGreenField-text {
+            font-family: 'Oswald', sans-serif;
+            color: white;
+        }
+
+        .firstRedField-header,
+        .firstGreenField-header {
+            font-size: 2em;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+        }
+
+        .firstRedField-text,
+        .firstGreenField-text {
+            font-size: 1.3em;
+            margin: 0 0 15px 0;
+        }
+
+        #slider {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
+
+        #slide-01 img,
+        #slide-02 img {
+            width: 100%;
+        }
+
+        .firstRedField {
+            background-color: rgb(219, 33, 50);
+        }
+
+        .firstRedField-aboutText {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            margin-top: -150px;
+            width: 100%;
+            height: 300px;
+            background-color: none;
+        }
+
+        .BestSales {
+            position: absolute;
+            left: 13%;
+            top: 285px;
+            width: 100%;
+            height: 700px;
+            z-index: 710;
+        }
+
+        .BestSalesPizzas-content {
+            position: absolute;
+            width: 73.5%;
+            left: 13%;
+            top: 35%;
+            height: 700px;
+        }
+
+        .BestSales-ThumbNText {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            left: 0;
+        }
+
+        .thumbUp {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 200px;
+        }
+
+            .thumbUp img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 200px;
+            }
+
+        .thumbUpText1 {
+            position: absolute;
+            top: 5px;
+            left: 145px;
+            color: gold;
+            font-size: 3em;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bolder;
+        }
+
+        .thumbUpText2 {
+            position: absolute;
+            top: 33px;
+            left: 210px;
+            color: white;
+            font-size: 6.8em;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bolder;
+        }
+
+        .thumbUpText3 {
+            position: absolute;
+            top: 145px;
+            left: 195px;
+            color: white;
+            font-size: 3em;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bolder;
+        }
+
+        .thumbUpText1,
+        .thumbUpText2,
+        .thumbUpText3 {
+            letter-spacing: -0.03em;
+        }
+
+        .BestSales-PizzasCards {
+            margin-top: 30px;
+            padding: 0 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .BestSales-pizzascard {
+            position: relative;
+            margin: 2px;
+            height: 380px;
+            width: 180px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .BestSales-pizzaimg {
+            width: 160px;
+            margin-top: 15px;
+            margin-left: 15px;
+        }
+
+        .BestSales-pizzaname {
+            width: 200px;
+            margin-left: -10px;
+            height: 50px;
+            background-color: rgb(219, 33, 50);
+        }
+
+        .BestSales-pizzaname-text {
+            font-size: 1.2em;
+            line-height: 1.3em;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+            color: white;
+            margin-left: 20px;
+            text-transform: uppercase;
+            padding: 7px 0;
+            background-color: rgb(219, 33, 50);
+            display: block;
+        }
+
+        .BestSales-pizzacontent {
+            margin: 15px 20px;
+            color: rgb(219, 33, 50);
+            font-size: 1em;
+            line-height: 1em;
+            font-family: 'Oswald', sans-serif;
+            text-align: justify;
+        }
+
+        .BestSales-pizzaorder {
+            margin: -10px 20px 20px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .BestSales-pizzaorder-weightNprice {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .BestSales-pizzaorder-weight {
+            color: rgb(0, 0, 0);
+            font-size: 0.8em;
+            line-height: 2.5em;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .BestSales-pizzaorder-price {
+            color: rgb(219, 33, 50);
+            font-size: 1.5em;
+            line-height: 1em;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .BestSales-successFadeOut,
+        .BestSales-pizzaorder-tocart {
+            /*margin-top: 5px;*/
+            background-color: #7ab920;
+            font-size: 17px;
+            line-height: 17px;
+            padding-top: 3px;
+            font-family: 'Oswald', sans-serif;
+            color: white;
+            height: 30px;
+            width: 140px;
+            text-align: center;
+            position: relative;
+        }
+
+            .BestSales-pizzaorder-tocart:hover {
+                cursor: pointer;
+            }
+
+        .BestSales-successFadeOut {
+            display: none;
+            background-color: #7ab920;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        }
+
+        #slide-01,
+        #slide-02 {
+            position: relative;
+            width: 50%;
+        }
+
+            #slide-01 img,
+            #slide-02 img {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+        #slideimg-02-3 {
+            position: relative;
+        }
+
+        #opt1-text,
+        #opt2-text,
+        #opt3-text {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ffffff;
+            display: none;
+            font-size: 1.2em;
+            line-height: 1em;
+            font-family: 'Oswald', sans-serif;
+            color: rgb(219, 33, 50);
+            background-color: #fff;
+            margin-top: -1px;
+        }
+
+        .orderOptions {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: nowrap;
+        }
+
+            .orderOptions span {
+                padding: 8px 20px;
+                border: 1px solid #ffffff;
+                font-size: 1.6em;
+                line-height: 1.65em;
+                font-family: 'Oswald', sans-serif;
+                color: white;
+                text-align: center;
+                cursor: pointer;
+                margin-top: -10px;
+                max-height: 100px;
+                min-width: 100px;
+                margin-left: -1px;
+            }
+
+        .firstRedField-StatusHeadertext {
+            font-size: 1.1em;
+            line-height: .8em;
+            font-family: 'Oswald', sans-serif;
+            color: gold;
+            text-align: left;
+            font-weight: bold;
+            letter-spacing: 0.03em;
+        }
+
+        .firstRedField-StatusPtext {
+            font-size: 1em;
+            line-height: 1.3em;
+            font-family: 'Oswald', sans-serif;
+            color: white;
+            text-align: justify;
+        }
+
+        .customnavbar1 {
+            width: 74%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: fixed;
+            top: 0;
+            left: 13%;
+            left: 0;
+            z-index: 800;
+            background-color: rgba(255,255,255,0.0);
+            background-color: white;
+        }
+
+        .menuitems1 {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+        }
+
+            .menuitems1 a {
+                display: block;
+                color: #e41843;
+                font-size: 1.2em;
+                text-decoration: none;
+                line-height: 4em;
+                padding: 0px 20px 0 20px;
+                white-space: nowrap;
+                margin-left: -5px;
+                z-index: 801;
+                color: dimgrey;
+                text-transform: capitalize;
+            }
+
+                .menuitems1 a:hover {
+                    text-decoration: none;
+                    background-color: #e41843;
+                    color: #ffffff;
+                    z-index: 802;
+                }
+
+        #cart {
+            background-color: #7ab920;
+            color: white;
+        }
+
+            #cart a {
+                background-color: #7ab920;
+                color: white;
+            }
+
+                #cart a:hover {
+                    background-color: #85ca23;
+                    color: white;
+                }
+
+        #cartindicator1 {
+            background-color: #7ab920;
+            display: block;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-decoration: none;
+            line-height: 50px;
+            padding: 3px 20px 0 20px;
+            white-space: nowrap;
+            margin-left: -5px;
+        }
+
+        .hrcustom1 {
+            background-color: #e41843;
+            height: 2px;
+            margin-top: -2px;
+            width: 100%;
+            background-color: dimgrey;
+        }
+
+        .secondGreenField-line {
+            font-family: 'Oswald', sans-serif;
+            color: #373936;
+            font-size: 1.2em;
+            text-decoration: none;
+            line-height: 1em;
+            padding: 0px 0px 0 0px;
+        }
+
+            .secondGreenField-line img {
+                height: 30px;
+                margin-bottom: 8px;
+                margin-top: 2px;
+            }
+
+                .secondGreenField-line img:hover {
+                    cursor: pointer;
+                }
+
+        .subscribe-footer {
+            height: 30px;
+            width: 280px;
+            min-width: 130px;
+            padding: 0 15px;
+            font-family: 'Oswald', sans-serif;
+            color: #373936;
+            text-decoration: none;
+            margin-bottom: 8px;
+            margin-top: 1px;
+            border: none;
+            box-shadow: none;
+        }
+
+        .subscribe-footer-button {
+            height: 30px;
+            width: 300px;
+            min-width: 30px;
+            max-width: 30px;
+            padding: 0px;
+            font-family: 'Oswald', sans-serif;
+            background-color: #373936;
+            text-decoration: none;
+            line-height: 1.9em;
+            color: white;
+            margin-top: 1px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .footer-menu {
+            background-color: #373936;
+        }
+
+        .customnavbar2 {
+            font-family: 'Oswald', sans-serif;
+            background-color: #373936;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            color: white;
+            height: 100%;
+            position: relative;
+        }
+
+            .customnavbar2 a {
+                font-family: 'Oswald', sans-serif;
+                text-decoration: none;
+                padding: 0 5px;
+                color: white;
+                font-size: .8em;
+            }
+
+        .linkToTop {
+            position: absolute;
+            margin-top: -100px;
+            top: 0;
+            height: 40px;
+            width: 0px;
+            border: 50px solid #7ab920;
+            border-bottom-color: #373936;
+        }
+
+            .linkToTop .glyphicon {
+                margin-top: 18px;
+                margin-left: -8px;
+                font-size: 20px;
+            }
+
+                .linkToTop .glyphicon:hover {
+                    cursor: pointer;
+                }
+
+        .firstGreenField {
+            z-index: 1800;
+        }
+    </style>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <!--navbar-->
+    <div class="customnavbar1" style="display:none;">
+        <div class="menuitems1">@Html.ActionLink("ПИЦЦЫ", "Pizza", "Home")</div>
+        <div class="menuitems1">@Html.ActionLink("АКЦИИ", "Stock", "Home")</div>
+        <div class="menuitems1">@Html.ActionLink("КАК ЗАКАЗАТЬ", "Delivery", "Home")</div>
+        <div class="menuitems1">@Html.ActionLink("КОНТАКТЫ", "Contacts", "Home")</div>
+        <div class="menuitems1">@Html.ActionLink("ВАКАНСИИ", "Vacancies", "Home")</div>
+        <!--  footer     <div class="menuitems1">@Html.ActionLink("ПРАВОВАЯ ИНФОРМАЦИЯ", "Rules", "Home")</div>-->
+        <div id="cart" class="menuitems1">@Html.ActionLink("КОРЗИНА", "Cart", "Home")</div>
+        <div class="menuitems1">@Html.ActionLink("ВХОД", "Auth", "Users")</div>
+
+        <div class="hrcustom1"> </div>
+    </div>
+
+    <!--script onScroll-->
+    <script>
+        var flag = true;
+        var timerId;
+        var scrollPosPrev = 580;
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 300) {
+                    $('.mainLogoOnStart').fadeOut();
+                    $('.shortCutTextToPizza').fadeOut();
+                    $('.text-main-bottom').fadeOut();
+                    $('.BestSalesPizzas-content').fadeIn();
+                    //var h = 1100 - parseInt($(".mainBackground").height() + (10000 / $(".mainBackground").height()) * (1000 / $(".mainBackground").height()));
+                    //   if (h < 200) h = 200;
+                    var hpzc = parseInt($(".mainBackground").height()) - parseInt($(".BestSales-pizzascard").offset().top) - 380 - 100;
+                    $(".firstGreenField").css({ "margin-top": -hpzc });
+                    $(".firstBlackField").height(hpzc);
+
+                    if ($(this).scrollTop() < 580) $('.customnavbar1').slideDown();
+                } else {
+                    $('.BestSalesPizzas-content').fadeOut();
+                    $('.mainLogoOnStart').fadeIn();
+                    $('.shortCutTextToPizza').fadeIn();
+                    $('.text-main-bottom').fadeIn();
+                    $(".firstGreenField").css({ "margin-top": 0 });
+                    $(".firstBlackField").height(0);
+
+                    if ($(this).scrollTop() < 580) $('.customnavbar1').fadeOut(0);
+                }
+
+                if (($(".firstBlackField").offset().top - $(window).scrollTop()) < $(window).height()) {
+                    $('.openChat').fadeIn();
+                    $('.upToTop').fadeIn();
+                } else { $('.openChat').fadeOut(); $('.upToTop').fadeOut() }
+
+
+                if ($(this).scrollTop() >= 580) {
+                    var scrollPos = $(this).scrollTop();
+                    if (scrollPos > scrollPosPrev) {
+                        $('.customnavbar1').fadeOut(0);
+                    }
+                    else {
+                        $('.customnavbar1').slideDown();
+                    }
+                    scrollPosPrev = scrollPos;
+                }
+
+                if (($("#slider").offset().top - $(window).scrollTop()) > 0 && ($("#slider").offset().top - $(window).scrollTop()) < $(window).height()) {
+                    if (flag) {
+                        flag = false;
+                        timerId = setTimeout(function swap() {
+                            $("#slideimg-01-3").delay(3000);
+                            $("#slideimg-01-3").fadeOut(1000);
+                            $("#slideimg-01-2").delay(7000);
+                            $("#slideimg-01-2").fadeOut(1000);
+                            $("#slideimg-01-2").delay(4000).queue(function () {
+                                $(this).css("display", "block"); $(this).dequeue();
+                            })
+                            $("#slideimg-01-3").delay(7000);
+                            $("#slideimg-01-3").fadeIn(1000);
+                            $("#slideimg-02-3").delay(3000);
+                            $("#slideimg-02-3").fadeOut(1000);
+                            $("#slideimg-02-2").delay(7000);
+                            $("#slideimg-02-2").fadeOut(1000);
+                            $("#slideimg-02-2").delay(4000).queue(function () {
+                                $(this).css("display", "block"); $(this).dequeue();
+                            })
+                            $("#slideimg-02-3").delay(7000);
+                            $("#slideimg-02-3").fadeIn(1000);
+                            timerId = setTimeout(swap, 16000);
+                        }, 3000);
+                    }
+                }
+                else {
+                    if (!flag) {
+                        clearInterval(timerId);
+                        flag = true;
+                    }
                 }
             });
-        }
-    });
+        });
+    </script>
 
-    function hideChat() {
-        clearInterval(timerId);
-        $("#comments-modal").css({ "display": "none" });
-        $("#comment-PartialView").html("<img style=\"width: 100px; height: 100px; margin-left: 90px; opacity: 0.5; \" src=\"img/sectorPizza3.gif\" />");
-        $("#comment-PartialView").css({ "width": "100%", "height": "100%", "display": "flex", "flex-direction": "column", "justify-content": "center" });
+    <!--start screen-->
+    <div style="position: relative; ">
+        <img class="mainBackground" src="../img/muzzle/mainBackground0.jpg">
+        <div class="shortCutTextToPizza" title="перейти к покупкам"><p><span style="text-align:justify;">п е р е й т и</span><br /><span style="white-space:nowrap;">к выбору</span><br /><span class="shortCutTextToPizza-pizza">пиццы</span></p></div>
+        <img class="mainLogoOnStart" src="~/img/muzzle/mainLogo.svg">
+        @*<img class="blackgradient" src="~/img/muzzle/black-opacity-gradient.png" />*@
+        <div class="firstBlackField"></div>
+        <div class="text-main-bottom">
+            <div class="authPartialInputGroup">
+                @if (User.Identity.IsAuthenticated && @ViewBag.user != null)
+                {
+                    <span id="userGlyph" class="glyphicon glyphicon-user"></span>
+                    <span>@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</span>
 
-    }
-</script>
-<!---->
+                    <span>
+                        @using (Html.BeginForm("Index", "Users", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        }
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><span id="logOutGlyph" class="glyphicon glyphicon-log-out"></span></a>
+                    </span>
+                }
+                else
+                {
+                    <span id="register">зарегистрироваться / <span id="authBlockShow" title="вход для зарегистрированных пользователей">войти </span> </span>
+                }
 
+            </div>
 
-@*AJAX добавление в корзину*@
-<script src="/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-    var c = 0;
-    $("div.pizzaorder-tocart").click(function (event) {
+            <span id="chevronDown" class="glyphicon glyphicon-chevron-down"></span><span>подписаться на рассылку</span>
+            <div class="authBlock" style="display: none;"></div>
+        </div>
 
-        if (this.id.slice(0, 13) == "addtocartbtn-") {
-            event.preventDefault();
-            var pid = parseInt(this.id.slice(13), 10);
-            var temp = "#addtocartinp-" + pid;
-            var amount = parseInt($(temp).val());
-            var successFadeOut = "#successFadeOut-" + pid;
-            $.ajax({
-                url: "/Home/AddtoCart",
-                dataType: "json",
-                data: {
-                    productId: amount,
-                    amount: 1
-                },
-                type: "POST",
-                success: function (data) {
-                    $("#cartindicator").html(data.Data);
-                    $(successFadeOut).css("display", "block");
-                    $(successFadeOut).fadeOut(1000);
-                    }
-                
+        <!--script onReady + onChange-->
+        <script>
+            $(".shortCutTextToPizza").on("click", function () {
+                $("html, body").animate({ scrollTop: $("#pizza-menu").offset().top }, 800);
             });
+
+            $(document).ready(function () {
+                if ($(this).scrollTop() >= 300) {
+                    $('.mainLogoOnStart').fadeOut(0);
+                    $('.shortCutTextToPizza').fadeOut(0);
+                    $('.text-main-bottom').fadeOut(0);
+                    $('.BestSalesPizzas-content').fadeIn(0)
+                    //var h = 1100 - parseInt($(".mainBackground").height() + (10000 / $(".mainBackground").height()) * (1000 / $(".mainBackground").height()));
+                    //   if (h < 200) h = 200;
+                    var hpzc = parseInt($(".mainBackground").height()) - parseInt($(".BestSales-pizzascard").offset().top) - 380 - 100;
+                    $(".firstGreenField").css({ "margin-top": -hpzc });
+                    $(".firstBlackField").height(hpzc);
+
+                } else {
+                    $('.BestSalesPizzas-content').fadeOut(0);
+                    $('.mainLogoOnStart').fadeIn(0);
+                    $('.shortCutTextToPizza').fadeIn(0);
+                    $('.text-main-bottom').fadeIn(0);
+                    $(".firstGreenField").css({ "margin-top": 0 });
+                    $(".firstBlackField").height(0);
+                }
+                var h2 = parseInt($("#slideimg-01-1").height()) - 1;
+                $("#slider").height(h2);
+                var h3 = parseInt(- $(".firstRedField").offset().top + $(".lastLine").offset().top + $(".lastLine").height()) + 150;
+                $(".firstRedField").height(h3);
+                var h4 = parseInt(- $(".pizza-selection").offset().top + $(".PizzasMenu:last-child").offset().top + $(".PizzasMenu:last-child").height()) + 150;
+                $(".pizza-selection").height(h4);
+                if (parseInt($(".mainBackground").width()) < 1100) {
+                    $("#4").fadeOut(0);
+                } else {
+                    $("#4").fadeIn(0);
+                }
+            });
+            $(window).resize(function () {
+                //var h = 1100 - parseInt($(".mainBackground").height() + (10000 / $(".mainBackground").height()) * (1000 / $(".mainBackground").height()));
+                //   if (h < 200) h = 200;
+
+                if (parseInt($(".BestSales-pizzascard").offset().top) > 300) {
+                    var hpzc = parseInt($(".mainBackground").height()) - parseInt($(".BestSales-pizzascard").offset().top) - 380 - 100;
+                    $(".firstGreenField").css({ "margin-top": -hpzc });
+                    $(".firstBlackField").height(hpzc);
+                } else {
+                    $(".firstGreenField").css({ "margin-top": 0 });
+                    $(".firstBlackField").height(0);
+                }
+                var h2 = parseInt($("#slideimg-01-1").height()) - 1;
+                $("#slider").height(h2);
+                var h3 = parseInt(- $(".firstRedField").offset().top + $(".lastLine").offset().top + $(".lastLine").height()) + 150;
+                $(".firstRedField").height(h3);
+
+                var h4 = parseInt(- $(".pizza-selection").offset().top + $(".PizzasMenu:last-child").offset().top + $(".PizzasMenu:last-child").height()) + 150;
+                $(".pizza-selection").height(h4);
+                if (parseInt($(".mainBackground").width()) < 1100) {
+                    $("#4").fadeOut(0);
+                } else {
+                    $("#4").fadeIn(0);
+                }
+                var h5 = parseInt(- $(".firstGreenField").offset().top + $(".firstGreenField-menuButton").offset().top + $(".firstGreenField-menuButton").height()) + 150;
+                $(".firstGreenField").height(h5);
+            });
+        </script>
+
+        @* показать/скрыть авторизацию *@
+        <script type="text/javascript">
+
+            $("#authBlockShow").on("click", function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/Users/AuthBlock",
+                    dataType: "html",
+                    type: "POST",
+                    success: function (data) {
+                        $(".authBlock").html(data);
+                        //$(".authBlock").css("display", "block");
+                        $("#register").css({ "opacity": "0" });
+                        $("#authBlockShow").css({ "opacity": "0" });
+                        $("#chevronDown").css({ "opacity": "0" });
+                        $(".authBlock").fadeIn(1000);
+                    }
+                });
+            });
+            function authPartialRemove(event) {
+                event.preventDefault();
+                //$(".authBlock").fadeOut();
+                $(".authBlock").css("display", "none");
+                $("#register").css({ "opacity": "1" });
+                $("#authBlockShow").css({ "opacity": "1" });
+                $("#chevronDown").css({ "opacity": "1" });
+            };
+
+        </script>
+        <!--Thumb UP Block START-->
+        <div class="BestSalesPizzas-content" style="display: none;">
+
+            <div class="BestSales-ThumbNText">
+                <div class="thumbUp"><img src="~/img/muzzle/thumbup.svg" /></div>
+                <div class="thumbUpText1">РЕКОМЕНДУЕМ</div>
+                <div class="thumbUpText2">ЛИДЕРЫ</div>
+                <div class="thumbUpText3">ПРОДАЖ</div>
+            </div>
+
+            <br />
+            <div class="BestSales-PizzasCards">
+                @foreach (var product in Model)
+                {
+                    <div id="@product.ProductId" class="BestSales-pizzascard">
+                        <img class="BestSales-pizzaimg" src="@product.ImageLink" />
+                        <div class="BestSales-pizzaname">
+                            <span class="BestSales-pizzaname-text">@product.Name</span>
+                        </div>
+                        <p class="BestSales-pizzacontent">
+                            @product.Description
+                        </p>
+                        <div class="BestSales-pizzaorder">
+                            <div class="BestSales-pizzaorder-weightNprice">
+                                <div class="BestSales-pizzaorder-weight">@product.Weight <span>гр</span></div>
+                                <div class="BestSales-pizzaorder-price">@product.Price <span>&#8381;</span></div>
+                            </div>
+                            <div id="a2dtocartbtn-@product.ProductId" class="BestSales-pizzaorder-tocart">
+                                в корзину
+                                <div id="su2ce2sFadeOut-@product.ProductId" class="BestSales-successFadeOut" style="display:none;">добавлено</div>
+                            </div>
+                            @*<input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="product.ProductsId" />*@
+                        </div>
+                    </div>
+                    if (++i > 4) { break; }
+
+                }
+            </div>
+        </div>
+        <!--Thumb UP Block END-->
+
+    </div>
+
+    <div class="firstGreenField">
+        <div class="firstGreenField-content">
+            <div class="firstGreenField-aboutText">
+                <p class="firstGreenField-header">ИДЕАЛЬНЫЕ ИНГРИДИЕНТЫ, <br />ВРЕМЯ И ТЕМПЕРАТУРА</p>
+                <p class="firstGreenField-text" style="text-align:justify;">
+                    Наша основная цель - производство высококачественной пиццы в истинно итальянском стиле.
+                    Только самые лучшие ингридиенты, скурпулёзное внимание ко всем тонкостям процесса. Естественным образом выдержанное тесто.
+                    И дровяная печь, приготовление в которой занимает всего 90 секунд.
+                </p>
+                <button class="firstGreenField-menuButton shortCutTextToPizza2">МЕНЮ</button>
+            </div>
+            <div class="firstGreenField-logo"><img class="mainLogoOnGreenField" src="~/img/muzzle/mainLogo.svg"></div>
+        </div>
+    </div>
+    <script>
+
+            $(".shortCutTextToPizza2").on("click", function () {
+                $("html, body").animate({ scrollTop: $("#pizza-menu").offset().top }, 800);
+            });
+    </script>
+
+    <div id="slider">
+        <div id="slide-01">
+            <img id="slideimg-01-1" src="~/img/muzzle/slide01.jpg">
+            <img id="slideimg-01-2" src="~/img/muzzle/slide02.jpg">
+            <img id="slideimg-01-3" src="~/img/muzzle/slide03.jpg">
+        </div>
+        <div id="slide-02">
+            <img id="slideimg-02-1" src="~/img/muzzle/slide02.jpg">
+            <img id="slideimg-02-2" src="~/img/muzzle/slide03.jpg">
+            <img id="slideimg-02-3" src="~/img/muzzle/slide01.jpg">
+        </div>
+    </div>
+
+    <div class="firstRedField">
+        <div class="firstRedField-content">
+            <div class="firstRedField-aboutText">
+                <div style="display: flex; justify-content: space-between;">
+                    <p style="display:block; line-height: 1.2em;" class="firstRedField-header">ВАРИАНТЫ ЗАКАЗА ЛЮБИМОЙ ПИЦЦЫ</p>
+                    <div class="orderOptions">
+                        <span class="orderOptionsopt" id="opt1">На сайте</span><span class="orderOptionsopt" id="opt2">По телефону</span><span class="orderOptionsopt" id="opt3">Обратный звонок</span>
+                    </div>
+                </div>
+                <div class="opt-text">
+                    <div id="opt1-text">Вы можете оплатить заказ банковской картой прямо на сайте и отслеживать статус заказа!</div>
+                    <div id="opt2-text">Вы можете позвонить на номер оператора доставки: (8142) 65-43-21 и оператор примет ваш заказ.</div>
+                    <div id="opt3-text">Просто заполните форму "Заказать обратный звонок" и вам перезвонит первый освободившейся оператор.</div>
+                </div>
+
+                <script>
+                    $(".orderOptionsopt").click(function (event) {
+                        var optid = "#" + this.id + "-text";
+                        var flag = $(optid).css("display");
+                        $(".opt-text div").css("display", "none");
+                        $(".orderOptionsopt").css({ "background-color": "rgb(219, 33, 50)", "color": "#fff" });
+
+                        if (flag != "block") {
+                            $(optid).css("display", "block");
+                            $(this).css({ "color": "rgb(219, 33, 50)", "background-color": "#fff" });
+                        }
+                    });
+                    $(".orderOptionsopt").hover(function (event) {
+                        $(".orderOptionsopt:hover").css({ "color": "rgb(219, 33, 50)", "background-color": "#fff" });
+                    });
+                    $(".orderOptionsopt").mouseleave(function (event) {
+                        var optid = "#" + this.id + "-text";
+                        var flag = $(optid).css("display");
+                        if (flag != "block") {
+                            $(".orderOptionsopt:hover").css({ "background-color": "rgb(219, 33, 50)", "color": "#fff" });
+                        }
+                    });
+                </script>
+                <br /><br /><br />
+                <p class="firstRedField-header">ПРОЦЕСС ОБРАБОТКИ ЗАКАЗА</p>
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <img style="float: left; margin: -3px 10px 0 -30px;" src="~/img/sectorPizza1.png" alt="" width="60" />
+                        <span style="" class="firstRedField-StatusHeadertext">
+                            Оператор принимает <br />заказ
+                        </span>
+
+                        <p class="firstRedField-StatusPtext">
+                            <br />
+                            При заказе через интернет оператор должен подтвердить Ваш заказ в течение 5 минут, позвонив по телефону, указанному в заказе. До момента подтверждения заказа оператором, статус заказа <span style="color: gold;">&laquo;Обрабатывается&raquo;</span>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <img style="float: left;  margin: -3px 10px 0 -30px;" src="~/img/sectorPizza2.png" alt="" width="60" />
+                        <span class="firstRedField-StatusHeadertext">
+                            Подтверждение стоимости <br />и времени доставки
+                        </span>
+                        <p class="firstRedField-StatusPtext">
+                            <br />Оператор сообщает по телефону ориентировочное время доставки, а также итоговую стоимость заказа. В зависимости от района города время доставки может варьироваться. После завершения этого этапа заказ отправляется на кухню со статусом <span style="color: gold; ">&laquo;Обработан&raquo;</span>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <img style="float: left; margin: -3px 10px 0  -15px;" src="~/img/sectorPizza3.png" alt="" width="60" />
+                        <span class="firstRedField-StatusHeadertext">
+                            Приготовление <br />заказа
+                        </span>
+                        <p class="firstRedField-StatusPtext">
+                            <br />
+                            Заказ отправляется на кухню и наши профессиональные повара берутся за работу. Обычно приготовление заказа занимает от 10 до 30 минут, в зависимости от объёма заказа. На этом этапе статус заказа <span style="color: gold;">&laquo;На кухне&raquo;</span>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <img style="float: left; margin: -3px 10px 0 -3px;" src="~/img/sectorPizza4.png" alt="" width="60" />
+                        <span class="firstRedField-StatusHeadertext">
+                            Упаковка и <br />доставка
+                        </span>
+                        <p class="firstRedField-StatusPtext">
+                            <br />
+                            Ваш заказ помещается в коробки и в дальнейшем едет к Вам в термосумке, сохраняя жар наших печек. Заказы доставляются курьерами на автомобилях. В этот момент у заказа будет статус <span style="color: gold; ">&laquo;Доставляется&raquo;</span>
+                        </p>
+
+                    </div>
+                </div><br />
+                <img style="float: left; margin: -5px 10px 0 -3px;" src="~/img/sectorPizza5.png" alt="" width="60" />
+                <p>
+                    <span class="firstRedField-StatusHeadertext">
+                        Оплата и передача заказа
+                    </span><br />
+                    <span class="lastLine firstRedField-StatusPtext">
+                        Наш курьер доставит Ваш заказ. После оплаты статус заказа изменится на <span style="color: gold;">&laquo;Выполнен&raquo;</span>
+
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="pizza-menu" class="pizza-selection" style="height: 800px; width: 100%; position: relative;">
+        <div class="PizzasMenu" style="display: flex; justify-content:space-between; flex-wrap:wrap; position:absolute; left:11.7%; width:76.6%; top: 80px;">
+            @foreach (var product in Model)
+            {
+                <div class="BestSales-pizzascard" style="margin-top:30px;">
+                    <img class="BestSales-pizzaimg" src="@product.ImageLink" />
+                    <div class="BestSales-pizzaname">
+                        <span class="BestSales-pizzaname-text">@product.Name</span>
+                    </div>
+                    <p class="BestSales-pizzacontent">
+                        @product.Description
+                    </p>
+                    <div class="BestSales-pizzaorder">
+                        <div class="BestSales-pizzaorder-weightNprice">
+                            <div class="BestSales-pizzaorder-weight">@product.Weight <span>гр</span></div>
+                            <div class="BestSales-pizzaorder-price">@product.Price <span>&#8381;</span></div>
+                        </div>
+                        <div id="addtocartbtn-@product.ProductId" class="BestSales-pizzaorder-tocart">
+                            в корзину
+                            <div id="successFadeOut-@product.ProductId" class="BestSales-successFadeOut" style="display:none;">добавлено</div>
+                        </div>
+                        @*<input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="product.ProductsId" />*@
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="secondGreenField" style="height: 300px;">
+        <div class="secondGreenField-content" style="height: 300px;">
+            <div class="row" style="height:100%;">
+
+                <div class="col-sm-6" style="height:100%; display:flex; flex-direction:column; justify-content: center;">
+                    <div>
+                        <div class="secondGreenField-line"><p>мы в соцсетях</p></div>
+                        <div class="secondGreenField-line"><img src="~/img/muzzle/socials.png" /></div>
+                        <div class="secondGreenField-line"><p>#dominosptz</p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="height:100%; display:flex; flex-direction:column; justify-content: center; align-items:flex-end;">
+                    <div class="secondGreenField-line"><p>подпишись на рассылку</p></div>
+                    <div style="display:flex; justify-content:flex-start; flex-wrap:nowrap;"><input type="text" class="subscribe-footer" placeholder="введите email" /><span class="subscribe-footer-button">да</span></div>
+                    <div class="secondGreenField-line"><p>скидки, акции, бонусы</p></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-menu" style="height: 60px;">
+        <div class="footer-menu-content" style="height: 60px;">
+
+            <div class="customnavbar2">
+                <div class="menuitems2">@Html.ActionLink("ПИЦЦЫ", "Pizza", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("АКЦИИ", "Stock", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("КАК ЗАКАЗАТЬ", "Delivery", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("КОНТАКТЫ", "Contacts", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("ВАКАНСИИ", "Vacancies", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("ПРАВОВАЯ ИНФОРМАЦИЯ", "Rules", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("КОРЗИНА", "Cart", "Home")</div>
+                <div class="menuitems2">@Html.ActionLink("ВХОД", "Auth", "Users")</div>
+                <div class="linkToTop"><span id="toTop" class="glyphicon glyphicon-chevron-up"></span> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-menu" style="height: 60px; background-color: #151715;">
+        <div class="footer-menu-content" style="height: 60px; background-color: #151715;">
+            <div class="customnavbar2" style=" background-color: #151715;">
+                <div class="menuitems2"><p style="margin-top: 5px;">© 2016 - 2017 – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p></div>
+            </div>
+        </div>
+    </div>
+    <button id="upToTop" class="upToTop" title="наверх" style="display:none; left: 13px;"><span class="glyphicon glyphicon-chevron-up"></span></button>
+
+    <script>
+                    $('#toTop').on("click", function () {
+                        $("html, body").animate({ scrollTop: 0 }, 800);
+                    });
+                    $('.upToTop').on("click", function () {
+                        $("html, body").animate({ scrollTop: 0 }, 800);
+                    });
+    </script>
+
+    <!--кнопка открытия ЧАТА-->
+    <button id="commentsShow-" class="openChat" title="задайте вопрос менеджеру" style="display:none;"><span class="glyphicon glyphicon-comment"></span></button>
+
+    <!--место для загрузки ЧАТА -->
+    <div id="comments-modal" class="comments-modal-client">
+        <div class="comments-client-rightPanel">
+            <div class="comments-window-manager-right">
+                <div id="OnlineChatDialog"><img src="~/img/sectorPizza3.gif" /></div>
+            </div>
+            <textarea id="NewMessageTextArea-manager" class="NewMessageTextArea-manager" placeholder="введите здесь текст сообщения и нажмите на кнопку &laquo;отправить&raquo;"></textarea>
+            <div class="SendMessage-manager">
+                <div><button id="AddNewMessage-" class="sendMessageButton" title="отправить">отправить</button></div>
+                <button id="closeComments-manager" class="closeChat" onclick="hideChat()">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- скрипт для ЧАТА-->
+    @*<script src="/Scripts/jquery-1.10.2.js"></script>
+        <script src="/Scripts/js-cokie/js-cookie.js"></script>*@
+    <script type="text/javascript">
+        var taskId = 0;
+        var onlineChatUniqueId = "new";
+        var timerId;
+        var newHtml;
+        var oldHtml;
+        $("button").click(function (event) {
+
+            if (this.id.slice(0, 13) == "commentsShow-") {
+                event.preventDefault();
+                $("#comments-modal").css({
+                    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                });
+                timerId = setTimeout(function swap() {
+                    //if (Cookies.get("chatId") != null) { onlineChatUniqueId = Cookies.get("chatId"); }
+                    $.ajax({
+                        url: "/Messaging/ShowDialog",
+                        dataType: "html",
+                        data: {
+                            onlineChatUniqueId: onlineChatUniqueId
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            if (data != oldHtml) {
+                                oldHtml = data;
+                                //onlineChatUniqueId = Cookies.get("chatId");
+                                var h5;
+                                var sumh5 = 20;
+                                $("#OnlineChatDialog").html(data);
+                                $("#OnlineChatDialog").css({ "justify-content": "flex-start" });
+                                $("#OnlineChatDialog").css({ "height": "10000%" });
+                                $(".messageInChat").each(function () {
+                                    h5 = parseInt(- $(this).offset().top + $(this).find("p:last").offset().top + $(this).find("p:last").height()) + 25;
+                                    $(this).css({ "height": h5, "background-color": "white" });
+                                    sumh5 += h5 + 20;
+                                    $("#OnlineChatDialog").css({ "height": sumh5 });
+                                });
+                            }
+                        }
+                    });
+                    timerId = setTimeout(swap, 2000);
+                }, 500);
+            }
+
+            if (this.id == "AddNewMessage-") {
+                event.preventDefault();
+                $("#chat-modal").css({
+                    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+                });
+                var userID = 1; //!!! пока так, но позже пользователя над будет определять по логину
+                var newCommentText = $("#NewMessageTextArea-manager").val();
+                //if (Cookies.get("chatId") != null) onlineChatUniqueId = Cookies.get("chatId");
+                $.ajax({
+                    url: "/Messaging/AddNewMessageToChat",
+                    dataType: "json",
+                    data: {
+                        onlineChatUniqueId: onlineChatUniqueId,
+                        userId: 1,
+                        messageByManager: false,
+                        messageText: newCommentText
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#NewMessageTextArea-manager").val("");
+                        //Cookies.set("chatId", data.Data);
+                        onlineChatUniqueId = data.Data;
+                    }
+                });
+            }
+        });
+        function hideChat() {
+            clearInterval(timerId);
+            $("#comments-modal").css({ "display": "none" });
+            $("#comment-PartialView").html("<img style=\"width: 100px; height: 100px; margin-left: 90px; opacity: 0.5; \" src=\"img/sectorPizza3.gif\" />");
+            $("#comment-PartialView").css({ "width": "100%", "height": "100%", "display": "flex", "flex-direction": "column", "justify-content": "center" });
         }
-    });
-</script>
-    
+    </script>
+    <!-- конец ЧАТА -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/js-cookie")
+
+    @*AJAX добавление в корзину*@
+    <script type="text/javascript">
+        var c = 0;
+        $(".BestSales-pizzaorder-tocart").click(function (event) {
+
+            if (this.id.slice(0, 13) == "addtocartbtn-" || this.id.slice(0, 13) == "a2dtocartbtn-") {
+                event.preventDefault();
+                var pid = parseInt(this.id.slice(13), 10);
+                //var temp = "#addtocartinp-" + pid;
+                //var amount = parseInt($(temp).val());
+                var successFadeOut = "#successFadeOut-" + pid;
+                var su2ce2sFadeOut = "#su2ce2sFadeOut-" + pid;
+                $.ajax({
+                    url: "/Home/AddtoCart",
+                    dataType: "json",
+                    data: {
+                        productId: pid,
+                        amount: 1
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#cartindicator").html(data.Data);
+                        $(successFadeOut).css("display", "block");
+                        $(su2ce2sFadeOut).css("display", "block");
+                        $(successFadeOut).fadeOut(1000);
+                        $(su2ce2sFadeOut).fadeOut(1000);
+                    }
+
+                });
+            }
+        });
+    </script>
+    @*<div id="addtocartbtn-@product.ProductId" class="BestSales-pizzaorder-tocart">в корзину</div>
+
+        <input id="addtocartinp-@product.ProductId" type="hidden" name="productId" value="product.ProductsId" />
+        <div id="successFadeOut-@product.ProductId" class="BestSales-successFadeOut" style="display:none;">добавлено</div>*@
+
+</body>
+</html>

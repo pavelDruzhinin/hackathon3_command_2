@@ -1,0 +1,37 @@
+﻿@model DominosPizza.Models.User
+@{
+    ViewBag.Title = "Войти";
+}
+
+@using (Html.BeginForm("Auth", "Users", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+        <div class="form-horizontal authPartial" style="">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="authPartialInputGroup" style="">
+                <div class="">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "authPartialInputField", @placeholder = "логин" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "authPartialInputField", @placeholder = "пароль" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="" style="">
+                    @*<input type="submit" value="вход" class="authPartialSubmit" />*@
+                    <button class="authPartialLogIn"  onclick="submit"><span class="glyphicon glyphicon-ok"></span></button>
+                </div>
+                <div class="" style="">
+                    <button class="authPartialRemove" onclick="authPartialRemove(event)"><span id="authPartialRemove" class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+
+        </div>
+}
+
+

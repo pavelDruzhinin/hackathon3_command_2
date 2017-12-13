@@ -3,18 +3,30 @@
     Layout = "~/Views/Shared/_LayoutStaffOnly.cshtml";
     ViewBag.Title = "Index";
 }
-<div style="z-index:-1; position:fixed; top:0; left:0; width: 100%; height:100%;">
-    <div style="width: 50%; height:100%;background-color:white;position:fixed; top:0; left:0;"></div>
-    <div style="width: 50%; height:100%;background-color:antiquewhite;position:fixed; top:0; left:50%;"></div>
-</div>
-<h3 class="ToDoTasks">доступные заказы</h3>
-<h3 class="InWorkTasks">сейчас в работе</h3>
+
 <!--KITCHEN-->
 @if (User.Identity.IsAuthenticated && ViewBag.user.UserRoleId == 3)
 {
     <br />
+            <!--место для загрузки Partial View c деталями-->
+    <div id="ModalshowTaskDetail" class=" ModalshowTaskDetail" style="z-index:100;width: 100%;margin-bottom:40px; display: none; background-color: #efefef;">
 
-    @*<button id="ShowTasksTable" class="ShowTasksTable">просмотр заказов</button>*@
+        <div id="showTaskDetail" class="showTaskDetail" style="height: 100%;"></div>
+
+        <button id="closeComments" class="btn btn-danger" onclick="hideDetails()" style="position:absolute; right:15px;top:75px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+    </div>
+    <!--конец места для загрузки деталей-->
+    <div class="container">
+        <div style="z-index:-1; position:fixed; top:0; left:0; width: 100%; height:100%;">
+            <div style="width: 50%; height:100%;background-color:white;position:fixed; top:0; left:0;"><h3 class="ToDoTasks">доступные заказы</h3></div>
+            <div style="width: 50%; height:100%;background-color:antiquewhite;position:fixed; top:0; left:50%;"><h3 class="InWorkTasks">сейчас в работе</h3></div>
+        </div>
+        
+        
+        @*<button id="ShowTasksTable" class="ShowTasksTable">просмотр заказов</button>*@
 
 
         <div class="row" style="align-items: flex-start;">
@@ -25,11 +37,11 @@
             <div id="TasksInWork" class="TasksInWork"></div>
 
         </div>
-       
+    </div>
 }
 else
 {
-
+    <div class="container">
         <div style="z-index: 1000; background-color: white; position: fixed; top:0;left:0; display:flex; justify-content:center; align-items:center; width:100%;height:100%;">
             <div class="well" style="width: 320px; padding: 15px;">
                 <br />
@@ -38,7 +50,8 @@ else
                 <br /><br />
             </div>
         </div>
-        }
+        </div>
+}
 
         <script src="/Scripts/jquery-1.10.2.js"></script>
         <!--AJAX showTask-->
@@ -84,22 +97,21 @@ else
         </script>
 
 
-    <!--место для загрузки Partial View c деталями-->
-<div id="ModalshowTaskDetail" class="well ModalshowTaskDetail" style="display: none; background-color:azure;">
+        <!--место для загрузки Partial View c деталями-->
+        <div id="ModalshowTaskDetail" class="well ModalshowTaskDetail" style="display: none; background-color:azure;">
 
-    <div id="showTaskDetail" class="showTaskDetail"></div>
-
-
-    @*<textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>*@
-
-    <button id="closeComments" class="btn btn-danger" onclick="hideComments()" style="position:absolute; right:15px;top:15px;">
-        <span class="glyphicon glyphicon-remove"></span>
-    </button>
+            <div id="showTaskDetail" class="showTaskDetail"></div>
 
 
-</div>
-<!--конец места для загрузки-->
+            @*<textarea id="NewCommentInput" placeholder="введите здесь текст сообщения и нажмите на имя пользователя для отправки"></textarea>*@
 
+            <button id="closeComments" class="btn btn-danger" onclick="hideComments()" style="position:absolute; right:15px;top:15px;">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+
+        </div>
+        <!--конец места для загрузки-->
         <!--место для загрузки Partial View c комментариями-->
         <div id="comments-modal" class="comments-modal">
 
@@ -151,7 +163,7 @@ else
                 if (t.id.slice(0, 16) == "showTaskDetails-") {
                     event.preventDefault();
                     $("#ModalshowTaskDetail").css({
-                        "display": "block", "width": "100%", "height": "100%", "position": "fixed", "top": "0", "left": "0"
+                        "display": "block"
                     });
                     taskId = parseInt(t.id.slice(16));
                     $.ajax({
@@ -163,7 +175,7 @@ else
                         type: "POST",
                         success: function (data) {
                             $("#showTaskDetail").html(data);
-
+                            $("html, body").animate({ scrollTop: 0 }, 500);
                         }
                     });
                 }
@@ -190,52 +202,6 @@ else
                 }
             }
 
-            //$("button").click(function (event) {
-            //    if (this.id.slice(0, 13) == "commentsShow-") {
-            //        event.preventDefault();
-            //        $("#comments-modal").css({
-            //            "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
-            //        });
-            //        taskId = parseInt(this.id.slice(13));
-            //        $.ajax({
-            //            url: "/Manager/TaskCommentsShow",
-            //            dataType: "html",
-            //            data: {
-            //                taskId: taskId,
-            //            },
-            //            type: "POST",
-            //            success: function (data) {
-            //                $("#comment-PartialView").html(data);
-            //            }
-            //        });
-            //    }
-
-
-                //if (this.id.slice(0, 13) == "comments-Add-") {
-                //    event.preventDefault();
-                //    $("#comments-modal").css({
-                //        "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
-                //    });
-                //    //            var taskId = parseInt(this.id.slice(13)); //значение остаётся от функции открытия окна комментов
-                //    var userID = 2; //!!! пока так, но позже пользователя над будет определять по логину
-                //    var newCommentText = $("#NewCommentInput").val();
-
-                //    $.ajax({
-                //        url: "/Manager/AddNewComment",
-                //        dataType: "html",
-                //        data: {
-                //            TasksId: taskId,
-                //            userId: userID,
-                //            CommentText: newCommentText
-                //        },
-                //        type: "POST",
-                //        success: function (data) {
-                //            $("#comment-PartialView").html(data);
-                //            console.log(taskId);
-                //        }
-                //    });
-                //}
-            //});
 
             function addComment(event, t) {
                 event.preventDefault();
@@ -254,21 +220,24 @@ else
                     type: "POST",
                     success: function (data) {
                         if (data.Data > 0) {
-                            alert("сообщение отправлено, откройте заново окно с деталями задания (надо доделать, чтобы коммент сразу добавлялся)");
+                            $.ajax({
+                                url: "/Manager/ShowTaskDetails",
+                                dataType: "html",
+                                data: {
+                                    taskId: taskId,
+                                },
+                                type: "POST",
+                                success: function (data) {
+                                    $("#showTaskDetail").html(data);
+
+                                }
+                            });
                         }
                     }
                 });
             }
 
-        </script>
-        <!--$("#par1").hover(function(){ },
-                         function(){     }
-
-
-                         );-->
-        <!--int TasksId, int userId, string CommentText-->
-<script>
-            function hideComments() {
+            function hideDetails() {
                 $("#ModalshowTaskDetail").css({ "display": "none" });
             }
-</script>
+        </script>

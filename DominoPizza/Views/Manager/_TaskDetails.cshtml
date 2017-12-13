@@ -2,9 +2,19 @@
 @model TaskDetails
 @{ TaskDetails taskdetails = Model;}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <p style="font-size: 1.8em; font-weight:700;">№@taskdetails.TaskId, <span style="font-size: .75em;"> статус: </span>@taskdetails.Status
+    <div class="row" style="height: 100%;">
+        <div class="col-sm-5" style="height: 100%;">
+            <br />
+            <p style="font-size: 1.8em; font-weight:700;">№@taskdetails.TaskId </p>
+            @if (taskdetails.Status == "processed")
+            {<span style="font-size: 1.2em; font-weight:700; background-color:gold; color: #fff; margin-left:-14px; padding: 4px 65px 6px 14px;">принят</span> }
+            @if (taskdetails.Status == "kitchen")
+            {<span style="font-size: 1.2em; font-weight:700; background-color:darkgoldenrod; color: #fff; margin-left:-14px; padding: 4px 65px 6px 14px;">кухня</span>}
+            @if (taskdetails.Status == "delivery")
+            {<span style="font-size: 1.2em; font-weight:700; background-color:darkseagreen; color: #fff; margin-left:-14px; padding: 4px 65px 6px 14px;">доставка</span>}
+            @if (taskdetails.Status == "done")
+            {<span style="font-size: 1.2em; font-weight:700; background-color:lightblue; color: #fff; margin-left:-14px; padding: 4px 65px 6px 14px;">завершён</span>}
+            <br /><br />
              <p>@taskdetails.ClientAddress</p>
             <p>@taskdetails.ClientFullName</p>
             <p>@taskdetails.ClientPhone</p>
@@ -13,48 +23,75 @@
 
             <p></p>
             <div style="overflow-y:auto; max-height:300px;">
-                <table class="task-details-table">
-                    <tr class="thead"><td style="width: 100%">Наименование</td><td>шт</td></tr>
+                <table class="task-details-table" style="font-size: 14px;">
+                    <tr style="font-weight: 700;"><td>№</td><td>арт.</td><td style="width: 100%">наименование</td><td>шт.</td></tr>
+                    @{ int i = 0;}
                     @foreach (var row in taskdetails.tasklist)
                     {
+                        i++;
                         var temp = taskdetails.products.Where(z => z.ProductId == row.ProductId).Select(z => z).FirstOrDefault();
-                        <tr><td> @temp.Name </td><td> @row.Quantity</td></tr>
+                        <tr><td>@i</td><td> @temp.ProductId </td><td> @temp.Name </td><td> @row.Quantity</td></tr>
                     }
                 </table>
                 </div>
-            </div>
-        <div class="col-sm-6">
-
-            <table class="task-details-table">
-                <tr class="thead"><td style="">пользователь</td><td>роль</td><td>приступил</td><td>закончил</td></tr>
-                @foreach (var row in taskdetails.changes)
-                {
-                    var temp = taskdetails.staff.Where(z => z.UserId == row.UserId).Select(z => z).FirstOrDefault();
-                    var temp2 = taskdetails.roles.Where(z => z.UserRoleId == temp.UserRoleId).Select(z => z).FirstOrDefault();
-                    <tr><td> @temp.FirstName @temp.Patronymic @temp.LastName</td><td> @temp2.Name</td><td> @row.In</td><td> @row.Out</td></tr>
-                }
-            </table>
+            <br /><br />
+        </div>
+        <div class="col-sm-4" style="height: 100%; ">
             <br />
-            <div style="overflow-y:auto; max-height:300px;">
-                <table class="task-details-table">
-                    <tr class="thead"><td>пользователь</td><td>время</td><td style="width: 100%">комментарий</td></tr>
+            <h4>Комментарии к заказу</h4>
+            <div >
+                @*<table class="task-details-table">
+                    <tr class="thead"><td>пользователь</td><td>время</td><td style="width: 100%">комментарий</td></tr>*@
                     @foreach (var row in taskdetails.comments)
                     {
                         var temp = taskdetails.staff.Where(z => z.UserId == row.UserId).Select(z => z).FirstOrDefault();
                         var temp2 = taskdetails.roles.Where(z => z.UserRoleId == temp.UserRoleId).Select(z => z).FirstOrDefault();
-                        <tr><td>@temp.FirstName @temp.LastName (@temp2.Name)</td><td> @row.DateTime</td><td> @row.Text</td></tr>
+                        <div class="well pizzacard" style="width: 100%; font-size: 12px;">
+                            <div style="display:flex; justify-content: space-between;"><span><strong>@temp.FirstName @temp.LastName</strong></span><span> @row.DateTime.ToString("dd.MM.yy")</span></div>
+                            <div style="display:flex; justify-content: space-between;"><span>@temp2.Name</span><span> @row.DateTime.ToString("HH:mm:ss")</span></div>
+                            <hr style="margin: 5px 0 5px 0" />
+                            @row.Text
+                        </div>
+
+
                     }
-                </table>
+                @*</table>*@
             </div>
-            <textarea  class="task-details-input" id="NewCommentTextA" placeholder="введите здесь текст комментария и нажмите кнопку отправить"></textarea>
+            <textarea style=" font-size: 12px;"  class="task-details-input" id="NewCommentTextA" placeholder="введите здесь текст комментария и нажмите кнопку &laquo;добавить&raquo;"></textarea>
             <div class="commentUser">
-                <div><button id="comments-Add-@taskdetails.TaskId" class="btn btn-default" onClick="addComment(event, this)" title="отправить">отправить</button></div>
+                <div><button id="comments-Add-@taskdetails.TaskId" style=" margin-left: -10px;" class="btn btn-default" onClick="addComment(event, this)" title="добавить комментарий">добавить</button></div>
             </div>
+            <br />
         </div>
-    </div>
+
+        <div class="col-sm-3" style="height: 100%;">
+            <br />
+            <h4>Смена статуса заказа</h4>
+            
+                @*<tr class="thead"><td style="">пользователь</td><td>роль</td><td>приступил</td><td>закончил</td></tr>*@
+                @foreach (var row in taskdetails.changes)
+                {
+                    var temp = taskdetails.staff.Where(z => z.UserId == row.UserId).Select(z => z).FirstOrDefault();
+                    var temp2 = taskdetails.roles.Where(z => z.UserRoleId == temp.UserRoleId).Select(z => z).FirstOrDefault();
+                    <div class="well pizzacard" style="width: 100%; font-size: 12px;">
+                        <strong>@temp2.Name</strong><br />
+                        @temp.FirstName @temp.LastName<br />
+                        <hr style="margin: 5px 0 5px 0"/>
+                        <div style="display:flex; justify-content: space-between;"><span>@row.In.ToString("HH:mm:ss")</span><span> @row.In.ToString("dd.MM.yy")</span></div>
+                       @if (row.Out != row.In)
+                       {
+                         <div style="display:flex; justify-content: space-between;"><span>@row.Out.ToString("HH:mm:ss")</span><span>@if (row.Out.Date != row.In.Date){ @row.Out.ToString("dd.MM.yy")}</span></div>
+                       }
+                    </div>
+                }
+                   
+            <br />
+            <br />
+        </div>
+    </div> @* row *@ 
     @if (taskdetails.inWorkFlag)
     {                           
-        <br /><br /><button id="isDone-@taskdetails.TaskId" class="btn btn-danger inWork" onClick="isDone(event, this)">на кухню</button>
+        <br /><br /><button id="isDone-@taskdetails.TaskId" class="btn btn-danger inWork" onClick="isDone(event, this)">на кухню</button><br /><br />
     }
 </div>
         @*public int TaskId { get; set; }

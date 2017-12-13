@@ -204,6 +204,8 @@
     <Content Include="Views\Kitchen\_TasksTableKitchenInWork.cshtml" />
     <Content Include="Views\Delivery\_TasksTableDelivery.cshtml" />
     <Content Include="Views\Delivery\_TasksTableDeliveryInWork.cshtml" />
+    <Content Include="Views\Users\_AuthPartial.cshtml" />
+    <Content Include="Views\Home\Pizza.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

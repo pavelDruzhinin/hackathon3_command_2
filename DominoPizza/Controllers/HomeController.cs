@@ -130,8 +130,21 @@ namespace DominosPizza.Controllers
          }
          */
         DominosContext db = new DominosContext();
-
         public ActionResult Index()
+        {
+            IEnumerable<Product> temp = db.Products;
+            List<Product> products = temp.ToList();
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+
+            }
+            ViewBag.user = user;
+            return View(products);
+        }
+
+        public ActionResult Pizza()
         {
             Cart cart = new Cart();
             if ((Cart)Session["cart"] != null)
@@ -145,7 +158,12 @@ namespace DominosPizza.Controllers
         public ActionResult Stock()
         {
             ViewBag.Message = "Акции";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
@@ -153,20 +171,36 @@ namespace DominosPizza.Controllers
         {
             //ViewBag.Message = "Информация как заказать";
             ViewBag.Phone = "(8142) xx-xx-xx";
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult Contacts()
         {
             ViewBag.Message = "Контактная информация";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult Vacancies()
         {
             ViewBag.Message = "Вакансии";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
@@ -185,8 +219,9 @@ namespace DominosPizza.Controllers
             {
                 user = (User)Session["user"];
                 contact = db.Contacts.FirstOrDefault(u => u.UserId == user.UserId);
+                ViewBag.user = user;
             }
-            ViewBag.user = user;
+            
             ViewBag.contacts = contact;
             IQueryable<Contact> contacts = db.Contacts
                                             .Where(c => c.UserId == user.UserId)
@@ -227,7 +262,12 @@ namespace DominosPizza.Controllers
         public ActionResult Rules()
         {
             ViewBag.Message = "Правовая информация";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
@@ -235,21 +275,36 @@ namespace DominosPizza.Controllers
         public ActionResult Offer()
         {
             ViewBag.Message = "Публичная оферта о продаже товаров дистанционным способом (действует с 25 ноября 2017 года)";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult UserAgreement()
         {
             ViewBag.Message = "Пользовательское соглашение (действует с 25 ноября 2017 года)";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult Feedback()
         {
             ViewBag.Message = "Напишите нам";
-
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
@@ -278,16 +333,34 @@ namespace DominosPizza.Controllers
                   db.SaveChanges();*/
             }
             //return RedirectToRoute(new { controller = "Home", action = "Index" });
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult SuccessSend()
         {
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
 
         public ActionResult ErrorSend()
         {
+            User user = new User();
+            if ((User)Session["user"] != null)
+            {
+                user = (User)Session["user"];
+                ViewBag.user = user;
+            }
             return View();
         }
         [HttpPost]

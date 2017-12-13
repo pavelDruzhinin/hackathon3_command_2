@@ -7,7 +7,7 @@
 
 <h2>Ваш заказ </h2>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-lg-6">
         <br>
 
         <div class="well content kitchen">
@@ -122,8 +122,8 @@
 
 
                         </div>
-    <div class="col-sm-6">
-        @if (User.Identity.IsAuthenticated)
+    <div class="col-lg-6">
+        @if (User.Identity.IsAuthenticated && ViewBag.user != null)
         {
            <!-- <p>Вы вошли как: a@User.Identity.Name</p>
 

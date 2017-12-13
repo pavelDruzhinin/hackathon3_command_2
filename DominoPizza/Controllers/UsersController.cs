@@ -48,6 +48,12 @@ namespace DominoPizza.Controllers
             return View();
         }
         [HttpPost]
+        public ActionResult AuthBlock()
+        {
+            Session["backUrl"] = Request.UrlReferrer.ToString();
+            return PartialView("_AuthPartial");
+        }
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Auth(UserLogin model)
         {

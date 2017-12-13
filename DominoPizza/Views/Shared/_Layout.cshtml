@@ -12,83 +12,181 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{ var temp = Convert.ToString(ViewBag.cartindicator);}
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+    body {
+
+        padding: 0;
+        margin: 0;
+        border: unset;
+        height: 100%;
+    }
+
+    .customnavbar1 {
+        width: 74%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap-reverse;
+        position: fixed;
+        top: 0;
+        left: 13%;
+        left: 0;
+        z-index: 800;
+        background-color: rgba(255,255,255,0.0);
+        background-color: white;
+    }
+
+    .menuitems1 {
+        font-family: 'Roboto', sans-serif;
+        display: block;
+        height: 44px;
+    }
+        .menuitems1 .userGlyph,
+        .menuitems1 a {
+            display: block;
+            color: #e41843;
+            font-size: 14px;
+            text-decoration: none;
+            line-height: 14px;
+            padding: 15px 15px 15px 15px;
+            white-space: nowrap;
+            /*margin-left: -5px;*/
+            z-index: 801;
+            color: dimgrey;
+            text-transform: capitalize;
+            /*border-right:1px solid white;*/
+        }
+    .menuitems1 a:hover {
+        text-decoration: none;
+        background-color: #e41843;
+        color: #ffffff;
+        z-index: 802;
+    }
+
+    #cart {
+        background-color: #7ab920;
+        color: white;
+    }
+
+    #cart a {
+        background-color: #7ab920;
+        color: white;
+    }
+
+    #cart a:hover {
+        background-color: #85ca23;
+        color: white;
+    }
+
+    #cartindicator1 {
+        background-color: #7ab920;
+        display: block;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+        line-height: 14px;
+        padding: 15px 15px 15px 15px;
+        white-space: nowrap;
+        /*margin-left: -5px;*/
+    }
+    #nameHidden {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-right: -100%;
+        white-space: nowrap;
+        padding: 10px 15px;
+        background-color: #fff;
+        /*background: rgba(0,0,0,0.1);*/
+        /*border: 1px solid #cecece;*/
+        z-index: 810;
+        color: dimgrey;
+        font-size: 12px;
+    }
+    .glyphicon {
+    top: 0;
+    }
+    #userGlyph:hover + .dropdown {
+        display: block;
+        background-color: #f1f1f1;
+    }
+    #userGlyph:hover {
+        /*border-bottom: 1px solid white;*/
+        z-index: 820;
+        margin-bottom: 1px;
+        /*border-right: 1px solid #cecece;*/
+        background-color: #f1f1f1;
+    }
+    .hrcustom1 {
+        background-color: #e41843;
+        height: 1px;
+        margin-top: -1px;
+        width: 100%;
+        background-color: #dfdfdf;
+        z-index: 815;
+        position: absolute;
+        top: 100%;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <div class="navbar navbar-rospizza navbar-fixed-top">
-            <div class="container head__container">
-                <div class="logo">
-                    <img src="~/img/logo.png" alt="" width="70" />
-                </div>
-                <div class="head__block_pizza">
-                    <p>Dominos</p>Pizza
-                </div>
-                <div class="head__block_moto">
-                    Пиццерия № 1<br />в Петрозаводске
-                </div>
-                <div class="head__block_phone">
-                    Доставка пиццы <br>24 часа: <span>555 - 555</span>
 
+
+    <!--navbar-->
+    <div class="customnavbar1" >
+            <a href="@Url.Action("Index", "Home")" title="Dominos Pizza">
+                <img alt="Widget View" height="35" style="margin: 6px 6px 0 0;" src="@Url.Content("~/img/muzzle/mainLogo.svg")"></a>
+            <div class="menuitems1">@Html.ActionLink("ПИЦЦЫ", "Pizza", "Home")</div>
+            <div class="menuitems1">@Html.ActionLink("АКЦИИ", "Stock", "Home")</div>
+            <div class="menuitems1">@Html.ActionLink("КАК ЗАКАЗАТЬ", "Delivery", "Home")</div>
+            <div class="menuitems1">@Html.ActionLink("КОНТАКТЫ", "Contacts", "Home")</div>
+            <div class="menuitems1">@Html.ActionLink("ВАКАНСИИ", "Vacancies", "Home")</div>
+            <div id="cart" class="menuitems1">@Html.ActionLink("КОРЗИНА", "Cart", "Home")</div>
+
+            @if (User.Identity.IsAuthenticated && ViewBag.user != null)
+            {
+                <div class="menuitems1" style="position: relative;">
+                    <span id="userGlyph" class="glyphicon glyphicon-user userGlyph"></span>
+                    <p id="nameHidden" class="dropdown">@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</p>
                 </div>
-
-                <div class="head__block_moto">
-    <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px;">
-        <div><span class="carttop_price_value" pricevalue="0"></span></div>
-        <div><span class="value">0</span> ₽                    </div>
-        <div><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a></div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div>
-                <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
-                <span >@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
-            </div>
-
-                    <div><span  >
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                <div class="menuitems1">
+                    <span>
+                        @using (Html.BeginForm("Index", "Users", FormMethod.Post, new { id = "logoutForm" }))
                         {
                             @Html.AntiForgeryToken()
                         }
-                        <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989;"></span></a>
+                        <a style="font-size: 14px;height:44px;" href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span></a>
                     </span>
                 </div>
-        }
-        else
-        {
-                            @Html.ActionLink("Вход", "Auth", "Users")
-                        }
-                        
-                    </div>
 
+            }
+            else
+            {
+                <div class="menuitems1">
+                    @Html.ActionLink("ВХОД", "Auth", "Users")
                 </div>
-            </div>
-            <div class="container navbar navbar-pizzamenu">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav h3-u">
-                        <li>@Html.ActionLink("Пиццы", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Акции", "Stock", "Home")</li>
-                        <li>@Html.ActionLink("Как заказать", "Delivery", "Home")</li>
-                        <li>@Html.ActionLink("Контакты", "Contacts", "Home")</li>
-                        <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
-                        <li>@Html.ActionLink("Правовая информация", "Rules", "Home")</li>
-                        <li>@Html.ActionLink("Обратная связь", "Feedback", "Home")</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+            }
+            <div class="hrcustom1"> </div>
+</div>
 
-        <div class="container body-content">
-            @RenderBody()
+        
+    <br /><br /><br />
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="container-u">
             <hr />
-            <footer>
-                <div class="container-u">
-                    <h3 class="h3-ua">Способы оплаты: <img src="~/img/pay1.jpg" /></h3>
-                    <h3 class="h3-ua">Мы в сети: <img src="~/img/vk.jpg" width="50" /><img src="~/img/ok.png" width="30" /></h3>
-                    <p class="lead-footer h3-ua">&copy; 2016 - @DateTime.Now.Year – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
-                </div>
-            </footer>
+            <h3 class="h3-ua">Способы оплаты: <img src="~/img/pay1.jpg" /></h3>
+            <h3 class="h3-ua">Мы в сети: <img src="~/img/vk.jpg" width="50" /><img src="~/img/ok.png" width="30" /></h3>
+            <p class="lead-footer h3-ua">&copy; 2016 - @DateTime.Now.Year – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
         </div>
+    </footer>
+
     @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")

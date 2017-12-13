@@ -230,11 +230,18 @@ namespace DominoPizza.Controllers
             return Json(data: new { indicator1 = indicator1, indicator2 = indicator2 }, behavior: JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult Muzzle()
-        {
-            IEnumerable<Product> temp = db.Products;
-            List<Product> products = temp.ToList();
-            return View(products);
-        }
+        //public ActionResult Muzzle()
+        //{
+        //    IEnumerable<Product> temp = db.Products;
+        //    List<Product> products = temp.ToList();
+        //    User user = new User();
+        //    if ((User)Session["user"] != null)
+        //    {
+        //        user = (User)Session["user"];
+                
+        //    }
+        //    ViewBag.user = user;
+        //    return View(products);
+        //}
     }
 }
