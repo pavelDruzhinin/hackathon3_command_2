@@ -5,7 +5,7 @@
     
 }
 
-<h2>Ваш заказ </h2>
+<h2>Ваш заказ</h2>
 <div class="row">
     <div class="col-lg-6">
         <br>
@@ -54,7 +54,7 @@
                 var j = parseInt(am.value, 10);
                 if (j > 0) {
                     var itog = parseInt(itogValue.value, 10); 
-                    am.value = j - 1;
+                        am.value = j - 1;
                     tdam.innerHTML = am.value;
                     var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
                     preSum.innerHTML = preSumNum;
@@ -156,13 +156,13 @@
                 <input class="form-control" type="text" id="TaskDeliveryCustomerName" name="TaskDeliveryCustomerName" value="@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName" /><br />
 
                 <label for="TaskPaymentMethod">Способ платежа</label><br />
-                <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod" >
-                    <option value="1">Картой на сайте</option>
+                <select class="form-control" id="TaskPaymentMethod" name="TaskPaymentMethod">
+                    <option value="1">Оплатить on-line</option>
                     <option value="2">Картой курьеру</option>
                     <option value="3">Наличными</option>
                 </select>
                 <br />
-                <label for="TaskDeliveryCustomerName">Комментарий к заказу</label><br />
+                <label for="CustomerComment">Комментарий к заказу</label><br />
                 <input class="form-control" type="text" id="CustomerComment" name="CustomerComment" value="Самый лучший комментарий" /><br />
                 <input class="btn btn-danger" type="submit" value="отправить заказ" />
             </form>
@@ -187,8 +187,22 @@
         }
     </div>
 </div>
-<br /><br />
+<br />
 <div class="hrcustom"> </div>
-
-
-
+@*AJAX найти адрес*@
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+            $(document).ready(function () {
+                //var lastcontf = document.getElementById("TaskDeliveryCustomerAddress");
+                    $.ajax({
+                        url: "/Home/FindLastContact",
+                        dataType: "json",
+                        data: {
+                        },
+                        type: "GET",
+                        success: function (data) {
+                            TaskDeliveryCustomerAddress.value = data.Data;
+                        }
+                    });
+            });
+</script>

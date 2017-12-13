@@ -9,6 +9,7 @@
     <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
     <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
     <title>@ViewBag.Title – Доставка пиццы по Петрозаводску 24 часа.</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{ var temp = Convert.ToString(ViewBag.cartindicator);}
@@ -193,6 +194,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js-cookie")
     @RenderSection("scripts", required: false)
-    @RenderSection("scripts", required: false)}
+    }        
     </body>
 </html>

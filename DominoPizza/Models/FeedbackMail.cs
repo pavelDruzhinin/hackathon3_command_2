@@ -12,12 +12,14 @@ namespace DominosPizza.Models
         
             public string Body { get; set; }
             public DateTime MailDateCreate { get; set; }
-            private string to = "dominospizzaptz@yandex.ru";
-            public string To { get { return to; } set { to = value; } }
+        /* private string to = "dominospizzaptz@yandex.ru";
+         public string To { get { return to; } set { to = value; } }*/
+
+            public string To { get; set; }
 
             private string from = "dominospizzaptz@yandex.ru";
 
-            public string From { get { return to; } set { from = value; } }
+            public string From { get { return from; } set { from = value; } }
 
             public string ReplyEmail { get; set; }
             public string FilePath { get; set; }
@@ -33,5 +35,4 @@ namespace DominosPizza.Models
                 HasOptional(x => x.Customer).WithMany(x => x.FeedBackMails).HasForeignKey(x => x.CustomerId);
             }
         }
-    
 }

@@ -47,12 +47,50 @@ namespace DominoPizza.Controllers
             Session["backUrl"] = Request.UrlReferrer.ToString();
             return View();
         }
+
+        public ActionResult EditPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AuthBlock()
         {
             Session["backUrl"] = Request.UrlReferrer.ToString();
             return PartialView("_AuthPartial");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPassword(string CustomerPassword,string CustomerPasswordConfirm)
+        {
+            //using (DominosContext db = new DominosContext())
+            //{
+            //    customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            //}
+            Customer customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            customerPas.CustomerPassword = CustomerPassword;
+            customerPas.CustomerPasswordConfirm = CustomerPasswordConfirm;
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(customerPas).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalArea", "Customers");
+            }
+            return View(customerPas);
+        }
+       
+
+        public ActionResult PersonalArea()
+        {
+            Customer customer = null;
+            using (DominosContext db = new DominosContext())
+            {
+                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            }
+            return View(customer);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Auth(UserLogin model)
@@ -88,7 +126,11 @@ namespace DominoPizza.Controllers
             return View();
         }
 
-
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         // POST: Customers/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -122,6 +164,8 @@ namespace DominoPizza.Controllers
             }
             return View(user);
         }
+
+            
 
         // POST: Customers/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 

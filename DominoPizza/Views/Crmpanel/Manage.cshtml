@@ -1,39 +1,198 @@
 ﻿@model IEnumerable<DominosPizza.Models.Task>
 
 @{
-    ViewBag.Title = "Управление сотрудниками пиццерии Dominos Pizza";
+    ViewBag.Title = "Dominos Pizza | Общая статистика";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
 }
+            <!-- start: sidebar -->
+            <aside id="sidebar-left" class="sidebar-left">
 
-<table border="1">
-    <tr>
-        <th>TaskId</th>
-        <th>TaskTotalSum</th>
-        <th>TaskStatus</th>
-        <th>TaskPayMethod</th>
-        <th>TaskDate</th>
+                <div class="sidebar-header">
+                    <div class="sidebar-title">
+                        Управление пиццерией
+                    </div>
+                    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
 
-     </tr>
+                <div class="nano">
+                    <div class="nano-content">
+                        <nav id="menu" class="nav-main" role="navigation">
+                            <ul class="nav nav-main">
+                                <li class="nav-active">
+                                    <!-- стиль предполагает активную вкладку -->
+                                    <a href="~/Crmpanel/Manage">
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                        <span>Общая статистика</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Crmpanel/Active_Orders">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                        <span>Активные заказы</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Crmpanel/Register">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span>Добавить сотрудника</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Crmpanel/Users">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        <span>Список сотрудников</span>
+                                    </a>
+                                </li>
+                                <li class="nav-parent">
+                                    <a>
+                                        <i class="fa fa-align-left" aria-hidden="true"></i>
+                                        <span>Редактор товаров</span>
+                                    </a>
+                                    <ul class="nav nav-children">
+                                        <li>
+                                            <a>Пиццы</a>
+                                        </li>
+                                        <li>
+                                            <a>Закуски</a>
+                                        </li>
+                                        <li class="nav-parent">
+                                            <a>Десерты</a>
+                                            <ul class="nav nav-children">
+                                                <li>
+                                                    <a>Торты</a>
+                                                </li>
+                                                <li>
+                                                    <a>Печенье</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a>Напитки</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-           <td>
-                @Html.DisplayFor(modelItem => item.TaskId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskTotalSum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskPayMethod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskDate)
-            </td>
-            
-        </tr>
-    }
-</table>
+                        <hr class="separator" />
+                    </div>
+
+                </div>
+
+            </aside>
+            <!-- end: sidebar -->
+            <section role="main" class="content-body">
+                <header class="page-header">
+                    <h2>Общая статистика</h2>
+
+                    <div class="right-wrapper pull-right">
+                        <ol class="breadcrumbs">
+                            <li>
+                                <a href="~/Crmpanel/Manage">
+                                    <i class="fa fa-home"></i>
+                                </a>
+                            </li>
+                            <li><span>Общая статистика</span></li>
+                        </ol>
+
+                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+                    </div>
+                </header>
+
+                <!-- start: page -->
+                <div class="row">
+                    <div class="col-md-6 col-lg-12 col-xl-6">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6 col-xl-6">
+                                <section class="panel panel-featured-left panel-featured-primary">
+                                    <div class="panel-body">
+                                        <div class="widget-summary">
+                                            <div class="widget-summary-col widget-summary-col-icon">
+                                                <div class="summary-icon bg-primary">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </div>
+                                            </div>
+                                            <div class="widget-summary-col">
+                                                <div class="summary">
+                                                    <h4 class="title">Заказов сегодня / всего за месяц</h4>
+                                                    <div class="info">
+                                                        <strong class="amount">128 / 1230</strong>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-12 col-lg-6 col-xl-6">
+                                <section class="panel panel-featured-left panel-featured-secondary">
+                                    <div class="panel-body">
+                                        <div class="widget-summary">
+                                            <div class="widget-summary-col widget-summary-col-icon">
+                                                <div class="summary-icon bg-secondary">
+                                                    <i class="fa fa-rub"></i>
+                                                </div>
+                                            </div>
+                                            <div class="widget-summary-col">
+                                                <div class="summary">
+                                                    <h4 class="title">Сумма сегодня / всего за месяц</h4>
+                                                    <div class="info">
+                                                        <strong class="amount">&#x20bd; 14,890 / 653,018</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-12 col-lg-6 col-xl-6">
+                                <section class="panel panel-featured-left panel-featured-tertiary">
+                                    <div class="panel-body">
+                                        <div class="widget-summary">
+                                            <div class="widget-summary-col widget-summary-col-icon">
+                                                <div class="summary-icon bg-tertiary">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                            <div class="widget-summary-col">
+                                                <div class="summary">
+                                                    <h4 class="title">Сотрудников на смене / всего</h4>
+                                                    <div class="info">
+                                                        <strong class="amount">6 / 18</strong>
+                                                        <span class="text-primary">(2 стажера)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-12 col-lg-6 col-xl-6">
+                                <section class="panel panel-featured-left panel-featured-quartenary">
+                                    <div class="panel-body">
+                                        <div class="widget-summary">
+                                            <div class="widget-summary-col widget-summary-col-icon">
+                                                <div class="summary-icon bg-quartenary">
+                                                    <i class="fa fa-life-ring"></i>
+                                                </div>
+                                            </div>
+                                            <div class="widget-summary-col">
+                                                <div class="summary">
+                                                    <h4 class="title">Колличество приготовленных пицц<br> за все время работы</h4>
+                                                    <div class="info">
+                                                        <strong class="amount">3765</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end: page -->

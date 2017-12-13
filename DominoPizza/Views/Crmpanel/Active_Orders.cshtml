@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Task>
+@using DominosPizza.Models
+
+@{
+    ViewBag.Title = "Dominos Pizza | Список заказов в работе";
+    Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
+    var db = new DominosContext();
+}
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление пиццерией
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li>
+                        <!-- стиль предполагает активную вкладку -->
+                        <a href="~/Crmpanel/Manage">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Общая статистика</span>
+                        </a>
+                    </li>
+                    <li class="nav-active">
+                        <a href="~/Crmpanel/Active_Orders">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Активные заказы</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Register">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Добавить сотрудника</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Users">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            <span>Список сотрудников</span>
+                        </a>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-align-left" aria-hidden="true"></i>
+                            <span>Редактор товаров</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a>Пиццы</a>
+                            </li>
+                            <li>
+                                <a>Закуски</a>
+                            </li>
+                            <li class="nav-parent">
+                                <a>Десерты</a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a>Торты</a>
+                                    </li>
+                                    <li>
+                                        <a>Печенье</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Напитки</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <hr class="separator" />
+        </div>
+    </div>
+</aside>
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Заказы в работе</h2>
+
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="~/Crmpanel/Active_Orders">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+                <li><span>Заказы в работе</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
+
+    <!-- start: page -->
+    <div class="row">
+        <div class="center-sign">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Заказы в работе</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-none">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ФИО</th>
+                                    <th>Дата заказа</th>
+                                    <th>Сумма заказа</th>
+                                    <th>Адрес доставки</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var customer = db.Customers.Find(item.TaskId);
+                                    var customerAdress = db.Contacts.Find(item.TaskId);
+                                    <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+                                    <!--if (item.TaskStatus != null && item.TaskStatus == null)
+                                    {-->
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
+                                            <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
+                                            <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
+                                        </tr>
+                                    <!--}-->
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<!-- end: page -->

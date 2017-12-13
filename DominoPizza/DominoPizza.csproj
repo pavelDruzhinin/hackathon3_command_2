@@ -112,7 +112,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
+    <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\default.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\jquery-ui-1.10.4.custom.css" />
+    <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\manage.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="Content\theme-custom.css" />
+    <Content Include="Content\theme.css" />
+    <Content Include="Content\waves.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -122,6 +133,11 @@
     <Content Include="fonts\VAGRoundedLTCYR-Black.eot" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.ttf" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="packages.config" />
     <Content Include="fonts\VAGRoundedLTCYR-Black.svg" />
     <Content Include="img\bg.png" />
@@ -133,7 +149,27 @@
     <Content Include="img\pay1.jpg" />
     <Content Include="img\user-icon.png" />
     <Content Include="img\vk.jpg" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\Calendar.js" />
+    <Content Include="Scripts\charts-home.js" />
+    <Content Include="Scripts\examples.dashboard.js" />
+    <Content Include="Scripts\front.js" />
+    <Content Include="Scripts\grasp_mobile_progress_circle-1.0.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery.browser.mobile.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery.nicescroll.min.js" />
+    <Content Include="Scripts\jquery.placeholder.js" />
+    <Content Include="Scripts\magnific-popup.js" />
+    <Content Include="Scripts\modernizr.js" />
+    <Content Include="Scripts\nanoscroller.js" />
+    <Content Include="Scripts\tether.min.js" />
+    <Content Include="Scripts\theme.custom.js" />
+    <Content Include="Scripts\theme.init.js" />
+    <Content Include="Scripts\theme.js" />
+    <Content Include="Scripts\waves.js" />
     <Content Include="Scripts\js-cookie\js-cookie-2.2.0.min.js" />
     <Content Include="Scripts\js-cookie\js-cookie.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -174,14 +210,12 @@
     <Content Include="Views\Home\Offer.cshtml" />
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
-    <Content Include="Views\Crmpanel\Index.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
     <Content Include="Views\Shared\Email.html.cshtml" />
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
-    <Content Include="Views\Crmpanel\_Layout.cshtml" />
     <Content Include="Views\Crmpanel\_LayoutManage.cshtml" />
     <Content Include="Views\Crmpanel\Manager.cshtml" />
     <Content Include="Views\Crmpanel\Kitchen.cshtml" />
@@ -206,6 +240,25 @@
     <Content Include="Views\Delivery\_TasksTableDeliveryInWork.cshtml" />
     <Content Include="Views\Users\_AuthPartial.cshtml" />
     <Content Include="Views\Home\Pizza.cshtml" />
+    <Content Include="Views\Customers\PersonalArea.cshtml" />
+    <Content Include="Views\Customers\EditPassword.cshtml" />
+    <Content Include="Views\Home\Resume.cshtml" />
+    <Content Include="Views\Home\Cook.cshtml" />
+    <Content Include="Views\Home\Courier.cshtml" />
+    <Content Include="Views\Home\Manager.cshtml" />
+    <Content Include="Views\Home\SuccessOrder.cshtml" />
+    <Content Include="Views\Home\PayOnline.cshtml" />
+    <Content Include="Scripts\jquery.nanoscroller.js.map" />
+    <Content Include="Views\Crmpanel\Active_Orders.cshtml" />
+    <Content Include="Views\Crmpanel\UserProfile.cshtml" />
+    <Content Include="Views\Home\PayCard.cshtml" />
+    <Content Include="Views\Home\_LayoutPayOnlineMask.cshtml" />
+    <Content Include="Views\Home\SuccessOrderSend.cshtml" />
+    <Content Include="Views\Home\PayTypes.cshtml" />
+    <Content Include="Views\Crmpanel\EditCustomer.cshtml" />
+    <Content Include="Views\Crmpanel\Delete.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutManager.cshtml" />
+    <Content Include="Views\Crmpanel\OrderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,32 +314,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712061040025_init.cs" />
-    <Compile Include="Migrations\201712061040025_init.Designer.cs">
-      <DependentUpon>201712061040025_init.cs</DependentUpon>
+    <Compile Include="Migrations\201712111205499_Init.cs" />
+    <Compile Include="Migrations\201712111205499_Init.Designer.cs">
+      <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712072256586_taskUpdate.cs" />
-    <Compile Include="Migrations\201712072256586_taskUpdate.Designer.cs">
-      <DependentUpon>201712072256586_taskUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712072310432_taskUpdate2.cs" />
-    <Compile Include="Migrations\201712072310432_taskUpdate2.Designer.cs">
-      <DependentUpon>201712072310432_taskUpdate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712081225147_taskdetails.cs" />
-    <Compile Include="Migrations\201712081225147_taskdetails.Designer.cs">
-      <DependentUpon>201712081225147_taskdetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712091845029_managerId.cs" />
-    <Compile Include="Migrations\201712091845029_managerId.Designer.cs">
-      <DependentUpon>201712091845029_managerId.cs</DependentUpon>
-    </Compile>
-    <!--<Compile Include="Migrations\201712031205104_Init.cs" />
-    <Compile Include="Migrations\201712031205104_Init.Designer.cs">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
-    </Compile>
-
-    </Compile>-->
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\TaskDetails.cs" />
     <Compile Include="Models\UserLogin.cs" />
@@ -310,25 +341,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <!--<EmbeddedResource Include="Migrations\201712031205104_Init.resx">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
-    </EmbeddedResource>
-
-    </EmbeddedResource>-->
-    <EmbeddedResource Include="Migrations\201712061040025_init.resx">
-      <DependentUpon>201712061040025_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712072256586_taskUpdate.resx">
-      <DependentUpon>201712072256586_taskUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712072310432_taskUpdate2.resx">
-      <DependentUpon>201712072310432_taskUpdate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712081225147_taskdetails.resx">
-      <DependentUpon>201712081225147_taskdetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712091845029_managerId.resx">
-      <DependentUpon>201712091845029_managerId.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712111205499_Init.resx">
+      <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

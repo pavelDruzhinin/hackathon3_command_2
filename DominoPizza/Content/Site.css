@@ -27,6 +27,7 @@ body {
     padding-right: 15px;
 }
 
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -725,7 +726,7 @@ textarea {
 }
 
 .feedback {
-    margin-left: 390px;
+    margin-left: 50px;
 }
 
 .feedback-text {
@@ -792,3 +793,56 @@ textarea {
     padding: 6px 15px;
 }
 
+.attachdelete {
+    background: url("/img/trash_18x18.png") no-repeat 0px 1px;
+    margin: 0 4px 0 0px;
+    width: 20px;
+    display: inline-block;
+    height: 20px;
+    cursor: pointer;
+}
+
+.attachitem {
+    margin-bottom: 10px;
+}
+
+.chosefile {
+    display: inline-block !important;
+}
+
+
+.question {
+    background: url("/img/question-icon.png") no-repeat 0px 1px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-top: 15px;
+}
+
+.question-hint {
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    border: solid 1px #ccc;
+    white-space: nowrap;
+    margin-left: 25px;
+    border-radius: 5px 5px 5px 0px;
+    padding: 4px 5px 5px 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+
+#cvc {
+    display: inline-block;
+}
+
+.question-out {
+    position: relative;
+    display: inline-block;
+}
+
+.question-out:hover .question-hint {
+    display: block;
+}
