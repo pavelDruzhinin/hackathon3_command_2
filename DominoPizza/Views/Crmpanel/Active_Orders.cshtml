@@ -121,18 +121,19 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    var customer = db.Customers.Find(item.TaskId);
-                                    var customerAdress = db.Contacts.Find(item.TaskId);
+
+                                    var customerAdress = db.Contacts.Find(item.ContactId);
+                                    var customer = db.Users.Find(customerAdress.UserId);
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
                                     <!--if (item.TaskStatus != null && item.TaskStatus == null)
                                     {-->
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
-                                            <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
-                                            <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
+                                            <td>@Html.DisplayFor(modelItem => customerAdress.FullName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TotalSum)</td>
+                                            <td>@Html.DisplayFor(modelItem => customerAdress.Address)</td>
+                                            <td><button id="showTaskDetails-@item.TaskId" onclick="ShowDetails(event, this)">@item.Status</button></td>
                                         </tr>
                                     <!--}-->
                                 }

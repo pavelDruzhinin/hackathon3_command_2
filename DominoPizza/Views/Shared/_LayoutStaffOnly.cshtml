@@ -33,7 +33,7 @@
                     <span class="span1">@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName</span>
 
                         <span class="span1" style=" white-space: nowrap;">
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            @using (Html.BeginForm("Logoff", "Users", FormMethod.Post, new { id = "logoutForm" }))
                             {
                                 @Html.AntiForgeryToken()
                             }

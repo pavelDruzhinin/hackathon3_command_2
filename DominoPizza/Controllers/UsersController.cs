@@ -44,7 +44,8 @@ namespace DominoPizza.Controllers
         public ActionResult Auth()
         {
             ViewBag.Message = "Вход";
-            Session["backUrl"] = Request.UrlReferrer.ToString();
+            if (Request.UrlReferrer != null) {
+                Session["backUrl"] = Request.UrlReferrer.ToString(); }
             return View();
         }
 
@@ -67,9 +68,9 @@ namespace DominoPizza.Controllers
             //{
             //    customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
             //}
-            Customer customerPas = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
-            customerPas.CustomerPassword = CustomerPassword;
-            customerPas.CustomerPasswordConfirm = CustomerPasswordConfirm;
+            User customerPas = db.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+            customerPas.Password = CustomerPassword;
+            customerPas.PasswordConfirm = CustomerPasswordConfirm;
 
             if (ModelState.IsValid)
             {
@@ -83,10 +84,10 @@ namespace DominoPizza.Controllers
 
         public ActionResult PersonalArea()
         {
-            Customer customer = null;
+            User customer = null;
             using (DominosContext db = new DominosContext())
             {
-                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                customer = db.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
             }
             return View(customer);
         }
@@ -106,6 +107,22 @@ namespace DominoPizza.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, true);
                     Session["user"] = user;
+                    if (user.UserRoleId == 5)
+                    {
+                        return RedirectToRoute(new { controller = "Crmpanel", action = "Manage" });
+                    }
+                    if (user.UserRoleId == 2)
+                    {
+                        return RedirectToRoute(new { controller = "Manager", action = "Index" });
+                    }
+                    if (user.UserRoleId == 3)
+                    {
+                        return RedirectToRoute(new { controller = "Kitchen", action = "Index" });
+                    }
+                    if (user.UserRoleId == 4)
+                    {
+                        return RedirectToRoute(new { controller = "Delivery", action = "Index" });
+                    }
 
                     if ((string)Session["backUrl"] != null)
                     {

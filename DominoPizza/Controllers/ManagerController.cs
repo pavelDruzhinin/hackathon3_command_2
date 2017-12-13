@@ -244,7 +244,7 @@ namespace DominosPizza.Controllers
                     newcontact.Phone = TaskDeliveryCustomerPhone;
                     newcontact.FullName = TaskDeliveryCustomerName;
                     newcontact.OrderDateTime = DateTime.Now;
-                    newcontact.UserId = 1; //незарегистрированный клиент
+                    newcontact.UserId = 2; //незарегистрированный клиент
                     db.Contacts.Add(newcontact);
                     db.SaveChanges();
                     contactId = newcontact.ContactId;

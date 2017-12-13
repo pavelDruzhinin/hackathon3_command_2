@@ -1,4 +1,4 @@
-@model IEnumerable<Customer>
+@model IEnumerable<User>
 @using DominosPizza.Models
 
 
@@ -128,22 +128,22 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    var userRoles = db.UserRoles.Find(item.CustomerRoleId);
-                                    if (item.CustomerRoleId > 1 && item.CustomerRoleId < 6)
+                                    var userRoles = db.UserRoles.Find(item.UserRoleId);
+                                    if (item.UserRoleId > 1 && item.UserRoleId < 6)
                                     {
                                         <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.CustomerEmail)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.CustomerFirstName)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.CustomerPatronymic)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.CustomerLastName)</td>
-                                            <td>@Html.DisplayFor(modelItem => userRoles.UserRoleName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Patronymic)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                            <td>@Html.DisplayFor(modelItem => userRoles.Name)</td>
                                             <td class="actions">
                                             @using (Html.BeginForm())
                                             {
                                                 @Html.AntiForgeryToken()
-                                                <a href="~/Crmpanel/EditCustomer/@item.CustomerId"><i class="fa fa-pencil"></i></a>
-                                                <a href="~/Crmpanel/Delete/@item.CustomerId"><i class="fa fa-trash-o"></i></a>
+                                                <a href="~/Crmpanel/EditCustomer/@item.UserId"><i class="fa fa-pencil"></i></a>
+                                                <a href="~/Crmpanel/Delete/@item.UserId"><i class="fa fa-trash-o"></i></a>
                                             }
                                             </td>
                                         </tr>

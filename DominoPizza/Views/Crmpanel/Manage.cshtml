@@ -4,6 +4,10 @@
     ViewBag.Title = "Dominos Pizza | Общая статистика";
     Layout = "~/Views/Crmpanel/_LayoutManage.cshtml";
 }
+@if (User.Identity.IsAuthenticated && ViewBag.user != null && ViewBag.user.UserRoleId == 5)
+{
+
+
             <!-- start: sidebar -->
             <aside id="sidebar-left" class="sidebar-left">
 
@@ -196,3 +200,18 @@
                 </div>
             </section>
             <!-- end: page -->
+    
+}
+else
+{
+    <div class="container">
+        <div style="z-index: 1000; background-color: white; position: fixed; top:0;left:0; display:flex; justify-content:center; align-items:center; width:100%;height:100%;">
+            <div class="well" style="width: 320px; padding: 15px;">
+                <br />
+                <p style="text-align:center; font-size: .9em;">Для работы в системе вам необходимо</p><br />
+                <a class="btn btn-success" style="width: 290px; font-size: 1.4em;" href="/Users/Auth">войти</a>
+                <br /><br />
+            </div>
+        </div>
+    </div>
+}

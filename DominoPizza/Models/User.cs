@@ -16,7 +16,7 @@ namespace DominosPizza.Models
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
-        public Boolean Sex { get; set; }
+        public String Sex { get; set; }
         public string Phone { get; set; }
 
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]

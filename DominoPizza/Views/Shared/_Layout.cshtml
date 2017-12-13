@@ -155,7 +155,7 @@
                 </div>
                 <div class="menuitems1">
                     <span>
-                        @using (Html.BeginForm("Index", "Users", FormMethod.Post, new { id = "logoutForm" }))
+                        @using (Html.BeginForm("Logoff", "Users", FormMethod.Post, new { id = "logoutForm" }))
                         {
                             @Html.AntiForgeryToken()
                         }

@@ -22,16 +22,24 @@ namespace DominosPizza.Controllers
             if (User.Identity.IsAuthenticated == false)
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
 
-            var customer = _db.Customers.FirstOrDefault(m => m.CustomerEmail == User.Identity.Name);
+            var customer = _db.Users.FirstOrDefault(m => m.Email == User.Identity.Name);
             return View(customer);
         }
 
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Manage() // страница управления пиццерией
         {
+
+            User staff = null;
+            if ((User)Session["user"] != null)
+            {
+                staff = (User)Session["user"];
+                ViewBag.user = staff;
+            }
             return View();
+
         }
-        
+
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Active_Orders() // страница управления пиццерией
         {
@@ -52,19 +60,19 @@ namespace DominosPizza.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer user = null;
+                User user = null;
                 using (var db = new DominosContext())
                 {
-                    user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email);
+                    user = db.Users.FirstOrDefault(u => u.Email == model.Email);
                 }
                 if (user == null)
                 {
                     using (var db = new DominosContext())
                     {
-                        db.Customers.Add(new Customer { CustomerEmail = model.Email, CustomerPassword = model.Password, CustomerPasswordConfirm = model.ConfirmPassword, CustomerRoleId = model.RoleId, CustomerFirstName = model.FirstName, CustomerLastName = model.LastName, CustomerPatronymic = model.Patronymic, CustomerBirthDate = model.BirthDay, CustomerPhone = model.Phone, CustomerSex = model.Sex });
+                        db.Users.Add(new User { Email = model.Email, Password = model.Password, PasswordConfirm = model.ConfirmPassword, UserRoleId = model.RoleId, FirstName = model.FirstName, LastName = model.LastName, Patronymic = model.Patronymic, BirthDate = model.BirthDay, Phone = model.Phone, Sex = model.Sex });
                         db.SaveChanges();
 
-                        user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email && u.CustomerPassword == model.Password);
+                        user = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
                     }
 
                     if (user != null)
@@ -87,7 +95,7 @@ namespace DominosPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var customer = _db.Customers.Find(id);
+            var customer = _db.Users.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -98,7 +106,7 @@ namespace DominosPizza.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCustomer(Customer customer)
+        public ActionResult EditCustomer(User customer)
         {
             if (User.Identity.IsAuthenticated == false)
             {
@@ -116,7 +124,7 @@ namespace DominosPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var customer = _db.Customers.Find(id);
+            var customer = _db.Users.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -129,12 +137,12 @@ namespace DominosPizza.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var customer = _db.Customers.Find(id);
+            var customer = _db.Users.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            _db.Customers.Remove(customer);
+            _db.Users.Remove(customer);
             _db.SaveChanges();
             return RedirectToAction("Manage","Crmpanel");
         }
@@ -143,7 +151,7 @@ namespace DominosPizza.Controllers
         [Authorize] // (Roles ="Administrator")
         public ActionResult Users()
         {
-            return View(_db.Customers.ToList());
+            return View(_db.Users.ToList());
         }
 
         // CRM Panel Sales Manager Block

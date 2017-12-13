@@ -38,6 +38,17 @@
     <script src="~/Scripts/modernizr.js"></script>
 </head>
 <body>
+    <!--место для загрузки Partial View c деталями-->
+    <div id="ModalshowTaskDetail" class=" ModalshowTaskDetail" style="position:fixed;top:50px; left: 0; z-index:30000;width: 100%;margin-bottom:40px; display: none; background-color: #efefef;">
+
+        <div id="showTaskDetail" class="showTaskDetail" style="height: 100%;"></div>
+
+        <button id="closeComments" class="btn btn-danger" onclick="hideDetails()" style="position:absolute; right:15px;top:75px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+    </div>
+    <!--конец места для загрузки деталей-->
     <section class="body">
         <!-- start: header -->
         <header class="header">
@@ -59,7 +70,7 @@
                         <a href="#" data-toggle="dropdown">
                             <div class="profile-info">
                                 <span class="name">@User.Identity.Name</span>
-                                <span class="role">Администратор</span>
+                                @*<span class="role">@User.Identity.UserRoleId</span>*@
                             </div>
 
                             <i class="fa custom-caret"></i>
@@ -84,6 +95,8 @@
         </header>
         <!-- end: header -->
         <!-- start: Content -->
+
+
         <div class="inner-wrapper">
             @RenderBody()
         </div>
@@ -132,5 +145,63 @@
 
     <!-- Examples -->
     <script src="~/Scripts/examples.dashboard.js"></script>
+    <script>            function ShowDetails(event, t) {
+            event.preventDefault();
+            if (t.id.slice(0, 16) == "showTaskDetails-") {
+                event.preventDefault();
+                $("#ModalshowTaskDetail").css({
+                    "display": "block"
+                });
+                taskId = parseInt(t.id.slice(16));
+                $.ajax({
+                    url: "/Manager/ShowTaskDetails",
+                    dataType: "html",
+                    data: {
+                        taskId: taskId,
+                    },
+                    type: "POST",
+                    success: function (data) {
+                        $("#showTaskDetail").html(data);
+                        $("html, body").animate({ scrollTop: 0 }, 500);
+                    }
+                });
+            }
+        }
+        function addComment(event, t) {
+            event.preventDefault();
+            //$("#comments-modal").css({
+            //    "display": "block", "overflow": "hidden", "flex-direction": "column", "display": "flex", "justify-content": "center", "vertical-align": "top"
+            //});
+            var taskId = parseInt(t.id.slice(13)); //значение остаётся от функции открытия окна комментов
+            var newCommentText = $("#NewCommentTextA").val();
+            $.ajax({
+                url: "/Messaging/AddNewComment",
+                dataType: "json",
+                data: {
+                    taskId: taskId,
+                    CommentText: newCommentText
+                },
+                type: "POST",
+                success: function (data) {
+                    if (data.Data > 0) {
+                        $.ajax({
+                            url: "/Manager/ShowTaskDetails",
+                            dataType: "html",
+                            data: {
+                                taskId: taskId,
+                            },
+                            type: "POST",
+                            success: function (data) {
+                                $("#showTaskDetail").html(data);
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function hideDetails() {
+            $("#ModalshowTaskDetail").css({ "display": "none" });
+        }</script>
 </body>
 </html>
