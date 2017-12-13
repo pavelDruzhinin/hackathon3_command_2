@@ -300,11 +300,16 @@
     <Compile Include="Migrations\201712092140560_Init.Designer.cs">
       <DependentUpon>201712092140560_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712131339178_new.cs" />
+    <Compile Include="Migrations\201712131339178_new.Designer.cs">
+      <DependentUpon>201712131339178_new.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
+    <Compile Include="Models\StatusHistory.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -322,6 +327,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712092140560_Init.resx">
       <DependentUpon>201712092140560_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131339178_new.resx">
+      <DependentUpon>201712131339178_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
