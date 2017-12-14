@@ -248,8 +248,8 @@ namespace DominosPizza.Controllers
             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
             Task task = new Task();
             Cart cart = new Cart();
-            Contact contact = new Contact();
-            Customer customer = new Customer();
+            //Contact contact = new Contact();
+            //Customer customer = new Customer();
             int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
@@ -296,6 +296,7 @@ namespace DominosPizza.Controllers
             task.ContactId = mycontact.ContactId;
             double sum = 0;
             task.TaskStatus = Status.processed.ToString();
+            db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.processed.ToString(), ForTask=task, DominosUser=mycustomer });
             task.TaskDate = DateTime.Now;
             task.TaskPayMethod = Convert.ToInt32(TaskPaymentMethod);
             // task.taskStatusChangeHistory.Add(userId, DateTime.Now, 0); Надо разобраться как мы будем хранить историю
@@ -306,6 +307,7 @@ namespace DominosPizza.Controllers
             }
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
+            task.Customers = new List<Customer>() { mycustomer };
             db.Tasks.Add(task);
             db.SaveChanges();
             IEnumerable<Task> tasks = db.Tasks;
