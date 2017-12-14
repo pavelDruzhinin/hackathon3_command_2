@@ -13,14 +13,14 @@ namespace DominosPizza.Models
         public string StatusChangedTo { get; set; }
         public DateTime StatusChangeTime { get; set; }
         public Task ForTask { get; set; }
-        public Customer Changer { get; set; }
+        public Customer DominosUser { get; set; }
     }
     public class StatusHistoryMap : EntityTypeConfiguration<StatusHistory>
     {
         public StatusHistoryMap()
         {
             HasRequired(x => x.ForTask);
-            HasRequired(x => x.Changer);
+            HasRequired(x => x.DominosUser);
         }
     }
 }
