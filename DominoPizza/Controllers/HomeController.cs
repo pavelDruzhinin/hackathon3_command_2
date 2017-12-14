@@ -118,7 +118,7 @@ namespace DominosPizza.Controllers
             {
                 lastcont = "Шотмана 13, Росквартал";
             }
-            return Json(data: new { Data = lastcont }, behavior: JsonRequestBehavior.AllowGet);
+            return Json(data: new { Data = lastcont}, behavior: JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Rules()
@@ -211,10 +211,25 @@ namespace DominosPizza.Controllers
             Session["cart"] = cart;
             return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
         }
+        
+        public JsonResult GetBirthDay()
+        {
+            Customer customer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+            DateTime birthday = customer.CustomerBirthDate;
+            DateTime date = DateTime.Now;
+            Boolean bd = false;
+            //if (DateTime.Now.Date == birthday) 
+            if (birthday.Day == date.Day && birthday.Month == date.Month)
+            {
+                bd = true;
+            }
+            return Json(data: new { Data = bd }, behavior: JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod, string CustomerComment)
         {
+
             //TaskDeliveryDateTime
             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
             Task task = new Task();
@@ -249,19 +264,19 @@ namespace DominosPizza.Controllers
                 db.Entry(mycontact).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            //if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
-            //{
-            //    if (i == 2) //нет контакта есть клиент
-            //    {
-            //        i = 3; //нет ни того ни другого
-            //    }
-            //    else
-            //    {
-            //        i = 1; //есть контакт нет клиента
-            //    }
-            //    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
-            //    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
-            //}
+            ////if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
+            ////{
+            ////    if (i == 2) //нет контакта есть клиент
+            ////    {
+            ////        i = 3; //нет ни того ни другого
+            ////    }
+            ////    else
+            ////    {
+            ////        i = 1; //есть контакт нет клиента
+            ////    }
+            ////    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
+            ////    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
+            ////}
 
             task.Contact = mycontact;
             task.ContactId = mycontact.ContactId;
@@ -273,7 +288,30 @@ namespace DominosPizza.Controllers
             foreach (var m in cart.cartlist)
             {
                 var mydish = db.Products.FirstOrDefault(k => k.ProductId == m.Key);
-                sum = mydish.ProductPrice * m.Value + sum;
+                DateTime birthday = mycustomer.CustomerBirthDate;
+                DateTime date = DateTime.Now;
+                //int k = 0;
+                if (birthday.Day == date.Day && birthday.Month == date.Month && m.Key == 7 && m.Value == 1)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.7;
+                }
+                else if (birthday.Day == date.Day && birthday.Month == date.Month && m.Key != 7 && m.Value == 1)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.85;
+                }
+                else if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday && date.Hour > 11 && date.Hour < 16)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.9 + sum;
+                }
+                else if ((date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday))
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.85 + sum;
+                }
+                else
+                {
+                    sum = mydish.ProductPrice * m.Value + sum;
+                }
+                
             }
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;

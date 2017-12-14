@@ -323,7 +323,6 @@
     <EmbeddedResource Include="Migrations\201712061833191_second.resx">
       <DependentUpon>201712061833191_second.cs</DependentUpon>
     </EmbeddedResource>
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
