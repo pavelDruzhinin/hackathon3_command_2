@@ -154,13 +154,13 @@
                             <div class="col-sm-12">
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-male"></i></span>
-                                    @Html.RadioButton("Sex", "Male", true);
-                                    <label for=true>Мужской</label>
+                                    @Html.RadioButtonFor(model => model.Sex, "Male", new { @checked = "true" })
+                                    <label>Мужской</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-female"></i></span>
-                                    @Html.RadioButton("Sex", "Female");
-                                    <label for=false>Женский</label>
+                                    @Html.RadioButtonFor(model => model.Sex, "Female")
+                                    <label>Женский</label>
                                 </div>
                             </div>
                             @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
@@ -171,7 +171,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-gift"></i></span>
                                 </span>
-                                <input id="BirthDay" data-plugin-masked-input data-input-mask="99/99/9999" placeholder="__/__/____" class="form-control">
+                                @Html.EditorFor(model => model.BirthDay, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                                 <span class="input-group-addon">
                                     <span class="icon"><i class="fa fa-phone"></i></span>
                                 </span>
-                                <input id="Phone" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(123) 123-1234" class="form-control">
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "79999999999" } })
                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -190,26 +190,25 @@
                             <div class="col-sm-12">
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-user-secret"></i></span>
-                                    @Html.RadioButton("UserRoles","2", true);
-                                    <label for=2>Администратор</label>
+                                    @Html.RadioButtonFor(model => model.RoleId, 2, new { @checked = "true" })
+                                    <label>Администратор</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-user"></i></span>
-                                    @Html.RadioButton("UserRoles", "3");
-                                    <label for=3>Менеджер</label>
+                                    @Html.RadioButtonFor(model => model.RoleId, 3)
+                                    <label>Менеджер</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-cutlery"></i></span>
-                                    @Html.RadioButton("UserRoles", "4");
-                                    <label for=4>Повар</label>
+                                    @Html.RadioButtonFor(model => model.RoleId, 4)
+                                    <label>Повар</label>
                                 </div>
                                 <div class="radio-custom radio-primary">
                                     <span class="icon"><i class="fa fa-car"></i></span>
-                                    @Html.RadioButton("UserRoles", "5");
-                                    <label for=5>Курьер</label>
+                                    @Html.RadioButtonFor(model => model.RoleId, 5)
+                                    <label>Курьер</label>
                                 </div>
                             </div>
-                            @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group mb-lg">
                             <label>Пароль</label>
@@ -233,12 +232,16 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-7">
-                        <button type="submit" class="btn btn-primary hidden-xs">Зарегистрировать</button>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Зарегистрировать</button>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary hidden-xs" value="Зарегистрировать">Зарегистрировать</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Зарегистрировать">Зарегистрировать</button>
+                            <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
+                            <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
+                        </div>
                     </div>
-                </div>
+                </footer>
             </div>
         </div>
     }

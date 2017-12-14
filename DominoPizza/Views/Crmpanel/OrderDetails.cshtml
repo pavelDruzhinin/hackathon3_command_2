@@ -1,0 +1,69 @@
+﻿@using DominosPizza.Models
+@model IEnumerable<Task>
+
+@{
+    Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
+    var db = new DominosContext();
+}
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
+
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление заказами
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
+
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li class="nav-active">
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Заказы в работу</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span>Добавить заказ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                            <span>Диалоги с покупателями</span><span class="badge">3</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <hr class="separator" />
+        </div>
+    </div>
+</aside>
+<!-- start: Content -->
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Карточка заказа</h2>
+
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="~/Crmpanel/OrderDetails">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+                <li><span>Карточка заказа</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
+</section>

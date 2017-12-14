@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using DominosPizza.Models;
 using DominoPizza.Models;
@@ -13,13 +10,17 @@ namespace DominosPizza.Controllers
 {
     public class CrmpanelController : Controller
     {
-        private DominosContext db = new DominosContext();
-
+        private DominosContext _db = new DominosContext();
+        
         // GET: Crmpanel Administrator Block
         [Authorize]
         public ActionResult UserProfile()
         {
-            return View();
+            if (User.Identity.IsAuthenticated == false)
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+
+            var customer = _db.Customers.FirstOrDefault(m => m.CustomerEmail == User.Identity.Name);
+            return View(customer);
         }
 
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
@@ -31,7 +32,7 @@ namespace DominosPizza.Controllers
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Active_Orders() // страница управления пиццерией
         {
-            return View(db.Tasks.ToList());
+            return View(_db.Tasks.ToList());
         }
 
         [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
@@ -48,44 +49,42 @@ namespace DominosPizza.Controllers
         {
             if (ModelState.IsValid)
             {
-                Customer user = null;
-                using (DominosContext db = new DominosContext())
+                Customer user;
+                using (var db = new DominosContext())
                 {
                     user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email);
                 }
                 if (user == null)
                 {
-                    using (DominosContext db = new DominosContext())
+                    using (var db = new DominosContext())
                     {
                         db.Customers.Add(new Customer { CustomerEmail = model.Email, CustomerPassword = model.Password, CustomerPasswordConfirm = model.ConfirmPassword, CustomerRoleId = model.RoleId, CustomerFirstName = model.FirstName, CustomerLastName = model.LastName, CustomerPatronymic = model.Patronymic, CustomerBirthDate = model.BirthDay, CustomerPhone = model.Phone, CustomerSex = model.Sex });
                         db.SaveChanges();
 
-                        user = db.Customers.Where(u => u.CustomerEmail == model.Email && u.CustomerPassword == model.Password).FirstOrDefault();
+                        user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.Email && u.CustomerPassword == model.Password);
                     }
 
-                    if (user != null) // проверка что сотрудника добавили отключим, добавляет только Управляющий
+                    if (user != null)
                     {
-                        //    FormsAuthentication.SetAuthCookie(model.Name, true);
                         return RedirectToAction("Manage", "Crmpanel");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователь с таким логином существует.");
+                    ModelState.AddModelError("", @"Пользователь с таким логином существует.");
                 }
             }
             return View(model);
         }
 
-        // GET: Customers/Edit/id
         [Authorize]
         public ActionResult EditCustomer(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated == false)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            var customer = _db.Customers.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -93,21 +92,20 @@ namespace DominosPizza.Controllers
             return View(customer);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult Edit([Bind(Include = "CustomerId,CustomerFirstName,CustomerPatronymic,CustomerLastName,CustomerBirthDate,CustomerSex,CustomerPhone,CustomerEmail,CustomerPassword,CustomerPasswordConfirm")] Customer customer)
+        public ActionResult EditCustomer(Customer customer)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated == false)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-            return View(customer);
+            _db.Entry(customer).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Manage","Crmpanel");
         }
 
-        // GET: Customers/Delete/id
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -115,7 +113,7 @@ namespace DominosPizza.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            var customer = _db.Customers.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -123,23 +121,26 @@ namespace DominosPizza.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/id
         [Authorize]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var customer = _db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            _db.Customers.Remove(customer);
+            _db.SaveChanges();
+            return RedirectToAction("Manage","Crmpanel");
         }
 
 
         [Authorize] // (Roles ="Administrator")
         public ActionResult Users()
         {
-            return View(db.Customers.ToList());
+            return View(_db.Customers.ToList());
         }
 
         // CRM Panel Sales Manager Block
@@ -147,69 +148,75 @@ namespace DominosPizza.Controllers
         public ActionResult Manager() // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Обработка заказов";
-            return View();
+            return View(_db.Tasks.ToList());
+        }
+
+        [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult OrderDetails() // страница управления пиццерией
+        {
+            ViewBag.Title = "Dominos Pizza | Карточка заказа";
+            return View(_db.Tasks.ToList());
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Kitchen() // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Кухня";
-            return View();
+            return View(_db.Tasks.ToList());
         }
 
         [Authorize] // (Roles = "Courier") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Delivery() // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Доставка";
-            return View();
+            return View(_db.Tasks.ToList());
         }
-        /*
-        [HttpGet]
-        public ActionResult Index() // страница логина в CRM panel
+
+        [Authorize]
+        public ActionResult ChangePassword()
         {
             return View();
         }
-        
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(CustomerLogin model) // метод авторизации
+        public ActionResult ChangePassword(string customerPassword, string customerPasswordConfirm)
         {
-            if (ModelState.IsValid)
+            var customer = _db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+            if (customer != null)
             {
-                Customer user = null;
-                using (DominosContext db = new DominosContext())
-                {
-                    user = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
-                }
-                if (user != null)
-                {
-                    FormsAuthentication.SetAuthCookie(model.CustomerEmail, true); // добавить проверку роли и перенаправление на соответствующую страницу - "Manage" Администратор, "Manager" менеджер, "Kitchen" повар, "Delivery" курьер
-                    return RedirectToAction("Manage", "Crmpanel"); // при успешной авторизации перенаправляем пользователя в админку
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Неверное имя или пароль");
-                }
+                customer.CustomerPassword = customerPassword;
+                customer.CustomerPasswordConfirm = customerPasswordConfirm;
             }
-            return View(model);
-        }
-        */
-       
-        /*
-        public ActionResult Auth()
-        {
-            ViewBag.Message = "Вход";
 
-            return View();
-        }
-        */
+            if (User.Identity.Name == null) return View(customer);
+            _db.Entry(customer).State = EntityState.Modified;
+            _db.SaveChanges();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+            if (customer != null && customer.CustomerRoleId == 2)
+            {
+                return RedirectToAction("Manage", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 3)
+            {
+                return RedirectToAction("Manager", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 4)
+            {
+                return RedirectToAction("Kitchen", "Crmpanel");
+            }
+            if (customer != null && customer.CustomerRoleId == 5)
+            {
+                return RedirectToAction("Delivery", "Crmpanel");
+            }
+            return RedirectToAction("PersonalArea", "Customers");
+        }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Auth", "Customer");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
