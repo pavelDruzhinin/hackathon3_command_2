@@ -1,0 +1,25 @@
+﻿@using DominosPizza.Models
+@model IQueryable<OnlineChatMessage>
+@{
+    string UserName;
+    string align;
+    string color;
+}
+@foreach (var row in Model)
+{
+    if (row.IsByManager)
+    {
+        UserName = "Вы";
+        align = "flex-end";
+        color = "#7ab920";
+
+    }
+    else { UserName = "Клиент"; align = "flex-start"; color = "#e41843"; }
+    <div class="messageInChat" style="align-self:@align">
+        <div class="comment-header"><span style="background-color:@color">@UserName</span><span style="background-color:@color">@row.DateTime</span></div>
+        <p class="comment-message">@row.Text</p>
+        <br />
+    </div>
+}
+
+

@@ -22,6 +22,8 @@ namespace DominoPizza.Migrations
             db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });
 
             db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Василий", CustomerPatronymic = "Алибабаевич", CustomerLastName = "Администратор", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "9601005060" });
+            //анонимный клиент нужен для работы чата, CustomerId = 2 записано в коде MessagingController/AddNewMessageToChat, если кому нужен этот ИД, то в коде нада его изменить
+            db.Customers.Add(new Customer { CustomerEmail = "unknownclient@dominos.loc", CustomerFirstName = "Анонимный", CustomerPatronymic = "Незарегистрированный", CustomerLastName = "Клиент", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 1, CustomerPhone = "9601005060" });
 
             db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/1.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Двойная пепперони", ProductWeight = 610, ImageLink = "/img/2.jpg", ProductDescription = "Томатный соус, моцарелла и пикантная пепперони", ProductPrice = 672, ProductType = 1 });
