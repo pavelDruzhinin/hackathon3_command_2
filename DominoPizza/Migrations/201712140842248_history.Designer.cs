@@ -13,7 +13,7 @@ namespace DominoPizza.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201712140818597_history"; }
+            get { return "201712140842248_history"; }
         }
         
         string IMigrationMetadata.Source

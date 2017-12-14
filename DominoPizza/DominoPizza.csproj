@@ -310,9 +310,9 @@
     <Compile Include="Migrations\201712111205499_Init.Designer.cs">
       <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712140818597_history.cs" />
-    <Compile Include="Migrations\201712140818597_history.Designer.cs">
-      <DependentUpon>201712140818597_history.cs</DependentUpon>
+    <Compile Include="Migrations\201712140842248_history.cs" />
+    <Compile Include="Migrations\201712140842248_history.Designer.cs">
+      <DependentUpon>201712140842248_history.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
@@ -338,8 +338,8 @@
     <EmbeddedResource Include="Migrations\201712111205499_Init.resx">
       <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712140818597_history.resx">
-      <DependentUpon>201712140818597_history.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712140842248_history.resx">
+      <DependentUpon>201712140842248_history.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
