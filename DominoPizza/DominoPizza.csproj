@@ -252,6 +252,9 @@
     <Content Include="Views\Crmpanel\ChangePassword.cshtml" />
     <Content Include="Views\Crmpanel\_LayoutDelivery.cshtml" />
     <Content Include="Views\Crmpanel\_LayoutKitchen.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatDialog.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -303,22 +306,20 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\MessagingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712111205499_Init.cs" />
-    <Compile Include="Migrations\201712111205499_Init.Designer.cs">
-      <DependentUpon>201712111205499_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712140842248_history.cs" />
-    <Compile Include="Migrations\201712140842248_history.Designer.cs">
-      <DependentUpon>201712140842248_history.cs</DependentUpon>
+    <Compile Include="Migrations\201712142023337_init.cs" />
+    <Compile Include="Migrations\201712142023337_init.Designer.cs">
+      <DependentUpon>201712142023337_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
+    <Compile Include="Models\OnlineChatMessage.cs" />
     <Compile Include="Models\StatusHistory.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
@@ -335,11 +336,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712111205499_Init.resx">
-      <DependentUpon>201712111205499_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712140842248_history.resx">
-      <DependentUpon>201712140842248_history.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712142023337_init.resx">
+      <DependentUpon>201712142023337_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
