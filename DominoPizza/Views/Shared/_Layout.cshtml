@@ -9,6 +9,7 @@
     <meta name="keywords" content="пицца петрозаводск, доставка пиццы петрозаводск, доставка суши петрозаводск, заказ суши петрозаводск, бургеры петрозаводск, заказ пиццы петрозаводск, пицца петрозаводск, пицца в петрозаводске, меню пицца, заказать пиццу, интернет пицца в петрозаводске, рестораны Петрозаводска, бизнес ланчи" />
     <meta name="description" content="Доставка пиццы, суши, бургеров, обедов по Петрозаводску. Доставка - бесплатная, только стоимость Вашего заказа. 24 часа." />
     <title>@ViewBag.Title – Доставка пиццы по Петрозаводску 24 часа.</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{ var temp = Convert.ToString(ViewBag.cartindicator);}
@@ -28,17 +29,16 @@
                 </div>
                 <div class="head__block_phone">
                     Доставка пиццы <br>24 часа: <span>555 - 555</span>
-
                 </div>
 
                 <div class="head__block_moto">
                     <div class="cart_top">
                         <span class="carttop_price_value" pricevalue="0">
-                            <span class="value">0</span> ₽
-                        </span>
-                        <a href="@Url.Action("Cart", "Home")">
-                            <img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />
-                        </a>
+                            <span class="value">
+                               
+                            </span>
+                            <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
+                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
                     </div>
                 </div>
             </div>
@@ -54,14 +54,14 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>Вы вошли как: @User.Identity.Name</li>
-                            
-                            <li>
-                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                            <li>@Html.ActionLink("Личный кабинет", "PersonalArea","Customers")</li>
+                            <li>@Html.ActionLink("Выйти", "Logoff", "Customers")</li>
+                                <!--using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                 {
-                                    @Html.AntiForgeryToken()
+                                    Html.AntiForgeryToken()
                                 }
                                 <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                            </li>
+                                    -->
                         }
                         else
                         {
@@ -93,7 +93,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    }
-        
+    }        
     </body>
 </html>

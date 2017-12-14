@@ -122,6 +122,7 @@
     <Content Include="Content\morris.css" />
     <Content Include="Content\theme-custom.css" />
     <Content Include="Content\theme.css" />
+    <Content Include="Content\waves.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -152,6 +153,7 @@
     <Content Include="Scripts\Calendar.js" />
     <Content Include="Scripts\charts-home.js" />
     <Content Include="Scripts\examples.dashboard.js" />
+    <Content Include="Scripts\examples.modals.js" />
     <Content Include="Scripts\front.js" />
     <Content Include="Scripts\grasp_mobile_progress_circle-1.0.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -168,6 +170,7 @@
     <Content Include="Scripts\theme.custom.js" />
     <Content Include="Scripts\theme.init.js" />
     <Content Include="Scripts\theme.js" />
+    <Content Include="Scripts\waves.js" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -210,14 +213,12 @@
     <Content Include="Views\Home\Offer.cshtml" />
     <Content Include="Views\Home\UserAgreement.cshtml" />
     <Content Include="Views\Home\Stock.cshtml" />
-    <Content Include="Views\Crmpanel\Index.cshtml" />
     <Content Include="Views\Home\Feedback.cshtml" />
     <Content Include="Views\Home\ErrorSend.cshtml" />
     <Content Include="Views\Home\SuccessSend.cshtml" />
     <Content Include="Views\Shared\Email.html.cshtml" />
     <Content Include="Views\Crmpanel\Register.cshtml" />
     <Content Include="Views\Crmpanel\Manage.cshtml" />
-    <Content Include="Views\Crmpanel\_Layout.cshtml" />
     <Content Include="Views\Crmpanel\_LayoutManage.cshtml" />
     <Content Include="Views\Crmpanel\Manager.cshtml" />
     <Content Include="Views\Crmpanel\Kitchen.cshtml" />
@@ -229,12 +230,28 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Auth.cshtml" />
     <Content Include="Views\Crmpanel\Users.cshtml" />
+    <Content Include="Views\Customers\PersonalArea.cshtml" />
+    <Content Include="Views\Customers\EditPassword.cshtml" />
+    <Content Include="Views\Home\Resume.cshtml" />
+    <Content Include="Views\Home\Cook.cshtml" />
+    <Content Include="Views\Home\Courier.cshtml" />
+    <Content Include="Views\Home\Manager.cshtml" />
     <Content Include="Views\Home\SuccessOrder.cshtml" />
     <Content Include="Views\Home\PayOnline.cshtml" />
-    <Content Include="Views\Crmpanel\Test.cshtml" />
     <Content Include="Scripts\jquery.nanoscroller.js.map" />
     <Content Include="Views\Crmpanel\Active_Orders.cshtml" />
     <Content Include="Views\Crmpanel\UserProfile.cshtml" />
+    <Content Include="Views\Home\PayCard.cshtml" />
+    <Content Include="Views\Home\_LayoutPayOnlineMask.cshtml" />
+    <Content Include="Views\Home\SuccessOrderSend.cshtml" />
+    <Content Include="Views\Home\PayTypes.cshtml" />
+    <Content Include="Views\Crmpanel\EditCustomer.cshtml" />
+    <Content Include="Views\Crmpanel\Delete.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutManager.cshtml" />
+    <Content Include="Views\Crmpanel\OrderDetails.cshtml" />
+    <Content Include="Views\Crmpanel\ChangePassword.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutDelivery.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutKitchen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -289,19 +306,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712031205104_Init.cs" />
-    <Compile Include="Migrations\201712031205104_Init.Designer.cs">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201712111205499_Init.cs" />
+    <Compile Include="Migrations\201712111205499_Init.Designer.cs">
+      <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712061833191_second.cs" />
-    <Compile Include="Migrations\201712061833191_second.Designer.cs">
-      <DependentUpon>201712061833191_second.cs</DependentUpon>
+    <Compile Include="Migrations\201712140842248_history.cs" />
+    <Compile Include="Migrations\201712140842248_history.Designer.cs">
+      <DependentUpon>201712140842248_history.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
+    <Compile Include="Models\StatusHistory.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -317,11 +335,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712031205104_Init.resx">
-      <DependentUpon>201712031205104_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712111205499_Init.resx">
+      <DependentUpon>201712111205499_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712061833191_second.resx">
-      <DependentUpon>201712061833191_second.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712140842248_history.resx">
+      <DependentUpon>201712140842248_history.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

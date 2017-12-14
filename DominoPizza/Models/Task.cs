@@ -19,6 +19,8 @@ namespace DominosPizza.Models
 
         public ICollection<UserComment> UserComments { get; set; }
 
+        public ICollection<StatusHistory> History { get; set; }
+
         public int ContactId { get; set; }
         public Contact Contact { get; set; }
 
@@ -39,6 +41,7 @@ namespace DominosPizza.Models
         {
             HasRequired(x => x.Contact).WithMany(x => x.Tasks).HasForeignKey(x => x.ContactId);
             HasMany(x => x.Customers);
+            HasMany(x => x.History);
 
         }
     }

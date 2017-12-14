@@ -52,6 +52,34 @@ namespace DominosPizza.Controllers
             return View();
         }
 
+        public ActionResult Cook()
+        {
+            ViewBag.Message = "Повар";
+
+            return View();
+        }
+
+        public ActionResult Courier()
+        {
+            ViewBag.Message = "Курьер";
+
+            return View();
+        }
+
+        public ActionResult Manager()
+        {
+            ViewBag.Message = "Менеджер";
+
+            return View();
+        }
+
+        public ActionResult Resume()
+        {
+            ViewBag.Message = "Резюме";
+
+            return View();
+        }
+
         public ActionResult Cart()
         {
             if (User.Identity.IsAuthenticated)
@@ -153,6 +181,7 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult SendMail(FeedbackMail Feedback)
         {
+            Feedback.To = "dominospizzaptz@yandex.ru";
             if (ModelState.IsValid)
             {
                 try
@@ -234,8 +263,8 @@ namespace DominosPizza.Controllers
             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
             Task task = new Task();
             Cart cart = new Cart();
-            Contact contact = new Contact();
-            Customer customer = new Customer();
+            //Contact contact = new Contact();
+            //Customer customer = new Customer();
             int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
@@ -282,6 +311,7 @@ namespace DominosPizza.Controllers
             task.ContactId = mycontact.ContactId;
             double sum = 0;
             task.TaskStatus = Status.processed.ToString();
+            db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.processed.ToString(), ForTask=task, DominosUser=mycustomer });
             task.TaskDate = DateTime.Now;
             task.TaskPayMethod = Convert.ToInt32(TaskPaymentMethod);
             // task.taskStatusChangeHistory.Add(userId, DateTime.Now, 0); Надо разобраться как мы будем хранить историю
@@ -315,6 +345,7 @@ namespace DominosPizza.Controllers
             }
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
+            task.Customers = new List<Customer>() { mycustomer };
             db.Tasks.Add(task);
             db.SaveChanges();
             IEnumerable<Task> tasks = db.Tasks;
@@ -328,17 +359,17 @@ namespace DominosPizza.Controllers
                 db.TaskRows.Add(productList);
             }
             db.SaveChanges();
-            Session["cart"] = null;
+
             Session["orderSuccess"] = true; //надо сделать проверку добавления заказа
-                                            //  return RedirectToRoute(new { controller = "Home", action = "PayOffer" });
 
             if (Convert.ToInt32(TaskPaymentMethod) != 1)
             {
+                //заказ отправлен менеджеру
+                Session["cart"] = null;
                 return RedirectToRoute(new { controller = "Home", action = "SuccessOrder" });
             }
             else
-            {
-
+            {   //переход к онлайн оплате
                 return RedirectToRoute(new { controller = "Home", action = "PayOnline" });
             }
 
@@ -348,12 +379,155 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Message = "On-line оплата";
 
-            return View();
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+
+            Task task = new Task();
+
+            /*IEnumerable<Product> products = db.Products;
+           
+            Dictionary<int, string> productNames = new Dictionary<int, string>();
+            foreach (var temp in products)
+            {
+                productNames.Add(temp.ProductId, temp.ProductName);
+            }*/
+            // ViewBag.prod = productNames;
+            //ViewBag.cartindicator = cart.Counter;
+
+            IEnumerable<Task> tasks = db.Tasks;
+            ViewBag.LastTask = tasks.Last().TaskId;
+            ViewBag.TotalS = tasks.Last().TaskTotalSum;
+
+            List<OrderTable> table = new List<OrderTable>();
+            int i = 1;
+            foreach (KeyValuePair<int, int> keyValue in cart.cartlist)
+            {
+                OrderTable orderTableRow = new OrderTable();
+                orderTableRow.OrderTableId = i++;
+                orderTableRow.ProductId = keyValue.Key;
+                orderTableRow.ProductQuantity = keyValue.Value;
+                IQueryable<Product> product = db.Products
+                                                    .Where(c => c.ProductId == keyValue.Key)
+                                                    .Select(c => c);
+                orderTableRow.ProductName = product.FirstOrDefault().ProductName;
+                orderTableRow.ProductPrice = (int)product.FirstOrDefault().ProductPrice;
+                table.Add(orderTableRow);
+            }
+            Session["cart"] = null;
+            return View(table);
         }
 
         public ActionResult SuccessOrder()
         {
-            ViewBag.Message = "Заказ отправлен менеджеру";
+            IEnumerable<Task> tasks = db.Tasks;
+            ViewBag.LastTask = tasks.Last().TaskId;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PayMethod(int paymentType)
+        {
+            if (Convert.ToInt32(paymentType) == 1)
+            {
+
+
+                //прошла ли оплата = 4
+                // Session["cart"] = null;
+
+                return RedirectToRoute(new { controller = "Home", action = "PayCard" });
+            }
+            else
+            {
+                //другие платежные системы
+                return RedirectToRoute(new { controller = "Home", action = "PayTypes" });
+            }
+        }
+
+        public ActionResult PayCard()
+        {
+            ViewBag.Message = "On-line оплата банковской картой";
+
+            return View();
+        }
+        public ActionResult SendReceiptMail(string ReplyreceiptMail, string cardholder, FeedbackMail Feedback)
+        {
+            IEnumerable<Task> tasks = db.Tasks;
+            ViewBag.LastTask = tasks.Last().TaskId;
+            /*   ViewBag.TotalS = tasks.Last().TaskTotalSum;*/
+
+            IEnumerable<TaskRow> LastTaskRows = db.TaskRows;
+            IEnumerable<Product> Prod = db.Products;
+
+            Dictionary<int, string> productNames = new Dictionary<int, string>();
+            foreach (var temp in Prod)
+            {
+                productNames.Add(temp.ProductId, temp.ProductName);
+            }
+
+            Dictionary<string, int> listpr = new Dictionary<string, int>();
+
+            foreach (var LastTaskRow in LastTaskRows)
+            {
+                if (LastTaskRow.TaskId == ViewBag.LastTask)
+                {
+                    foreach (KeyValuePair<int, string> keyValue in productNames)
+                    {
+                        if (keyValue.Key == LastTaskRow.ProductId)
+                        {
+                            listpr.Add(keyValue.Value, LastTaskRow.Quantity);
+                        }
+                    }
+
+                }
+            }
+
+            FeedbackMail receiptmail = new FeedbackMail();
+
+            receiptmail.To = ReplyreceiptMail; //сделать отправку человеку
+            receiptmail.FeedbackName = cardholder;
+            receiptmail.Subject = "чек";
+            string mailtext = "№ заказа: " + tasks.Last().TaskId + " на сумму: " + tasks.Last().TaskTotalSum + "р. Ваш заказ: ";
+
+            string Totaltext = " ";
+            foreach (KeyValuePair<string, int> keyValue in listpr)
+            {
+                string namepz = keyValue.Key;
+                int qpz = keyValue.Value;
+
+                Totaltext = Totaltext + " " + namepz + " - " + qpz + " шт., ";
+            }
+            receiptmail.Body = mailtext + Totaltext;
+
+            receiptmail.ReplyEmail = ReplyreceiptMail;
+
+            //try
+            //{
+            new FeedbackController().SendEmail(receiptmail).Deliver();
+            receiptmail.MailDateCreate = DateTime.Now;
+            db.FeedBacks.Add(receiptmail);
+            tasks.Last().TaskPayMethod = 4;
+            db.SaveChanges();
+
+
+            return RedirectToAction("SuccessOrderSend");
+        
+        /*   catch (Exception)
+           {
+               return RedirectToAction("ErrorSend");
+           }*/
+
+    
+        }
+        public ActionResult SuccessOrderSend()
+        {
+
+            return View();
+        }
+        public ActionResult PayTypes()
+        {
 
             return View();
         }

@@ -15,11 +15,13 @@ namespace DominoPizza.Migrations
 
         protected override void Seed(DominosContext db)
         {
-            // переработал, теперь работает с нашей БД
-            db.UserRoles.Add(new UserRole { UserRoleId = 1, UserRoleName = "Менеджер" });
-            db.UserRoles.Add(new UserRole { UserRoleId = 2, UserRoleName = "Повар" });
-            db.UserRoles.Add(new UserRole { UserRoleId = 3, UserRoleName = "Курьер" });
-            db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Администратор" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 1, UserRoleName = "Пользователь" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 2, UserRoleName = "Администратор" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 3, UserRoleName = "Менеджер" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Повар" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });
+
+            db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Василий", CustomerPatronymic = "Алибабаевич", CustomerLastName = "Администратор", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "9601005060" });
 
             db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/1.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Двойная пепперони", ProductWeight = 610, ImageLink = "/img/2.jpg", ProductDescription = "Томатный соус, моцарелла и пикантная пепперони", ProductPrice = 672, ProductType = 1 });
@@ -29,13 +31,6 @@ namespace DominoPizza.Migrations
             db.Products.Add(new Product { ProductName = "Грибы и ветчина", ProductWeight = 620, ProductType = 1, ImageLink = "/img/6.jpg", ProductDescription = "Томатный соус, моцарелла, ветчина и шампиньоны", ProductPrice = 676 });
             db.Products.Add(new Product { ProductName = "Пицца-пирог", ProductWeight = 600, ProductType = 1, ImageLink = "/img/7.jpg", ProductDescription = "Молоко сгущенное, брусника и ананасы", ProductPrice = 677 });
             db.Products.Add(new Product { ProductName = "Маргарита", ProductWeight = 610, ProductType = 1, ImageLink = "/img/8.jpg", ProductDescription = "Томатный соус, томаты, моцарелла и орегано", ProductPrice = 678 });
-
-            //db.UsersDbSet.Add(new Users { UserRoleId = 1, UserName = "АннаМенеджер" });
-            //db.UsersDbSet.Add(new Users { UserRoleId = 2, UserName = "ПётрПовар" });
-            //db.UsersDbSet.Add(new Users { UserRoleId = 3, UserName = "ИванКурьер" });
-            //db.TaskCommentsDbSet.Add(new TaskComments { TaskId = 1, UserName = "ПётрПовар", CommentText = "не успею сделать в срок, последняя банка с шампиньонами оказалась испорченной" });
-            //db.TaskCommentsDbSet.Add(new TaskComments { TaskId = 1, UserName = "ИванКурьер", CommentText = "я пока свободен, сейчас сгоняю в магазин" });
-            //db.TaskCommentsDbSet.Add(new TaskComments { TaskId = 1, UserName = "АннаМенеджер", CommentText = "ребята, заказ очень важный, не подведите" });
 
         }
     }
