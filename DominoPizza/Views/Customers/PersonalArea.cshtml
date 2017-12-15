@@ -51,9 +51,10 @@
                 Пол
             </td>
             <td align="left">
-                @Html.DisplayFor(model => model.CustomerSex)
+                @(Model.CustomerSex.ToString() == "true" ? "Мужской" : "Женский")
             </td>
         </tr>
+
 
         <tr>
             <td align="center">

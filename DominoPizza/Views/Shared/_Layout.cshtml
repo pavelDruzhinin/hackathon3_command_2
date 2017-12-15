@@ -52,8 +52,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div>
-                                <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
-                                <span>@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
+                                <a href="@Url.Action("PersonalArea","Customers")">
+                                    <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
+                                    <span>@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
+                                </a>
                             </div>
 
                             <div>
@@ -62,7 +64,7 @@
                                     {
                                         @Html.AntiForgeryToken()
                                     }
-                                    <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989;"></span></a>
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" title="Выйти" style=" color: #898989;"></span></a>
                                 </span>
                             </div>
                         }
