@@ -140,7 +140,7 @@
                                             var customer = db.Customers.Find(customerTask.CustomerId); // вытаскиваем кастомера из заказа
                                             if (customer != null)
                                             {
-                                                ViewBag.customer = customer.CustomerEmail;
+                                                ViewBag.customer = customer.CustomerFullName();
                                             }
                                         }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
