@@ -15,17 +15,6 @@ namespace DominoPizza.Models
         public string Password { get; set; }
     }
 
-    public class ChangePass
-    {
-        public int CustomerId { get; set; }
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        [DataType(DataType.Password)]
-        public string PasswordConfirm { get; set; }
-    }
-
     public class RegisterModel
     {
         public string Email { get; set; }

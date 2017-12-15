@@ -205,22 +205,27 @@ namespace DominosPizza.Controllers
         [Authorize]
         public ActionResult ChangePassword()
         {
+            ViewBag.Title = "Dominos Pizza | Смена пароля";
             return View();
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(string customerPassword, string customerPasswordConfirm)
+        public ActionResult ChangePassword(ChangePass model)
         {
+            if (User.Identity.Name == null) return View();
             var customer = _db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+
             if (customer != null)
             {
-                customer.CustomerPassword = customerPassword;
-                customer.CustomerPasswordConfirm = customerPasswordConfirm;
+                customer.CustomerPassword = model.Password;
+                customer.CustomerPasswordConfirm = model.PasswordConfirm;
             }
-
-            if (User.Identity.Name == null) return View(customer);
+            if (customer != null && customer.CustomerPassword != customer.CustomerPasswordConfirm)
+            {
+                return View();
+            }
             _db.Entry(customer).State = EntityState.Modified;
             _db.SaveChanges();
 
