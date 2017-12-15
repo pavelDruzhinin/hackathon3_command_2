@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
+using DominoPizza.Models;
 
 namespace DominosPizza.Models
 {
@@ -27,6 +28,7 @@ namespace DominosPizza.Models
         public ICollection<Customer> Customers { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
+        public ICollection<CustomerTask> CustomerTasks { get; set; }
 
 
     }
