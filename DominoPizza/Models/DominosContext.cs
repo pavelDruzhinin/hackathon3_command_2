@@ -12,7 +12,7 @@ namespace DominosPizza.Models
     {
         public DominosContext() : base("DominosContext")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DominosContext, DominoPizza.Migrations.Configuration>("DominosContext"));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DominosContext, DominoPizza.Migrations.Configuration>("DominosContext"));
         }
 
         public DbSet<UserRole> UserRoles { get; set; }

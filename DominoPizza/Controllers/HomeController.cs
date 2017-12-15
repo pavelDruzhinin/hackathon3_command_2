@@ -181,12 +181,14 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult SendMail(FeedbackMail Feedback)
         {
+            string viewmailname = "Email";
+
             Feedback.To = "dominospizzaptz@yandex.ru";
             if (ModelState.IsValid)
             {
                 try
                 {
-                    new FeedbackController().SendEmail(Feedback).Deliver();
+                    new FeedbackController().SendEmail(Feedback, viewmailname).Deliver();
                     Feedback.MailDateCreate = DateTime.Now;
                     db.FeedBacks.Add(Feedback);
                     db.SaveChanges();
@@ -446,6 +448,7 @@ namespace DominosPizza.Controllers
 
                 }
             }
+            string viewmailname = "Receipt";
 
             FeedbackMail receiptmail = new FeedbackMail();
 
@@ -468,7 +471,7 @@ namespace DominosPizza.Controllers
 
             //try
             //{
-            new FeedbackController().SendEmail(receiptmail).Deliver();
+            new FeedbackController().SendEmail(receiptmail, viewmailname).Deliver();
             receiptmail.MailDateCreate = DateTime.Now;
             db.FeedBacks.Add(receiptmail);
             tasks.Last().TaskPayMethod = 4;

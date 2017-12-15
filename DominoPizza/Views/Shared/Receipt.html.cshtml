@@ -1,0 +1,28 @@
+﻿@model DominosPizza.Models.FeedbackMail
+<!--{
+    ViewBag.Title = "Email";
+}-->
+
+@{
+    Layout = null;
+}
+
+<html>
+<body>
+    <!--<p>Model.Subject</p>
+    <p>Model.ReplyEmail</p>
+    <p>Model.FeedbackName</p>
+    <p>Model.Body</p>-->
+    <table style="border:none; font-weight:bold;">
+        <tr>
+            <td>@Model.FeedbackName, Ваш заказ оплачен и обрабатывается</td>
+        </tr>
+       
+        <tr>
+            <td>@Model.Body</td>
+        </tr>
+       
+    </table>
+</body>
+</html>
+
