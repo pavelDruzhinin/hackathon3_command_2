@@ -181,12 +181,14 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult SendMail(FeedbackMail Feedback)
         {
+            string viewmailname = "Email";
+
             Feedback.To = "dominospizzaptz@yandex.ru";
             if (ModelState.IsValid)
             {
                 try
                 {
-                    new FeedbackController().SendEmail(Feedback).Deliver();
+                    new FeedbackController().SendEmail(Feedback, viewmailname).Deliver();
                     Feedback.MailDateCreate = DateTime.Now;
                     db.FeedBacks.Add(Feedback);
                     db.SaveChanges();
@@ -250,7 +252,7 @@ namespace DominosPizza.Controllers
             Cart cart = new Cart();
             //Contact contact = new Contact();
             //Customer customer = new Customer();
-            int i = 0; // индикатор использования пользователем контакта
+            //int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
                 cart = (Cart)Session["cart"];
@@ -308,6 +310,7 @@ namespace DominosPizza.Controllers
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
             task.Customers = new List<Customer>() { mycustomer };
+            task.CustomerId = mycustomer.CustomerId;
             db.Tasks.Add(task);
             db.SaveChanges();
             IEnumerable<Task> tasks = db.Tasks;
@@ -445,6 +448,7 @@ namespace DominosPizza.Controllers
 
                 }
             }
+            string viewmailname = "Receipt";
 
             FeedbackMail receiptmail = new FeedbackMail();
 
@@ -467,7 +471,7 @@ namespace DominosPizza.Controllers
 
             //try
             //{
-            new FeedbackController().SendEmail(receiptmail).Deliver();
+            new FeedbackController().SendEmail(receiptmail, viewmailname).Deliver();
             receiptmail.MailDateCreate = DateTime.Now;
             db.FeedBacks.Add(receiptmail);
             tasks.Last().TaskPayMethod = 4;

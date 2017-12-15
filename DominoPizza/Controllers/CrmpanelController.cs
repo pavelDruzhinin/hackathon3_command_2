@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using DominosPizza.Models;
 using DominoPizza.Models;
 using System.Web.Security;
 using System.Net;
 using System.Data.Entity;
+using System.Data.Common;
+using System.Data;
 
 namespace DominosPizza.Controllers
 {
@@ -32,7 +35,34 @@ namespace DominosPizza.Controllers
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Active_Orders() // страница управления пиццерией
         {
-            return View(_db.Tasks.ToList());
+            //IEnumerable<Task> tasks = _db.Tasks;
+
+            //foreach (var item in tasks)
+            //{
+            //    var task = _db.Tasks.Find(item.TaskId);
+            //    if (task != null)
+            //    {
+            //        var contact = _db.Contacts.Find(task.ContactId);
+            //        if (contact != null)
+            //        {
+            //            ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
+            //        }
+            //    }
+            //    var customerTask = _db.CustomerTasks.Find(item.TaskId);
+            //    if (customerTask != null)
+            //    {
+            //        var customer = _db.Customers.Find(customerTask.CustomerId); // вытаскиваем кастомера из заказа
+            //        if (customer != null)
+            //        {
+            //            ViewBag.customer = customer.CustomerFullName();
+            //        }
+            //    }
+            //    ViewBag.taskId = item.TaskId;
+            //    ViewBag.totalSumm = item.TaskTotalSum;
+            //    ViewBag.date = item.TaskDate;
+            //    ViewBag.status = item.TaskStatus;
+            //}
+            return View(_db.Tasks.ToList()); //
         }
 
         [Authorize] // только авторизированный пользователь может зарегистрировать в системе сотрудника, доступ будет дан только Управляющему пиццерией или учетной записи администратора
@@ -175,22 +205,27 @@ namespace DominosPizza.Controllers
         [Authorize]
         public ActionResult ChangePassword()
         {
+            ViewBag.Title = "Dominos Pizza | Смена пароля";
             return View();
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(string customerPassword, string customerPasswordConfirm)
+        public ActionResult ChangePassword(ChangePass model)
         {
+            if (User.Identity.Name == null) return View();
             var customer = _db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+
             if (customer != null)
             {
-                customer.CustomerPassword = customerPassword;
-                customer.CustomerPasswordConfirm = customerPasswordConfirm;
+                customer.CustomerPassword = model.Password;
+                customer.CustomerPasswordConfirm = model.PasswordConfirm;
             }
-
-            if (User.Identity.Name == null) return View(customer);
+            if (customer != null && customer.CustomerPassword != customer.CustomerPasswordConfirm)
+            {
+                return View();
+            }
             _db.Entry(customer).State = EntityState.Modified;
             _db.SaveChanges();
 
