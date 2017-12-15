@@ -310,12 +310,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712142023337_init.cs" />
-    <Compile Include="Migrations\201712142023337_init.Designer.cs">
-      <DependentUpon>201712142023337_init.cs</DependentUpon>
+    <Compile Include="Migrations\201712151311197_Init.cs" />
+    <Compile Include="Migrations\201712151311197_Init.Designer.cs">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
+    <Compile Include="Models\CustomerTask.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
@@ -336,8 +337,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712142023337_init.resx">
-      <DependentUpon>201712142023337_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712151311197_Init.resx">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

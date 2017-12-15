@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
+using DominoPizza.Models;
 
 namespace DominosPizza.Models
 {
@@ -14,6 +15,7 @@ namespace DominosPizza.Models
         public DateTime TaskDate { get; set; }
         public int TaskPayMethod { get; set; }
         public string TaskCustomerComment { get; set; }
+        public  int CustomerId { get; set; }
 
        // private Dictionary<int, DateTime> taskStatusChange = new Dictionary<int, DateTime>();//<ИД пользователя сменившего статус, время>
 
@@ -27,6 +29,7 @@ namespace DominosPizza.Models
         public ICollection<Customer> Customers { get; set; }
 
         public ICollection<TaskRow> TaskRows { get; set; }
+        //public ICollection<CustomerTask> CustomerTasks { get; set; }
 
 
     }
