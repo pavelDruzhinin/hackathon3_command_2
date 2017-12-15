@@ -10,7 +10,7 @@ namespace DominosPizza.Controllers
 {
     public class FeedbackController : MailerBase
     {
-        public EmailResult SendEmail(FeedbackMail feedbackMail)
+        public EmailResult SendEmail(FeedbackMail feedbackMail, string viewmailname)
         {
             DominosContext db = new DominosContext();
 
@@ -20,7 +20,7 @@ namespace DominosPizza.Controllers
 
             Subject = feedbackMail.Subject;
 
-            return Email("Email", feedbackMail);
+            return Email(viewmailname, feedbackMail);
         }
     }
 }
