@@ -64,6 +64,7 @@ namespace DominoPizza.Migrations
                         TaskDate = c.DateTime(nullable: false),
                         TaskPayMethod = c.Int(nullable: false),
                         TaskCustomerComment = c.String(),
+                        CustomerId = c.Int(nullable: false),
                         ContactId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TaskId)

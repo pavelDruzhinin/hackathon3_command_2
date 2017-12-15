@@ -250,7 +250,7 @@ namespace DominosPizza.Controllers
             Cart cart = new Cart();
             //Contact contact = new Contact();
             //Customer customer = new Customer();
-            int i = 0; // индикатор использования пользователем контакта
+            //int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
                 cart = (Cart)Session["cart"];
@@ -308,6 +308,7 @@ namespace DominosPizza.Controllers
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
             task.Customers = new List<Customer>() { mycustomer };
+            task.CustomerId = mycustomer.CustomerId;
             db.Tasks.Add(task);
             db.SaveChanges();
             IEnumerable<Task> tasks = db.Tasks;

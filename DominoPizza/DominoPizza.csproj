@@ -310,17 +310,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712150645036_Init.cs" />
-    <Compile Include="Migrations\201712150645036_Init.Designer.cs">
-      <DependentUpon>201712150645036_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712150931109_Second.cs" />
-    <Compile Include="Migrations\201712150931109_Second.Designer.cs">
-      <DependentUpon>201712150931109_Second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712151152541_Third.cs" />
-    <Compile Include="Migrations\201712151152541_Third.Designer.cs">
-      <DependentUpon>201712151152541_Third.cs</DependentUpon>
+    <Compile Include="Migrations\201712151311197_Init.cs" />
+    <Compile Include="Migrations\201712151311197_Init.Designer.cs">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
@@ -345,14 +337,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712150645036_Init.resx">
-      <DependentUpon>201712150645036_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712150931109_Second.resx">
-      <DependentUpon>201712150931109_Second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712151152541_Third.resx">
-      <DependentUpon>201712151152541_Third.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712151311197_Init.resx">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -18,7 +18,7 @@ namespace DominosPizza.Models
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<StatusHistory> StatusHistories { get; set; }
         public DbSet<Task> Tasks { get; set; }
-        public DbSet<CustomerTask> CustomerTasks { get; set; }
+        //public DbSet<CustomerTask> CustomerTasks { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Contact> Contacts { get; set; }
@@ -36,7 +36,7 @@ namespace DominosPizza.Models
             modelBuilder.Configurations.Add(new ProductMap());
             modelBuilder.Configurations.Add(new TaskRowMap());
             modelBuilder.Configurations.Add(new UserRoleMap());
-            modelBuilder.Configurations.Add(new CustomerTaskMap());
+            //modelBuilder.Configurations.Add(new CustomerTaskMap());
 
             base.OnModelCreating(modelBuilder);
 

@@ -121,31 +121,29 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                        var task = db.Tasks.Find(item.TaskId);
-                                        if (task != null)
+                                    var task = db.Tasks.Find(item.TaskId);
+                                    if (task != null)
+                                    {
+                                        ViewBag.taskId = item.TaskId;
+                                        ViewBag.totalSumm = item.TaskTotalSum;
+                                        ViewBag.date = item.TaskDate;
+                                        ViewBag.status = item.TaskStatus;
+                                        
+                                        var contact = db.Contacts.Find(task.ContactId);
+                                        if (contact != null)
                                         {
-                                            var contact = db.Contacts.Find(task.ContactId);
-                                            if (contact != null)
-                                            {
-                                                ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
-                                            }
-                                            ViewBag.taskId = item.TaskId;
-                                            ViewBag.totalSumm = item.TaskTotalSum;
-                                            ViewBag.date = item.TaskDate;
-                                            ViewBag.status = item.TaskStatus;
+                                            ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
                                         }
-                                        var customerTask = db.CustomerTasks.Find(item.TaskId);
-                                        if (customerTask != null)
+
+                                        var customer = db.Customers.Find(task.CustomerId); // вытаскиваем кастомера из заказа
+                                        if (customer != null)
                                         {
-                                            var customer = db.Customers.Find(customerTask.CustomerId); // вытаскиваем кастомера из заказа
-                                            if (customer != null)
-                                            {
-                                                ViewBag.customer = customer.CustomerFullName();
-                                            }
+                                            ViewBag.customer = customer.CustomerFullName();
                                         }
+                                    }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                                    <!--if (item.TaskStatus != null && item.TaskStatus == null)
-                                    {-->
+                                    if (item.TaskStatus != null)
+                                    {
                                 <tr>
                                     <td>@ViewBag.taskId</td>
                                     <td>@ViewBag.customer</td>
@@ -154,7 +152,7 @@
                                     <td>@ViewBag.adress</td>
                                     <td>@ViewBag.status</td>
                                 </tr>
-                                    <!--}-->
+                                    }
                                 }
                             </tbody>
                         </table>
