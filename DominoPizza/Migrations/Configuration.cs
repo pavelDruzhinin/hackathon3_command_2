@@ -21,7 +21,7 @@ namespace DominoPizza.Migrations
             //db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Повар" });
             //db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });
 
-            db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Василий", CustomerPatronymic = "Алибабаевич", CustomerLastName = "Администратор", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "79601005060" });
+            //db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Василий", CustomerPatronymic = "Алибабаевич", CustomerLastName = "Администратор", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "79601005060" });
             ////анонимный клиент нужен для работы чата, CustomerId = 2 записано в коде MessagingController/AddNewMessageToChat, если кому нужен этот ИД, то в коде нада его изменить
             //db.Customers.Add(new Customer { CustomerEmail = "unknownclient@dominos.loc", CustomerFirstName = "Анонимный", CustomerPatronymic = "Незарегистрированный", CustomerLastName = "Клиент", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 1, CustomerPhone = "70000000000" });
 
