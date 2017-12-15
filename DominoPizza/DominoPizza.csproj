@@ -316,6 +316,7 @@
       <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ChangePass.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\CustomerTask.cs" />
     <Compile Include="Models\Models.cs" />
