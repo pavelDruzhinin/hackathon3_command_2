@@ -16,66 +16,66 @@
 </head>
 <body>
     <header>
-        <div class="navbar navbar-rospizza navbar-fixed-top">
+        <div id="navbarTop" class="navbar navbar-rospizza navbar-fixed-top">
             <div class="container" style="    padding: 0;">
-                <div style="display:flex; justify-content:space-between;align-items:center; height: 60px;">
-                <div style="margin-left: 40px;">
-                    @*<div class="logo">
-                        <img src="~/img/logo.png" alt="" width="50" />
-                    </div>*@
-                    <div class="head__block_pizza">
-                        Dominos Pizza
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="margin-left: 40px;">
+                        @*<div class="logo">
+                                <img src="~/img/logo.png" alt="" width="50" />
+                            </div>*@
+                        <div class="head__block_pizza">
+                            Dominos Pizza
 
+                        </div>
+                        @*<div class="head__block_phone">
+                                Доставка пиццы 24 часа: <span>555 - 555</span>
+                            </div>*@
                     </div>
-                    @*<div class="head__block_phone">
-                        Доставка пиццы 24 часа: <span>555 - 555</span>
-                    </div>*@
-                    </div>
-                                    @*<div class="head__block_moto">
-                                Пиццерия № 1<br />в Петрозаводске
+                    @*<div class="head__block_moto">
+                            Пиццерия № 1<br />в Петрозаводске
+                        </div>*@
+
+                    <div class="head__block_moto">
+                        @*<div class="cart_top">
+                                <span class="carttop_price_value" pricevalue="0">
+                                    <span class="value">
+
+                                    </span>
+                                    <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
+                                </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
                             </div>*@
 
-                <div class="head__block_moto">
-                    @*<div class="cart_top">
-                        <span class="carttop_price_value" pricevalue="0">
-                            <span class="value">
-                               
-                            </span>
-                            <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
-                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
-                    </div>*@
-                    
-                    <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px; height: 60px; margin-right: 45px;">
-                        <div><span class="carttop_price_value" pricevalue="0"></span></div>
-                        <div><span class="value" style="font-weight:700;">0</span><span class="glyphicon glyphicon-ruble" style="font-size: 20px;"></span></div>
-                        <div><a href="@Url.Action("Cart", "Home")"><span class="glyphicon glyphicon-shopping-cart" style=" color: #898989; font-size: 20px;"></span>@*<img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />*@</a></div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div>
-                                <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
-                                <span>@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
-                            </div>
+                        <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px; height: 60px; margin-right: 45px; margin-bottom: 8px;">
+                            <div><span class="carttop_price_value" pricevalue="0"></span></div>
+                            <div><span class="value" style="font-weight:700;">0</span><span class="glyphicon glyphicon-ruble" style="font-size: 20px;"></span></div>
+                            <div><a href="@Url.Action("Cart", "Home")"><span class="glyphicon glyphicon-shopping-cart" style=" color: #898989; font-size: 20px;"></span>@*<img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />*@</a></div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div>
+                                    <span class="glyphicon glyphicon-user" title=" @User.Identity.Name" style="font-size: 20px;"></span>
+                                    <span>@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
+                                </div>
 
-                            <div>
-                                <span>
-                                    @using (Html.BeginForm("Logoff", "Customers", FormMethod.Post, new { id = "logoutForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                    }
-                                    <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989;"></span></a>
-                                </span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="entertext"><a href="/Customers/Auth" title="вход для зарегистрированных пользователей"><span class="glyphicon glyphicon-log-in" style=" color: #898989;"></span></a></div>
-                        }
+                                <div>
+                                    <span>
+                                        @using (Html.BeginForm("Logoff", "Customers", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                        <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989; font-size: 20px;" title="выйти"></span></a>
+                                    </span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="entertext"><a href="/Customers/Auth" title="вход для зарегистрированных пользователей"><span class="glyphicon glyphicon-log-in" style=" color: #898989;"></span></a></div>
+                            }
+                        </div>
                     </div>
-            </div>
                 </div>
-            <div class="container navbar navbar-pizzamenu">
-                <div class="navbar-collapse collapse" style=" display:flex !important; justify-content:space-between; align-items:center; width:100%;">
-                    @*<ul class="nav navbar-nav h3-u">*@
+                <div class="container navbar navbar-pizzamenu">
+                    <div class="navbar-collapse collapse" style=" display:flex !important; justify-content:space-between; align-items:center; width:100%;">
+                        @*<ul class="nav navbar-nav h3-u">*@
                         <div class="menuitems">@Html.ActionLink("Пиццы", "Index", "Home")</div>
                         <div class="menuitems">@Html.ActionLink("Акции", "Stock", "Home")</div>
                         <div class="menuitems">@Html.ActionLink("Как заказать", "Delivery", "Home")</div>
@@ -83,48 +83,102 @@
                         <div class="menuitems">@Html.ActionLink("Вакансии", "Vacancies", "Home")</div>
                         <div class="menuitems">@Html.ActionLink("Правовая информация", "Rules", "Home")</div>
                         @*@if (User.Identity.IsAuthenticated)
-                        {
-                            <li>Вы вошли как: @User.Identity.Name</li>
-                            <li>@Html.ActionLink("Личный кабинет", "PersonalArea","Customers")</li>
-                            <li>@Html.ActionLink("Выйти", "Logoff", "Customers")</li>
-                                using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
-                                {
-                                    Html.AntiForgeryToken()
-                                }
-                                <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
-                                    
-                        }
-                        else
-                        {
-                            <li>
-                                @Html.ActionLink("Вход", "Auth", "Customers")
-                            </li>
-                        }*@
-                        
+                            {
+                                <li>Вы вошли как: @User.Identity.Name</li>
+                                <li>@Html.ActionLink("Личный кабинет", "PersonalArea","Customers")</li>
+                                <li>@Html.ActionLink("Выйти", "Logoff", "Customers")</li>
+                                    using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        Html.AntiForgeryToken()
+                                    }
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Вход", "Auth", "Customers")
+                                </li>
+                            }*@
+
                         <div class="menuitems">@Html.ActionLink("Обратная связь", "Feedback", "Home")</div>
-                    @*</ul>*@
+                        @*</ul>*@
+                    </div>
                 </div>
             </div>
         </div>
-            </div>
     </header>
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <div class="container-u">
-                    <h3 class="h3-ua">Способы оплаты: <img src="~/img/pay1.jpg" /></h3>
-                    <h3 class="h3-ua">Мы в сети: <img src="~/img/vk.jpg" width="50" /><img src="~/img/ok.png" width="30" /></h3>
-                    <p class="lead-footer h3-ua">&copy; 2016 - @DateTime.Now.Year – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
-                </div>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+
+
+    </div>
+    <div class="footerBottom">
+        <p >&copy; 2016 - @DateTime.Now.Year – Dominos Pizza - Пиццерия №1 в Петрозаводске, доставка 24 часа.</p>
+    </div>
+    <button id="upToTop" class="upToTop" title="наверх" style="display:none; left: 13px;"><span class="glyphicon glyphicon-chevron-up"></span></button>
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    }        
-    </body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    }
+
+    <!--script onScroll-->
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+    <script>
+        var scrollPosPrev = 580;
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 580) {
+
+                    var scrollPos = $(this).scrollTop();
+                    if (scrollPos > scrollPosPrev) {
+                        $('.upToTop').fadeIn();
+                        $('#navbarTop').css({"top":"-65px"});
+                    }
+                    else {
+                        $('#navbarTop').css({ "top": "0" });
+                        $('.upToTop').fadeOut();
+                    }
+                    scrollPosPrev = scrollPos;
+                }
+            });
+        });
+    </script>
+    <script>
+        $('.upToTop').on("click", function () {
+            $("html, body").animate({ scrollTop: 0 }, 800);
+        });
+        $(document).ready(function () {
+            var scrollHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+            if ($(window).innerHeight() >= (scrollHeight)) {
+                $('.footerBottom').css({ "position": "fixed", "bottom": "0", "margin": " 0"});
+            }
+        });
+        $(window).resize(function () {
+            var scrollHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+            if ($(window).innerHeight() >= (scrollHeight)) {
+                $('.footerBottom').css({ "position": "fixed", "bottom": "0", "margin": "0" });
+            }
+            else
+            {
+                $('.footerBottom').css({ "position": "relative",  "margin": "0" });
+            }
+        });
+    </script>
+
+
+
+</body>
 </html>
