@@ -153,6 +153,7 @@
     <Content Include="Scripts\Calendar.js" />
     <Content Include="Scripts\charts-home.js" />
     <Content Include="Scripts\examples.dashboard.js" />
+    <Content Include="Scripts\examples.modals.js" />
     <Content Include="Scripts\front.js" />
     <Content Include="Scripts\grasp_mobile_progress_circle-1.0.0.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -248,6 +249,12 @@
     <Content Include="Views\Crmpanel\Delete.cshtml" />
     <Content Include="Views\Crmpanel\_LayoutManager.cshtml" />
     <Content Include="Views\Crmpanel\OrderDetails.cshtml" />
+    <Content Include="Views\Crmpanel\ChangePassword.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutDelivery.cshtml" />
+    <Content Include="Views\Crmpanel\_LayoutKitchen.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatDialog.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
+    <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -299,18 +306,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KitchenController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\MessagingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712111205499_Init.cs" />
-    <Compile Include="Migrations\201712111205499_Init.Designer.cs">
-      <DependentUpon>201712111205499_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201712151311197_Init.cs" />
+    <Compile Include="Migrations\201712151311197_Init.Designer.cs">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
+    <Compile Include="Models\CustomerTask.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\FeedbackMail.cs" />
+    <Compile Include="Models\OnlineChatMessage.cs" />
+    <Compile Include="Models\StatusHistory.cs" />
     <Compile Include="Models\TaskRow.cs" />
     <Compile Include="Models\UserComment.cs" />
     <Compile Include="Models\Contact.cs" />
@@ -326,8 +337,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712111205499_Init.resx">
-      <DependentUpon>201712111205499_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712151311197_Init.resx">
+      <DependentUpon>201712151311197_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

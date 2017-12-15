@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+
 <!doctype html>
 <html class="fixed">
 <head>
@@ -42,7 +43,7 @@
         <!-- start: header -->
         <header class="header">
             <div class="logo-container">
-                <a class="logo">
+                <a href="~/Crmpanel/Kitchen" class="logo">
                     <h4>Dominos Pizza CRM</h4>
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -59,7 +60,7 @@
                         <a href="#" data-toggle="dropdown">
                             <div class="profile-info">
                                 <span class="name">@User.Identity.Name</span>
-                                <span class="role">Менеджер</span>
+                                <span class="role">Повар</span>
                             </div>
 
                             <i class="fa custom-caret"></i>
@@ -69,8 +70,7 @@
                             <ul class="list-unstyled">
                                 <li class="divider"></li>
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href=@Url.Action("ChangePassword", "Crmpanel")><i class="fa fa-user"></i> Сменить пароль</a>
-                                    <!--<a role="menuitem" tabindex="-1" href=@Url.Action("ChangePassword", "Crmpanel")><i class="fa fa-user"></i> Сменить пароль</a>-->
+                                    <a role="menuitem" tabindex="-1" href=@Url.Action("ChangePassword", "Crmpanel")><i class="fa fa-lock"></i> Сменить пароль</a>
                                 </li>
                                 <li>
                                     <a role="menuitem" tabindex="-1" href=@Url.Action("LogOut", "Crmpanel")>
@@ -86,10 +86,30 @@
         </header>
         <!-- end: header -->
         <!-- start: Content -->
+
+
         <div class="inner-wrapper">
-            @RenderBody()
+            <section role="main" class="content-body">
+                <header class="page-headerstage">
+                    <h2>Кухня</h2>
+
+                    <div class="right-wrapper pull-right">
+                        <ol class="breadcrumbs">
+                            <li>
+                                <a href="~/Crmpanel/Kitchen">
+                                    <i class="fa fa-cutlery"></i>
+                                </a>
+                            </li>
+                            <li><span>Кухня</span></li>
+                        </ol>
+
+                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+                    </div>
+                </header>
+            </section>
         </div>
         <!-- end: Content -->
+        @RenderBody()
         <aside id="sidebar-right" class="sidebar-right">
             <div class="nano">
                 <div class="nano-content">
@@ -129,8 +149,6 @@
     <!-- Theme Initialization Files -->
     <script src="~/Scripts/theme.init.js"></script>
 
-    <!-- Waves Effect Plugin Js -->
-    <script src="~/Scripts/waves.js"></script>
 
     <!-- Examples -->
     <script src="~/Scripts/examples.dashboard.js"></script>

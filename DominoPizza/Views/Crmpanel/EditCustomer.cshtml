@@ -110,81 +110,81 @@
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.CustomerId)
-                        <div class="form-group mb-lg">
-                            <label>E-mail / Login</label>
-                            <div class="input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-envelope"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerEmail, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
-                            </div>
+                    <div class="form-group mb-lg">
+                        <label>E-mail / Login</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-envelope"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerEmail, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
                         </div>
-                        <div class="form-group mb-lg">
-                            <label>Фамилия</label>
-                            <div class="input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-user"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerLastName, new {htmlAttributes = new {@class = "form-control"}})
-                                @Html.ValidationMessageFor(model => model.CustomerLastName, "", new {@class = "text-danger"})
-                            </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Фамилия</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-user"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerLastName, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.CustomerLastName, "", new {@class = "text-danger"})
                         </div>
-                        <div class="form-group mb-lg">
-                            <label>Имя</label>
-                            <div class="input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-user"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerFirstName, new {htmlAttributes = new {@class = "form-control"}})
-                                @Html.ValidationMessageFor(model => model.CustomerFirstName, "", new {@class = "text-danger"})
-                            </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Имя</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-user"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerFirstName, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.CustomerFirstName, "", new {@class = "text-danger"})
                         </div>
-                        <div class="form-group mb-lg">
-                            <label>Отчество</label>
-                            <div class="input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-user"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerPatronymic, new {htmlAttributes = new {@class = "form-control"}})
-                                @Html.ValidationMessageFor(model => model.CustomerPatronymic, "", new {@class = "text-danger"})
-                            </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Отчество</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-user"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerPatronymic, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.CustomerPatronymic, "", new {@class = "text-danger"})
                         </div>
-                        <div class="form-group mb-lg">
-                            <label>Пол</label>
-                            <div class="col-sm-12">
-                                <div class="radio-custom radio-primary">
-                                    <span class="icon"><i class="fa fa-male"></i></span>
-                                    @Html.RadioButtonFor(model => model.CustomerSex, "Male")
-                                    <label>Мужской</label>
-                                </div>
-                                <div class="radio-custom radio-primary">
-                                    <span class="icon"><i class="fa fa-female"></i></span>
-                                    @Html.RadioButtonFor(model => model.CustomerSex, "Female")
-                                    <label>Женский</label>
-                                </div>
-                                @Html.ValidationMessageFor(model => model.CustomerSex, "", new {@class = "text-danger"})
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Пол</label>
+                        <div class="col-sm-12">
+                            <div class="radio-custom radio-primary">
+                                <span class="icon"><i class="fa fa-male"></i></span>
+                                @Html.RadioButtonFor(model => model.CustomerSex, "Male")
+                                <label>Мужской</label>
                             </div>
-                        </div>
-                        <div class="form-group mb-lg">
-                            <label>Дата рождения</label>
-                            <div class="col-md-6 input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-gift"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerBirthDate, new {htmlAttributes = new {@class = "form-control", placeholder = "__/__/____"}})
-                                @Html.ValidationMessageFor(model => model.CustomerBirthDate, "", new {@class = "text-danger"})
+                            <div class="radio-custom radio-primary">
+                                <span class="icon"><i class="fa fa-female"></i></span>
+                                @Html.RadioButtonFor(model => model.CustomerSex, "Female")
+                                <label>Женский</label>
                             </div>
+                            @Html.ValidationMessageFor(model => model.CustomerSex, "", new {@class = "text-danger"})
                         </div>
-                        <div class="form-group mb-lg">
-                            <label>Номер телефона</label>
-                            <div class="col-md-6 input-group mb-md">
-                                <span class="input-group-addon">
-                                    <span class="icon"><i class="fa fa-phone"></i></span>
-                                </span>
-                                @Html.EditorFor(model => model.CustomerPhone, new {htmlAttributes = new {@class = "form-control", placeholder = "(123) 123-1234"}})
-                                @Html.ValidationMessageFor(model => model.CustomerPhone, "", new {@class = "text-danger"})
-                            </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Дата рождения</label>
+                        <div class="col-md-6 input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-gift"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerBirthDate, new {htmlAttributes = new {@class = "form-control", placeholder = "__/__/____"}})
+                            @Html.ValidationMessageFor(model => model.CustomerBirthDate, "", new {@class = "text-danger"})
                         </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Номер телефона</label>
+                        <div class="col-md-6 input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-phone"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerPhone, new {htmlAttributes = new {@class = "form-control", placeholder = "(123) 123-1234"}})
+                            @Html.ValidationMessageFor(model => model.CustomerPhone, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
                     <div class="form-group mb-lg">
                         <label>Должность</label>
                         <div class="col-sm-12">
@@ -210,34 +210,38 @@
                             </div>
                         </div>
                     </div>
-                <div class="form-group mb-lg">
-                    <label>Пароль</label>
-                    <div class="input-group mb-md">
-                        <span class="input-group-addon">
-                            <span class="icon"><i class="fa fa-key"></i></span>
-                        </span>
-                        @Html.EditorFor(model => model.CustomerPassword, new {htmlAttributes = new {@class = "form-control", value = Model.CustomerPassword}})
-                        @Html.ValidationMessageFor(model => model.CustomerPassword, "", new {@class = "text-danger"})
+                    <div class="form-group mb-lg">
+                        <label>Пароль</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-key"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerPassword, new {htmlAttributes = new {@class = "form-control", value = Model.CustomerPassword}})
+                            @Html.ValidationMessageFor(model => model.CustomerPassword, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <label>Подтверждение пароля</label>
+                        <div class="input-group mb-md">
+                            <span class="input-group-addon">
+                                <span class="icon"><i class="fa fa-key"></i></span>
+                            </span>
+                            @Html.EditorFor(model => model.CustomerPasswordConfirm, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.CustomerPasswordConfirm, "", new {@class = "text-danger"})
+                        </div>
                     </div>
                 </div>
-                <div class="form-group mb-lg">
-                    <label>Подтверждение пароля</label>
-                    <div class="input-group mb-md">
-                        <span class="input-group-addon">
-                            <span class="icon"><i class="fa fa-key"></i></span>
-                        </span>
-                        @Html.EditorFor(model => model.CustomerPasswordConfirm, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.ValidationMessageFor(model => model.CustomerPasswordConfirm, "", new {@class = "text-danger"})
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary hidden-xs" value="Сохранить">Сохранить</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Сохранить">Сохранить</button>
+                            <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
+                            <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-7">
-                        <button type="submit" class="btn btn-primary hidden-xs" value ="Сохранить">Сохранить</button>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value ="Сохранить">Сохранить</button>
-                    </div>
-                </div>
-            </div>
+                </footer>
+               </div>
         </div>
     }
     </section>

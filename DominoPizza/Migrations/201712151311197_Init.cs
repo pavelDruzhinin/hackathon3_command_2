@@ -64,11 +64,28 @@ namespace DominoPizza.Migrations
                         TaskDate = c.DateTime(nullable: false),
                         TaskPayMethod = c.Int(nullable: false),
                         TaskCustomerComment = c.String(),
+                        CustomerId = c.Int(nullable: false),
                         ContactId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TaskId)
                 .ForeignKey("dbo.Contacts", t => t.ContactId, cascadeDelete: true)
                 .Index(t => t.ContactId);
+            
+            CreateTable(
+                "dbo.StatusHistories",
+                c => new
+                    {
+                        StatusHistoryId = c.Int(nullable: false, identity: true),
+                        StatusChangedTo = c.String(),
+                        StatusChangeTime = c.DateTime(nullable: false),
+                        DominosUser_CustomerId = c.Int(nullable: false),
+                        ForTask_TaskId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.StatusHistoryId)
+                .ForeignKey("dbo.Customers", t => t.DominosUser_CustomerId, cascadeDelete: true)
+                .ForeignKey("dbo.Tasks", t => t.ForTask_TaskId, cascadeDelete: true)
+                .Index(t => t.DominosUser_CustomerId)
+                .Index(t => t.ForTask_TaskId);
             
             CreateTable(
                 "dbo.TaskRows",
@@ -125,6 +142,22 @@ namespace DominoPizza.Migrations
                 .PrimaryKey(t => t.UserRoleId);
             
             CreateTable(
+                "dbo.OnlineChatMessages",
+                c => new
+                    {
+                        OnlineChatMessageId = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
+                        ManagerId = c.Int(nullable: false),
+                        OnlineChatUniqueId = c.String(),
+                        DateTime = c.DateTime(nullable: false),
+                        Assigned = c.Boolean(nullable: false),
+                        IsByManager = c.Boolean(nullable: false),
+                        Text = c.String(),
+                        IsNew = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.OnlineChatMessageId);
+            
+            CreateTable(
                 "dbo.CustomerTasks",
                 c => new
                     {
@@ -177,6 +210,8 @@ namespace DominoPizza.Migrations
             DropForeignKey("dbo.UserComments", "UserId", "dbo.Customers");
             DropForeignKey("dbo.TaskRows", "TaskId", "dbo.Tasks");
             DropForeignKey("dbo.TaskRows", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.StatusHistories", "ForTask_TaskId", "dbo.Tasks");
+            DropForeignKey("dbo.StatusHistories", "DominosUser_CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Tasks", "ContactId", "dbo.Contacts");
             DropForeignKey("dbo.FeedbackMails", "CustomerId", "dbo.Customers");
             DropIndex("dbo.ContactCustomers", new[] { "Customer_CustomerId" });
@@ -189,15 +224,19 @@ namespace DominoPizza.Migrations
             DropIndex("dbo.UserComments", new[] { "UserId" });
             DropIndex("dbo.TaskRows", new[] { "ProductId" });
             DropIndex("dbo.TaskRows", new[] { "TaskId" });
+            DropIndex("dbo.StatusHistories", new[] { "ForTask_TaskId" });
+            DropIndex("dbo.StatusHistories", new[] { "DominosUser_CustomerId" });
             DropIndex("dbo.Tasks", new[] { "ContactId" });
             DropIndex("dbo.FeedbackMails", new[] { "CustomerId" });
             DropTable("dbo.ContactCustomers");
             DropTable("dbo.UserRoleCustomers");
             DropTable("dbo.CustomerTasks");
+            DropTable("dbo.OnlineChatMessages");
             DropTable("dbo.UserRoles");
             DropTable("dbo.UserComments");
             DropTable("dbo.Products");
             DropTable("dbo.TaskRows");
+            DropTable("dbo.StatusHistories");
             DropTable("dbo.Tasks");
             DropTable("dbo.FeedbackMails");
             DropTable("dbo.Customers");
