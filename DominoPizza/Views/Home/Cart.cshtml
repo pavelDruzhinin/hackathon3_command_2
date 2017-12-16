@@ -23,154 +23,297 @@
                     </div>
        
 <!--ПЛЮС,МИНУС,СКИДКА----->
+
+<script src="/Scripts/jquery-1.10.2.js"></script>
 <script type="text/javascript">
     var i = 0;
     var birth = false;
-            function plus(id) {
-                var uid = parseInt(id.slice(5));
-                var tdam = document.getElementById("tdamount-" + uid); 
-                var am = document.getElementById("amount-" + uid); 
-                var preSum = document.getElementById("preSum-" + uid); 
-                var preSumValue = document.getElementById("preSumValue-" + uid); 
-                var price = document.getElementById("price-" + uid); 
-                var itogValue = document.getElementById("itogValue"); 
-                var itogVisible = document.getElementById("itogVisible"); 
-                var totalQVisible = document.getElementById("totalQVisible");
-                var totalQValue = document.getElementById("totalQValue");
-                var totalQ = parseInt(totalQValue.value, 10);
-                var itog = parseFloat(itogValue.value, 10);
-                am.value = parseInt(am.value, 10) + 1;
-                tdam.innerHTML = am.value;
-                var preSumNum = parseInt(preSumValue.value, 10) + parseInt(price.value, 10);
-                preSum.innerHTML = preSumNum;
-                preSumValue.value = preSumNum;
-                totalQ = totalQ + 1;
-                totalQVisible.innerHTML = totalQ;
-                totalQValue.value = totalQ;
-                if (i == 0)
-                {
-                    itog = itog + parseInt(price.value, 10); 
-                    itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
-                    itogValue.value = itog;
-                    document.getElementById("message").innerHTML = "";
-                }
-                else if (i == 1)
-                {
-                    itog = itog / 90 * 100;
-                    itog = itog + parseInt(price.value, 10); 
-                    itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
-                    itogValue.value = itog; 
-                    document.getElementById("message").innerHTML = "";
-                    i = 0;
-                }
-                else if ((i == 2 || i == 4))
-                { 
-                    itog = itog / 85 * 100;
-                    itog = itog + parseInt(price.value, 10); 
-                    itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
-                    itogValue.value = itog; 
-                    document.getElementById("message").innerHTML = "";
-                    i = 0;
-                }
-                else 
-                {
-                    itog = itog / 70 * 100;
-                    itog = itog + parseInt(price.value, 10);
-                    itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
-                    itogValue.value = itog;
-                    document.getElementById("message").innerHTML = "";
-                    i = 0;
-                }
-            }
-            function minus(id) {
-                var uid = parseInt(id.slice(5));
-                var tdam = document.getElementById("tdamount-" + uid);
-                var am = document.getElementById("amount-" + uid); 
-                var preSum = document.getElementById("preSum-" + uid); 
-                var preSumValue = document.getElementById("preSumValue-" + uid); 
-                var price = document.getElementById("price-" + uid);
-                var itogValue = document.getElementById("itogValue"); 
-                var itogVisible = document.getElementById("itogVisible");
-                var totalQVisible = document.getElementById("totalQVisible");
-                var totalQValue = document.getElementById("totalQValue");
-                var totalQ = parseInt(totalQValue.value, 10);
-                var j = parseInt(am.value, 10);
-                var itog = parseFloat(itogValue.value, 10);
-                
-                if (j > 1)
-                {
-                    am.value = j - 1;
-                    tdam.innerHTML = am.value;
-                    var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
-                    preSum.innerHTML = preSumNum;
-                    preSumValue.value = preSumNum;
-                    totalQ = totalQ - 1;
-                    totalQVisible.innerHTML = totalQ;
-                    totalQValue.value = totalQ;
-                    if (i == 0) {
-                        
-                        itog = itog - parseInt(price.value, 10);
-                        itog = itog.toFixed(2);
-                        itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
-                        itogValue.value = itog;
-                        document.getElementById("message").innerHTML = "";
-                    }
-                    else if (i == 1) {
-                       
-                        itog = itog / 90 * 100;
-                        itog = itog - parseInt(price.value, 10);
-                        itog = itog.toFixed(2);
-                        itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
-                        itogValue.value = itog;
-                        document.getElementById("message").innerHTML = "";
-                        i = 0;
-                    }
-                    else 
-                    {
-                        
-                        itog = itog / 85 * 100;
-                        itog = itog - parseInt(price.value, 10);
-                        itog = itog.toFixed(2);
-                        itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
-                        itogValue.value = itog;
-                        document.getElementById("message").innerHTML = "";
-                        i = 0;
-                    }
-                  
-                }
-                else
-                {
-                    // ничего не происходит! 
-                    
+    var ispie = false;
+    //var see = document.getElementById("see");
+    //var pie = document.getElementById("pie");
+    //var ispie = parseInt(pie.value, 10);
 
-                }
-               
-                
-            }
+    //see.innerHTML = ispie;
+
+    //var see = document.getElementById("see");
+    function plus(id) {
+        var uid = parseInt(id.slice(5));
+        var tdam = document.getElementById("tdamount-" + uid);
+        var am = document.getElementById("amount-" + uid);
+        var preSum = document.getElementById("preSum-" + uid);
+        var preSumValue = document.getElementById("preSumValue-" + uid);
+        var price = document.getElementById("price-" + uid);
+        var itogValue = document.getElementById("itogValue");
+        var itogVisible = document.getElementById("itogVisible");
+        var totalQVisible = document.getElementById("totalQVisible");
+        var totalQValue = document.getElementById("totalQValue");
+        var totalQ = parseInt(totalQValue.value, 10);
+        var itog = parseFloat(itogValue.value, 10);
+        am.value = parseInt(am.value, 10) + 1;
+        tdam.innerHTML = am.value;
+        var preSumNum = parseInt(preSumValue.value, 10) + parseInt(price.value, 10);
+        preSum.innerHTML = preSumNum;
+        preSumValue.value = preSumNum;
+        totalQ = totalQ + 1;
+        totalQVisible.innerHTML = totalQ;
+        totalQValue.value = totalQ;
+        //location.reload();
+        if (i == 0) {
+            itog = itog + parseInt(price.value, 10);
+            itog = itog.toFixed(2);
+            itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+            itogValue.value = itog;
+            document.getElementById("message").innerHTML = "";
+        }
+        else if (i == 1) {
+            itog = itog / 90 * 100;
+            itog = itog + parseInt(price.value, 10);
+            itog = itog.toFixed(2);
+            itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+            itogValue.value = itog;
+            document.getElementById("message").innerHTML = "";
+            i = 0;
+        }
+        else if ((i == 2 || i == 4)) {
+            itog = itog / 85 * 100;
+            itog = itog + parseInt(price.value, 10);
+            itog = itog.toFixed(2);
+            itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+            itogValue.value = itog;
+            document.getElementById("message").innerHTML = "";
+            i = 0;
+        }
+        else {
+            itog = itog / 70 * 100;
+            itog = itog + parseInt(price.value, 10);
+            itog = itog.toFixed(2);
+            itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+            itogValue.value = itog;
+            document.getElementById("message").innerHTML = "";
+            i = 0;
+        }
+    }
+    function minus(id) {
+        var uid = parseInt(id.slice(5));
+        var tdam = document.getElementById("tdamount-" + uid);
+        var am = document.getElementById("amount-" + uid);
+        var preSum = document.getElementById("preSum-" + uid);
+        var preSumValue = document.getElementById("preSumValue-" + uid);
+        var price = document.getElementById("price-" + uid);
+        var itogValue = document.getElementById("itogValue");
+        var itogVisible = document.getElementById("itogVisible");
+        var totalQVisible = document.getElementById("totalQVisible");
+        var totalQValue = document.getElementById("totalQValue");
+        var totalQ = parseInt(totalQValue.value, 10);
+        var j = parseInt(am.value, 10);
+        var itog = parseFloat(itogValue.value, 10);
+        //location.reload();
+        if (j > 1) {
+            am.value = j - 1;
+            tdam.innerHTML = am.value;
+            var preSumNum = parseInt(preSumValue.value, 10) - parseInt(price.value, 10);
+            preSum.innerHTML = preSumNum;
+            preSumValue.value = preSumNum;
+            totalQ = totalQ - 1;
+            totalQVisible.innerHTML = totalQ;
+            totalQValue.value = totalQ;
             
-            function discount(id) //вычисляем скидку
-            {
-                var uid = parseInt(id.slice(5));
-                var tdam = document.getElementById("tdamount-" + uid); 
-                var am = document.getElementById("amount-" + uid); 
-                var preSum = document.getElementById("preSum-" + uid); 
-                var preSumValue = document.getElementById("preSumValue-" + uid); 
-                var price = document.getElementById("price-" + uid); 
-                var itogValue = document.getElementById("itogValue"); 
-                var itogVisible = document.getElementById("itogVisible"); 
-                var date = new Date(); 
+            if (i == 0) {
+
+                itog = itog - parseInt(price.value, 10);
+                itog = itog.toFixed(2);
+                itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+                itogValue.value = itog;
+                document.getElementById("message").innerHTML = "";
+            }
+            else if (i == 1) {
+
+                itog = itog / 90 * 100;
+                itog = itog - parseInt(price.value, 10);
+                itog = itog.toFixed(2);
+                itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+                itogValue.value = itog;
+                document.getElementById("message").innerHTML = "";
+                i = 0;
+            }
+            else {
+
+                itog = itog / 85 * 100;
+                itog = itog - parseInt(price.value, 10);
+                itog = itog.toFixed(2);
+                itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
+                itogValue.value = itog;
+                document.getElementById("message").innerHTML = "";
+                i = 0;
+            }
+
+        }
+        else {
+            // ничего не происходит!
+
+
+        }
+
+        
+    }
+
+    var c = 0;
+    $("button").click(function (event) {
+
+        if ($(this).hasClass("plus") || $(this).hasClass("mins") || $(this).hasClass("dels")) {
+            event.preventDefault();
+            var pid = parseInt(this.id.slice(5), 10);
+            var temp = "#val-" + pid;
+            var temp2 = "#amount-" + pid;
+            var priceEl = "#preSumValue-" + pid;
+            var price = parseInt($(priceEl).val());
+            var id = parseInt($(temp).val());
+            var qua = parseInt($(temp2).val());
+            var delqua = qua;
+
+
+
+
+
+            if ($(this).hasClass("dels")) {
+
+                //ispie = 0;
+                //pie.innerHTML = ispie;
+                qua = 0;
+                var temp3 = "#row-" + pid;
+                var x = parseInt($(temp3).children(":first").text(), 10);
+                $(temp3).nextAll().each(function (index) {
+                    $(this).children(":first").text(index + x);
+                });
+                $(temp3).remove();
+                //location.reload();
+                $("#totalQVisible").html(parseInt($("#totalQValue").val()) - delqua);
+                $("#totalQValue").val(parseInt($("#totalQValue").val()) - delqua);
+
+                if (i == 0) {
+                    $("#itogVisible").html(parseFloat(($("#itogValue").val()) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
+                    $("#itogValue").val(parseFloat(($("#itogValue").val()) - price));
+                    document.getElementById("message").innerHTML = "";
+                    i = 0;
+
+
+                }
+                else if (i == 1) {
+
+                    $("#itogVisible").html(parseFloat((($("#itogValue").val() / 90 * 100).toFixed(2)) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
+                    $("#itogValue").val(parseFloat((($("#itogValue").val() / 90 * 100).toFixed(2)) - price));
+                    document.getElementById("message").innerHTML = "";
+                    i = 0;
+                }
+                else if (i == 2 || i == 4) {
+                    $("#itogVisible").html(parseFloat((($("#itogValue").val() / 85 * 100).toFixed(2)) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
+                    $("#itogValue").val(parseFloat((($("#itogValue").val() / 85 * 100).toFixed(2)) - price));
+                    document.getElementById("message").innerHTML = "";
+                    i = 0;
+
+                }
+                else {
+                    $("#itogVisible").html(parseFloat((($("#itogValue").val() / 70 * 100).toFixed(2)) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
+                    $("#itogValue").val(parseFloat((($("#itogValue").val() / 70 * 100).toFixed(2)) - price));
+                    document.getElementById("message").innerHTML = "";
+                    i = 0;
+                }
+
+
+            }
+            $.ajax({
+                url: "/Home/CartChangeQuantity",
+                dataType: "json",
+                data: {
+                    productId: id,
+                    amount: qua
+                },
+                type: "POST",
+                success: function (data) {
+                    $("#cartindicator").html(data.Data);
+                    discount();
+
+
+                }
+            });
+           
+        }
+
+    });
+
+    $(document).ready(discount());
+    //$("button").click(function (event) {
+
+    //    if ($(this).hasClass("plus") || $(this).hasClass("mins") || $(this).hasClass("dels"))
+    //    {
+    //        discount();
+    //    }
+    //})
+
+    function discount() {
+        $.ajax({
+            url: "/Home/IsItPie",
+            dataType: "json",
+            data: {
+            },
+            type: "GET",
+            success: function (data) {
+                ispie = data.Data;
+                //alert(ispie);
+            }
+        });
+        
+        $.ajax({
+            url: "/Home/GetBirthDay",
+            dataType: "json",
+            data: {
+            },
+            type: "GET",
+            success: function (data) {
+                birth = data.Data;
+                var date = new Date();
                 var totalQVisible = document.getElementById("totalQVisible");
                 var totalQValue = document.getElementById("totalQValue");
                 var totalQ = parseInt(totalQValue.value, 10);
-                var pie = document.getElementById("pie");
-                var ispie = parseInt(pie.value, 10);
-                var itog = parseFloat(itogValue.value, 10)
+                if (birth == true) //сообщение об акции "вкусные скидки на ваш праздник"
+                {
+                    document.getElementById("prom").innerHTML = "Поздравляем!<br> Сегодня для вас действует акция \"Вкусные скидки на ваш праздник\"";
+                    $("#dis-").css("visibility", "visible");
+                    b = 1;
 
-                if (birth == true && i == 0 && ispie == 1 && totalQ==1) //если пользователю др и он заказывает пиццу пирог, то
+                    //var amount = document.getElementById("amount");
+                    //amount.innerHTML = birth;
+                }
+                else if (date.getDay() != 0 && date.getDay() != 6 && date.getHours() > 11 && date.getHours() < 16) //сообщение об акции "сытный обед"
+                {
+                    document.getElementById("prom").innerHTML = "Сейчас действует акция \"Сытный обед\"";
+                    $("#dis-").css("visibility", "visible");
+                }
+                else if (date.getDay() == 0 || date.getDay() == 6) //сообщение об акции "пицца выходного дня"
+                {
+                    document.getElementById("prom").innerHTML = "Сейчас действует акция \"Пицца выходного дня\"";
+                    $("#dis-").css("visibility", "visible");
+                }
+                //$(window).load(function () {
+
+                //var uid = parseInt(id.slice(5));
+                //var tdam = document.getElementById("tdamount-" + uid);
+                //var am = document.getElementById("amount-" + uid);
+                //var preSum = document.getElementById("preSum-" + uid);
+                //var preSumValue = document.getElementById("preSumValue-" + uid);
+                //var price = document.getElementById("price-" + uid);
+                var itogValue = document.getElementById("itogValue");
+                var itogVisible = document.getElementById("itogVisible");
+                var date = new Date();
+                var totalQVisible = document.getElementById("totalQVisible");
+                var totalQValue = document.getElementById("totalQValue");
+                var totalQ = parseInt(totalQValue.value, 10);
+                //var pie = document.getElementById("pie");
+                //var ispie = parseInt(pie.value, 10);
+                var itog = parseFloat(itogValue.value, 10)
+                
+
+                if (birth == true && i == 0 && ispie == true && totalQ == 1) //если пользователю др и он заказывает пиццу пирог, то
                 {
                     itog = itog / 100 * 70; //вычисляем итоговую сумму с учетом скидки 30 %
                     itog = itog.toFixed(2);
@@ -181,7 +324,7 @@
                     i = 3;
 
                 }
-                else if (birth == true && i == 0 && ispie != 1 && totalQ == 1)////если пользователю др и он заказывает не пиццу пирог, то
+                else if (birth == true && i == 0 && ispie == false && totalQ == 1)////если пользователю др и он заказывает не пиццу пирог, то
                 {
                     itog = itog / 100 * 85; //вычисляем итоговую сумму с учетом скидки 15 %
                     itog = itog.toFixed(2);
@@ -191,34 +334,34 @@
                     $("message").css("visibility", "visible");
                     i = 4;
                 }
-                else if (birth == true && totalQ != 1) 
-                {
+                else if (birth == true && totalQ != 1) {
                     document.getElementById("message").innerHTML = "Для получения скидки по акции выберите 1 пиццу.";
                     $("message").css("visibility", "visible");
                     $("#dis-").css("visibility", "visible");
+                    i = 0;
                 }
-                else if (date.getDay() != 0 && date.getDay() != 6 && date.getHours() > 11 && date.getHours() < 16 && i==0) //если будни с 12ч до 15ч, то
+                else if (date.getDay() != 0 && date.getDay() != 6 && date.getHours() > 11 && date.getHours() < 16 && i == 0 && totalQ > 0) //если будни с 12ч до 15ч, то
                 {
                     itog = itog / 100 * 90; // вычисляем итоговую сумму с учетом скидки 10 %
                     itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
+                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
                     itogValue.value = itog;
                     document.getElementById("message").innerHTML = "Предоставлена скидка 10 %";
                     $("message").css("visibility", "visible");
                     i = 1;
-                    
+
                 }
                 else if ((date.getDay() == 6 || date.getDay() == 0) && totalQ == 2 && i == 0) //если выходной день и в корзине 2 пиццы, то
-                    
+
                 {
                     itog = itog / 100 * 85; // вычисляем итоговую сумму с учетом скидки 15 %
                     itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
+                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
                     itogValue.value = itog;
                     document.getElementById("message").innerHTML = "Предоставлена скидка 15 %";
                     $("message").css("visibility", "visible");
                     i = 2;
-                    
+
                 }
                 else if ((date.getDay() == 6 || date.getDay() == 0) && totalQ != 2) //если выходной день и кол-во пицц в корзине не равно 2, то
                 {
@@ -226,88 +369,22 @@
                     $("message").css("visibility", "visible");
                     $("#dis-").css("visibility", "visible");
                 }
-                
-                else  
-                {
+
+                else {
                     itog = itog.toFixed(2);
-                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>"; 
+                    itogVisible.innerHTML = itog + "&nbsp;<span>&#8381;</span>";
                     itogValue.value = itog;
                 }
 
+                //})
             }
+        })
 
+    }
+            
         </script>
-        <!--AJAX изменение кол-ва-->
-        <script src="/Scripts/jquery-1.10.2.js"></script> 
-        <script defer type="text/javascript">
-           
-            var c = 0;
-            $("button").click(function (event) {
-
-                if ($(this).hasClass("plus") || $(this).hasClass("mins") || $(this).hasClass("dels") || $(this).hasClass("dis")) {
-                    event.preventDefault();
-                    var pid = parseInt(this.id.slice(5), 10);
-                    var temp = "#val-" + pid;
-                    var temp2 = "#amount-" + pid;
-                    var priceEl = "#preSumValue-" + pid;
-                    var price = parseInt($(priceEl).val());
-                    var id = parseInt($(temp).val());
-                    var qua = parseInt($(temp2).val());
-                    var delqua = qua;
-
-                    if ($(this).hasClass("dels")) {
-
-                        qua = 0;
-                        var temp3 = "#row-" + pid;
-                        var x = parseInt($(temp3).children(":first").text(), 10);
-                        $(temp3).nextAll().each(function (index) {
-                            $(this).children(":first").text(index + x);
-                        });
-                        $(temp3).remove();
-                        $("#totalQVisible").html(parseInt($("#totalQValue").val()) - delqua);
-                        $("#totalQValue").val(parseInt($("#totalQValue").val()) - delqua);
-                        if (i == 0) {
-                            $("#itogVisible").html(parseFloat(($("#itogValue").val()) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
-                            $("#itogValue").val(parseFloat(($("#itogValue").val()) - price));
-                            document.getElementById("message").innerHTML = "";
-
-                        }
-                        else if (i == 1) {
-
-                            $("#itogVisible").html(parseFloat((($("#itogValue").val() / 90 * 100).toFixed(2)) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
-                            $("#itogValue").val(parseFloat((($("#itogValue").val() / 90 * 100).toFixed(2)) - price));
-                            document.getElementById("message").innerHTML = "";
-                            i = 0;
-                        }
-                        else {
-                            $("#itogVisible").html(parseFloat((($("#itogValue").val() / 85 * 100).toFixed(2)) - price) + ".00" + "&nbsp;<span>&#8381;</span>");
-                            $("#itogValue").val(parseFloat((($("#itogValue").val() / 85 * 100).toFixed(2)) - price));
-                            document.getElementById("message").innerHTML = "";
-                            i = 0;
-
-                        }
-
-
-                    }
-                    $.ajax({
-                        url: "/Home/CartChangeQuantity",
-                        dataType: "json",
-                        data: {
-                            productId: id,
-                            amount: qua
-                        },
-                        type: "POST",
-                        success: function (data) {
-                            $("#cartindicator").html(data.Data);
-                        }
-                    });
-                }
-                
-            });
-          
+       
         
-        </script>
-
 
 
 
@@ -375,45 +452,13 @@
 </script>
 
 
-<!--Проверка даты рождения и вывод сообщений об акциях-->
-<script src="/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-            $(document).ready(function () {
-                $.ajax({
-                    url: "/Home/GetBirthDay",
-                    dataType: "json",
-                    data: {
-                    },
-                    type: "GET",
-                    success: function (data) {
-                        birth = data.Data;
-                        var date = new Date();
-                        var totalQVisible = document.getElementById("totalQVisible");
-                        var totalQValue = document.getElementById("totalQValue");
-                        var totalQ = parseInt(totalQValue.value, 10);
-                        if (birth == true) //сообщение об акции "вкусные скидки на ваш праздник"
-                        {
-                            document.getElementById("prom").innerHTML = "Поздравляем!<br> Сегодня для вас действует акция \"Вкусные скидки на ваш праздник\"";
-                            $("#dis-").css("visibility", "visible");
-                            b = 1;
-                            //var amount = document.getElementById("amount");
-                            //amount.innerHTML = birth;
-                        }
-                        else if (date.getDay() != 0 && date.getDay() != 6 && date.getHours() > 11 && date.getHours() < 16) //сообщение об акции "сытный обед"
-                        {
-                            document.getElementById("prom").innerHTML = "Сейчас действует акция \"Сытный обед\"";
-                            $("#dis-").css("visibility", "visible");
-                        }
-                        else if (date.getDay() == 0 || date.getDay() == 6) //сообщение об акции "пицца выходного дня"
-                        {
-                            document.getElementById("prom").innerHTML = "Сейчас действует акция \"Пицца выходного дня\"";
-                            $("#dis-").css("visibility", "visible");
-                        }
 
-                    }
-                });
-            });
-</script>
+
+
+
+
+
+
 
 
 
