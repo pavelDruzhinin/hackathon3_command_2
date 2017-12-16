@@ -21,7 +21,11 @@ namespace DominoPizza.Migrations
             //db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Повар" });
             //db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });
 
-            //db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Василий", CustomerPatronymic = "Алибабаевич", CustomerLastName = "Администратор", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "79601005060" });
+            //db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Александр", CustomerPatronymic = "Сергеевич", CustomerLastName = "Пушкин", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "79601005060" });
+            //db.Customers.Add(new Customer { CustomerEmail = "manager@dominos.com", CustomerFirstName = "Мария", CustomerPatronymic = "Николаевна", CustomerLastName = "Волконская", CustomerBirthDate = DateTime.Now, CustomerSex = "Female", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 3, CustomerPhone = "79601005070" });
+            //db.Customers.Add(new Customer { CustomerEmail = "cook@dominos.com", CustomerFirstName = "Николай", CustomerPatronymic = "Иванович", CustomerLastName = "Трубецкой", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 4, CustomerPhone = "79601005080" });
+            //db.Customers.Add(new Customer { CustomerEmail = "courier@dominos.com", CustomerFirstName = "Лев", CustomerPatronymic = "Николаевич", CustomerLastName = "Толстой", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 5, CustomerPhone = "79601005090" });
+
             ////анонимный клиент нужен для работы чата, CustomerId = 2 записано в коде MessagingController/AddNewMessageToChat, если кому нужен этот ИД, то в коде нада его изменить
             //db.Customers.Add(new Customer { CustomerEmail = "unknownclient@dominos.loc", CustomerFirstName = "Анонимный", CustomerPatronymic = "Незарегистрированный", CustomerLastName = "Клиент", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 1, CustomerPhone = "70000000000" });
 

@@ -89,46 +89,46 @@
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
-        {
-            var task = db.Tasks.Find(item.TaskId);
-            if (task != null)
-            {
-                ViewBag.taskId = item.TaskId;
-                ViewBag.totalSumm = item.TaskTotalSum;
-                ViewBag.date = item.TaskDate;
-                ViewBag.status = item.TaskStatus;
+                                {
+                                    var task = db.Tasks.Find(item.TaskId);
+                                    if (task != null)
+                                    {
+                                        ViewBag.taskId = item.TaskId;
+                                        ViewBag.totalSumm = item.TaskTotalSum;
+                                        ViewBag.date = item.TaskDate;
+                                        ViewBag.status = item.TaskStatus;
 
-                var contact = db.Contacts.Find(task.ContactId);
-                if (contact != null)
-                {
-                    ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
-                }
+                                        var contact = db.Contacts.Find(task.ContactId);
+                                        if (contact != null)
+                                        {
+                                            ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
+                                        }
 
-                var customer = db.Customers.Find(task.CustomerId); // вытаскиваем кастомера из заказа
-                if (customer != null)
-                {
-                    ViewBag.customer = customer.CustomerFullName();
-                }
-            }
-                        <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-if (item.TaskStatus != null)
-{
-                        <tr>
-                            <td>@ViewBag.taskId</td>
-                            <td>@ViewBag.customer</td>
-                            <td>@ViewBag.date</td>
-                            <td>@ViewBag.totalSumm</td>
-                            <td>@ViewBag.adress</td>
-                            <td class="actions">
-                                @using (Html.BeginForm())
+                                        var customer = db.Customers.Find(task.CustomerId); // вытаскиваем кастомера из заказа
+                                        if (customer != null)
+                                        {
+                                            ViewBag.customer = customer.CustomerFullName();
+                                        }
+                                    }
+                                    <!-- выводим заказы со статусом "В обработке" -->
+                                    if (item.TaskStatus == "processed")
+                                    {
+                                <tr>
+                                    <td>@ViewBag.taskId</td>
+                                    <td>@ViewBag.customer</td>
+                                    <td>@ViewBag.date</td>
+                                    <td>@ViewBag.adress</td>
+                                    <td>@ViewBag.totalSumm</td>
+                                    <td class="actions">
+                                        @using (Html.BeginForm())
         {
-                        @Html.AntiForgeryToken()
-                        <a href="~/Crmpanel/OrderDetails/@item.TaskId"><i class="fa fa-pencil"></i></a>
+                                @Html.AntiForgeryToken()
+                                <a href="~/Crmpanel/OrderDetails/@item.TaskId"><i class="fa fa-pencil"></i></a>
 }
-                            </td>
-                        </tr>
-}
-}
+                                    </td>
+                                </tr>
+                                    }
+                                 }
                             </tbody>
                         </table>
                     </div>
