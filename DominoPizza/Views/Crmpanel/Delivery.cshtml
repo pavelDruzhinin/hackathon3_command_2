@@ -3,4 +3,62 @@
 
 @{
     Layout = "~/Views/Crmpanel/_LayoutDelivery.cshtml";
-}
+    var db = new DominosContext();
+        }
+<div>
+        <section id ="deliv" class="panel">
+            <header class="panel-heading">
+                <h2 class="panel-title">Заказы для доставки</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Дата заказа</th>
+                            <th>Сумма заказа</th>
+                            <th>Адрес доставки</th>
+                            <th>Чек</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var task = db.Tasks.Find(item.TaskId);
+                            if (task != null)
+                            {
+                                ViewBag.taskId = item.TaskId;
+                                ViewBag.totalSumm = item.TaskTotalSum;
+                                ViewBag.date = item.TaskDate;
+                                ViewBag.status = item.TaskStatus;
+
+                                var contact = db.Contacts.Find(task.ContactId);
+                                if (contact != null)
+                                {
+                                    ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
+                                }
+
+
+                            }
+                                    <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+                            if (item.TaskStatus == "delivery")
+                            {
+                                <tr>
+                                    <td>@ViewBag.taskId</td>
+                                    <!-- <td>ViewBag.customer</td>-->
+                                    <td>@ViewBag.date</td>
+                                    <td>@ViewBag.totalSumm</td>
+                                    <td>@ViewBag.adress</td>
+                                    <!-- <td> Html.ActionLink("открыть", "Receipt", "Crmpanel")</td>-->
+                                    <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel")"> <i class="fa fa-newspaper-o"></i></a></td>
+                                    <td>@ViewBag.status</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+</div>
+        

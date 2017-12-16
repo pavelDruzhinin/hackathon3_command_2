@@ -52,12 +52,12 @@ a:active {
 
 /* Layout Base - Inner Wrapper */
 .inner-wrapper {
-	display: table;
-	min-height: 100vh;
-	padding-top: 60px;
-	table-layout: fixed;
-	overflow: hidden;
-	width: 100%;
+    display: table;
+    /*min-height: 100vh;*/
+    padding-top: 60px;
+    table-layout: fixed;
+    overflow: hidden;
+    width: 100%;
 }
 
 /* Layout Base - Content Body */
@@ -17773,4 +17773,11 @@ html.dark .img-thumbnail,
 html.dark .thumbnail {
 	background-color: #21262d;
 	border-color: #282d36;
+}
+#deliv {
+    margin: 0 40px 40px 40px;
+}
+.deliv-icon {
+    color:#777;
+    font-size:20px;
 }
