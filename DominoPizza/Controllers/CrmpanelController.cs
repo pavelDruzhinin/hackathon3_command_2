@@ -254,7 +254,7 @@ namespace DominosPizza.Controllers
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public ActionResult Receipt(int id)
+        public ActionResult Receipt(int TaskId)
         {
             return View();
         }
