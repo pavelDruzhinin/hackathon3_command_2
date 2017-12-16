@@ -928,3 +928,71 @@ margin: 10px 0;
     margin-bottom: 6px;
 }
 /* chat-css end*/
+/* product filter -css*/
+.filterByIngridients {
+    width: 100%;
+
+}
+.filterByIngridients p {
+    padding: 3px 9px;
+    background-color: lightslategrey;
+    cursor: pointer;
+    margin: 5px 10px -18px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 9px;
+    color: white;
+}
+.filterByIngridients p:last-of-type {
+    background-color: #a7a7a7;
+    color: white;
+}
+.ingridients-yes,
+.ingridients-no {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+.ingridient-Y-filter,
+.ingridient-N-filter {
+    padding: 3px 9px;
+    color: lightslategrey;
+    cursor: pointer;
+    margin: 1px 10px;
+    font-size: 12px;
+}
+.ingridients-no{
+
+}
+.ingridient-N-filter {
+    color: #a7a7a7;
+}
+.reset-filter,
+.apply-filter,
+.close-filter,
+.show-filter {
+    border: unset;
+    box-shadow: unset;
+    margin-bottom: 30px;
+    height: 25px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.reset-filter:hover,
+.apply-filter:hover {
+background-color: lightslategrey;
+}
+.reset-filter {
+    background-color: #a7a7a7;
+    margin-left: 0;
+}
+.close-filter,
+.show-filter {
+    background-color: #cecece;
+    margin-left: 0;
+}
+.show-filter {
+    margin: 0 24px 10px 0;
+}
+    /* product filter -css end*/
