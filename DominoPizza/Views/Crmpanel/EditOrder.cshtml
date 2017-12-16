@@ -1,86 +1,144 @@
-﻿@model DominosPizza.Models.Task
+﻿@*model IEnumerable<Task>*@
+@model DominosPizza.Models.Task
 
 @{
-    ViewBag.Title = "EditOrder";
+    Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
 }
+<!-- start: sidebar -->
+<aside id="sidebar-left" class="sidebar-left">
 
-<h2>EditOrder</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Task</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.TaskId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskTotalSum, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskTotalSum, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskTotalSum, "", new { @class = "text-danger" })
-            </div>
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Управление заказами
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger" })
-            </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
-            </div>
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li class="nav-active">
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            <span>Заказы в работу</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span>Добавить заказ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Crmpanel/Manager">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                            <span>Диалоги с покупателями</span><span class="badge">3</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <hr class="separator" />
         </div>
+    </div>
+</aside>
+<!-- start: Content -->
+<!-- end: sidebar -->
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Редактирование заказа</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskPayMethod, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskPayMethod, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskPayMethod, "", new { @class = "text-danger" })
-            </div>
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="~/Crmpanel/Manage">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+                <li><span>Редактирование заказа</span></li>
+            </ol>
+
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
         </div>
+    </header>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskCustomerComment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskCustomerComment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskCustomerComment, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.TaskId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.ContactId, "ContactId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ContactId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ContactId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <footer class="panel-footer">
-            <div class="row">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <button type="submit" class="btn btn-primary hidden-xs" value="Сохранить">Сохранить</button>
-                    <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Сохранить">Сохранить</button>
-                    <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
-                    <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskTotalSum, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TaskTotalSum, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskTotalSum, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </footer>
-    </div>
-}
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TaskStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskPayMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TaskPayMethod, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskPayMethod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskCustomerComment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TaskCustomerComment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskCustomerComment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.ContactId, "ContactId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ContactId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary hidden-xs" value="Сохранить">Сохранить</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Сохранить">Сохранить</button>
+                        <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
+                        <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    }
+    </section>
