@@ -312,9 +312,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712151817053_init.cs" />
-    <Compile Include="Migrations\201712151817053_init.Designer.cs">
-      <DependentUpon>201712151817053_init.cs</DependentUpon>
+    <Compile Include="Migrations\201712161044106_Init.cs" />
+    <Compile Include="Migrations\201712161044106_Init.Designer.cs">
+      <DependentUpon>201712161044106_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePass.cs" />
@@ -340,8 +340,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712151817053_init.resx">
-      <DependentUpon>201712151817053_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712161044106_Init.resx">
+      <DependentUpon>201712161044106_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
