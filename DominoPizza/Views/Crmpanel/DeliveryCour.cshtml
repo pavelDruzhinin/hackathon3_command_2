@@ -5,7 +5,7 @@
     Layout = "~/Views/Crmpanel/_LayoutDelivery.cshtml";
     var db = new DominosContext();
         }
-<form method="POST" enctype="multipart/form-data" action="/Crmpanel/TookDeliv">
+<form method="POST" enctype="multipart/form-data" action="/Crmpanel/FinDeliv">
     <div>
         <section id="deliv" class="panel">
             <header class="panel-heading">
@@ -68,7 +68,7 @@
 
                             }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                            if (item.TaskStatus == "fordelivery")
+                            if (item.TaskStatus == "delivery")
                             {
                                 <tr>
                                     <td><input class="checkOrd" type="checkbox" name="selectedOrd" value="@ViewBag.taskId"></td>
@@ -92,7 +92,7 @@
                     </tbody>
                 </table>
                 <br>
-                <input class="btn" type="submit" name="submit-delivery" value="Взять в доставку">
+                <input class="btn" type="submit" name="submit-delivery" value="Заказ завершен">
             </div>
         </section>
     </div>
