@@ -81,7 +81,7 @@
                                     <td>@ViewBag.adress</td>
                                     <!-- <td> Html.ActionLink("открыть", "Receipt", "Crmpanel")</td>-->
                                     <td>@ViewBag.phone</td>
-                                    <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel")"> <i class="fa fa-newspaper-o"></i></a></td>
+                                    <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
                                     
                                     <!--<td>Viewbag.time</td>-->
                                     <td>@ViewBag.status</td>

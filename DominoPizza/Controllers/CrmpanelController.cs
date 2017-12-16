@@ -254,8 +254,29 @@ namespace DominosPizza.Controllers
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public ActionResult Receipt()
+        public ActionResult Receipt(int id)
         {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult TookDeliv(int[] selectedOrd)
+        {
+            IQueryable<Task> tasks = _db.Tasks;
+            foreach (int item in selectedOrd)
+            {
+                foreach (var iTask in tasks)
+                {
+                    if (iTask.TaskId == item)
+                    {
+                        iTask.TaskStatus = "delivery";
+                        _db.SaveChanges();
+                    }
+                            
+                }
+            }
+
             return View();
         }
     }
