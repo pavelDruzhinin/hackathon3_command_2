@@ -256,9 +256,11 @@
     <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
     <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <Content Include="Views\Shared\Receipt.html.cshtml" />
-    <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Crmpanel\Receipt.cshtml" />
-    <Content Include="Views\Customers\CustomerTask.cshtml" />
+=======
+    <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
+>>>>>>> master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

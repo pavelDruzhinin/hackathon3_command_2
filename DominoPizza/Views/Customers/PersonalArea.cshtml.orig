@@ -7,11 +7,92 @@
 
 <hr />
 
+<<<<<<< HEAD
+<div>
+    <table>
+        <tr>
+            <td align="left">
+                Фамилия
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerLastName)
+            </td>
+        </tr>
+  
+        <tr>
+            <td align="left">
+                Имя
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerFirstName)
+                
+            </td>
+        </tr>      
+
+        <tr>
+            <td align="left">
+                Отчество
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerPatronymic)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">
+                Дата рождения
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerBirthDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">
+                Пол
+            </td>
+            <td align="left">
+                @(Model.CustomerSex.ToString() == "true" ? "Мужской" : "Женский")
+            </td>
+        </tr>
+
+
+        <tr>
+            <td align="left">
+                Номер телефона
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerPhone)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">
+                E-Mail
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.CustomerEmail)
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">
+                Пароль
+            </td>
+            
+            <td align="left">
+                @Html.ActionLink("Редактировать", "EditPassword")
+            </td>
+        </tr>
+
+    </table>
+=======
 <div class="tabsLink">
     <a href="#tab1">Профиль</a>
     <a href="#tab2">Заказы</a>
     <a href="#tab3">Вкладка 3</a>
     <a href="#tab4">Вкладка 4</a>
+>>>>>>> master
 </div>
 <style>
     .tabs {

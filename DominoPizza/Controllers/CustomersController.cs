@@ -74,6 +74,11 @@ namespace DominoPizza.Controllers
             return View(customerPas);
         }
        
+        public ActionResult CustomerTask()
+        {
+            ViewBag.Message = "Заказы пользователя";
+            return PartialView();
+        }
 
         public ActionResult PersonalArea()
         {
