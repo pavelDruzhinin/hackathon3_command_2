@@ -346,7 +346,7 @@ namespace DominosPizza.Controllers
         }
 
         [HttpPost]
-        public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod, string CustomerComment)
+        public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod, string CustomerComment, DateTime? TaskDeliveryTime)
         {
             //TaskDeliveryDateTime
             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
@@ -362,23 +362,37 @@ namespace DominosPizza.Controllers
             var hiscontacts = db.Customers.Where(e => e.CustomerEmail == User.Identity.Name).Include(e => e.Contacts);
             Customer mycustomer = hiscontacts.First(e => e.CustomerEmail == User.Identity.Name);
             Contact mycontact = db.Contacts.FirstOrDefault(e => e.ContactAddress == TaskDeliveryCustomerAddress);
+            DateTime comparetime = DateTime.Now.AddHours(1);
+            if (TaskDeliveryTime == null)
+            {
+                TaskDeliveryTime = comparetime;
+            }
+            else if(TaskDeliveryTime.Value.Hour<6&&DateTime.Now.Hour>19)
+            {
+                TaskDeliveryTime=TaskDeliveryTime.Value.AddDays(1);
+            }
+            else if(TaskDeliveryTime<comparetime)
+            {
+                TaskDeliveryTime = comparetime;
+            }
+                
             if (mycontact == null) //если такого контакта не существует то добавляем со связью с текущим пользователем
             {
                 //    i = 2;
-                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = DateTime.Now, Customers = new List<Customer>() { mycustomer } };
+                mycontact = new Contact { ContactAddress = TaskDeliveryCustomerAddress, ContactDateLatestOrder = TaskDeliveryTime.Value, Customers = new List<Customer>() { mycustomer } };
                 db.Contacts.Add(mycontact);
                 db.SaveChanges();
             }
             else if (!(mycustomer.Contacts.Contains(mycontact)))
             {
                 mycontact.Customers = new List<Customer> { mycustomer };
-                mycontact.ContactDateLatestOrder = DateTime.Now;
+                mycontact.ContactDateLatestOrder = TaskDeliveryTime.Value;
                 db.Entry(mycontact).State = EntityState.Modified;
                 db.SaveChanges();
             }
             else
             {
-                mycontact.ContactDateLatestOrder = DateTime.Now;
+                mycontact.ContactDateLatestOrder = TaskDeliveryTime.Value;
                 db.Entry(mycontact).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -401,9 +415,8 @@ namespace DominosPizza.Controllers
             double sum = 0;
             task.TaskStatus = Status.processed.ToString();
             db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.processed.ToString(), ForTask=task, DominosUser=mycustomer });
-            task.TaskDate = DateTime.Now;
+            task.TaskDate = TaskDeliveryTime.Value;
             task.TaskPayMethod = Convert.ToInt32(TaskPaymentMethod);
-            // task.taskStatusChangeHistory.Add(userId, DateTime.Now, 0); Надо разобраться как мы будем хранить историю
             foreach (var m in cart.cartlist)
             {
                 var mydish = db.Products.FirstOrDefault(k => k.ProductId == m.Key);
