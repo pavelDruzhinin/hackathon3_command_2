@@ -9,6 +9,198 @@
 <!--<br /><p style="font-size: .9rem; color: gray; line-height: 110%; text-align:center;">
     Инструкция для тестовых испытаний: переключение между публичным и служебным интерфейсами осуществляется через белый квадратный логотип вверху страницы.
 </p><br />--> 
+<div class="filterByIngridients" style="display: none;">
+    <p>Хочу, чтобы в моей пицце было:</p>
+    <div class="ingridients-yes">
+        @{ int i = 0;}
+        @foreach (var ingridient in ViewBag.ingridients)
+        {
+
+            <div id="ingridient-Y-@i" class="ingridient-Y-filter">@ingridient</div>
+            <input id="value-Y-@i" type="hidden" value="0" name="ingr-val" />
+            i++;
+        }
+
+    </div>
+    <p>Хочу, чтобы в моей пицце не было:</p>
+    <div class="ingridients-no">
+        @{ int j = 0;}
+        @foreach (var ingridient in ViewBag.ingridients)
+        {
+
+            <div id="ingridient-N-@j" class="ingridient-N-filter">@ingridient</div>
+            <input id="value-N-@j" type="hidden" value="0" name="ingr-val" />
+            j++;
+        }
+    </div>
+    <button class="apply-filter pizzaorder-tocart">применить фильтры</button>
+    <button class="reset-filter pizzaorder-tocart">сбросить фильтры</button>
+    <button class="close-filter pizzaorder-tocart">закрыть фильтры</button>
+</div>
+<div style="display:flex; justify-content:flex-end; width:100%;">
+    <button class="show-filter pizzaorder-tocart">показать фильтры начинок</button>
+</div>
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="../../Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(".show-filter").on("click", function (event) {
+        event.preventDefault();
+        $(".filterByIngridients").css({ "display": "block" });
+        $(".show-filter").css({ "display": "none" });
+    });
+    $(".ingridient-Y-filter").on("click", function (event) {
+        event.preventDefault();
+        var id = this.id.slice(13);
+        if ($("#value-Y-" + id).val() == 0) { $("#value-Y-" + id).val("1"); $("#ingridient-Y-" + id).css({ "background-color":"orange", "color":"white"}); }
+        else { $("#value-Y-" + id).val("0"); $("#ingridient-Y-" + id).css({ "background-color": "unset", "color": "lightslategrey"  }); }
+    });
+    $(".ingridient-N-filter").on("click", function (event) {
+        event.preventDefault();
+        var id = this.id.slice(13);
+        if ($("#value-N-" + id).val() == 0) { $("#value-N-" + id).val("1"); $("#ingridient-N-" + id).css({ "background-color":  "#cecece", "color": "white" }); }
+        else {
+            $("#value-N-" + id).val("0"); $("#ingridient-N-" + id).css({
+                "background-color": "unset", "color":"#a7a7a7" }); }
+    });
+
+    $(document).ready(function () {
+        $(".ingridient-Y-filter").each(function (index) {
+            var idY = this.id.slice(13);
+            if ($("#value-Y-" + idY).val() == 1) {
+                $("#ingridient-Y-" + idY).css({ "background-color": "orange", "color": "white"  });
+            }
+        });
+
+        $(".ingridient-N-filter").each(function (index) {
+            var idN = this.id.slice(13);
+            if ($("#value-N-" + idN).val() == 1) {
+                $("#ingridient-N-" + idN).css({ "background-color": "#cecece", "color": "white" });
+            }
+        });
+
+    });
+    
+    $(".apply-filter").on("click", function (event) {
+        event.preventDefault();
+        var ingridientsY = [];
+        $(".ingridient-Y-filter").each(function (index) {
+
+            var idY = this.id.slice(13);
+            if ($("#value-Y-" + idY).val() == 1) {
+                ingridientsY.push(idY);
+            }
+        });
+        var ingridientsN = [];
+        $(".ingridient-N-filter").each(function (index) {
+
+            var idN = this.id.slice(13);
+            if ($("#value-N-" + idN).val() == 1) {
+                ingridientsN.push(idN);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "/Home/FilterProducts",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                idYes: ingridientsY,
+                idNo: ingridientsN
+            }),
+            success: function (data) {
+                $(".well.content").html(data);
+            }
+        });
+    });
+    $(".reset-filter").on("click", function (event) {
+        event.preventDefault();
+        $(".ingridient-Y-filter").each(function (index) {
+            var idY = this.id.slice(13);
+            $("#value-Y-" + idY).val("0");
+            $("#ingridient-Y-" + idY).css({ "background-color": "unset", "color": "lightslategrey" });
+        });
+
+        $(".ingridient-N-filter").each(function (index) {
+            var idN = this.id.slice(13);
+            $("#value-N-" + idN).val("0");
+            $("#ingridient-N-" + idN).css({ "background-color": "unset", "color": "#a7a7a7" });
+        });
+        var ingridientsY = [];
+        $(".ingridient-Y-filter").each(function (index) {
+            var idY = this.id.slice(13);
+            if ($("#value-Y-" + idY).val() == 1) {
+                ingridientsY.push(idY);
+            }
+        });
+        var ingridientsN = [];
+        $(".ingridient-N-filter").each(function (index) {
+            var idN = this.id.slice(13);
+            if ($("#value-N-" + idN).val() == 1) {
+                ingridientsN.push(idN);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "/Home/FilterProducts",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                idYes: ingridientsY,
+                idNo: ingridientsN
+            }),
+            success: function (data) {
+                $(".well.content").html(data);
+            }
+        });
+
+    });
+    $(".close-filter").on("click", function (event) {
+        event.preventDefault();
+        $(".ingridient-Y-filter").each(function (index) {
+            var idY = this.id.slice(13);
+            $("#value-Y-" + idY).val("0");
+            $("#ingridient-Y-" + idY).css({ "background-color": "unset", "color": "lightslategrey" });
+        });
+
+        $(".ingridient-N-filter").each(function (index) {
+            var idN = this.id.slice(13);
+            $("#value-N-" + idN).val("0");
+            $("#ingridient-N-" + idN).css({ "background-color": "unset", "color": "#a7a7a7" });
+        });
+        var ingridientsY = [];
+        $(".ingridient-Y-filter").each(function (index) {
+            var idY = this.id.slice(13);
+            if ($("#value-Y-" + idY).val() == 1) {
+                ingridientsY.push(idY);
+            }
+        });
+        var ingridientsN = [];
+        $(".ingridient-N-filter").each(function (index) {
+            var idN = this.id.slice(13);
+            if ($("#value-N-" + idN).val() == 1) {
+                ingridientsN.push(idN);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "/Home/FilterProducts",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                idYes: ingridientsY,
+                idNo: ingridientsN
+            }),
+            success: function (data) {
+                $(".well.content").html(data);
+            }
+        });
+        $(".filterByIngridients").css({ "display": "none" });
+        $(".show-filter").css({ "display": "block" });
+    });
+
+</script>
+
+
     <div class="well content" style="justify-content: center;">
         @foreach (var product in Model) {
     <div class="well pizzacard" style="margin: 2px;">
@@ -71,7 +263,7 @@
 <!-- скрипт для ЧАТА-->
 @*<script src="/Scripts/jquery-1.10.2.js"></script>
     <script src="/Scripts/js-cokie/js-cookie.js"></script>*@
-<script src="/Scripts/jquery-1.10.2.js"></script>
+
 <script type="text/javascript">
     var taskId = 0;
     var onlineChatUniqueId = "new";
@@ -155,7 +347,7 @@
 
 <script type="text/javascript">
     var c = 0;
-    $("div.pizzaorder-tocart").click(function (event) {
+    $(".well.content").on("click", "div.pizzaorder-tocart", function (event) {
 
         if (this.id.slice(0, 13) == "addtocartbtn-") {
             event.preventDefault();
