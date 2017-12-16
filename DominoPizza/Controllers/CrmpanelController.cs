@@ -256,7 +256,9 @@ namespace DominosPizza.Controllers
         [Authorize]
         public ActionResult Receipt()
         {
-            return View();
+            IEnumerable<Task> tasks = _db.Tasks;
+            return View(_db.Tasks);
+            //return View(_db.Tasks.ToList());
         }
     }
 }
