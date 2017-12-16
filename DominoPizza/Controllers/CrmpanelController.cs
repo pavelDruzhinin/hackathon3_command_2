@@ -155,6 +155,7 @@ namespace DominosPizza.Controllers
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
+        [HttpGet]
         public ActionResult OrderDetails(int id) // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Карточка заказа";
@@ -199,6 +200,19 @@ namespace DominosPizza.Controllers
             //TaskRow
             var row = _db.TaskRows.Find(task.TaskId);
             return View(task);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult OrderDetails(int id, string unusedValue = "")
+        {
+            var task = _db.Tasks.Find(id);
+            if (task != null)
+            {
+                task.TaskStatus = "kitchen";
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Manager", "Crmpanel");
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
