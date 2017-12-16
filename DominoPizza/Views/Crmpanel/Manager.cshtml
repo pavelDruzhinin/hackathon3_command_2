@@ -113,20 +113,20 @@
                                     <!-- выводим заказы со статусом "В обработке" -->
                                     if (item.TaskStatus == "processed")
                                     {
-                                        <tr>
-                                            <td>@ViewBag.taskId</td>
-                                            <td>@ViewBag.customer</td>
-                                            <td>@ViewBag.date</td>
-                                            <td>@ViewBag.totalSumm</td>
-                                            <td>@ViewBag.adress</td>
-                                            <td class="actions">
-                                                @using (Html.BeginForm())
-                                                {
-                                                    @Html.AntiForgeryToken()
-                                                    <a href="~/Crmpanel/OrderDetails/@item.TaskId"><i class="fa fa-pencil"></i></a>
-                                                }
-                                            </td>
-                                        </tr>
+                                <tr>
+                                    <td>@ViewBag.taskId</td>
+                                    <td>@ViewBag.customer</td>
+                                    <td>@ViewBag.date</td>
+                                    <td>@ViewBag.adress</td>
+                                    <td>@ViewBag.totalSumm</td>
+                                    <td class="actions">
+                                        @using (Html.BeginForm())
+        {
+                                @Html.AntiForgeryToken()
+                                <a href="~/Crmpanel/OrderDetails/@item.TaskId"><i class="fa fa-pencil"></i></a>
+}
+                                    </td>
+                                </tr>
                                     }
                                  }
                             </tbody>
