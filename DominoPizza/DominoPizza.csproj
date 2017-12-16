@@ -258,6 +258,7 @@
     <Content Include="Views\Shared\Receipt.html.cshtml" />
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
     <Content Include="Views\Crmpanel\Receipt.cshtml" />
+    <Content Include="Views\Crmpanel\EditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
