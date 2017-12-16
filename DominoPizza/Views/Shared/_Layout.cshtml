@@ -35,43 +35,45 @@
                             Пиццерия № 1<br />в Петрозаводске
                         </div>*@
 
-                    <div class="head__block_moto">
-                        @*<div class="cart_top">
-                                <span class="carttop_price_value" pricevalue="0">
-                                    <span class="value">
-
-                                    </span>
-                                    <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
-                                </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
-                            </div>*@
-
-                        <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px; height: 60px; margin-right: 45px; margin-bottom: 8px;">
-                            <div><span class="carttop_price_value" pricevalue="0"></span></div>
-                            <div><span class="value" style="font-weight:700;">0</span><span class="glyphicon glyphicon-ruble" style="font-size: 20px;"></span></div>
-                            <div><a href="@Url.Action("Cart", "Home")"><span class="glyphicon glyphicon-shopping-cart" style=" color: #898989; font-size: 20px;"></span>@*<img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />*@</a></div>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <div>
-                                    <span class="glyphicon glyphicon-user" title=" @User.Identity.Name" style="font-size: 20px;"></span>
+                <div class="head__block_moto">
+                    @*<div class="cart_top">
+                        <span class="carttop_price_value" pricevalue="0">
+                            <span class="value">
+                               
+                            </span>
+                            <span class="value"><img src="@Url.Content("~/img/ruble1.png")" alt="" width="40" height="40"/></span>
+                        </span><a href="@Url.Action("Cart", "Home")"><img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" /></a>
+                    </div>*@
+                    
+                    <div class="cart_top" style=" display:flex; justify-content:space-between; align-items:center; width: 200px; height: 60px; margin-right: 45px;">
+                        <div><span class="carttop_price_value" pricevalue="0"></span></div>
+                        <div><span class="value" style="font-weight:700;">0</span><span class="glyphicon glyphicon-ruble" style="font-size: 20px;"></span></div>
+                        <div><a href="@Url.Action("Cart", "Home")"><span class="glyphicon glyphicon-shopping-cart" style=" color: #898989; font-size: 20px;"></span>@*<img src="@Url.Content("~/img/cart.png")" alt="" width="50" height="50" />*@</a></div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                <a href="@Url.Action("PersonalArea","Customers")">
+                                    <span class="glyphicon glyphicon-user" title=" @User.Identity.Name"></span>
                                     <span>@*@ViewBag.user.FirstName @ViewBag.user.Patronymic @ViewBag.user.LastName*@</span>
-                                </div>
+                                </a>
+                            </div>
 
-                                <div>
-                                    <span>
-                                        @using (Html.BeginForm("Logoff", "Customers", FormMethod.Post, new { id = "logoutForm" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                        }
-                                        <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" style=" color: #898989; font-size: 20px;" title="выйти"></span></a>
-                                    </span>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="entertext"><a href="/Customers/Auth" title="вход для зарегистрированных пользователей"><span class="glyphicon glyphicon-log-in" style=" color: #898989;"></span></a></div>
-                            }
-                        </div>
+                            <div>
+                                <span>
+                                    @using (Html.BeginForm("Logoff", "Customers", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                    }
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" title="Выйти" style=" color: #898989;"></span></a>
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="entertext"><a href="/Customers/Auth" title="вход для зарегистрированных пользователей"><span class="glyphicon glyphicon-log-in" style=" color: #898989;"></span></a></div>
+                        }
                     </div>
+            </div>
                 </div>
                 <div class="container navbar navbar-pizzamenu">
                     <div class="navbar-collapse collapse" style=" display:flex !important; justify-content:space-between; align-items:center; width:100%;">
