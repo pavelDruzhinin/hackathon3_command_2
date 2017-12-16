@@ -185,7 +185,7 @@ namespace DominosPizza.Controllers
         public ActionResult OrderDetails() // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Карточка заказа";
-            return View(_db.Tasks.ToList());
+            return View(); //_db.Tasks.ToList()
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM

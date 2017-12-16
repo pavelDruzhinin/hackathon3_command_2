@@ -138,7 +138,7 @@
                                         }
                                     }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                                    if (item.TaskStatus != null)
+                                    if (item.TaskStatus != "done" && item.TaskStatus != "canceled")
                                     {
                                         <tr>
                                             <td>@ViewBag.taskId</td>
