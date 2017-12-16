@@ -929,3 +929,11 @@ margin: 10px 0;
 }
 /* chat-css end*/
 
+#deliv {
+    margin:0 40px 40px 40px;
+}
+
+#deliv-icon {
+    color:#777;
+    font-size:20px;
+}
