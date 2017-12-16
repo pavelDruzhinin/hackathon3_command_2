@@ -29,7 +29,7 @@ namespace DominoPizza.Migrations
             ////анонимный клиент нужен для работы чата, CustomerId = 2 записано в коде MessagingController/AddNewMessageToChat, если кому нужен этот ИД, то в коде нада его изменить
             //db.Customers.Add(new Customer { CustomerEmail = "unknownclient@dominos.loc", CustomerFirstName = "Анонимный", CustomerPatronymic = "Незарегистрированный", CustomerLastName = "Клиент", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 1, CustomerPhone = "70000000000" });
 
-          /*  db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/5.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1 });
+            db.Products.Add(new Product { ProductName = "Четыре сыра", ProductWeight = 600, ProductPrice = 671, ImageLink = "/img/5.jpg", ProductDescription = "Томатный соус, моцарелла, сыр блючиз и смесь сыров чеддар и пармезан", ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Двойная пепперони", ProductWeight = 610, ImageLink = "/img/1.jpg", ProductDescription = "Томатный соус, моцарелла и пикантная пепперони", ProductPrice = 672, ProductType = 1 });
             db.Products.Add(new Product { ProductName = "Итальянская", ProductWeight = 610, ProductType = 1, ImageLink = "/img/10.jpg", ProductDescription = "Томатный соус, пикантная пепперони, шампиньоны, моцарелла, маслины и орегано", ProductPrice = 673 });
             db.Products.Add(new Product { ProductName = "Ранч-пицца", ProductWeight = 620, ProductType = 1, ImageLink = "/img/7.jpg", ProductDescription = "Цыпленок, ветчина, соус ранч, моцарелла, томаты и чеснок", ProductPrice = 674 });
@@ -45,7 +45,7 @@ namespace DominoPizza.Migrations
             db.Products.Add(new Product { ProductName = "Дон Бекон", ProductWeight = 620, ProductType = 1, ImageLink = "/img/16.jpg", ProductDescription = "Томатный соус, цыпленок, пикантная пепперони, лук красный, моцарелла и бекон", ProductPrice = 676 });
             db.Products.Add(new Product { ProductName = "Чизбургер-пицца", ProductWeight = 600, ProductType = 1, ImageLink = "/img/17.jpg", ProductDescription = "Говядина (фарш), сырный соус, бекон, лук красный, моцарелла, томаты и огурцы консервированные", ProductPrice = 677 });
             db.Products.Add(new Product { ProductName = "Супермясная ", ProductWeight = 610, ProductType = 1, ImageLink = "/img/18.jpg", ProductDescription = "Томатный соус, цыпленок, говядина (фарш), пикантная пепперони, моцарелла, пикантная чоризо и бекон", ProductPrice = 678 });
-*/
+
         }
     }
 }
