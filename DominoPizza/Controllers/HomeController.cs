@@ -21,7 +21,109 @@ namespace DominosPizza.Controllers
                 cart = (Cart)Session["cart"];
             }
             IEnumerable<Product> products = db.Products;
+            List<string> ingridients  = new List<string>()
+            {
+                "томатный соус",
+                "моцарелла",
+                "блючиз",
+                "чеддар",
+                "пармезан",
+                "пепперони",
+                "шампиньоны",
+                "маслины",
+                "орегано",
+                "цыпленок",
+                "ветчина",
+                "ранч",
+                "томаты",
+                "чеснок",
+                "охотничьи колбаски",
+                "бекон",
+                "молоко сгущенное",
+                "брусника",
+                "ананасы",
+                "сладкий перец",
+                 "лук красный",
+                 "острый перец халапеньо",
+                "соус барбекю",
+                 "креветки",
+                "кубики брынзы",
+                "говядина",
+                "сырный соус",
+                "огурцы консервированные",
+                "чоризо"
+            };
+            ViewBag.ingridients = ingridients;
             return View(products);
+        }
+        [HttpPost]
+        public ActionResult FilterProducts(object[] idYes, object[] idNo)
+        {
+            List<string> ingridients = new List<string>()
+            {
+                "томатный соус",
+                "моцарелла",
+                "блючиз",
+                "чеддар",
+                "пармезан",
+                "пепперони",
+                "шампиньоны",
+                "маслины",
+                "орегано",
+                "цыпленок",
+                "ветчина",
+                "ранч",
+                "томаты",
+                "чеснок",
+                "охотничьи колбаски",
+                "бекон",
+                "молоко сгущенное",
+                "брусника",
+                "ананасы",
+                "сладкий перец",
+                 "лук красный",
+                 "острый перец халапеньо",
+                "соус барбекю",
+                 "креветки",
+                "кубики брынзы",
+                "говядина",
+                "сырный соус",
+                "огурцы консервированные",
+                "чоризо"
+            };
+            List<string> ingY = new List<string>();
+            List<string> ingN = new List<string>();
+            List<Product> products = db.Products.ToList();
+            int indexx = 0;
+            if (idYes != null) { 
+                foreach (var id in idYes)
+                {
+                    indexx = Int32.Parse((string)id);
+                    //var temp = ingridients[indexx];
+                    var temp = ingridients.ElementAtOrDefault(indexx);
+                    ingY.Add(temp);
+                }
+                foreach (var ing in ingY)
+                {
+                    products = products.Where(z => z.ProductDescription.ToLower().Contains(ing)).Select(z => z).ToList();
+                }
+            }
+            if (idNo != null)
+            {
+                foreach (var id in idNo)
+                {
+                    indexx = Int32.Parse((string)id);
+                    //var temp = ingridients[indexx];
+                    var temp = ingridients.ElementAtOrDefault(indexx);
+                    ingN.Add(temp);
+                }
+
+                foreach (var ingn in ingN)
+                {
+                    products = products.Where(z => !z.ProductDescription.ToLower().Contains(ingn)).ToList();
+                }
+            }
+            return PartialView("_FilterProductsPartial", products);
         }
 
         public ActionResult Stock()
@@ -181,12 +283,14 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult SendMail(FeedbackMail Feedback)
         {
+            string viewmailname = "Email";
+
             Feedback.To = "dominospizzaptz@yandex.ru";
             if (ModelState.IsValid)
             {
                 try
                 {
-                    new FeedbackController().SendEmail(Feedback).Deliver();
+                    new FeedbackController().SendEmail(Feedback, viewmailname).Deliver();
                     Feedback.MailDateCreate = DateTime.Now;
                     db.FeedBacks.Add(Feedback);
                     db.SaveChanges();
@@ -283,7 +387,7 @@ namespace DominosPizza.Controllers
             Cart cart = new Cart();
             //Contact contact = new Contact();
             //Customer customer = new Customer();
-            int i = 0; // индикатор использования пользователем контакта
+            //int i = 0; // индикатор использования пользователем контакта
             if ((Cart)Session["cart"] != null)
             {
                 cart = (Cart)Session["cart"];
@@ -364,6 +468,7 @@ namespace DominosPizza.Controllers
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
             task.Customers = new List<Customer>() { mycustomer };
+            task.CustomerId = mycustomer.CustomerId;
             db.Tasks.Add(task);
             db.SaveChanges();
             IEnumerable<Task> tasks = db.Tasks;
@@ -507,6 +612,7 @@ namespace DominosPizza.Controllers
 
                 }
             }
+            string viewmailname = "Receipt";
 
             FeedbackMail receiptmail = new FeedbackMail();
 
@@ -529,7 +635,7 @@ namespace DominosPizza.Controllers
 
             //try
             //{
-            new FeedbackController().SendEmail(receiptmail).Deliver();
+            new FeedbackController().SendEmail(receiptmail, viewmailname).Deliver();
             receiptmail.MailDateCreate = DateTime.Now;
             db.FeedBacks.Add(receiptmail);
             tasks.Last().TaskPayMethod = 4;
@@ -555,5 +661,6 @@ namespace DominosPizza.Controllers
 
             return View();
         }
+        
     }
 }

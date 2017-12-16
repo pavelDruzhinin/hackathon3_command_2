@@ -97,18 +97,14 @@
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
         </div>
     </header>
-
     <!-- start: page -->
-    <div class="row">
-        <div class="center-sign">
-            <section class="panel">
-                <header class="panel-heading">
-                    <h2 class="panel-title">Заказы в работе</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped mb-none">
-                            <thead>
+    <section class="panel">
+        <header class="panel-heading">
+            <h2 class="panel-title">Заказы в работе</h2>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>ФИО</th>
@@ -121,27 +117,42 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    var customer = db.Customers.Find(item.TaskId);
-                                    var customerAdress = db.Contacts.Find(item.TaskId);
+                                    var task = db.Tasks.Find(item.TaskId);
+                                    if (task != null)
+                                    {
+                                        ViewBag.taskId = item.TaskId;
+                                        ViewBag.totalSumm = item.TaskTotalSum;
+                                        ViewBag.date = item.TaskDate;
+                                        ViewBag.status = item.TaskStatus;
+
+                                        var contact = db.Contacts.Find(task.ContactId);
+                                        if (contact != null)
+                                        {
+                                            ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
+                                        }
+
+                                        var customer = db.Customers.Find(task.CustomerId); // вытаскиваем кастомера из заказа
+                                        if (customer != null)
+                                        {
+                                            ViewBag.customer = customer.CustomerFullName();
+                                        }
+                                    }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                                    <!--if (item.TaskStatus != null && item.TaskStatus == null)
-                                    {-->
+                                    if (item.TaskStatus != "done" && item.TaskStatus != "canceled")
+                                    {
                                         <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskId)</td>
-                                            <td>@Html.DisplayFor(modelItem => customer.CustomerFullName())</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskDate)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskTotalSum)</td>
-                                            <td>@Html.DisplayFor(modelItem => customerAdress.ContactAddress)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.TaskStatus)</td>
+                                            <td>@ViewBag.taskId</td>
+                                            <td>@ViewBag.customer</td>
+                                            <td>@ViewBag.date</td>
+                                            <td>@ViewBag.totalSumm</td>
+                                            <td>@ViewBag.adress</td>
+                                            <td>@ViewBag.status</td>
                                         </tr>
-                                    <!--}-->
+                                    }
                                 }
                             </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+            </table>
         </div>
-    </div>
+    </section>
 </section>
 <!-- end: page -->
