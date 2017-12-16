@@ -256,6 +256,7 @@
     <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
     <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <Content Include="Views\Shared\Receipt.html.cshtml" />
+    <Content Include="Views\Crmpanel\Receipt.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

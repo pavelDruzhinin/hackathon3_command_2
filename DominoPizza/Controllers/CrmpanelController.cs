@@ -253,5 +253,10 @@ namespace DominosPizza.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
+        public ActionResult Receipt()
+        {
+            return View();
+        }
     }
 }
