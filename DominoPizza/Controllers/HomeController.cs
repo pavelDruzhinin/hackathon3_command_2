@@ -248,7 +248,7 @@ namespace DominosPizza.Controllers
             {
                 lastcont = "Шотмана 13, Росквартал";
             }
-            return Json(data: new { Data = lastcont }, behavior: JsonRequestBehavior.AllowGet);
+            return Json(data: new { Data = lastcont}, behavior: JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Rules()
@@ -344,10 +344,43 @@ namespace DominosPizza.Controllers
             Session["cart"] = cart;
             return Json(data: new { Data = counter }, behavior: JsonRequestBehavior.AllowGet);
         }
+        
+        public JsonResult GetBirthDay()
+        {
+            Customer customer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+            DateTime birthday = customer.CustomerBirthDate;
+            DateTime date = DateTime.Now;
+            Boolean bd = false;
+            //if (DateTime.Now.Date == birthday)
+                if (birthday.Day == date.Day && birthday.Month == date.Month)
+                {
+                    bd = true;
+                }
+            return Json(data: new { Data = bd }, behavior: JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsItPie()
+        {
+            Cart cart = new Cart();
+            if ((Cart)Session["cart"] != null)
+            {
+                cart = (Cart)Session["cart"];
+            }
+            Boolean pie = false;
+            foreach (var c in cart.cartlist)
+            {
+                if (c.Key == 7 && c.Value == 1)
+                {
+                    pie = true;
+                }
+            }
+            return Json(data: new { Data = pie }, behavior: JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public RedirectToRouteResult NewTaskFromCart(string TaskDeliveryCustomerAddress, string TaskDeliveryCustomerPhone, string TaskDeliveryCustomerName, string TaskPaymentMethod, string CustomerComment, DateTime? TaskDeliveryTime)
         {
+
             //TaskDeliveryDateTime
             //IEnumerable<Tasks> Tasks = db.TasksDbSet;
             Task task = new Task();
@@ -396,19 +429,19 @@ namespace DominosPizza.Controllers
                 db.Entry(mycontact).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            //if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
-            //{
-            //    if (i == 2) //нет контакта есть клиент
-            //    {
-            //        i = 3; //нет ни того ни другого
-            //    }
-            //    else
-            //    {
-            //        i = 1; //есть контакт нет клиента
-            //    }
-            //    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
-            //    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
-            //}
+            ////if (mycustomer == null) // это блок для незалогиненых пользователей, вдруг решим вернуть
+            ////{
+            ////    if (i == 2) //нет контакта есть клиент
+            ////    {
+            ////        i = 3; //нет ни того ни другого
+            ////    }
+            ////    else
+            ////    {
+            ////        i = 1; //есть контакт нет клиента
+            ////    }
+            ////    mycustomer = new Customer { CustomerFirstName = TaskDeliveryCustomerName, CustomerPhone = TaskDeliveryCustomerPhone, CustomerBirthDate = DateTime.Now, Contacts = new List<Contact>() { mycontact } };
+            ////    db.Customers.Add(mycustomer); //Пока всегда добавляем нового касмомера с неполными данными (как хотели), потом когда будет готова авторизация надо пересмотреть чтобы брал текущего
+            ////}
 
             task.Contact = mycontact;
             task.ContactId = mycontact.ContactId;
@@ -420,7 +453,30 @@ namespace DominosPizza.Controllers
             foreach (var m in cart.cartlist)
             {
                 var mydish = db.Products.FirstOrDefault(k => k.ProductId == m.Key);
-                sum = mydish.ProductPrice * m.Value + sum;
+                DateTime birthday = mycustomer.CustomerBirthDate;
+                DateTime date = DateTime.Now;
+                //int k = 0;
+                if (birthday.Day == date.Day && birthday.Month == date.Month && m.Key == 7 && m.Value == 1 && cart.Counter == 1)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.7;
+                }
+                else if (birthday.Day == date.Day && birthday.Month == date.Month && m.Key != 7 && m.Value == 1 && cart.Counter == 1)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.85;
+                }
+                else if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday && date.Hour > 11 && date.Hour < 16)
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.9 + sum;
+                }
+                else if ((date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) && (m.Value == 2 || cart.Counter == 2))
+                {
+                    sum = mydish.ProductPrice * m.Value * 0.85 + sum;
+                }
+                else
+                {
+                    sum = mydish.ProductPrice * m.Value + sum;
+                }
+                
             }
             task.TaskTotalSum = sum;
             task.TaskCustomerComment = CustomerComment;
@@ -465,7 +521,12 @@ namespace DominosPizza.Controllers
                 cart = (Cart)Session["cart"];
             }
 
-            Task task = new Task();
+            //Task task = new Task();
+            var histask = db.Customers.Where(e => e.CustomerEmail == User.Identity.Name).Include(e => e.Tasks);
+            Customer mycustomer = histask.First(e => e.CustomerEmail == User.Identity.Name);
+            var lasttask = mycustomer.Tasks.Last();
+            var sum = lasttask.TaskTotalSum;
+            var ordernumber = lasttask.TaskId;
 
             /*IEnumerable<Product> products = db.Products;
            
@@ -477,9 +538,10 @@ namespace DominosPizza.Controllers
             // ViewBag.prod = productNames;
             //ViewBag.cartindicator = cart.Counter;
 
-            IEnumerable<Task> tasks = db.Tasks;
-            ViewBag.LastTask = tasks.Last().TaskId;
-            ViewBag.TotalS = tasks.Last().TaskTotalSum;
+            //IEnumerable<Task> tasks = db.Tasks;
+
+            ViewBag.LastTask = ordernumber;
+            ViewBag.TotalS = sum;
 
             List<OrderTable> table = new List<OrderTable>();
             int i = 1;
@@ -612,5 +674,6 @@ namespace DominosPizza.Controllers
 
             return View();
         }
+        
     }
 }

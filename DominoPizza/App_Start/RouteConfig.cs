@@ -31,6 +31,7 @@ namespace DominosPizza
            //     url: "Crmpanel/EditCustomer/{CustomerId}",
            //     defaults: new { controller = "Crmpanel", action = "EditCustomer" }
            //);
+
         }
     }
 }

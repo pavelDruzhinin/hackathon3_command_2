@@ -9,7 +9,6 @@ namespace DominosPizza.Models
     {
         public int CartId { get; set; }
         public int Counter { get; set; }
-
         public Dictionary<int, int> cartlist = new Dictionary<int, int>(); //<ИД блюда в заказе, количество порций>
 
         //возвращаем список блюд в заказе
