@@ -4,67 +4,65 @@
 @{
     Layout = "~/Views/Crmpanel/_LayoutKitchen.cshtml";
     var db = new DominosContext();
+    var taskrow = db.TaskRows;
+    int productId;
 }
 
 
     @foreach (var item in Model)
     {
-        var task = db.Tasks.Find(item.TaskId);
-        if (task != null)
-        {
-            ViewBag.taskId = item.TaskId;
-            ViewBag.totalSumm = item.TaskTotalSum;
-            ViewBag.date = item.TaskDate;
-            ViewBag.status = item.TaskStatus;
-
-            var contact = db.Contacts.Find(task.ContactId);
-            if (contact != null)
-            {
-                ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
-            }
-
-            var customer = db.Customers.Find(task.CustomerId); // вытаскиваем кастомера из заказа
-            if (customer != null)
-            {
-                ViewBag.customer = customer.CustomerFullName();
-            }
-        }
-        <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
         if (item.TaskStatus == "kitchen")
         {
-            <section class="panel col-sm-4">
-                <header class="panel-heading">
-                    <h2 class="panel-title">Заказ № @ViewBag.taskId</h2>
-                </header>
-            <div class="panel-body">            
-                <table class="table table-bordered table-striped mb-none" id="datatable-default">
-                    <thead>
-                    <tr>
-                        <th>Продукт</th>
-                        <th>Колличество</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>@ViewBag.totalSumm</td>
-                        <td>@ViewBag.adress</td>
-                    </tr>
-                    </tbody>
-                </table>
-                    <span class="mt-lg mb-lg line-thru text-center text-uppercase">
-                        <span>or</span>
-                    </span>
-                    <footer class="footer">
-                        <div class="row">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <button type="submit" class="btn btn-primary hidden-xs" value="Сохранить">Сохранить</button>
-                                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Сохранить">Сохранить</button>
-                                <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
-                                <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отенить" onclick="history.back();">Отменить</button>
-                            </div>
+            var task = taskrow.Find(item.TaskId);
+            ViewBag.taskId = item.TaskId;
+            if (task != null)
+            {
+                productId = task.ProductId;
+                ViewBag.quantity = task.Quantity;
+
+                var product = db.Products.Find(productId);
+                if (product != null)
+                {
+                    ViewBag.product = product.ProductName; // вытаскиваем адрес доставки пиццы
+                }
+
+                <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+            
+                    <section class="panel col-sm-4">
+                        <header class="panel-heading">
+                            <h2 class="panel-title">Заказ № @ViewBag.taskId</h2>
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                                <thead>
+                                <tr>
+                                    <th class="col-sm-5">Продукт</th>
+                                    <th class="col-sm-1 text-center">Колличество</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var row in taskrow)
+                                {
+
+                                    <tr>
+                                        <td>@ViewBag.product</td>
+                                        <td class="text-center">@ViewBag.quantity</td>
+                                    </tr>
+                                
+                                }
+                                </tbody>
+                            </table><br/>
+                            <footer class="footer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-sm-offset-1">
+                                        <a href="~/Crmpanel/Kitchen/@ViewBag.TaskId" type="button" class="btn btn-primary">Отправить в доставку</a>
+                                        <a href="~/Crmpanel/Kitchen/@ViewBag.TaskId" type="button" class="btn btn-danger">Вернуть менеджеру</a>
+                                    </div>
+                                </div>
+                            </footer>
                         </div>
-                    </footer>
-                </div>
-            </section>
+                    </section>
+            }
         }
+
     }
