@@ -996,3 +996,13 @@ background-color: lightslategrey;
     margin: 0 24px 10px 0;
 }
     /* product filter -css end*/
+.dark-red-curved {
+    color: #ffffff !important;
+    background: #ff8500 !important;
+    border-radius: 2px 3px 3px 90px / 2px !important;
+    border-radius: 0.125em 0.1875em 0.1875em 5.625em / 0.125em !important;
+    box-shadow: 1px 1px 1px 0 #000000 !important;
+    text-shadow: 2px 2px 0 #000000 !important;
+    text-decoration: none !important;
+    border-radius: 5px;
+}
