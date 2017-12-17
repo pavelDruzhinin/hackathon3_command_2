@@ -132,7 +132,7 @@ namespace DominoPizza.Controllers
                                 if ((Cart)Session["cart"] != null)
                                     return RedirectToAction("Cart", "Home");
                                 else
-                                RedirectToAction("Index", "Home"); break;
+                                return RedirectToAction("Index", "Home"); break;
                             }
                             
                         case 2:
