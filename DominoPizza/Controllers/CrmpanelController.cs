@@ -258,7 +258,16 @@ namespace DominosPizza.Controllers
         [Authorize]
         public ActionResult Receipt(int TaskId)
         {
-            return View();
+            //IEnumerable<Task> tasks = _db.Tasks.Where(x=>x.TaskId==TaskId);
+            IEnumerable<TaskRow> taskrows = _db.TaskRows.Where(x => x.TaskId == TaskId).Include(x=>x.Product);
+            IEnumerable<Task> tasks = _db.Tasks.Where(x => x.TaskId == TaskId);
+            var task = tasks.First(x => x.TaskId == TaskId);
+            var sum = task.TaskTotalSum;
+            ViewBag.Sum = sum;
+            //var product = _db.TaskRows.Where(x => x.TaskId == TaskId).Include(x => x.Product);
+            //ViewBag.product = product;
+            return View(taskrows);
+            //return View(_db.Tasks.ToList());
         }
 
         [Authorize]

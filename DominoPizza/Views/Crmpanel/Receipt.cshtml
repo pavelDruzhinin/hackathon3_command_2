@@ -1,7 +1,77 @@
 ﻿@using DominosPizza.Models
-@model IEnumerable<Task>
-
+@model IEnumerable<TaskRow>
 @{
-    Layout = "~/Views/Crmpanel/_LayoutDelivery.cshtml";
-    var db = new DominosContext();
-        }
+    ViewBag.Title = "Receipt";
+}
+
+    @{
+        Layout = "~/Views/Crmpanel/_LayoutDelivery.cshtml";
+        var db = new DominosContext();
+    }
+<link rel='stylesheet' type='text/css' href='print.css' media='print'>	
+    
+@{
+    var taskinmodel = Model.First();
+    var task = db.Tasks.Find(taskinmodel.TaskId);
+    var sum = task.TaskTotalSum;
+    <header class="panel-heading">
+        <h1 class="panel-title" style="text-align:center; font-weight:700; width:500px;">Dominos Pizza</h1>
+        <h3 class="panel-title" style="text-align:center; width:500px;">Tel: 555-555</h3>
+        <h3 class="panel-title" style="text-align:center; width:500px;">185000, Республика Карелия,<br />
+            г. Петрозаводск, ул. Шотмана, д.13</h3>
+        <h2 class="panel-title" style="text-align:center; width:500px;">Чек № @task.TaskId</h2>
+            <h3 class="panel-title" style="text-align:center; width:500px;"> Дата и время заказа: @task.TaskDate.</h3>
+    </header>
+
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="datatable-default" style="width:500px;">
+            <tbody>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                </tr>
+                @{ double itog = 0;}
+                @foreach (var t in Model)
+                {
+                    var quantity = t.Quantity;
+                    ViewBag.Quantity = quantity;
+                    var product = db.Products.Find(t.ProductId);
+                    var name = product.ProductName;
+                    ViewBag.Name = name;
+                    var price = product.ProductPrice;
+                    ViewBag.Price = price;
+                    itog+= price * quantity;
+                    @*}*@
+                    @*<th>Адрес доставки</th>
+                        <th>Чек</th>
+                        <th>Статус</th>*@
+                    <tr>
+                        <td>@ViewBag.Name</td>
+                        <td>@ViewBag.Quantity</td>
+                        <td>@ViewBag.Price</td>
+                    </tr>
+                }
+            </tbody>
+            @*}*@
+        </table>
+        @*var discount = (quantity * price) - sum;*@
+        @{ var d = itog - sum;}
+        <div class="panel-title" style="width:500px"><div style="width: 50%; text-align: left; float: left;">Сумма без учета скидки</div><div style="width: 50%; text-align: right; float: left;">@itog</div></div>
+        <div class="panel-title" style="width:500px"><div style="width: 50%; text-align: left; float: left;">Скидка</div><div style="width: 50%; text-align: right; float: left;">@d</div></div>
+        <div class="panel-title" style="width:500px"><div style="width: 50%; text-align: left; float: left;"><b>ИТОГО</b></div><div style="width: 50%; text-align: right; float: left;"><b>@sum</b></div></div>
+        
+    </div>
+}
+<div id="none">
+    <input class="button" type="submit" value="Печать" id="print" onclick="printthis()">
+
+</div>
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    function printthis()
+    {
+        window.print();
+    }
+</script>
