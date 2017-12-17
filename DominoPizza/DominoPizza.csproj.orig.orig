@@ -259,10 +259,19 @@
     <Content Include="Views\Shared\Receipt.html.cshtml" />
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
     <Content Include="Views\Crmpanel\Receipt.cshtml" />
+<<<<<<< HEAD
+<<<<<<< HEAD
     <Content Include="Views\Crmpanel\DeliveryCour.cshtml" />
     <Content Include="Views\Crmpanel\FinDelivery.cshtml" />
+=======
     <Content Include="Views\Crmpanel\EditOrder.cshtml" />
+>>>>>>> master
+=======
     <Content Include="Views\Customers\CustomerTask.cshtml" />
+=======
+    <Content Include="Views\Crmpanel\EditOrder.cshtml" />
+>>>>>>> 4fbb6149b5c8a4ec1587bde7e89ab0821260d7c9
+>>>>>>> 6e92852d4c9238b31cda13d04edbf587cdae45ae
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -318,9 +327,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712161905240_kir12.cs" />
-    <Compile Include="Migrations\201712161905240_kir12.Designer.cs">
-      <DependentUpon>201712161905240_kir12.cs</DependentUpon>
+    <Compile Include="Migrations\201712161044106_Init.cs" />
+    <Compile Include="Migrations\201712161044106_Init.Designer.cs">
+      <DependentUpon>201712161044106_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePass.cs" />
@@ -346,8 +355,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712161905240_kir12.resx">
-      <DependentUpon>201712161905240_kir12.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712161044106_Init.resx">
+      <DependentUpon>201712161044106_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,11 +15,11 @@ namespace DominoPizza.Migrations
 
         protected override void Seed(DominosContext db)
         {
-            /* db.UserRoles.Add(new UserRole { UserRoleId = 1, UserRoleName = "Пользователь" });
-             db.UserRoles.Add(new UserRole { UserRoleId = 2, UserRoleName = "Администратор" });
-             db.UserRoles.Add(new UserRole { UserRoleId = 3, UserRoleName = "Менеджер" });
-             db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Повар" });
-             db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });*/
+            //db.UserRoles.Add(new UserRole { UserRoleId = 1, UserRoleName = "Пользователь" });
+            db.UserRoles.Add(new UserRole { UserRoleId = 2, UserRoleName = "Администратор" });
+            //db.UserRoles.Add(new UserRole { UserRoleId = 3, UserRoleName = "Менеджер" });
+            //db.UserRoles.Add(new UserRole { UserRoleId = 4, UserRoleName = "Повар" });
+            //db.UserRoles.Add(new UserRole { UserRoleId = 5, UserRoleName = "Курьер" });
 
             /*  db.Customers.Add(new Customer { CustomerEmail = "admin@dominos.com", CustomerFirstName = "Александр", CustomerPatronymic = "Сергеевич", CustomerLastName = "Пушкин", CustomerBirthDate = DateTime.Now, CustomerSex = "Male", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 2, CustomerPhone = "79601005060" });
               db.Customers.Add(new Customer { CustomerEmail = "manager@dominos.com", CustomerFirstName = "Мария", CustomerPatronymic = "Николаевна", CustomerLastName = "Волконская", CustomerBirthDate = DateTime.Now, CustomerSex = "Female", CustomerPassword = "12345", CustomerPasswordConfirm = "12345", CustomerRoleId = 3, CustomerPhone = "79601005070" });
