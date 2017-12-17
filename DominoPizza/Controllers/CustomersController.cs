@@ -74,14 +74,35 @@ namespace DominoPizza.Controllers
             return View(customerPas);
         }
        
+        //public ActionResult CustomerTask()
+        //{
+        //    Task task = null;
+        //    Customer customer = null;
+        //     using (DominosContext db = new DominosContext())
+        //     {
+        //        customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+        //         task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
+        //        ViewBag.Tasks = task;
+        //     }
+        //    if (task == null)
+        //    {
+        //        ModelState.AddModelError("", "У вас пока что нет заказов");
+        //    }
+        //    return PartialView();
+        //}
 
         public ActionResult PersonalArea()
         {
+            //Task task = null;
             Customer customer = null;
             using (DominosContext db = new DominosContext())
             {
-                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                customer = db.Customers.Include(a => a.Tasks).FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                //customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                //task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
+                
             }
+            
             return View(customer);
         }
 
@@ -97,14 +118,32 @@ namespace DominoPizza.Controllers
                     customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == model.CustomerEmail && u.CustomerPassword == model.CustomerPassword);
 
                 }
+                             
+                  
                 if (customer != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.CustomerEmail, true);
-                    Session["user"] = customer;
-                    if ((Cart)Session["cart"] != null)
-                        return RedirectToAction("Cart", "Home");
-                    else
-                        return RedirectToAction("Index", "Home");
+                   
+                     switch (customer.CustomerRoleId)
+                    {
+                        case 1:
+                            {
+                                Session["user"] = customer;
+                                if ((Cart)Session["cart"] != null)
+                                    return RedirectToAction("Cart", "Home");
+                                else
+                                RedirectToAction("Index", "Home"); break;
+                            }
+                            
+                        case 2:
+                            return RedirectToAction("Manage", "Crmpanel"); break;
+                        case 3:
+                            return RedirectToAction("Manager", "Crmpanel"); break;
+                        case 4:
+                            return RedirectToAction("Kitchen", "Crmpanel"); break;
+                        case 5:
+                           return RedirectToAction("Delivery", "Crmpanel"); break;
+                    }
                 }
                 else
                 {
@@ -129,9 +168,20 @@ namespace DominoPizza.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Auth","Customers");
+
+                Customer CheckCustomer = null;
+                CheckCustomer = db.Customers.FirstOrDefault(u => u.CustomerEmail == customer.CustomerEmail);
+                if (CheckCustomer == null) {
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return RedirectToAction("Auth", "Customers");
+                }
+                else
+                {
+                    ModelState.AddModelError("","Пользователь с таким Emailom уже существует");
+                   
+                }
+               
             }
 
             return View(customer);

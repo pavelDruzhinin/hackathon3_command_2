@@ -4,18 +4,19 @@
 @{
     Layout = "~/Views/Crmpanel/_LayoutDelivery.cshtml";
     var db = new DominosContext();
-        }
-<form method="POST" enctype="multipart/form-data" action="/Crmpanel/TookDeliv">
+
+}
+<form method="POST" enctype="multipart/form-data" action="/Crmpanel/FinDeliv">
     <div>
         <section id="deliv" class="panel">
             <header class="panel-heading">
-                <h2 class="panel-title">Заказы для доставки</h2>
+                <h2 class="panel-title">Завершенные заказы</h2>
             </header>
             <div class="panel-body">
                 <table class="table table-bordered table-striped mb-none" id="datatable-default">
                     <thead>
                         <tr>
-                            <th><input id="checkAll" type="checkbox"></th>
+                           <!-- <th><input id="checkAll" type="checkbox"></th>-->
                             <th>#</th>
                             <th>Дата заказа</th>
                             <th>Сумма заказа</th>
@@ -23,22 +24,27 @@
                             <th>Имя заказчика</th>
                             <th>Адрес доставки</th>
                             <th>Телефон</th>
-                           <!-- <th>Время доставки</th>-->
-                            <!--<th>Чек</th>-->
+                            <!-- <th>Время доставки</th>-->
+                            <th>Чек</th>
                             <th>Статус</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @{var cour = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+
+                            int CurrentCour = cour.CustomerId;}
                         @foreach (var item in Model)
                         {
                             var task = db.Tasks.Find(item.TaskId);
                             if (task != null)
                             {
+
                                 ViewBag.taskId = item.TaskId;
                                 ViewBag.totalSumm = item.TaskTotalSum;
                                 ViewBag.date = item.TaskDate;
                                 ViewBag.status = item.TaskStatus;
                                 //ViewBag.payment = item.TaskPayMethod;
+
 
                                 var contact = db.Contacts.Find(task.ContactId);
                                 if (contact != null)
@@ -52,6 +58,30 @@
                                     ViewBag.customer = customer.CustomerFullName();
                                     ViewBag.phone = customer.CustomerPhone;
                                 }
+
+                                //  var courTask = db.StatusHistories.Where(StatusHistory => StatusHistory.ForTask.TaskId==item.TaskId);
+                                //courTask.Last();
+
+                                var courTask = db.StatusHistories.Find(task.TaskId);
+                                IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
+                                foreach (var hr in hist)
+                                {
+
+                                    if (courTask != null && courTask.DominosUser.CustomerId == CurrentCour)
+                                    {
+                                        ViewBag.ChangeCour = courTask.DominosUser.CustomerId;
+                                    }
+                                }
+
+                                /* int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);
+                                 var custom = db.StatusHistories.Where(StatusHistory => StatusHistory. == );*/
+
+                                //var courTask = db.StatusHistories.Find(e => e.ForTask.TaskId == item.TaskId);
+                                //var courTask = db.StatusHistories.Where(e => e.ForTask.TaskId == item.TaskId);
+                                //int maxTask = courTask.LastOrDefault(courTask.);
+
+                                //var courTask = db.StatusHistories.Find(item.TaskId);
+                                // ViewBag.ChangeCour = courTask.DominosUser.CustomerId; //  пользователь, который сменил статус на доставку
 
                                 switch (item.TaskPayMethod)
                                 {
@@ -68,10 +98,10 @@
 
                             }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                            if (item.TaskStatus == "fordelivery")
+                            if (item.TaskStatus == "done" && CurrentCour == ViewBag.ChangeCour)
                             {
                                 <tr>
-                                    <td><input class="checkOrd" type="checkbox" name="selectedOrd" value="@ViewBag.taskId"></td>
+                                    <!--<td><input class="checkOrd" type="checkbox" name="selectedOrd" value="@ViewBag.taskId"></td>-->
                                     <td>@ViewBag.taskId</td>
                                     <!-- <td>ViewBag.customer</td>-->
                                     <td>@ViewBag.date</td>
@@ -81,38 +111,38 @@
                                     <td>@ViewBag.adress</td>
                                     <!-- <td> Html.ActionLink("открыть", "Receipt", "Crmpanel")</td>-->
                                     <td>@ViewBag.phone</td>
-                                   <!-- <td><a class="deliv-icon" href="Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
-                                    -->
+                                    <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
+
                                     <!--<td>Viewbag.time</td>-->
                                     <td>@ViewBag.status</td>
-                                    
+
                                 </tr>
                             }
                         }
                     </tbody>
                 </table>
                 <br>
-                <input class="btn" type="submit" name="submit-delivery" value="Взять в доставку">
+                <input class="btn" type="submit" name="submit-delivery" value="Заказ завершен">
             </div>
         </section>
     </div>
-    </form>
-
+</form>
+<!--
 <script src="/Scripts/jquery-1.10.2.js"></script>
 <script>
-$(document).ready(function(){
-$("#checkAll").click(function(){
-        if(this.checked){
-            $('.checkOrd').each(function(){
-                this.checked = true;
-            })
-        }else{
-            $('.checkOrd').each(function(){
-                this.checked = false;
-            })
-        }
-    });
-    });
-    </script>
-
+        $(document).ready(function () {
+            $("#checkAll").click(function () {
+                if (this.checked) {
+                    $('.checkOrd').each(function () {
+                        this.checked = true;
+                    })
+                } else {
+                    $('.checkOrd').each(function () {
+                        this.checked = false;
+                    })
+                }
+            });
+        });
+</script>
+    -->
 
