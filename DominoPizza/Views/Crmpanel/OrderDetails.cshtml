@@ -5,6 +5,7 @@
     Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
     var db = new DominosContext();
     int row = 1;
+    double tsumm = 0;
 
 }
 <!-- start: sidebar -->
@@ -150,6 +151,8 @@
                                     <td class="text-center">@ViewBag.Summ</td>
                                 </tr>  
                                 ++row;
+                                tsumm = tsumm + summ;
+                                ViewBag.TSumm = tsumm;
                             }
                         }
                        </tbody>
@@ -182,9 +185,9 @@
                         <div class="col-sm-4 col-sm-offset-8">
                             <table class="table h5 text-dark">
                                 <tbody>
-                                    <tr class="h4">
-                                        <td colspan="2">Скидка:</td>
-                                        <td class="text-left">здесь % скидки</td>
+                                    <tr class="h5">
+                                        <td colspan="2">Сумма без скидки:</td>
+                                        <td class="text-left">@ViewBag.TSumm</td>
                                     </tr>
                                 </tbody>
                                 <tbody>
