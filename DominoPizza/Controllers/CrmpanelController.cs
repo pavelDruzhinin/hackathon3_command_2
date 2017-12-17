@@ -265,7 +265,9 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult TookDeliv(int[] selectedOrd)
         {
-            IEnumerable<Task> tasks = _db.Tasks.ToList();
+            DominosContext db = new DominosContext();
+
+            IEnumerable<Task> tasks = db.Tasks.ToList();
             //IEnumerable<Customer> cust = _db.Customers.ToList();
             foreach (int item in selectedOrd)
             {
@@ -274,14 +276,13 @@ namespace DominosPizza.Controllers
                     
                     if (iTask.TaskId == item)
                     {
-                        var task = _db.Tasks.Find(iTask.TaskId);
+                        var task = db.Tasks.Find(iTask.TaskId);
                         task.TaskStatus = "delivery";
-                        var customer = _db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+                        var customer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
 
 
-                        _db.SaveChanges();
-                        _db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.delivery.ToString(), ForTask = iTask, DominosUser = customer });
-                        _db.SaveChanges();
+                        db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.delivery.ToString(), ForTask = iTask, DominosUser = customer });
+                        db.SaveChanges();
                     }
 
                 }
@@ -294,8 +295,48 @@ namespace DominosPizza.Controllers
 
         public ActionResult DeliveryCour()
         {
+            DominosContext db = new DominosContext();
+            return View(db.Tasks.ToList());
+        }
 
-            return View(_db.Tasks.ToList());
+        [Authorize]
+        [HttpPost]
+        public ActionResult FinDeliv(int[] selectedOrd)
+        {
+            DominosContext db = new DominosContext();
+
+            IEnumerable<Task> tasks = db.Tasks.ToList();
+            //IEnumerable<Customer> cust = _db.Customers.ToList();
+            foreach (int item in selectedOrd)
+            {
+                foreach (var iTask in tasks)
+                {
+
+                    if (iTask.TaskId == item)
+                    {
+                        var task = db.Tasks.Find(iTask.TaskId);
+                        task.TaskStatus = "done";
+                        var customer = db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+
+
+                        db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.delivery.ToString(), ForTask = iTask, DominosUser = customer });
+                        db.SaveChanges();
+                    }
+
+                }
+
+            }
+
+
+            return RedirectToAction("FinDelivery");
+        }
+
+        public ActionResult FinDelivery()
+        {
+            DominosContext db = new DominosContext();
+
+            return View(db.Tasks.ToList());
+           
         }
     }
 }

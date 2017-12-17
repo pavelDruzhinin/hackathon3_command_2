@@ -34,7 +34,7 @@ namespace DominosPizza.Models
 
     }
 
-    public enum Status {processed, kitchen, delivery, done, canceled}
+    public enum Status {processed, kitchen, fordelivery, delivery, done, canceled}
 
     public class TaskMap : EntityTypeConfiguration<Task>
     {

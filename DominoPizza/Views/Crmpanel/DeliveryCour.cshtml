@@ -59,9 +59,11 @@
                                         ViewBag.phone = customer.CustomerPhone;
                                     }
 
+                                    //  var courTask = db.StatusHistories.Where(StatusHistory => StatusHistory.ForTask.TaskId==item.TaskId);
+                                    //courTask.Last();
 
                                     var courTask = db.StatusHistories.Find(task.TaskId);
-                                    IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
+                                    IEnumerable <StatusHistory> hist = db.StatusHistories.ToList();
                                     foreach (var hr in hist)
                                     {
 

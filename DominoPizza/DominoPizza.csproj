@@ -259,6 +259,7 @@
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
     <Content Include="Views\Crmpanel\Receipt.cshtml" />
     <Content Include="Views\Crmpanel\DeliveryCour.cshtml" />
+    <Content Include="Views\Crmpanel\FinDelivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
