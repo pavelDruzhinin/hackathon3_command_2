@@ -234,6 +234,21 @@ namespace DominosPizza.Controllers
             return View(_db.Tasks.ToList());
         }
 
+        [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
+        [HttpPost]
+        public ActionResult Kitchen(int id) // страница управления пиццерией
+        {
+            ViewBag.Title = "Dominos Pizza | Кухня";
+            var task = _db.Tasks.Find(id);
+            if (task != null)
+            {
+                task.TaskStatus = "delivery";
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Kitchen", "Crmpanel");
+            //return View(_db.Tasks.ToList());
+        }
+
         [Authorize] // (Roles = "Courier") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Delivery() // страница управления пиццерией
         {
