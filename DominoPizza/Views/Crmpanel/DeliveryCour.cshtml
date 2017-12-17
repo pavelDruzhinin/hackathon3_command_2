@@ -96,7 +96,7 @@
 
                                 }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                                if (item.TaskStatus == "delivery" &&  CurrentCour == ViewBag.ChangeCour)
+                                if (item.TaskStatus == "delivery" &&  CurrentCour == ViewBag.ChangeCour) //всё работает
                                 {
                                     <tr>
                                         <td><input class="checkOrd" type="checkbox" name="selectedOrd" value="@ViewBag.taskId"></td>
