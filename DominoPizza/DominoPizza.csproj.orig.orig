@@ -260,11 +260,18 @@
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
     <Content Include="Views\Crmpanel\Receipt.cshtml" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Content Include="Views\Crmpanel\DeliveryCour.cshtml" />
     <Content Include="Views\Crmpanel\FinDelivery.cshtml" />
 =======
     <Content Include="Views\Crmpanel\EditOrder.cshtml" />
 >>>>>>> master
+=======
+    <Content Include="Views\Customers\CustomerTask.cshtml" />
+=======
+    <Content Include="Views\Crmpanel\EditOrder.cshtml" />
+>>>>>>> 4fbb6149b5c8a4ec1587bde7e89ab0821260d7c9
+>>>>>>> 6e92852d4c9238b31cda13d04edbf587cdae45ae
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
