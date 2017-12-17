@@ -1,9 +1,10 @@
 ﻿@using DominosPizza.Models
-@model Task
+@model System.Data.Entity.DbSet<TaskRow>
 
 @{
     Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
     var db = new DominosContext();
+    int row = 1;
 
 }
 <!-- start: sidebar -->
@@ -131,21 +132,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="text-weight-semibold text-dark">Маргарита</td>
-                            <td class="text-center">678.00</td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">1356.00</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="text-weight-semibold text-dark">Двойная пепперони</td>
-                            <td class="text-center">672.00</td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">672.00</td>
-                        </tr>
-                        </tbody>
+                        @foreach (var product in Model)
+                        {
+                            
+                            if (product.TaskId == ViewBag.Order)
+                            {
+                                
+                                ViewBag.Row = row;
+                                var productrow = db.Products.Find(product.ProductId);
+                                var summ = product.Quantity * productrow.ProductPrice;
+                                ViewBag.Summ = summ;
+                                <tr>
+                                    <td>@ViewBag.Row</td>
+                                    <td class="text-weight-semibold text-dark">@productrow.ProductName</td>
+                                    <td class="text-center">@productrow.ProductPrice</td>
+                                    <td class="text-center">@product.Quantity</td>
+                                    <td class="text-center">@ViewBag.Summ</td>
+                                </tr>  
+                                ++row;
+                            }
+                        }
+                       </tbody>
                     </table>
                 </div>
                 <div class="row">
@@ -174,6 +181,12 @@
                         </div>
                         <div class="col-sm-4 col-sm-offset-8">
                             <table class="table h5 text-dark">
+                                <tbody>
+                                    <tr class="h4">
+                                        <td colspan="2">Скидка:</td>
+                                        <td class="text-left">здесь % скидки</td>
+                                    </tr>
+                                </tbody>
                                 <tbody>
                                 <tr class="h4">
                                     <td colspan="2">Общая сумма заказа:</td>
