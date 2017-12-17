@@ -137,16 +137,26 @@
     <table class="table table-hover">
         <tr>
             <td>Дата заказа</td>
-            <td>@ViewBag.Tasks.TaskDate</td>
+            <td>Ваш комментарий</td>
+            <td>Сумма заказа</td>
         </tr>
-        <tr>
+        @*<tr>
             <td>Сумма заказа</td>
             <td>@ViewBag.Tasks.TaskTotalSum</td>
         </tr>
         <tr>
             <td>Ваш комментарий к заказу</td>
             <td>@ViewBag.Tasks.TaskCustomerComment</td>
-        </tr>
+        </tr>*@
+        @foreach( var item in Model.Tasks)
+        {
+            <tr>
+                <td>@item.TaskDate</td>
+                <td>@item.TaskCustomerComment</td>
+                <td>@item.TaskTotalSum</td>
+            </tr>
+
+        }
     </table>
 
 </div>

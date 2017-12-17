@@ -93,19 +93,16 @@ namespace DominoPizza.Controllers
 
         public ActionResult PersonalArea()
         {
-            Task task = null;
+            //Task task = null;
             Customer customer = null;
             using (DominosContext db = new DominosContext())
             {
-                customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
-                task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
+                customer = db.Customers.Include(a => a.Tasks).FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                //customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                //task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
                 
             }
-            if (task!=null)
-            {
-                ViewBag.Tasks = task;
-            }
-           
+            
             return View(customer);
         }
 
