@@ -8,6 +8,8 @@ using System.Net;
 using System.Data.Entity;
 using System.Data.Common;
 using System.Data;
+using System;
+
 
 namespace DominosPizza.Controllers
 {
@@ -272,21 +274,37 @@ namespace DominosPizza.Controllers
         [HttpPost]
         public ActionResult TookDeliv(int[] selectedOrd)
         {
-            IQueryable<Task> tasks = _db.Tasks;
+            IEnumerable<Task> tasks = _db.Tasks.ToList();
+            //IEnumerable<Customer> cust = _db.Customers.ToList();
             foreach (int item in selectedOrd)
             {
                 foreach (var iTask in tasks)
                 {
+                    
                     if (iTask.TaskId == item)
                     {
-                        iTask.TaskStatus = "delivery";
+                        var task = _db.Tasks.Find(iTask.TaskId);
+                        task.TaskStatus = "delivery";
+                        var customer = _db.Customers.First(e => e.CustomerEmail == User.Identity.Name);
+
+
+                        _db.SaveChanges();
+                        _db.StatusHistories.Add(new StatusHistory { StatusChangeTime = DateTime.Now, StatusChangedTo = Status.delivery.ToString(), ForTask = iTask, DominosUser = customer });
                         _db.SaveChanges();
                     }
-                            
+
                 }
+                
             }
 
-            return View();
+
+            return RedirectToAction("DeliveryCour");
+        }
+
+        public ActionResult DeliveryCour()
+        {
+
+            return View(_db.Tasks.ToList());
         }
     }
 }
