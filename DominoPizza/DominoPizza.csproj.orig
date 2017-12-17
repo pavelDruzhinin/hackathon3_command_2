@@ -120,6 +120,7 @@
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\manage.css" />
     <Content Include="Content\morris.css" />
+    <Content Include="Content\print.css" />
     <Content Include="Content\theme-custom.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\waves.css" />
@@ -256,10 +257,13 @@
     <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
     <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <Content Include="Views\Shared\Receipt.html.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Crmpanel\Receipt.cshtml" />
-=======
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
+    <Content Include="Views\Crmpanel\Receipt.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Crmpanel\DeliveryCour.cshtml" />
+    <Content Include="Views\Crmpanel\FinDelivery.cshtml" />
+=======
+    <Content Include="Views\Crmpanel\EditOrder.cshtml" />
 >>>>>>> master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
