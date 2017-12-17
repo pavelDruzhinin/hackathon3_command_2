@@ -60,17 +60,26 @@
                                     }
 
 
-                                    /*IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
+                                    var courTask = db.StatusHistories.Find(task.TaskId);
+                                    IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
                                     foreach (var hr in hist)
                                     {
 
-                                        if (courTask != null && courTask.DominosUser.CustomerId == item.CustomerId)
+                                        if (courTask != null && courTask.DominosUser.CustomerId == CurrentCour)
                                         {
-                                    int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);
-                                    var custom = db.StatusHistories.Where(StatusHistory => StatusHistory. == );*/
+                                            ViewBag.ChangeCour = courTask.DominosUser.CustomerId;
+                                        }
+                                    }
 
-                                    var courTask = db.StatusHistories.Find(item.TaskId);
-                                    ViewBag.ChangeCour = courTask.DominosUser.CustomerId; //  пользователь, который сменил статус на доставку
+                                    /* int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);
+                                     var custom = db.StatusHistories.Where(StatusHistory => StatusHistory. == );*/
+
+                                    //var courTask = db.StatusHistories.Find(e => e.ForTask.TaskId == item.TaskId);
+                                    //var courTask = db.StatusHistories.Where(e => e.ForTask.TaskId == item.TaskId);
+                                    //int maxTask = courTask.LastOrDefault(courTask.);
+
+                                    //var courTask = db.StatusHistories.Find(item.TaskId);
+                                    // ViewBag.ChangeCour = courTask.DominosUser.CustomerId; //  пользователь, который сменил статус на доставку
 
                                     switch (item.TaskPayMethod)
                                     {
