@@ -120,6 +120,7 @@
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\manage.css" />
     <Content Include="Content\morris.css" />
+    <Content Include="Content\print.css" />
     <Content Include="Content\theme-custom.css" />
     <Content Include="Content\theme.css" />
     <Content Include="Content\waves.css" />
