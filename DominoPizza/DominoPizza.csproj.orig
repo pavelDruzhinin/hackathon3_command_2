@@ -256,11 +256,13 @@
     <Content Include="Views\Messaging\_OnlineChatList.cshtml" />
     <Content Include="Views\Messaging\_OnlineChatDialogForManager.cshtml" />
     <Content Include="Views\Shared\Receipt.html.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Crmpanel\Receipt.cshtml" />
-=======
     <Content Include="Views\Home\_FilterProductsPartial.cshtml" />
->>>>>>> master
+    <Content Include="Views\Crmpanel\Receipt.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Customers\CustomerTask.cshtml" />
+=======
+    <Content Include="Views\Crmpanel\EditOrder.cshtml" />
+>>>>>>> 4fbb6149b5c8a4ec1587bde7e89ab0821260d7c9
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -35,33 +35,6 @@ namespace DominosPizza.Controllers
         [Authorize] // (Roles ="Administrator") только авторизированный пользователь может получить доступ к странице управления CRM
         public ActionResult Active_Orders() // страница управления пиццерией
         {
-            //IEnumerable<Task> tasks = _db.Tasks;
-
-            //foreach (var item in tasks)
-            //{
-            //    var task = _db.Tasks.Find(item.TaskId);
-            //    if (task != null)
-            //    {
-            //        var contact = _db.Contacts.Find(task.ContactId);
-            //        if (contact != null)
-            //        {
-            //            ViewBag.adress = contact.ContactAddress; // вытаскиваем адрес доставки пиццы
-            //        }
-            //    }
-            //    var customerTask = _db.CustomerTasks.Find(item.TaskId);
-            //    if (customerTask != null)
-            //    {
-            //        var customer = _db.Customers.Find(customerTask.CustomerId); // вытаскиваем кастомера из заказа
-            //        if (customer != null)
-            //        {
-            //            ViewBag.customer = customer.CustomerFullName();
-            //        }
-            //    }
-            //    ViewBag.taskId = item.TaskId;
-            //    ViewBag.totalSumm = item.TaskTotalSum;
-            //    ViewBag.date = item.TaskDate;
-            //    ViewBag.status = item.TaskStatus;
-            //}
             return View(_db.Tasks.ToList()); //
         }
 
@@ -182,10 +155,76 @@ namespace DominosPizza.Controllers
         }
 
         [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
-        public ActionResult OrderDetails() // страница управления пиццерией
+        [HttpGet]
+        public ActionResult OrderDetails(int id) // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Карточка заказа";
-            return View(); //_db.Tasks.ToList()
+            var task = _db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Order = task.TaskId;
+            var customer = _db.Customers.Find(task.CustomerId);
+            if (customer != null)
+            {
+                ViewBag.FullName = customer.CustomerFullName();
+                ViewBag.Telephone = customer.CustomerPhone;
+            }
+            var adress = _db.Contacts.Find(task.ContactId);
+            if (adress != null)
+            {
+                ViewBag.Adress = adress.ContactAddress;
+            }
+            ViewBag.OrderDate = task.TaskDate.ToShortDateString();
+            ViewBag.OrderTime = task.TaskDate.ToShortTimeString();
+            ViewBag.DeliveryTime = null;
+            int payment = task.TaskPayMethod;
+            if (payment == 1)
+            {
+                ViewBag.Payment = "Оплачено";
+            } else if (payment == 2)
+            {
+                ViewBag.Payment = "картой курьеру";
+            } else if (payment == 3)
+            {
+                ViewBag.Payment = "наличными курьеру";
+            }
+            else
+            {
+                ViewBag.Payment = "нет данных";
+            }
+
+            ViewBag.TotalSumm = task.TaskTotalSum;
+            ViewBag.Comment = task.TaskCustomerComment;
+            //TaskRow
+            var row = _db.TaskRows.Find(task.TaskId);
+            return View(_db.TaskRows);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult OrderDetails(int id, string unusedValue = "")
+        {
+            var task = _db.Tasks.Find(id);
+            if (task != null)
+            {
+                task.TaskStatus = "kitchen";
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Manager", "Crmpanel");
+        }
+
+        [Authorize] // (Roles = "Manager") только авторизированный пользователь может получить доступ к странице управления CRM
+        public ActionResult EditOrder(int id) // страница управления пиццерией
+        {
+            ViewBag.Title = "Dominos Pizza | Редактирование карточки заказа";
+            var task = _db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            return View(task);
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
@@ -193,6 +232,21 @@ namespace DominosPizza.Controllers
         {
             ViewBag.Title = "Dominos Pizza | Кухня";
             return View(_db.Tasks.ToList());
+        }
+
+        [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
+        [HttpPost]
+        public ActionResult Kitchen(int id) // страница управления пиццерией
+        {
+            ViewBag.Title = "Dominos Pizza | Кухня";
+            var task = _db.Tasks.Find(id);
+            if (task != null)
+            {
+                task.TaskStatus = "delivery";
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Kitchen", "Crmpanel");
+            //return View(_db.Tasks.ToList());
         }
 
         [Authorize] // (Roles = "Courier") только авторизированный пользователь может получить доступ к странице управления CRM
