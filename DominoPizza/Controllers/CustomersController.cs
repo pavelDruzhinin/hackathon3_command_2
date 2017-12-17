@@ -143,6 +143,9 @@ namespace DominoPizza.Controllers
                             return RedirectToAction("Kitchen", "Crmpanel"); break;
                         case 5:
                            return RedirectToAction("Delivery", "Crmpanel"); break;
+                        default:
+                            return RedirectToAction("Index", "Home");
+                            break;
                     }
                 }
                 else
