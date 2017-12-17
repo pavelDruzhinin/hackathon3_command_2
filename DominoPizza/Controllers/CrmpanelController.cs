@@ -295,7 +295,7 @@ namespace DominosPizza.Controllers
         public ActionResult DeliveryCour()
         {
 
-            return View();
+            return View(_db.Tasks.ToList());
         }
     }
 }
