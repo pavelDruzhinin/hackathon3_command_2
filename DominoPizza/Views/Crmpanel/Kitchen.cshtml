@@ -5,7 +5,7 @@
     Layout = "~/Views/Crmpanel/_LayoutKitchen.cshtml";
     var db = new DominosContext();
     var taskrow = db.TaskRows;
-    int productId;
+    var product = db.Products;
 }
 
 
@@ -13,19 +13,8 @@
     {
         if (item.TaskStatus == "kitchen")
         {
-            var task = taskrow.Find(item.TaskId);
             ViewBag.taskId = item.TaskId;
-            if (task != null)
-            {
-                productId = task.ProductId;
-                ViewBag.quantity = task.Quantity;
-
-                var product = db.Products.Find(productId);
-                if (product != null)
-                {
-                    ViewBag.product = product.ProductName; // вытаскиваем адрес доставки пиццы
-                }
-
+            
                 <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
             
                     <section class="panel col-sm-4">
@@ -41,15 +30,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach (var row in taskrow)
-                                {
-
-                                    <tr>
-                                        <td>@ViewBag.product</td>
-                                        <td class="text-center">@ViewBag.quantity</td>
-                                    </tr>
-                                
-                                }
+                                    @foreach (var row in taskrow)
+                                    {
+                                        if (row.TaskId == item.TaskId)
+                                        {
+                                            ViewBag.quantity = row.Quantity;
+                                            ViewBag.product = row.ProductId;
+                                            <tr>
+                                                <td>@ViewBag.product</td>
+                                                <td class="text-center">@ViewBag.quantity</td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table><br/>
                             <footer class="footer">
@@ -63,6 +55,5 @@
                         </div>
                     </section>
             }
-        }
 
     }
