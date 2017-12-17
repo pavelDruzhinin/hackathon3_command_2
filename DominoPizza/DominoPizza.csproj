@@ -263,6 +263,7 @@
     <Content Include="Views\Crmpanel\FinDelivery.cshtml" />
     <Content Include="Views\Crmpanel\EditOrder.cshtml" />
     <Content Include="Views\Customers\CustomerTask.cshtml" />
+    <Content Include="Views\Crmpanel\KitchenDelivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

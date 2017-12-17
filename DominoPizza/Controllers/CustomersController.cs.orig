@@ -133,6 +133,7 @@ namespace DominoPizza.Controllers
                                     return RedirectToAction("Cart", "Home");
                                 else
                                 return RedirectToAction("Index", "Home"); break;
+                                
                             }
                             
                         case 2:
@@ -143,9 +144,14 @@ namespace DominoPizza.Controllers
                             return RedirectToAction("Kitchen", "Crmpanel"); break;
                         case 5:
                            return RedirectToAction("Delivery", "Crmpanel"); break;
+<<<<<<< HEAD
+                         default:
+                            return RedirectToAction("Index", "Home"); break;
+=======
                         default:
                             return RedirectToAction("Index", "Home");
                             break;
+>>>>>>> 32bb0fb183ead4ea3efc5ab22c9815e08cf197dc
                     }
                     
                 }

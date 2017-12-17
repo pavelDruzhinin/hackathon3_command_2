@@ -238,14 +238,14 @@ namespace DominosPizza.Controllers
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
-        [HttpPost]
-        public ActionResult Kitchen(int id) // страница управления пиццерией
+        [HttpGet]
+        public ActionResult KitchenDelivery(int id) // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Кухня";
             var task = _db.Tasks.Find(id);
             if (task != null)
             {
-                task.TaskStatus = "delivery";
+                task.TaskStatus = "fordelivery";
                 _db.SaveChanges();
             }
             return RedirectToAction("Kitchen", "Crmpanel");
