@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+﻿
+ 
+<h2>@ViewBag.Tasks</h2>
+=======
+﻿@model  DominosPizza.Models.Task
+<div>
+   
+</div>
+  
+>>>>>>> 9121f88e2568e1f10491639779b9a114affbe1cd
