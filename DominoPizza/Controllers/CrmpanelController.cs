@@ -228,6 +228,7 @@ namespace DominosPizza.Controllers
         }
 
         [Authorize] // (Roles = "Cook") только авторизированный пользователь может получить доступ к странице управления CRM
+        [HttpGet]
         public ActionResult Kitchen() // страница управления пиццерией
         {
             ViewBag.Title = "Dominos Pizza | Кухня";
