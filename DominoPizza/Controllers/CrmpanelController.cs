@@ -199,7 +199,7 @@ namespace DominosPizza.Controllers
             ViewBag.Comment = task.TaskCustomerComment;
             //TaskRow
             var row = _db.TaskRows.Find(task.TaskId);
-            return View(task);
+            return View(_db.TaskRows);
         }
 
         [Authorize]
