@@ -31,8 +31,10 @@ namespace DominosPizza.Models
         public ICollection<TaskRow> TaskRows { get; set; }
         //public ICollection<CustomerTask> CustomerTasks { get; set; }
 
-
+        
+               
     }
+    
 
     public enum Status {processed, kitchen, fordelivery, delivery, done, canceled}
 

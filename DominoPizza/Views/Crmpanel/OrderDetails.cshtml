@@ -1,9 +1,12 @@
 ﻿@using DominosPizza.Models
-@model IEnumerable<Task>
+@model System.Data.Entity.DbSet<TaskRow>
 
 @{
     Layout = "~/Views/Crmpanel/_LayoutManager.cshtml";
     var db = new DominosContext();
+    int row = 1;
+    double tsumm = 0;
+
 }
 <!-- start: sidebar -->
 <aside id="sidebar-left" class="sidebar-left">
@@ -77,7 +80,7 @@
                 <header class="clearfix">
                     <div class="row">
                         <div class="col-sm-6 mt-md">
-                            <h2 class="h2 mt-none mb-sm text-dark text-weight-bold">Заказ № заказа</h2> 
+                            <h2 class="h2 mt-none mb-sm text-dark text-weight-bold">Заказ № @ViewBag.Order</h2> 
                         </div>
                     </div>
                 </header>
@@ -85,24 +88,33 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="bill-to">
-                                <p class="h5 mb-xs text-dark text-weight-semibold">ФИО заказчика:</p>
-                                <p class="h5 mb-xs text-dark text-weight-semibold">Адрес доставки:</p>
-                                <p class="h5 mb-xs text-dark text-weight-semibold">Телефон:</p>
+                                <p class="h5 mb-xs text-dark text-weight-semibold">
+                                    <span class="text-dark">ФИО заказчика: </span>
+                                    <span class="text-success">@ViewBag.FullName</span>
+                                </p>
+                                <p class="h5 mb-xs text-dark text-weight-semibold">
+                                    <span class="text-dark">Адрес доставки: </span>
+                                    <span class="text-success">@ViewBag.Adress</span>
+                                </p>
+                                <p class="h5 mb-xs text-dark text-weight-semibold">
+                                    <span class="text-dark">Телефон: </span>
+                                    <span class="text-success">@ViewBag.Telephone</span>
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bill-data text-right">
                                 <p class="mb-none">
                                     <span class="text-dark">Дата заказа:</span>
-                                    <span class="value">16.12.2017</span>
+                                    <span class="value">@ViewBag.OrderDate</span>
                                 </p>
                                 <p class="mb-none">
                                     <span class="text-dark">Время заказа:</span>
-                                    <span class="value">14:50</span>
+                                    <span class="value">@ViewBag.OrderTime</span>
                                 </p>
                                 <p class="mb-none">
                                     <span class="text-dark">Время доставки:</span>
-                                    <span class="value">17:00</span>
+                                    <span class="value">@ViewBag.DeliveryTime</span>
                                 </p>
                             </div>
                         </div>
@@ -121,21 +133,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td class="text-weight-semibold text-dark">Маргарита</td>
-                                <td class="text-center">678.00</td>
-                                <td class="text-center">2</td>
-                                <td class="text-center">1356.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td class="text-weight-semibold text-dark">Двойная пепперони</td>
-                                <td class="text-center">672.00</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">672.00</td>
-                            </tr>
-                        </tbody>
+                        @foreach (var product in Model)
+                        {
+                            
+                            if (product.TaskId == ViewBag.Order)
+                            {
+                                
+                                ViewBag.Row = row;
+                                var productrow = db.Products.Find(product.ProductId);
+                                var summ = product.Quantity * productrow.ProductPrice;
+                                ViewBag.Summ = summ;
+                                <tr>
+                                    <td>@ViewBag.Row</td>
+                                    <td class="text-weight-semibold text-dark">@productrow.ProductName</td>
+                                    <td class="text-center">@productrow.ProductPrice</td>
+                                    <td class="text-center">@product.Quantity</td>
+                                    <td class="text-center">@ViewBag.Summ</td>
+                                </tr>  
+                                ++row;
+                                tsumm = tsumm + summ;
+                                ViewBag.TSumm = tsumm;
+                            }
+                        }
+                       </tbody>
                     </table>
                 </div>
                 <div class="row">
@@ -144,7 +164,7 @@
                             <tbody>
                                 <tr class="h4 text-dark">
                                     <td colspan="2">Комментарии к заказу:</td>
-                                    <td class="text-left">Больше сыра</td>
+                                    <td class="text-left">@ViewBag.Comment</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -152,12 +172,28 @@
                 </div>
                 <div class="invoice-summary">
                     <div class="row">
-                        <div class="col-sm-4 col-sm-offset-8">
+                        <div class="col-sm-6 col-sm-offset-6">
                             <table class="table h5 text-dark">
                                 <tbody>
                                 <tr class="h4">
+                                    <td colspan="1">Оплата:</td>
+                                    <td class="text-left">@ViewBag.Payment</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-8">
+                            <table class="table h5 text-dark">
+                                <tbody>
+                                    <tr class="h5">
+                                        <td colspan="2">Сумма без скидки:</td>
+                                        <td class="text-left">@ViewBag.TSumm</td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                <tr class="h4">
                                     <td colspan="2">Общая сумма заказа:</td>
-                                    <td class="text-left">2028.00</td>
+                                    <td class="text-left">@ViewBag.TotalSumm</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -165,11 +201,19 @@
                     </div>
                 </div>
             </div>
-
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
             <div class="text-right mr-lg">
-                <a href="#" class="btn btn-default">Редактировать</a>
-                <a href="pages-invoice-print.html" target="_blank" class="btn btn-primary ml-sm">Передать на кухню</a>
+                <button type="button" class="btn btn-default hidden-xs" value="Отменить" onclick="history.back();">Отменить</button>
+                <button type="button" class="btn btn-default btn-block btn-lg visible-xs mt-lg" value="Отменить" onclick="history.back();">Отменить</button>
+                <a href="~/Crmpanel/EditOrder/@ViewBag.Order" type="button" class="btn btn-default">Редактировать</a>
+                <button type="submit" class="btn btn-primary hidden-xs" value="Передать на кухню">Передать на кухню</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg" value="Передать на кухню">Передать на кухню</button>
             </div>
+                
+            }
+            
         </div>
     </section>
 

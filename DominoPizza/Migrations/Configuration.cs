@@ -10,7 +10,7 @@ namespace DominoPizza.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DominosContext db)
