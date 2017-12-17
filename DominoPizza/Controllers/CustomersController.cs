@@ -74,19 +74,38 @@ namespace DominoPizza.Controllers
             return View(customerPas);
         }
        
-        public ActionResult CustomerTask()
-        {
-            ViewBag.Message = "Заказы пользователя";
-            return PartialView();
-        }
+        //public ActionResult CustomerTask()
+        //{
+        //    Task task = null;
+        //    Customer customer = null;
+        //     using (DominosContext db = new DominosContext())
+        //     {
+        //        customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+        //         task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
+        //        ViewBag.Tasks = task;
+        //     }
+        //    if (task == null)
+        //    {
+        //        ModelState.AddModelError("", "У вас пока что нет заказов");
+        //    }
+        //    return PartialView();
+        //}
 
         public ActionResult PersonalArea()
         {
+            Task task = null;
             Customer customer = null;
             using (DominosContext db = new DominosContext())
             {
                 customer = db.Customers.FirstOrDefault(u => u.CustomerEmail == User.Identity.Name);
+                task = db.Tasks.FirstOrDefault(u => u.TaskStatus == "done" && u.CustomerId == customer.CustomerId);
+                
             }
+            if (task!=null)
+            {
+                ViewBag.Tasks = task;
+            }
+           
             return View(customer);
         }
 
