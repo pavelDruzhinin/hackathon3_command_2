@@ -24,7 +24,7 @@
                             <th>Адрес доставки</th>
                             <th>Телефон</th>
                            <!-- <th>Время доставки</th>-->
-                            <th>Чек</th>
+                            <!--<th>Чек</th>-->
                             <th>Статус</th>
                         </tr>
                     </thead>
@@ -81,8 +81,8 @@
                                     <td>@ViewBag.adress</td>
                                     <!-- <td> Html.ActionLink("открыть", "Receipt", "Crmpanel")</td>-->
                                     <td>@ViewBag.phone</td>
-                                    <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
-                                    
+                                   <!-- <td><a class="deliv-icon" href="Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
+                                    -->
                                     <!--<td>Viewbag.time</td>-->
                                     <td>@ViewBag.status</td>
                                     
