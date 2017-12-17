@@ -1,7 +1,68 @@
 ﻿@using DominosPizza.Models
-@model IEnumerable<Task>
+@model List<Task>
 
 @{
     Layout = "~/Views/Crmpanel/_LayoutKitchen.cshtml";
+    var db = new DominosContext();
+    var taskrow = db.TaskRows;
+    int productId;
 }
 
+
+    @foreach (var item in Model)
+    {
+        if (item.TaskStatus == "kitchen")
+        {
+            var task = taskrow.Find(item.TaskId);
+            ViewBag.taskId = item.TaskId;
+            if (task != null)
+            {
+                productId = task.ProductId;
+                ViewBag.quantity = task.Quantity;
+
+                var product = db.Products.Find(productId);
+                if (product != null)
+                {
+                    ViewBag.product = product.ProductName; // вытаскиваем адрес доставки пиццы
+                }
+
+                <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
+            
+                    <section class="panel col-sm-4">
+                        <header class="panel-heading">
+                            <h2 class="panel-title">Заказ № @ViewBag.taskId</h2>
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                                <thead>
+                                <tr>
+                                    <th class="col-sm-5">Продукт</th>
+                                    <th class="col-sm-1 text-center">Колличество</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var row in taskrow)
+                                {
+
+                                    <tr>
+                                        <td>@ViewBag.product</td>
+                                        <td class="text-center">@ViewBag.quantity</td>
+                                    </tr>
+                                
+                                }
+                                </tbody>
+                            </table><br/>
+                            <footer class="footer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-sm-offset-1">
+                                        <a href="~/Crmpanel/Kitchen/@ViewBag.TaskId" type="button" class="btn btn-primary">Отправить в доставку</a>
+                                        <a href="~/Crmpanel/Kitchen/@ViewBag.TaskId" type="button" class="btn btn-danger">Вернуть менеджеру</a>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </section>
+            }
+        }
+
+    }
