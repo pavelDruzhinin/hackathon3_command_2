@@ -7,6 +7,9 @@
 
 }
 <form method="POST" enctype="multipart/form-data" action="/Crmpanel/FinDeliv">
+    <div style="margin-left:40px;"> @Html.ActionLink("Все заказы для доставки", "Delivery", "Crmpanel")</div>
+    <div style="margin-left:40px;"> @Html.ActionLink("Заказы, взятые в доставку", "DeliveryCour", "Crmpanel")</div>
+
     <div>
         <section id="deliv" class="panel">
             <header class="panel-heading">
@@ -59,18 +62,15 @@
                                     ViewBag.phone = customer.CustomerPhone;
                                 }
 
-                                //  var courTask = db.StatusHistories.Where(StatusHistory => StatusHistory.ForTask.TaskId==item.TaskId);
-                                //courTask.Last();
-
-                                var courTask = db.StatusHistories.Find(task.TaskId);
+                                
                                 IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
-                                foreach (var hr in hist)
-                                {
 
-                                    if (courTask != null && courTask.DominosUser.CustomerId == CurrentCour)
-                                    {
-                                        ViewBag.ChangeCour = courTask.DominosUser.CustomerId;
-                                    }
+                                var courTaskHist = db.StatusHistories.Where(e => e.ForTask.TaskId == task.TaskId);
+                                var maxTaskid = courTaskHist.Max(StatusHistory => StatusHistory.StatusHistoryId);
+                                var courTaskDeliv = db.StatusHistories.Find(maxTaskid);
+                                if (courTaskDeliv != null && courTaskDeliv.DominosUser != null && courTaskDeliv.DominosUser.CustomerId == CurrentCour)
+                                {
+                                    ViewBag.ChangeCour = courTaskDeliv.DominosUser.CustomerId;
                                 }
 
                                 /* int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);

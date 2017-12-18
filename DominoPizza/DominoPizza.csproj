@@ -319,9 +319,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712161905240_kir12.cs" />
-    <Compile Include="Migrations\201712161905240_kir12.Designer.cs">
-      <DependentUpon>201712161905240_kir12.cs</DependentUpon>
+    <Compile Include="Migrations\201712182042292_Init.cs" />
+    <Compile Include="Migrations\201712182042292_Init.Designer.cs">
+      <DependentUpon>201712182042292_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePass.cs" />
@@ -347,8 +347,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712161905240_kir12.resx">
-      <DependentUpon>201712161905240_kir12.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712182042292_Init.resx">
+      <DependentUpon>201712182042292_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

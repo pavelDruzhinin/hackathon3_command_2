@@ -6,6 +6,9 @@
     var db = new DominosContext();
         }
 <form method="POST" enctype="multipart/form-data" action="/Crmpanel/TookDeliv">
+    <div style="margin-left:40px;"> @Html.ActionLink("Заказы, взятые в доставку", "DeliveryCour", "Crmpanel")</div>
+    <div style="margin-left:40px;"> @Html.ActionLink("Завершенные заказы", "FinDelivery", "Crmpanel")</div>
+
     <div>
         <section id="deliv" class="panel">
             <header class="panel-heading">
