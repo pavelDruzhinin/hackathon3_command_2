@@ -62,7 +62,7 @@
                                     ViewBag.phone = customer.CustomerPhone;
                                 }
 
-                                
+
                                 IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
 
                                 var courTaskHist = db.StatusHistories.Where(e => e.ForTask.TaskId == task.TaskId);
@@ -72,7 +72,10 @@
                                 {
                                     ViewBag.ChangeCour = courTaskDeliv.DominosUser.CustomerId;
                                 }
-
+                                else
+                                {
+                                    ViewBag.ChangeCour = 9999;
+                                }
                                 /* int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);
                                  var custom = db.StatusHistories.Where(StatusHistory => StatusHistory. == );*/
 

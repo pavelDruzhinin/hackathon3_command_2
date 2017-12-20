@@ -60,7 +60,7 @@
                                         ViewBag.phone = customer.CustomerPhone;
                                     }
 
-                                  
+
 
                                     IEnumerable<StatusHistory> hist = db.StatusHistories.ToList();
                                     // foreach (var hr in hist)
@@ -73,6 +73,12 @@
                                     {
                                         ViewBag.ChangeCour = courTaskDeliv.DominosUser.CustomerId;
                                     }
+                                    else
+                                    {
+                                        ViewBag.ChangeCour = 9999;
+                                    }
+
+
 
                                     /* int maxTaskid = db.StatusHistories.Max(StatusHistory => StatusHistory.StatusHistoryId);
                                      var custom = db.StatusHistories.Where(StatusHistory => StatusHistory. == );*/
@@ -99,8 +105,8 @@
 
                                 }
                                     <!-- если заказ не завершен или не отменен, то вывести список текущих заказов -->
-                                if (item.TaskStatus == "delivery" &&  CurrentCour == ViewBag.ChangeCour) //всё работает
-                                {
+                                    if (item.TaskStatus == "delivery" && CurrentCour == ViewBag.ChangeCour) //всё работает
+                                    {
                                     <tr>
                                         <td><input class="checkOrd" type="checkbox" name="selectedOrd" value="@ViewBag.taskId"></td>
                                         <td>@ViewBag.taskId</td>
@@ -112,12 +118,13 @@
                                         <td>@ViewBag.adress</td>
                                         <!-- <td> Html.ActionLink("открыть", "Receipt", "Crmpanel")</td>-->
                                         <td>@ViewBag.phone</td>
-                                        <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel", new {TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
+                                        <td><a class="deliv-icon" href="@Url.Action("Receipt", "Crmpanel", new { TaskId = ViewBag.taskId })"> <i class="fa fa-newspaper-o"></i></a></td>
 
                                         <!--<td>Viewbag.time</td>-->
                                         <td>@ViewBag.status</td>
 
                                     </tr>
+                                    
                                 }
                             }
                         </tbody>
